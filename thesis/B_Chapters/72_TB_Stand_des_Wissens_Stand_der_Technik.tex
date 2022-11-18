@@ -1,1 +1,44 @@
 \chapter{Stand des Wissens / Stand der Technik}
+
+\citeauthor{colmant:hal-01130030} (\citeyear{colmant:hal-01130030})
+erforschen "Process-level Power Estimation in VM-based Systems".
+Dabei wird die Software BitWatts implementiert,
+welches auf dem Python-Framework PowerAPI basiert.
+Lösungen auf dem aktuellen Stand der Technik können eine grobkörnige Leistungsabschätzung 
+in virtualisierten Umgebungen durchführen, 
+wobei virtuelle Maschinen (VMs) in der Regel als Blackbox behandelt werden.
+\citeauthor{colmant:hal-01130030} (\citeyear{colmant:hal-01130030})
+schlagen eine feinkörnige Überwachungs-Middleware vor, 
+die eine genaue Leistungsabschätzung von Softwareprozessen in Echtzeit ermöglicht, 
+welche auf jeder Virtualisierungsebene in einem System laufen.
+Die Middleware-Implementierung mit dem Namen BitWatts 
+baut auf einer verteilten Actor-Implementierung auf, 
+um die Prozessnutzung zu erfassen und einen feinkörnigen Stromverbrauch abzuleiten, 
+ohne dass Hardware-Investitionen, wie Stromzähler erforderlich sind
+\autocite{colmant:hal-01130030}.
+\bigskip
+
+\citeauthor{fieni:hal-02470128} (\citeyear{fieni:hal-02470128})
+forschen in
+"SmartWatts: Self-Calibrating Software-Defined Power Meter for Containers"
+über ein leichtgewichtiges Energieüberwachungssystem, das die CPU- und DRAM-Leistungsmodelle 
+durch Online-Kalibrierung automatisch anpasst, um die Genauigkeit der Leistungsabschätzung von Containern 
+während der Laufzeit zu maximieren. Im Gegensatz zu state-of-the-art Techniken erfordert SmartWatts keine vorherige
+Trainingsphase oder Hardware-Ausrüstung zur Konfiguration der Leistungsmodelle und kann daher ohne Kosten 
+auf einer Vielzahl von Rechnern eingesetzt werden, einschließlich der neuesten Leistungsoptimierungen
+\autocite{fieni:hal-02470128}.
+\bigskip
+
+\citeauthor{8705815} (\citeyear{8705815})
+beschreiben die komplexe System-of-Systems-Natur von Rechenzentren und diskutieren 
+die in der Branche verwendeten Servicemodelle. Sie beschreiben ein ganzheitliches Scheduling-System, 
+das den Standard-Scheduler im Kubernetes-Container-System ersetzt 
+und sowohl Software- als auch Hardware-Modelle berücksichtigt. 
+Sie erörtern die ersten Ergebnisse des Einsatzes dieses Schemas in einem realen Rechenzentrum, 
+in dem eine Reduzierung des Stromverbrauchs um 10-20 \% beobachtet wird. 
+Es wird gezeigt, dass ein intelligenter Scheduler durch die Einführung von Hardwaremodellen 
+in eine softwarebasierte Lösung die Effizienz von Rechenzentren erheblich verbessern kann
+\autocite{8705815}.
+
+
+
