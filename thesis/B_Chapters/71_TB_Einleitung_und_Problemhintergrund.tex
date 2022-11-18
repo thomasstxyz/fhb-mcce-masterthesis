@@ -1,23 +1,44 @@
 \chapter{Einleitung und Problemhintergrund}
 
+Im Bereich der Containertechnologien zeigt das Cloud-Computing ein rasantes Wachstum aufgrund der
+vielen Vorteile, die mit container-basierter Softwarearchitektur einhergehen.
+Immer mehr Softwarehersteller setzen auf cloud-native Architektur,
+meist basierend auf der open-source Container-Plattform Kubernetes.
+Kubernetes ist unter der Governance der Cloud Native Computing Foundation (CNCF) seit 10. März 2016
+und verfügt über den Reifegrad \emph{graduated}.
+\bigskip
+
+Mit Kubernetes lassen sich als Container abgepackte Microservices im großen Maßstab auf
+mehreren tausend Nodes orchestrieren.
+Das Monitoring zielt derzeit hauptsächlich auf Metriken der CPU und Arbeitsspeicher-Auslastung ab.
+Dabei können für jeden Kubernetes Workload diese Metriken gemessen und somit fein-granular überwacht werden,
+sowie im Anschluss weitere Automatisierung, basierend auf diversen Service Level Objectives (SLO) stattfinden,
+oder horizontales und vertikales Auto-Scaling konfiguriert werden, neben anderen Automatisierungen.
+\bigskip
+
+Derzeit kann der Stromverbrauch nur je Node gemessen werden.
+Das Problem ist, dass in Kubernetes ein Microservice bzw. Workload nicht mehr wie früher
+auf einer, oder einer Handvoll physischen oder virtuellen Maschinen betrieben wird,
+sondern sich über potenziell tausende Nodes verteilt.
+Kubernetes Workloads sind in sogenannte Pods logisch in kleine Einheiten aufgeteilt.
+Im Optimalfall enkapsuliert ein Pod einen oder mehrere verwandte Container, in welcher jeweils ein Prozess läuft.
+Somit ist es äußerst schwierig, den Stromverbrauch einer Applikation festzustellen.
+\bigskip
+
+In dieser Arbeit soll die Messung des Stromverbrauchs auf Ebene von Kubernetes Workloads erforscht werden.
+Dies würde es beispielsweise erlauben, einen stromverbrauchs-orientierten Kubernetes-nativen
+Scheduler zu implementieren, welcher z. B. Nodes für Workloads adaptiv bestimmt,
+je nachdem auf welchen Node-Typen ein bestimmter Workload die beste Energieeffizienz aufweist.
+Node-Typen können sich beispielsweise unterscheiden durch:
+CPU-Architekturen, Massenspeicher-Typen, Netzwerkanbindungen, Netzwerklatenz, Geo-Lokation, etc.
+\bigskip
+
+%Zusammenfassung
 
 
-% Forschungsfeld (Universum), 5-7 Sätze
 
-% Was ist denn das überhaupt
+%Problemstellung, 5-7 Sätze
 
-Idee 1
+%Forschungsvorhaben, 5-7 Sätze
 
-Idee 2
-
-Idee 3
-
-Idee xy
-
-Zusammenfassung
-
-Problemstellung, 5-7 Sätze
-
-Forschungsvorhaben, 5-7 Sätze
-
-Ausblick, 3-5 Sätze
+%Ausblick, 3-5 Sätze
