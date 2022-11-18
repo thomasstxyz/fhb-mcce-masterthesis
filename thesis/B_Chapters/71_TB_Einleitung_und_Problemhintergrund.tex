@@ -1,9 +1,22 @@
 \chapter{Einleitung und Problemhintergrund}
 
-Im Bereich der Containertechnologien zeigt das Cloud-Computing ein rasantes Wachstum aufgrund der
-vielen Vorteile, die mit container-basierter Softwarearchitektur einhergehen.
+Rechenzentren bilden den größten Teil der Infrastruktur, 
+auf der moderne verteilte service-orientierte Systeme beruhen. 
+Es handelt sich um komplexe Systeme mit vielen interagierenden Elementen, 
+die enorme Mengen an Energie verbrauchen. Die Nachfrage nach Rechenzentren steigt rapide an, 
+was zu erheblichen globalen Umweltauswirkungen führt. 
+Die Rechenzentrumsbranche hat bereits viel Forschung zur Effizienzverbesserung betrieben, 
+allerdings hauptsächlich auf der Ebene der physischen Infrastruktur. 
+Die Erforschung von softwarebasierten Lösungen zur Verbesserung der Effizienz ist dringend erforderlich. 
+Die meisten aktuellen Forschungsarbeiten betrachten das Rechenzentrum 
+jedoch nicht aus einem ganzheitlichen Blickwinkel, der sowohl virtuelle und 
+physische Infrastrukturen als auch Geschäftsprozesse berücksichtigt. 
+Dies ist entscheidend, wenn eine Lösung in einer realistischen Umgebung angewendet werden soll.
+\bigskip
+
 Immer mehr Softwarehersteller setzen auf cloud-native Architektur,
-meist basierend auf der open-source Container-Plattform Kubernetes.
+allermeistens basierend auf der open-source Container-Plattform Kubernetes,
+welche als Basis für Workloads aller Art, sowie für cloud-native Control Planes gilt.
 Kubernetes ist unter der Governance der Cloud Native Computing Foundation (CNCF) seit 10. März 2016
 und verfügt über den Reifegrad \emph{graduated}.
 \bigskip
@@ -11,27 +24,21 @@ und verfügt über den Reifegrad \emph{graduated}.
 Mit Kubernetes lassen sich als Container abgepackte Microservices im großen Maßstab auf
 mehreren tausend Nodes orchestrieren.
 Das Monitoring zielt derzeit hauptsächlich auf Metriken der CPU und Arbeitsspeicher-Auslastung ab.
-Dabei können für jeden Kubernetes Workload diese Metriken gemessen und somit fein-granular überwacht werden,
-sowie im Anschluss weitere Automatisierung, basierend auf diversen Service Level Objectives (SLO) stattfinden,
-oder horizontales und vertikales Auto-Scaling konfiguriert werden, neben anderen Automatisierungen.
+Dabei können für jeden Kubernetes Workload diese Metriken gemessen und somit feingranular überwacht werden,
+sowie im Anschluss weitere Automatisierung, gerichtet auf diversen Service Level Objectives (SLO) stattfinden,
+oder beispeilsweise horizontales und vertikales Auto-Scaling konfiguriert werden, neben anderen Automatisierungen.
 \bigskip
 
 Derzeit kann der Stromverbrauch nur je Node gemessen werden.
-Das Problem ist, dass in Kubernetes ein Microservice bzw. Workload nicht mehr wie früher
-auf einer, oder einer Handvoll physischen oder virtuellen Maschinen betrieben wird,
+Das Problem ist, dass in Kubernetes ein Microservice bzw. Workload nicht mehr wie 
+vor der Zeit der Virtualisierung und Containerisierung,
+auf einer physischen oder virtuellen Maschinen betrieben wird,
 sondern sich über potenziell tausende Nodes verteilt.
 Kubernetes Workloads sind in sogenannte Pods logisch in kleine Einheiten aufgeteilt.
 Im Optimalfall enkapsuliert ein Pod einen oder mehrere verwandte Container, in welcher jeweils ein Prozess läuft.
 Somit ist es äußerst schwierig, den Stromverbrauch einer Applikation festzustellen.
 \bigskip
 
-In dieser Arbeit soll die Messung des Stromverbrauchs auf Ebene von Kubernetes Workloads erforscht werden.
-Dies würde es beispielsweise erlauben, einen stromverbrauchs-orientierten Kubernetes-nativen
-Scheduler zu implementieren, welcher z. B. Nodes für Workloads adaptiv bestimmt,
-je nachdem auf welchen Node-Typen ein bestimmter Workload die beste Energieeffizienz aufweist.
-Node-Typen können sich beispielsweise unterscheiden durch:
-CPU-Architekturen, Massenspeicher-Typen, Netzwerkanbindungen, Netzwerklatenz, Geo-Lokation, etc.
-\bigskip
 
 %Zusammenfassung
 
@@ -42,3 +49,6 @@ CPU-Architekturen, Massenspeicher-Typen, Netzwerkanbindungen, Netzwerklatenz, Ge
 %Forschungsvorhaben, 5-7 Sätze
 
 %Ausblick, 3-5 Sätze
+
+
+

@@ -4,20 +4,20 @@ Die Ergebnisse der bisherigen Literaturrecherche zeigen,
 dass bereits wissenschaftliche Untersuchungen zum Thema
 der software-basierten dynamischen Stromverbrauchs-Messungs
 unternommen wurden. 
-Im Bereich VM-basierten Systemen, prozess-basierte Messung, sowie container-basierte Messung
+Im Bereich von VM-basierten Systemen, prozess-basierter Messung, sowie container-basierter Messung
 von Stromverbrauch. Dabei wird oft der Gesamtverbrauch der physischen Maschine - primär die 
 CPU-Auslastung und deren Stromverbrauch -
-mittels Hardware-Indikatoren und Low-Level Schnittstellen, welche die Hardware zur Verfügung stellt, ausgelesen,
+mittels Hardware-Indikatoren und Low-Level-Schnittstellen, welche die Hardware zur Verfügung stellt, ausgelesen,
 und mittels mathematischer Kalkulationen auf kleinere logische Einheiten versucht zuzuordnen.
 \bigskip
 
-Als primäres Ergebnis wird die Kubernetes-native Messung des Stromverbrauchs von Kubernetes Workloads
+Als primäres Ergebnis dieser Arbeit wird die Kubernetes-native Messung des Stromverbrauchs von Kubernetes Workloads
 erwartet. Der entwickelte Prototyp soll als modulare Extension zu Kubernetes dienen.
 Es sollen die gewonnenen Metriken über den OpenTelemetry-Standard,
-für Observability-Werkzeuge als Service Level Indicators (SLI) dienen.
+für Observability-Werkzeuge als Service Level Indicators (SLI) zur Verfügung stehen.
 \bigskip
 
-In dem finalen Laborexperiment soll bewiesen werden, dass
+In einem Laborexperiment soll bewiesen werden, dass
 anhand der preisgegebenen Metriken des Kubernetes Workload basierten Stromverbrauchs
-Kubernetes Workloads adaptiv auf geeignete Nodes ge-scheduled werden können,
+Kubernetes Workloads adaptiv auf geeignete Nodes zugeordnet werden können,
 auf welchen sie am effizientesten laufen.
