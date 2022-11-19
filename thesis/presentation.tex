@@ -1,0 +1,234 @@
+\documentclass{beamer}
+
+\title{\yourThesisTitle}
+\subtitle{\typeOfWork}
+\author{\yourNameInclTitle}
+
+\usepackage[style=apa, backend=biber, language=ngerman]{biblatex}
+\addbibresource{references.bib}
+\renewcommand\bibname{\section{Literaturverzeichnis}}
+
+
+\usetheme{Frankfurt}
+\usepackage{xcolor}
+\usepackage{textpos}
+%\usepackage{enumitem}
+
+\usepackage{graphicx}
+\usepackage{subcaption}
+\captionsetup{compatibility=false}
+
+\definecolor{fhgreen}{rgb}{0,0.47,0.32}
+%\definecolor{fhgreen}{rgb}{0,121,82}
+\definecolor{orange}{rgb}{1,0.5,0}
+
+\setbeamercolor{frametitle}{bg=fhgreen}
+\setbeamercolor{title}{bg=fhgreen}
+\setbeamercolor{itemize items}{bg=fhgreen}
+\setbeamercolor{enumerate items}{bg=fhgreen}
+
+\setbeamertemplate{itemize items}{\color{fhgreen}$\blacktriangleright$}
+\setbeamertemplate{enumerate items}{\color{fhgreen}$\blacktriangleright$}
+
+%\setbeamercolor{local structure}{fg=fhgreen}
+
+\begin{document}
+
+\addtobeamertemplate{frametitle}{}{%
+\begin{textblock*}{100mm}(.85\textwidth,6.3cm)
+%\begin{textblock*}{100mm}(.85\textwidth,-1cm)
+\includegraphics[scale=0.2]{images/FH-burgenland-logo.png}
+%\includegraphics[height=1cm,width=2cm]{images/FH-burgenland-logo.png}
+\end{textblock*}}
+
+% title page
+\maketitle
+
+\section{Einleitung u. Zielsetzung}
+
+\begin{frame}
+    \frametitle{Problemstellung}
+    \begin{itemize}
+        \item Hoher Stromverbrauch von Rechenzentren
+        \item softwarebasierte Lösungen zur Verbesserung der Energieeffizienz fehlen
+        \item Observability in modernen verteilten Systemen ist eine Herausforderung
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Zielsetzung u. Fragestellung}
+    \textbf{Forschungsfrage: }
+    \begin{center}
+        \large{Inwieweit lässt sich der Stromverbrauch von Kubernetes Workloads bzw. Applikationen feststellen und ein effizienz-orientiertes Scheduling implementieren?}
+    \end{center}
+\end{frame}
+
+%\section{Grundlagen}
+%
+%\begin{frame}
+%    \frametitle{Grundlagen}
+%    \begin{itemize}
+%        \item Allgemeine Definitionen
+%        \item a
+%        \item b
+%        \item c
+%    \end{itemize}
+%\end{frame}
+
+\begin{frame}
+    \frametitle{Stand des Wissens}
+    \textbf{Literaturrecherche}
+    \begin{itemize}
+        \item \citeauthor{colmant:hal-01130030} (\citeyear{colmant:hal-01130030}) erforschen "Process-level Power Estimation in VM-based Systems"
+        \item \citeauthor{fieni:hal-02470128} (\citeyear{fieni:hal-02470128}) erforschen "SmartWatts: Self-Calibrating Software-Defined Power Meter for Containers"
+        \item \citeauthor{8705815} (\citeyear{8705815}) beobachten eine Reduzierung des Stromverbrauchs um 10-20 \% nach Implementierung eines intelligenten Schedulers.
+    \end{itemize}
+\end{frame}
+
+\section{Methodik u. Vorgangsweise}
+
+\begin{frame}
+    \frametitle{Forschungsmethoden}
+    \textbf{Design und Implementierung eines Prototypen}
+    \begin{itemize}
+        \item Messung des Stromverbrauchs innerhalb Kubernetes
+    \end{itemize}
+
+    \textbf{Durchführung eines Laborexperiments}
+    \begin{itemize}
+        \item Adaptives energieeffizienz-orientiertes Scheduling
+    \end{itemize}
+\end{frame}
+
+%
+%\begin{frame}
+%    \frametitle{Vorgangsweise}
+%    %\setlist[enumerate]{label={\arabic*.}}
+%    \begin{itemize}
+%        \item Bestimmung der Messgrößen
+%    \end{itemize}
+%    \vspace{0.2cm}
+%
+%    \begin{figure}[H]
+%        \centering
+%        \begin{subfigure}{.5\linewidth}
+%            \centering
+%            \includegraphics[scale=0.3]{images/input-output-factors-in-experiment.png}
+%  %\caption{}
+%  \label{fig:sub1}
+%        \end{subfigure}%
+%        \begin{subfigure}{.5\linewidth}
+%            \centering
+%            \includegraphics[scale=0.12]{images/120s-180s.png}
+%  %\caption{}
+%  \label{fig:sub2}
+%        \end{subfigure}
+%%\caption{byrequests vs. round-robin, 100k, 2000 Anfragen}
+%\label{fig:byrequestsvs.round-robin100k2000Anfragen}
+%    \end{figure}
+%
+%    \vspace{0.2cm}
+%        100k bei 2000 Anfragen \\
+%        1M bei 500 Anfragen \\
+%        10M bei 50 Anfragen
+%\end{frame}
+%
+%\begin{frame}
+%    \frametitle{Vorgangsweise}
+%    \begin{itemize}
+%        \item Aufbau der Laborumgebung
+%    \end{itemize}
+%    \vspace{1cm}
+%    \includegraphics[scale=0.48]{images/drawio/Virtualisierungsebenen.png}
+%\end{frame}
+%
+%\begin{frame}
+%    \frametitle{Vorgangsweise}
+%    \begin{itemize}
+%        \item Durchführung des Experiments
+%    \end{itemize}
+%    \vspace{1cm}
+%    \includegraphics[scale=0.48]{images/drawio/HTTP-Anfrage.png}
+%\end{frame}
+%
+%\begin{frame}
+%    \frametitle{Vorgangsweise}
+%    \begin{itemize}
+%        \item Darstellung der Ergebnisse
+%    \end{itemize}
+%    \vspace{0.3cm}
+%    \includegraphics[scale=0.19]{images/default-10M-req.png}
+%\end{frame}
+%
+%\begin{frame}
+%    \frametitle{Vorgangsweise}
+%    \begin{itemize}
+%        \item Bewertung und Schlussfolgerungen
+%    \end{itemize}
+%\end{frame}
+
+
+\section{Ergebnisse u. Schlussfolgerungen}
+
+\begin{frame}
+	\frametitle{Erwartete Ergebnisse}
+	\begin{itemize}
+		\item Kubernetes-native Messung des Stromverbrauchs von Kubernetes Workloads
+		\item Prototyp als modulare Extension zu Kubernetes
+		\item Metriken über OpenTelemetry zur Verfügung stellen
+		\item Evaluierung eines adaptiven effizienz-orientierten Scheduling
+	\end{itemize}
+\end{frame}
+
+%\begin{frame}
+%    \frametitle{Ergebnisse}
+%    \includegraphics[scale=0.19]{images/default-100k-req.png}
+%\end{frame}
+%
+%\begin{frame}
+%    \frametitle{Ergebnisse}
+%    \includegraphics[scale=0.19]{images/default-10M-req.png}
+%\end{frame}
+%
+%\begin{frame}
+%    \frametitle{Ergebnisse}
+%    \includegraphics[scale=0.22]{images/default-100k-ram.png}
+%\end{frame}
+%
+%\begin{frame}
+%    \frametitle{Ergebnisse}
+%    \includegraphics[scale=0.19]{images/1h-10M.png}
+%\end{frame}
+
+\begin{frame}
+    \frametitle{Ausblick}
+    \begin{itemize}
+        \item Stromverbrauchs-Metriken in Kubernetes Metrics API nativ integrieren
+        \item Neben CPU u. Memory auch Stromverbrauch von Pods bzw. Containern nativ in Kubernetes bereitstellen
+        \item Feststellen von effizienten Umgebungen (z. B. CPU-Architektur ARM oder AMD64) ohne vorheriges Training
+        \item Adaptives Scheduling von Kubernetes Workloads orientiert an Energieeffizienz
+    \end{itemize}
+%    \vspace{1cm}
+%    - aa \\
+%    - bb
+\end{frame}
+
+%        \item  -- anotheritem --
+
+\begin{frame}
+    \frametitle{Ende der Präsentation}
+    Dankeschön!
+\end{frame}
+
+%% columns in beamer
+%\begin{frame}
+%    \frametitle{Columns}
+%    \begin{columns}
+%        \column{.5\textwidth}
+%        1 column
+%        \column{.5\textwidth}
+%        2 column
+%    \end{columns}
+%\end{frame}
+
+\end{document}
