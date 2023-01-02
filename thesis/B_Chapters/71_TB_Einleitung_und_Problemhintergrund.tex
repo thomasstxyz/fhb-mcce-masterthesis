@@ -1,54 +1,86 @@
 \chapter{Einleitung und Problemhintergrund}
 
-Rechenzentren bilden den größten Teil der Infrastruktur, 
-auf der moderne verteilte service-orientierte Systeme beruhen. 
-Es handelt sich um komplexe Systeme mit vielen interagierenden Elementen, 
-die enorme Mengen an Energie verbrauchen. Die Nachfrage nach Rechenzentren steigt rapide an, 
-was zu erheblichen globalen Umweltauswirkungen führt. 
-Die Rechenzentrumsbranche hat bereits viel Forschung zur Effizienzverbesserung betrieben, 
-allerdings hauptsächlich auf der Ebene der physischen Infrastruktur. 
-Die Erforschung von softwarebasierten Lösungen zur Verbesserung der Effizienz ist dringend erforderlich. 
-Die meisten aktuellen Forschungsarbeiten betrachten das Rechenzentrum 
-jedoch nicht aus einem ganzheitlichen Blickwinkel, der sowohl virtuelle und 
-physische Infrastrukturen als auch Geschäftsprozesse berücksichtigt. 
-Dies ist entscheidend, wenn eine Lösung in einer realistischen Umgebung angewendet werden soll.
+% Forschungsfeld (Universum), 5-7 Sätze
+% TODO: wie kommt man zu GitOps? 1,2 Sätze
+% universum -> erde -> kontinent -> land -> region -> strand -> sandkorn
+
+% Was ist denn das überhaupt
+% Was ist GitOps
+
+GitOps ist eine Reihe von Prinzipien für den Betrieb und die Verwaltung von Softwaresystemen. Diese Prinzipien sind aus dem modernen Softwarebetrieb abgeleitet, haben aber auch ihre Wurzeln in bereits bestehenden und weithin angenommenen Best Practices. Die primären vier Prinzipien, welche als Grundsätze für den gewünschten Zustand eines
+von GitOps verwalteten System gelten, sind die folgenden:
+
+\begin{itemize}
+	\item \textbf{Deklarativ} \\
+		Bei einem von GitOps verwalteten System muss der gewünschte Zustand deklarativ ausgedrückt werden.
+	\item \textbf{Versioniert und unveränderlich} \\
+		Der gewünschte Zustand wird auf eine Weise gespeichert, die Unveränderlichkeit und Versionierung erzwingt und eine vollständige Versionshistorie aufbewahrt.
+	\item \textbf{Automatisch abgerufen} \\
+		Software-Agenten ziehen automatisch die gewünschten Zustands-Deklarationen aus der Quelle.
+	\item \textbf{Kontinuierlich abgeglichen} \\
+		Software-Agenten beobachten kontinuierlich den aktuellen Systemzustand und versuchen, den gewünschten Zustand herzustellen.
+\end{itemize}
+
+\autocite{gitopsPrinciplesv100}
 \bigskip
 
-Immer mehr Softwarehersteller setzen auf cloud-native Architektur,
-allermeistens basierend auf der open-source Container-Plattform Kubernetes,
-welche als Basis für Workloads aller Art, sowie für cloud-native Control Planes gilt.
-Kubernetes ist unter der Governance der Cloud Native Computing Foundation (CNCF) seit 10. März 2016
-und verfügt über den Reifegrad \emph{graduated}.
+Diese Grundsätze sind in der Version 1.0.0 von OpenGitOps festgelegt.
+OpenGitOps ist ein CNCF Sandbox-Projekt im Rahmen der GitOps Working Group.
+Die GitOps Working Group ist eine Arbeitsgruppe unter
+dem CNCF App Delivery TAG,
+mit dem Ziel, eine klare herstellerneutrale,
+prinzipiengeleitete Bedeutung von GitOps zu definieren.
+Damit wird eine Grundlage für die Interoperabilität zwischen Tools, Konformität und Zertifizierung durch dauerhafte Programme, Dokumente und Code geschaffen
+\autocite{opengitopsDocuments}.
 \bigskip
 
-Mit Kubernetes lassen sich als Container abgepackte Microservices im großen Maßstab auf
-mehreren tausend Nodes orchestrieren.
-Das Monitoring zielt derzeit hauptsächlich auf Metriken der CPU und Arbeitsspeicher-Auslastung ab.
-Dabei können für jeden Kubernetes Workload diese Metriken gemessen und somit feingranular überwacht werden,
-sowie im Anschluss weitere Automatisierung, gerichtet auf diversen Service Level Objectives (SLO) stattfinden,
-oder beispeilsweise horizontales und vertikales Auto-Scaling konfiguriert werden, neben anderen Automatisierungen.
+Es ist anzumerken, dass sich der Begriff GitOps nicht ausschließlich auf
+die in OpenGitOps definierten Grundsätze beschränkt,
+sondern darüber hinaus geht.
+% TODO: Quelle, wo GitOps noch definiert ist
+% TODO: was ist im Groben der Unterschied zwischen OpenGitOps und generell GitOps?
 \bigskip
 
-Derzeit kann der Stromverbrauch nur je Node gemessen werden.
-Das Problem ist, dass in Kubernetes ein Microservice bzw. Workload nicht mehr wie 
-vor der Zeit der Virtualisierung und Containerisierung,
-auf einer physischen oder virtuellen Maschinen betrieben wird,
-sondern sich über potenziell tausende Nodes verteilt.
-Kubernetes Workloads sind in sogenannte Pods logisch in kleine Einheiten aufgeteilt.
-Im Optimalfall enkapsuliert ein Pod einen oder mehrere verwandte Container, in welcher jeweils ein Prozess läuft.
-Somit ist es äußerst schwierig, den Stromverbrauch einer Applikation festzustellen.
-\bigskip
+GitOps senkt die Kosten für die Erstellung von Self-Service-IT-Systemen und ermöglicht Self-Service-Operationen, die bisher nicht zu rechtfertigen waren.
+Es verbessert die Fähigkeit, das System sicher zu betreiben, indem es auch
+unprivilegierten Nutzern erlaubt, große Änderungen vorzunehmen,
+ohne diesen Nutzern Berechtigungen am Zielsystem zu erteilen.
+Über sogenannte Pull Requests können gewöhnliche Nutzer einen Antrag
+ihrer vorgeschlagenen Änderungen stellen.
+Diese Pull Requests können im Anschluss von höher privilegierten Nutzern
+überprüft und gegebenenfalls akzeptiert werden.
+Die Sicherheit kann verbessert werden, 
+indem automatisierte Tests hinzugefügt werden.
+Diese Tests können beispielsweise
+Linting (Validierung der Syntax),
+das Erzwingen von Style-Guides,
+das Durchführen von Unit Tests,
+oder
+das Durchsetzen von Sicherheitsrichtlinien
+umfassen.
+Sicherheitsprüfungen und Audits werden einfacher, 
+da jede Änderung nachverfolgt wird
+\autocite{limoncelli_gitopsPathToMoreSelfService}.
 
 
-%Zusammenfassung
+
+% TODO: Idee 1
+
+% TODO: Idee 2
+
+% TODO: Idee 3
+
+% TODO: Idee xy
+
+% TODO: Zusammenfassung
+
+% TODO: Problemstellung, 5-7 Sätze
+
+% TODO: Forschungsvorhaben, 5-7 Sätze
+
+% TODO: Ausblick, 3-5 Sätze
 
 
-
-%Problemstellung, 5-7 Sätze
-
-%Forschungsvorhaben, 5-7 Sätze
-
-%Ausblick, 3-5 Sätze
 
 
 
