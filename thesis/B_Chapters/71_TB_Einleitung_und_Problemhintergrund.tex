@@ -61,16 +61,104 @@ umfassen.
 Sicherheitsprüfungen und Audits werden einfacher, 
 da jede Änderung nachverfolgt wird
 \autocite{limoncelli_gitopsPathToMoreSelfService}.
+\bigskip
+% TODO: Idee 1
+% es gibt derzeit diese Probleme mit GitOps
+
+GitOps als Praxis für das Releasen von Software hat mehrere Vorteile, aber wie alle anderen Lösungen davor, hat GitOps auch mehrere Unzulänglichkeiten.
+Derzeit gibt es mit GitOps einige ungelöste Probleme.
+Einserseits sind das Probleme, welche meist schon 
+vor der Implementierung von GitOps in einer Organisation
+ein Problem waren,
+andererseits bringt die GitOps-Strategie einige Limitierungen mit sich,
+welche zu neuen Problemen führen.
+Die Organisation Codefresh,
+welche aufgrund ihrer Entwicklungen
+von GitOps-Tools um ArgoCD und verwandte Argo*-Produkte,
+als treibende Kraft für GitOps gilt,
+spricht von folgenden Problemen mit dem derzeitigen praktizierten GitOps:
+
+\begin{itemize}
+	\item GitOps deckt nur eine Teilmenge des Software-Lebenszyklus ab
+	\item Die Aufteilung von CI und CD mit GitOps ist nicht ganz einfach
+	\item GitOps befasst sich nicht mit der Promotion von Releases zwischen Umgebungen
+	\item Es gibt keine Standardpraxis für die Modellierung von Konfigurationen mit mehreren Umgebungen
+	\item GitOps versagt bei automatischer Skalierung und dynamischen Ressourcen
+	\item Es gibt keine Standardpraxis für GitOps-Rollbacks
+	\item Die Observability für GitOps (und Git) ist unausgereift
+	\item Auditing ist problematisch, obwohl alle Informationen in Git vorhanden sind
+	\item Der Betrieb von GitOps in großem Maßstab ist schwierig
+	\item GitOps und Helm arbeiten nicht immer gut zusammen
+	\item Continuous Deployment und GitOps passen nicht zusammen
+	\item Es gibt keine Standardpraxis für die Verwaltung von Secrets
+\end{itemize}
+
+\autocite{codefreshGitopsPains10}
+\bigskip
+
+% TODO: außerdem werden von Author/Org XY folgende Probleme hervorgehoben..
 
 
+% Ich nehme mir dieses eine Problem heraus
+
+In dieser Arbeit soll das Problem der
+Promotion von Releases zwischen Umgebungen in GitOps
+näher betrachtet werden.
+Dabei handelt es sich insbesondere um
+die Promotion bzw. Beförderung von neuen Releases
+von einer Deployment-Umgebung in eine andere bzw. in die nächste.
+\bigskip
+
+Vor allem große Organisationen verfügen für gewöhnlich über mehrere
+Nicht-Produktions- und Produktions-Umgebungen
+wie z. B. QA, Staging, Production.
+In der Regel werden neue Releases automatisch in einer Umgebung
+wie beispielsweise QA ausgerollt.
+Nun ist die Aufgabe,
+neue Änderungen, welche durch ein neues Release herbeigeführt werden,
+in nachfolgende bzw. andere Umgebungen zu befördern.
+Bisher fehlt dafür jegliche Standardpraxis.
+\bigskip
+
+Insbesondere sollen in dieser Arbeit
+bestehende Strategien für die Lösung des Problems
+mit existierenden Tools
+erforscht werden.
+Des Weiteren soll ein Prototyp einer neu entwickelten
+Strategie vorgeschlagen werden.
+Im Anschluss soll der entwickelte Prototyp
+im Rahmen eines Laborexperiments
+mit den bereits existierenden Strategien
+verglichen werden.
+\bigskip
+
+Der entwickelte Prototyp soll als Ziel haben,
+ein GitOps-Tool bereitzustellen,
+das die Promotion von Releases zwischen Umgebungen
+nach den GitOps-Prinzipien ermöglicht
+in bestehende GitOps-Workflows nach 
+den Best Practices
+\bigskip
+
+Die erforschten Ergebnisse,
+den erarbeiteten Lösungsansatz,
+sowie der vorgeschlagene Prototyp,
+können zum Ende
+an die CNCF gespendet werden.
+
+% und dies ist meine Idee zu diesem Problem
 
 % TODO: Idee 1
 
+
+
 % TODO: Idee 2
 
-% TODO: Idee 3
+% TODO: Idee x
 
-% TODO: Idee xy
+
+
+
 
 % TODO: Zusammenfassung
 
