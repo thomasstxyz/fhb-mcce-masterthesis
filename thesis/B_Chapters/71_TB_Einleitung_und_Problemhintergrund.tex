@@ -1,13 +1,23 @@
 \chapter{Einleitung und Problemhintergrund}
 
 % Forschungsfeld (Universum), 5-7 Sätze
-% TODO: wie kommt man zu GitOps? 1,2 Sätze
+% wie kommt man zu GitOps? 1,2 Sätze
 % universum -> erde -> kontinent -> land -> region -> strand -> sandkorn
+
+Immer mehr Organisationen setzen auf 
+eine DevOps-Kultur, um neue Applikationen und Dienste mit hoher Geschwindigkeit zu entwickeln. 
+Denn eine Kultur, die gemeinsame Verantwortung, Transparenz und schnelles Feedback fördert, 
+hilft dabei, die Lücken zwischen Teams zu verkleinern und damit auch Prozesse zu beschleunigen.
+Aus dem Bedürfnis nach schneller Innovation entstand GitOps.
+\bigskip
 
 % Was ist denn das überhaupt
 % Was ist GitOps
 
-GitOps ist eine Reihe von Prinzipien für den Betrieb und die Verwaltung von Softwaresystemen. Diese Prinzipien sind aus dem modernen Softwarebetrieb abgeleitet, haben aber auch ihre Wurzeln in bereits bestehenden und weithin angenommenen Best Practices. Die primären vier Prinzipien, welche als Grundsätze für den gewünschten Zustand eines
+GitOps ist eine Reihe von Prinzipien für den Betrieb und die Verwaltung von Softwaresystemen.
+Diese Prinzipien sind aus dem modernen Softwarebetrieb abgeleitet, haben aber auch ihre Wurzeln 
+in bereits bestehenden und weithin angenommenen Best Practices. Die primären vier Prinzipien,
+welche als Grundsätze für den gewünschten Zustand eines
 von GitOps verwalteten System gelten, sind die folgenden:
 
 \begin{itemize}
@@ -41,16 +51,17 @@ sondern darüber hinaus geht.
 % TODO: was ist im Groben der Unterschied zwischen OpenGitOps und generell GitOps?
 \bigskip
 
+GitOps kann als eine Weiterentwicklung von Infrastructure as Code (IaC) betrachtet werden, die Git als Versionskontrollsystem für Infrastrukturkonfigurationen verwendet.
 GitOps senkt die Kosten für die Erstellung von Self-Service-IT-Systemen und ermöglicht Self-Service-Operationen, die bisher nicht zu rechtfertigen waren.
-Es verbessert die Fähigkeit, das System sicher zu betreiben, indem es auch
+Es verbessert die Fähigkeit, Systeme sicher zu betreiben, indem es
 unprivilegierten Nutzern erlaubt, große Änderungen vorzunehmen,
-ohne diesen Nutzern Berechtigungen am Zielsystem zu erteilen.
+ohne diesen Nutzern direkten Zugriff am Zielsystem zu erteilen.
 Über sogenannte Pull Requests können gewöhnliche Nutzer einen Antrag
 ihrer vorgeschlagenen Änderungen stellen.
 Diese Pull Requests können im Anschluss von höher privilegierten Nutzern
-überprüft und gegebenenfalls akzeptiert werden.
-Die Sicherheit kann verbessert werden, 
-indem automatisierte Tests hinzugefügt werden.
+überprüft und akzeptiert werden.
+Gegebenenfalls können Anpassungen vorgeschlagen, oder selbst eingearbeitet werden.
+Die Sicherheit kann verbessert werden, indem automatisierte Tests hinzugefügt werden.
 Diese Tests können beispielsweise
 Linting (Validierung der Syntax),
 das Erzwingen von Style-Guides,
@@ -59,24 +70,25 @@ oder
 das Durchsetzen von Sicherheitsrichtlinien
 umfassen.
 Sicherheitsprüfungen und Audits werden einfacher, 
-da jede Änderung nachverfolgt wird
+da jede Änderung nachverfolgt wird -
+jede Änderung bzw. Commit wird permanent in der Git-Historie festgehalten
 \autocite{limoncelli_gitopsPathToMoreSelfService}.
 \bigskip
-% TODO: Idee 1
+
 % es gibt derzeit diese Probleme mit GitOps
 
-GitOps als Praxis für das Releasen von Software hat mehrere Vorteile, aber wie alle anderen Lösungen davor, hat GitOps auch mehrere Unzulänglichkeiten.
+GitOps als Praxis für das Releasen von Software hat mehrere Vorteile,
+aber wie auch anderen Lösungen, hat GitOps auch mehrere Unzulänglichkeiten.
 Derzeit gibt es mit GitOps einige ungelöste Probleme.
 Einserseits sind das Probleme, welche meist schon 
-vor der Implementierung von GitOps in einer Organisation
-ein Problem waren,
-andererseits bringt die GitOps-Strategie einige Limitierungen mit sich,
+vor der Implementierung von GitOps in einer Organisation ein Problem waren,
+andererseits bringt eine GitOps-Strategie einige Limitierungen mit sich,
 welche zu neuen Problemen führen.
 Die Organisation Codefresh,
 welche aufgrund ihrer Entwicklungen
 von GitOps-Tools um ArgoCD und verwandte Argo*-Produkte,
 als treibende Kraft für GitOps gilt,
-spricht von folgenden Problemen mit dem derzeitigen praktizierten GitOps:
+spricht von folgenden Problemen mit dem zurzeit praktizierten GitOps:
 
 \begin{itemize}
 	\item GitOps deckt nur eine Teilmenge des Software-Lebenszyklus ab
@@ -113,31 +125,25 @@ Vor allem große Organisationen verfügen für gewöhnlich über mehrere
 Nicht-Produktions- und Produktions-Umgebungen
 wie z. B. QA, Staging, Production.
 In der Regel werden neue Releases automatisch in einer Umgebung
-wie beispielsweise QA ausgerollt.
-Nun ist die Aufgabe,
+wie beispielsweise QA ausgerollt - mittels einer CI-Pipeline.
+Nun ist es die Aufgabe,
 neue Änderungen, welche durch ein neues Release herbeigeführt werden,
 in nachfolgende bzw. andere Umgebungen zu befördern.
-Bisher fehlt dafür jegliche Standardpraxis.
+%Bisher fehlen für den Prozess der Promotion
+%standardisierte Praktiken und APIs.
+%\bigskip
+Die aktuellen GitOps-Tools haben keine einfache Antwort auf
+die Frage, was der richtige Ansatz für den Prozess der Promotion ist.
 \bigskip
 
 Insbesondere sollen in dieser Arbeit
-bestehende Strategien für die Lösung des Problems
-mit existierenden Tools
-erforscht werden.
-Des Weiteren soll ein Prototyp einer neu entwickelten
-Strategie vorgeschlagen werden.
-Im Anschluss soll der entwickelte Prototyp
-im Rahmen eines Laborexperiments
-mit den bereits existierenden Strategien
+existierende Strategien für die Lösung des Problems
+mit existierenden Tools erforscht werden.
+Des Weiteren soll ein Prototyp einer neu vorgeschlagenen
+Strategie entwickelt werden.
+Im Anschluss soll der Prototyp im Rahmen eines Laborexperiments
+mit bereits existierenden Strategien
 verglichen werden.
-\bigskip
-
-Der entwickelte Prototyp soll als Ziel haben,
-ein GitOps-Tool bereitzustellen,
-das die Promotion von Releases zwischen Umgebungen
-nach den GitOps-Prinzipien ermöglicht
-in bestehende GitOps-Workflows nach 
-den Best Practices
 \bigskip
 
 Die erforschten Ergebnisse,
@@ -145,30 +151,3 @@ den erarbeiteten Lösungsansatz,
 sowie der vorgeschlagene Prototyp,
 können zum Ende
 an die CNCF gespendet werden.
-
-% und dies ist meine Idee zu diesem Problem
-
-% TODO: Idee 1
-
-
-
-% TODO: Idee 2
-
-% TODO: Idee x
-
-
-
-
-
-% TODO: Zusammenfassung
-
-% TODO: Problemstellung, 5-7 Sätze
-
-% TODO: Forschungsvorhaben, 5-7 Sätze
-
-% TODO: Ausblick, 3-5 Sätze
-
-
-
-
-

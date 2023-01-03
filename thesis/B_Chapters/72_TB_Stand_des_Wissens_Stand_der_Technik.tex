@@ -1,5 +1,34 @@
 \chapter{Stand des Wissens / Stand der Technik}
 
+% TODO: what not to do for gitops environments (multi-branch, etc.)
+% TODO: https://codefresh.io/blog/stop-using-branches-deploying-different-gitops-environments/
+
+In einem Blogbeitrag
+"How to Model Your Gitops Environments and Promote Releases between Them"
+liefert
+\citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
+von Codefresh
+Best Practices zu der Problemstellung.
+Codefresh ist die Organisation hinter dem Argo Project
+% TODO: cite Argo Project
+\autocite{argoProjWebsite},
+welches eine Suite an Open-Source-Tools für GitOps
+entwickelt
+\autocite{codefreshHowToModelGitOpsEnvironmentsAndPromote}.
+
+\citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
+schlägt folgende Kategorien der "Umgebungskonfiguration" vor:
+
+\begin{itemize}
+    \item Die \textbf{App-Version} in Form des verwendeten Container-Tags. Dies ist wahrscheinlich die wichtigste Einstellung in einem Kubernetes-Manifest (soweit es um die Förderung der Umgebung geht). Je nach Anwendungsfall können Sie sich damit begnügen, die Version des Container-Images zu ändern. In vielen Fällen erfordert jedoch eine neue Änderung im Quellcode auch eine neue Änderung in der Bereitstellungsumgebung
+    \item Kubernetes-spezifische Einstellungen für Ihre Anwendung. Dazu gehören die Replikate der Anwendung und andere Kubernetes-bezogene Informationen wie Ressourcenlimits, Zustandsprüfungen, persistente Volumes, Affinitätsregeln usw.
+    \item Hauptsächlich statische Geschäftseinstellungen. Hierbei handelt es sich um Einstellungen, die nichts mit Kubernetes zu tun haben, sondern mit dem Geschäft Ihrer Anwendung. Dabei kann es sich um externe URLs, interne Warteschlangengrößen, UI-Standardwerte, Authentifizierungsprofile usw. handeln. Mit "größtenteils statisch" meine ich Einstellungen, die einmal für jede Umgebung definiert werden und sich dann nie mehr ändern. Sie möchten zum Beispiel, dass Ihre Produktionsumgebung immer production.paypal.com und Ihre Nicht-Produktionsumgebung staging.paypal.com verwendet. Diese Einstellung sollten Sie niemals zwischen Umgebungen verschieben.
+    \item Nicht-statische Geschäftseinstellungen. Dies ist dasselbe wie der vorige Punkt, aber es umfasst Einstellungen, die Sie zwischen Umgebungen übertragen möchten. Dabei kann es sich um eine globale Mehrwertsteuer-Einstellung, Ihre Parameter für die Empfehlungsmaschine, die verfügbaren Bitraten-Codierungen und jede andere Einstellung handeln, die für Ihr Unternehmen spezifisch ist.
+\end{itemize}
+
+
+
+
 \citeauthor{colmant:hal-01130030} (\citeyear{colmant:hal-01130030})
 erforschen "Process-level Power Estimation in VM-based Systems".
 Dabei wird die Software BitWatts implementiert,
