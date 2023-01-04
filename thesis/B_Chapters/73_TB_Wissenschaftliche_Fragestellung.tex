@@ -1,48 +1,46 @@
 \chapter{Wissenschaftliche Fragestellung}
 
-Das Ziel dieser Arbeit ist es...
+Das Ziel dieser Arbeit ist es,
+das Problem der Promotion von Releases zwischen verschiedenen Umgebungen in GitOps
+zu addressieren.
 \bigskip
 
 \noindent
-Um dieses Ziel zu erreichen, wurden folgende Forschungsfragen identifiziert:
+Vor allem große Organisationen verfügen für gewöhnlich über viele
+Nicht-Produktions- und Produktions-Umgebungen
+wie beispielsweise: dev, qa, staging-us, staging-eu, production-us, production-eu.
+In der Regel werden neue Releases automatisch in einer Umgebung
+wie beispielsweise qa ausgerollt - mittels einer CI-Pipeline.
+Nun ist es die Aufgabe,
+neue Änderungen, welche durch ein neues Release herbeigeführt werden,
+in nachfolgende bzw. andere Umgebungen zu promoten.
+Die aktuellen GitOps-Tools haben keine einfache Antwort auf
+die Frage, was der richtige Ansatz für den Prozess der Promotion ist.
+\bigskip
+
+\noindent
+Insbesondere sollen in dieser Arbeit
+existierende Strategien für die Lösung des Problems
+mit existierenden Tools erforscht werden.
+Des Weiteren soll ein Prototyp einer neu vorgeschlagenen
+Strategie entwickelt werden.
+Im Anschluss soll der Prototyp im Rahmen eines Laborexperiments
+mit bereits existierenden Strategien
+verglichen werden.
+\bigskip
+
+% TODO: mein Lösungsvorschlag?
+
+
+\noindent
+Um das Ziel der Arbeit zu erreichen, wurden folgende Forschungsfragen identifiziert:
 
 \begin{itemize}
-	\item ...
+	\item Wie kann die Promotion von Releases in GitOps-Umgebungen gestaltet werden?
+	\begin{itemize}
+		\item Welche Möglichkeiten bieten bestehende Tools für die Promotion von Releases mit mehreren Deployment-Umgebungen?
+		\item Wie können Deployment-Umgebungen, sowie Promotion-Workflows abstrakt modelliert werden?
+		\item Wie kann die abstrakte Modellierung verwendet werden, um eine standardisierte Lösung zur Promotion von Releases nach den GitOps-Prinzipien zu implementieren?
+	\end{itemize}
 \end{itemize}
-
-
-
-
-
-
-%In dieser Arbeit soll die Messung des Stromverbrauchs auf Ebene von Kubernetes Workloads erforscht werden.
-%Dies würde es beispielsweise erlauben, einen stromverbrauchs-orientierten Kubernetes-nativen
-%Scheduler zu implementieren, welcher Nodes für Workloads adaptiv bestimmt,
-%je nachdem auf welchen Node-Typen ein bestimmter Workload die beste Energieeffizienz aufweist.
-%Node-Typen können sich beispielsweise unterscheiden durch verschiedene
-%Prozessor-Architekturen
-%\bigskip
-%
-%Das Ziel dieser Arbeit ist es, einen Einblick zu gewinnen, 
-%inwieweit sich die Messung des Stromverbrauchs von Kubernetes Workloads 
-%nativ in Kubernetes implementieren lässt,
-%sodass gemessene Metriken auf der Ebene von Kubernetes Workloads 
-%für weitere Automatisierungen und
-%Kubernetes-native Integrationen zur Verfügung stehen.
-%\bigskip
-
-%Es soll mit den dynamisch gemessenen Stromverbrauchs-Metriken
-%ein Prototyp für ein adaptives Scheduling basierend auf Energieeffizienz entwickelt werden.
-%Der Prototyp soll in einem Laborexperiment mit dem Standard-Kubernetes-Scheduler verglichen werden,
-%und auf diese Weise zeigen, dass Workloads automatisch Nodes 
-%zugeordnet werden können, auf welchen sie die beste Energieeffizienz aufweisen.
-%\bigskip
-
-%Die konkrete Forschungsfrage lautet:
-%\bigskip
-%
-%\textbf{Inwieweit lässt sich der Stromverbrauch von Kubernetes Workloads bzw. Applikationen feststellen
-%	und ein effizienz-orientiertes Scheduling implementieren?}
-
-
 
