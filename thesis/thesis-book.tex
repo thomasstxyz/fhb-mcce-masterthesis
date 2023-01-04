@@ -48,7 +48,8 @@
 
 % do not start chapter on new page
 \makeatletter
-\patchcmd{\chapter}{\clearpage}{\leavevmode\flushleft}{}{}
+%\patchcmd{\chapter}{\clearpage}{\leavevmode\flushleft}{}{}
+\patchcmd{\chapter}{\clearpage}{\leavevmode\flushleft\justifying}{}{}
 \makeatother
 
 \vspace{5em}
