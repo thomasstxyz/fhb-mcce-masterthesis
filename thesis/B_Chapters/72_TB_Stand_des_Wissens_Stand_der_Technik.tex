@@ -36,7 +36,9 @@ Codefresh ist die Organisation hinter dem Argo Project
 welches eine Suite an Open-Source-Tools für GitOps
 entwickelt
 \autocite{codefreshHowToModelGitOpsEnvironmentsAndPromote}.
+\bigskip
 
+\noindent
 \citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
 schlägt vorerst folgende Kategorien der "Umgebungskonfiguration" vor:
 
@@ -47,6 +49,7 @@ schlägt vorerst folgende Kategorien der "Umgebungskonfiguration" vor:
     \item \textbf{Nicht-statische Geschäftseinstellungen}. Dies ist dasselbe wie der vorige Punkt, aber es umfasst Einstellungen, die sehrwohl zwischen Umgebungen promotet werden. Dabei kann es sich um eine globale Mehrwertsteuer-Einstellung, Parameter für die Empfehlungs-Engine, die verfügbaren Bitraten-Codierungen und jede andere Einstellung handeln, die für das Geschäft bzw. Unternehmen spezifisch ist.
 \end{itemize}
 
+\noindent
 Die App-Version und die nicht-statischen Geschäftseinstellungen gehören zwischen Umgebungen promotet.
 \citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
 schlägt vor, die Konfigurationsparameter je Kategorie in einer separaten Datei zu definieren.
@@ -62,12 +65,14 @@ da Konfigurationen einfach sowohl "vorwärts" als auch "rückwärts" verschoben 
 sogar zwischen nicht verwandten Umgebungen.
 \bigskip
 
+\noindent
 \textbf{Szenario}: Promotion der App-Version von qa zu staging-us.
 
 \begin{verbatim}
 	cp envs/qa/version.yml envs/staging-us/version.yml
 \end{verbatim}
 
+\noindent
 \textbf{Szenario}: Promotion der Applikation von prod-eu nach prod-us zusammen mit der zusätzlichen Konfiguration. Hier werden auch die Einstellungsdatei(en) kopiert.
 
 \begin{verbatim}
@@ -75,12 +80,14 @@ sogar zwischen nicht verwandten Umgebungen.
 	cp envs/prod-eu/settings.yml envs/prod-us/settings.yml
 \end{verbatim}
 
+\noindent
 \textbf{Szenario}: Rückportierung aller Einstellungen von qa zu integration-non-gpu.
 
 \begin{verbatim}
 	cp envs/qa/settings.yml envs/integration-non-gpu/settings.yml
 \end{verbatim}
 
+\noindent
 \citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
 merkt hierbei an,
 dass die cp-Operationen nur zur Veranschaulichung dienen. 
@@ -90,6 +97,7 @@ sollte vielleicht zuerst ein Pull Request erstellt werden, anstatt den Ordner im
 \autocite{codefreshHowToModelGitOpsEnvironmentsAndPromote}.
 \bigskip
 
+\noindent
 \citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
 nennt folgende Vorteile des Folder-per-Environment-Ansatzes:
 
