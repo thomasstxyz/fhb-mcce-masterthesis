@@ -1,79 +1,76 @@
-\chapter{Stand des Wissens / Stand der Technik}
+\chapter{Related Work}
 
-Im Folgenden werden die derzeitigen Praktiken und Best Practices
-gezeigt zum Thema,
-wie am besten verschiedene Deployment-Umgebungen mit GitOps modelliert werden.
+The following are current practices
+shown on the topic,
+how best to model different deployment environments with GitOps.
 
 
-\section{Branch-per-Environment-Ansatz}
+\section{branch-per-environment approach}
 
 \citeauthor{codefreshStopUsingBranchesGitOpsEnvironments} (\citeyear{codefreshStopUsingBranchesGitOpsEnvironments})
-veröffentlicht in einem Blogbeitrag "Stop Using Branches for Deploying to Different GitOps Environments"
-die Best Practices von Codefresh zum Thema der Modellierung von Umgebungen in GitOps.
-Es werden die Probleme des Branch-per-Environment-Ansatzes gezeigt.
-Dieser Ansatz sei ein Anti-Pattern,
-und auf jeden Fall zu vermeiden.
-Es werden einige Punkte angeführt und ausführlich begründet.
+published Codefresh's best practices on modeling environments in GitOps 
+in the blog post "Stop Using Branches for Deploying to Different GitOps Environments".
+The problems with the branch-per-environment approach are shown.
+This approach is an anti-pattern,
+and to be avoided at all costs.
+A number of points are made and justified in detail.
 
 \begin{itemize}
-	\item Die Verwendung verschiedener Git-Branches für Deployment-Umgebungen ist ein Relikt der Vergangenheit.
-	\item Pull Requests und Merges zwischen verschiedenen Branches sind problematisch.
-	\item Die Versuchung ist groß, umgebungsspezifischen Code einzubinden und einen Konfigurationsdrift zu erzeugen.
-	\item Sobald man eine große Anzahl an Umgebungen hat, gerät die Wartung aller Umgebungen schnell außer Kontrolle.
-	\item Der Branch-per-Environment-Ansatz widerspricht dem bestehenden Kubernetes-Ökosystem.
+	\item Using different Git branches for deployment environments is a relic of the past.
+	\item Pull requests and merges between different branches is problematic.
+	\item People are tempted to include environment specific code and create configuration drift.
+	\item As soon as you have a large number of environments, maintenance of all environments gets quickly out of hand.
+	\item The branch-per-environment model goes against the existing Kubernetes ecosystem.
 \end{itemize}
 
+\noindent
+\autocite{codefreshStopUsingBranchesGitOpsEnvironments}
 
-\section{Folder-per-Environment-Ansatz}
+\section{folder-per-environment approach}
 
 \citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
-liefert in einem Blogbeitrag
-"How to Model Your Gitops Environments and Promote Releases between Them"
-einige Best Practices von Codefresh zu der Problemstellung.
-Codefresh ist die Organisation hinter dem Argo Project
-% TODO: cite Argo Project
-\autocite{argoProjWebsite},
-welches eine Suite an Open-Source-Tools für GitOps
-entwickelt
-\autocite{codefreshHowToModelGitOpsEnvironmentsAndPromote}.
+provides some best practices from Codefresh on the problem in the blog post: "How to Model Your Gitops Environments and Promote Releases Between Them."
+%\bigskip
+%
+%\noindent
+Es werden folgende Kategorien der "Umgebungskonfiguration" vorgeschlagen:
+
+\begin{itemize}
+    \item \textbf{Application version} in the form of the container tag used. This is the setting that increases with each release and decreases with each rollback - and is always promoted between environments.
+	\item \textbf{Kubernetes-specific settings} for the application (manifests).
+	\item \textbf{Mainly static settings} for the business logic. These include external URLs, internal queue sizes, UI default values, authentication profiles, etc. By "mostly static" they mean settings that are defined once for each environment and then generally do not change. These settings should never be promoted between environments.
+	\item \textbf{Non-Static Business Settings}. This is the same as the previous item, but it includes settings that are indeed promoted between environments. These can be a global VAT setting, parameters for the recommendation engine, the available bitrate encodings, and any other setting that is specific to the business or enterprise.
+\end{itemize}
+
+\noindent
+\autocite{codefreshHowToModelGitOpsEnvironmentsAndPromote}
 \bigskip
 
 \noindent
+The application version and non-static business settings are promoted between environments.
 \citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
-schlägt vorerst folgende Kategorien der "Umgebungskonfiguration" vor:
-
-\begin{itemize}
-    \item \textbf{App-Version} in Form des verwendeten Container-Tags. Das ist jene Einstellung, die sich bei jedem Release erhöht und bei jedem Rollback verringert - und immer zwischen Umgebungen promotet wird.
-    \item \textbf{Kubernetes-spezifische Einstellungen} für die Applikation (Manifests).
-    \item \textbf{Überwiegend statische Einstellungen} für die Geschäftslogik. Das sind z. B. externe URLs, interne Warteschlangengrößen, UI-Standardwerte, Authentifizierungsprofile usw. Mit "größtenteils statisch" sind Einstellungen gemeint, die einmal für jede Umgebung definiert werden und sich dann in der Regel nicht mehr ändern. Diese Einstellungen sollten niemals zwischen Umgebungen promotet werden.
-    \item \textbf{Nicht-statische Geschäftseinstellungen}. Dies ist dasselbe wie der vorige Punkt, aber es umfasst Einstellungen, die sehrwohl zwischen Umgebungen promotet werden. Dabei kann es sich um eine globale Mehrwertsteuer-Einstellung, Parameter für die Empfehlungs-Engine, die verfügbaren Bitraten-Codierungen und jede andere Einstellung handeln, die für das Geschäft bzw. Unternehmen spezifisch ist.
-\end{itemize}
-
-\noindent
-Die App-Version und die nicht-statischen Geschäftseinstellungen gehören zwischen Umgebungen promotet.
-\citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
-schlägt vor, die Konfigurationsparameter je Kategorie in einer separaten Datei zu definieren.
-Infolgedessen können die vier Kategorien unabhängig voneinander promotet werden.
-Es wird der Folder-per-Environment-Ansatz vorgeschlagen.
+suggests defining the configuration parameters per category in a separate file.
+As a result, the four categories can be promoted independently.
+The folder-per-environment approach is proposed.
 % TODO: visuell darstellen die 4 config files ?
-Im Allgemeinen sind alle Promotions nur Kopiervorgänge. 
-Im Gegensatz zum Branch-per-Environment-Ansatz kann beim Folder-per-Environment-Ansatz 
-alles von einer beliebigen Umgebung in eine andere Umgebung verschoben werden, 
-ohne befürchten zu müssen, dass die falschen Änderungen übernommen werden. 
-Besonders wenn es um die Rückportierung von Konfigurationen geht, glänzt Folder-per-Environment-Ansatz, 
-da Konfigurationen einfach sowohl "vorwärts" als auch "rückwärts" verschoben werden können, 
-sogar zwischen nicht verwandten Umgebungen.
+In general, all promotions are just copy operations. 
+Unlike the branch-per-environment approach, with the folder-per-environment approach 
+everything can be moved from any environment to any other environment
+without fear that the wrong changes will be applied. 
+Especially when it comes to backporting configurations, the folder-per-environment approach shines, 
+because configurations can be easily moved both "forward" and "backward", 
+even between unrelated environments.
 \bigskip
 
 \noindent
-\textbf{Szenario}: Promotion der App-Version von qa zu staging-us.
+\textbf{Scenario}: Promotion of the application version from qa to staging-us.
 
 \begin{verbatim}
 	cp envs/qa/version.yml envs/staging-us/version.yml
 \end{verbatim}
 
 \noindent
-\textbf{Szenario}: Promotion der Applikation von prod-eu nach prod-us zusammen mit der zusätzlichen Konfiguration. Hier werden auch die Einstellungsdatei(en) kopiert.
+\textbf{Scenario}: Promotion of the application from prod-eu to prod-us together with the additional configuration. The settings file(s) are also copied.
 
 \begin{verbatim}
 	cp envs/prod-eu/version.yml envs/prod-us/version.yml
@@ -81,7 +78,7 @@ sogar zwischen nicht verwandten Umgebungen.
 \end{verbatim}
 
 \noindent
-\textbf{Szenario}: Rückportierung aller Einstellungen von qa zu integration-non-gpu.
+\textbf{Scenario}: Backport all settings from qa to integration-non-gpu.
 
 \begin{verbatim}
 	cp envs/qa/settings.yml envs/integration-non-gpu/settings.yml
@@ -89,25 +86,28 @@ sogar zwischen nicht verwandten Umgebungen.
 
 \noindent
 \citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
-merkt hierbei an,
-dass die cp-Operationen nur zur Veranschaulichung dienen. 
-In einer realen Anwendung würde dieser Vorgang automatisch von einem CI-System 
-oder einem anderen Orchestrierungswerkzeug durchgeführt werden. Und je nach Umgebung 
-sollte vielleicht zuerst ein Pull Request erstellt werden, anstatt den Ordner im Haupt-Branch direkt zu bearbeiten
+notes,
+that the copy operations are for illustrative purposes only. 
+In a real-world application, this operation would be performed automatically by a CI system 
+or other orchestration tool. And depending on the environment 
+perhaps a pull request should be created first instead of processing the folder in the main branch directly
 \autocite{codefreshHowToModelGitOpsEnvironmentsAndPromote}.
 \bigskip
 
 \noindent
 \citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
-nennt folgende Vorteile des Folder-per-Environment-Ansatzes:
+suggests the following advantages of the folder-per-environment approach:
 
 \begin{itemize}
-	\item Die Reihenfolge der Commits im Git-Repository ist irrelevant. Wenn eine Datei von einem Ordner in den nächsten kopiert wird, ist die Commit-Historie egal.
-	\item Wenn lediglich Dateien kopiert werden, wird nur genau das promotet, was gebraucht wird, und sonst nichts.
-	\item Es müssen weder Git Cherry-Picks noch andere fortgeschrittene Git-Methoden verwendet werden, um Releases zu promoten. Es müssen lediglich Dateien kopiert werden.
-	\item Es steht dem Benutzer frei, eine beliebige Änderung aus einer beliebigen Umgebung in eine beliebige Umgebung zu übernehmen, ohne dass es irgendwelche Einschränkungen bezüglich der richtigen "Reihenfolge" der Umgebungen gibt.
-	\item Mit Hilfe von Diff-Operationen auf Dateien ist es leicht nachzuvollziehen, was sich zwischen den Umgebungen in allen Richtungen unterscheidet (sowohl in der Quell- als auch in der Zielumgebung und umgekehrt).
+	\item The order of commits in the Git repository is irrelevant. When a file is copied from one folder to the next, the commit history doesn't matter.
+	\item If only files are copied, only exactly what is needed is promoted, and nothing else.
+	\item No need to use git cherry picks or other advanced git methods to promote releases. Only files need to be copied.
+	\item The user is free to commit any change from any environment to any environment, without any restrictions on the proper "order" of environments.
+	\item Using diff operations on files, it is easy to track what is different between environments in all directions (both in the source and target environments and vice versa).
 \end{itemize}
+
+\noindent
+\autocite{codefreshHowToModelGitOpsEnvironmentsAndPromote}
 
 % TODO: Delta zw. Related Work and Your Work? was machst du mehr/besser/schneller/genauer/anders/etc.?
 
