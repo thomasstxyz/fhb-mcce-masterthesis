@@ -1,23 +1,32 @@
 \chapter{Ergebnisse}
 
 Die Ergebnisse der bisherigen Literaturrecherche zeigen,
-dass bereits wissenschaftliche Untersuchungen zum Thema
-der software-basierten dynamischen Stromverbrauchs-Messungs
-unternommen wurden. 
-Im Bereich von VM-basierten Systemen, prozess-basierter Messung, sowie container-basierter Messung
-von Stromverbrauch. Dabei wird oft der Gesamtverbrauch der physischen Maschine - primär die 
-CPU-Auslastung und deren Stromverbrauch -
-mittels Hardware-Indikatoren und Low-Level-Schnittstellen, welche die Hardware zur Verfügung stellt, ausgelesen,
-und mittels mathematischer Kalkulationen auf kleinere logische Einheiten versucht zuzuordnen.
+dass für die Promotion von Releases zwischen mehreren Umgebungen
+keine Standardpraxis existiert. 
+Die bestehenden GitOps-Tools liefern
+keinerlei native Lösungen dafür.
+Als Best Practice wird vorgeschlagen, dass die Promotion-Operationen
+- in Form von einfachen Datei-Kopiervorgängen -
+an das CI-System ausgelagert werden sollen.
+%\bigskip
+%
+%\noindent
+Der Literatur sowie den eigenen Beobachtungen zufolge,
+fehlt jegliche Art der Standardisierung,
+wenn es um die Definition von mehreren Umgebungen mit GitOps geht.
 \bigskip
 
-Als primäres Ergebnis dieser Arbeit wird die Kubernetes-native Messung des Stromverbrauchs von Kubernetes Workloads
-erwartet. Der entwickelte Prototyp soll als modulare Extension zu Kubernetes dienen.
-Es sollen die gewonnenen Metriken über den OpenTelemetry-Standard,
-für Observability-Werkzeuge als Service Level Indicators (SLI) zur Verfügung stehen.
+\noindent
+Als primäres Ergebnis dieser Arbeit ist
+eine Antwort auf die Forschungsfragen erwartet,
+indem eine Softwarelösung als Prototyp vorgestellt wird.
+Der entwickelte Prototyp soll optimalerweise als 
+modulare Erweiterung zu Kubernetes dienen.
 \bigskip
 
-In einem Laborexperiment soll bewiesen werden, dass
-anhand der preisgegebenen Metriken des Kubernetes Workload basierten Stromverbrauchs
-Kubernetes Workloads adaptiv auf geeignete Nodes zugeordnet werden können,
-auf welchen sie am effizientesten laufen.
+%\noindent
+%In einem Laborexperiment soll bewiesen werden, dass
+%
+%anhand der preisgegebenen Metriken des Kubernetes Workload basierten Stromverbrauchs
+%Kubernetes Workloads adaptiv auf geeignete Nodes zugeordnet werden können,
+%auf welchen sie am effizientesten laufen.
