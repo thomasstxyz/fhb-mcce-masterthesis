@@ -1,35 +1,35 @@
-\chapter{Einleitung und Problemhintergrund}
+\chapter{Introduction}
 
 % Forschungsfeld (Universum), 5-7 Sätze
 % wie kommt man zu GitOps? 1,2 Sätze
 % universum -> erde -> kontinent -> land -> region -> strand -> sandkorn
 
-Immer mehr Organisationen setzen auf 
-eine DevOps-Kultur, um neue Applikationen und Dienste mit hoher Geschwindigkeit zu entwickeln. 
-Denn eine Kultur, die gemeinsame Verantwortung, Transparenz und schnelles Feedback fördert, 
-hilft dabei, die Lücken zwischen Teams zu verkleinern und damit auch Prozesse zu beschleunigen.
-Aus dem Bedürfnis nach schneller Innovation entstand GitOps.
+Increasingly more organizations are adopting 
+a DevOps culture to develop new applications and services at high velocity. 
+After all, a culture that encourages shared responsibility, transparency and rapid feedback, 
+helps narrow the gaps between teams and thus accelerate processes.
+GitOps was born out of the need for rapid innovation.
 \bigskip
 
 % Was ist denn das überhaupt
 % Was ist GitOps
 
 \noindent
-GitOps ist eine Reihe von Prinzipien für den Betrieb und die Verwaltung von Softwaresystemen.
-Diese Prinzipien sind aus dem modernen Softwarebetrieb abgeleitet, haben aber auch ihre Wurzeln 
-in bereits bestehenden und weithin angenommenen Best Practices. Die primären vier Prinzipien,
-welche als Grundsätze für den gewünschten Zustand eines
-von GitOps verwalteten System gelten, sind die folgenden:
+GitOps is a set of principles for operating and managing software systems.
+These principles are derived from modern software operations, but also have their roots 
+in existing and widely adopted best practices. The primary four principles,
+which serve as principles for the desired state of a
+system managed by GitOps are the following:
 
 \begin{itemize}
-	\item \textbf{Deklarativ} \\
-		Bei einem von GitOps verwalteten System muss der gewünschte Zustand deklarativ ausgedrückt werden.
-	\item \textbf{Versioniert und unveränderlich} \\
-		Der gewünschte Zustand wird auf eine Weise gespeichert, die Unveränderlichkeit und Versionierung erzwingt und eine vollständige Versionshistorie aufbewahrt.
-	\item \textbf{Automatisch abgerufen} \\
-		Software-Agenten ziehen automatisch die gewünschten Zustands-Deklarationen aus der Quelle.
-	\item \textbf{Kontinuierlich abgeglichen} \\
-		Software-Agenten beobachten kontinuierlich den aktuellen Systemzustand und versuchen, den gewünschten Zustand herzustellen.
+	\item \textbf{Declarative} \\
+		A system managed by GitOps must have its desired state expressed declaratively.
+	\item \textbf{Versioned and Immutable} \\
+		Desired state is stored in a way that enforces immutability, versioning and retains a complete version history.
+	\item \textbf{Pulled Automatically} \\
+		Software agents automatically pull the desired state declarations from the source.
+	\item \textbf{Continuously Reconciled} \\
+		Software agents continuously observe actual system state and attempt to apply the desired state.
 \end{itemize}
 
 \noindent
@@ -37,81 +37,82 @@ von GitOps verwalteten System gelten, sind die folgenden:
 \bigskip
 
 \noindent
-Diese Grundsätze sind in der Version 1.0.0 von OpenGitOps festgelegt.
-OpenGitOps ist ein Cloud Native Computing Foundation (CNCF) Sandbox-Projekt im Rahmen der GitOps Working Group.
-Die GitOps Working Group ist eine Arbeitsgruppe unter
-dem CNCF App Delivery TAG,
-mit dem Ziel, eine klare herstellerneutrale,
-prinzipiengeleitete Bedeutung von GitOps zu definieren.
-Damit wird eine Grundlage für die Interoperabilität zwischen Tools, Konformität und Zertifizierung durch dauerhafte Programme, Dokumente und Code geschaffen
+These principles are defined in OpenGitOps version 1.0.0.
+OpenGitOps is a Cloud Native Computing Foundation (CNCF) sandbox project under the GitOps Working Group.
+The GitOps Working Group is a working group under the
+the CNCF App Delivery TAG,
+with the goal of establishing a clear vendor-neutral,
+principle-driven meaning of GitOps.
+This will provide a foundation for interoperability between tools, conformance and certification through enduring programs, documents and code
 \autocite{opengitopsDocuments}.
 \bigskip
 
 \noindent
-Es ist anzumerken, dass sich der Begriff GitOps nicht ausschließlich auf
-die in OpenGitOps definierten Grundsätze beschränkt,
-sondern darüber hinaus geht.
+It should be noted that the term GitOps is not exclusively limited to
+the principles defined in OpenGitOps,
+but goes beyond that.
 % TODO: Quelle, wo GitOps noch definiert ist
 % TODO: was ist im Groben der Unterschied zwischen OpenGitOps und generell GitOps?
 \bigskip
 
 \noindent
-GitOps kann als eine Weiterentwicklung von Infrastructure as Code (IaC) betrachtet werden, die Git als Versionskontrollsystem für Infrastrukturkonfigurationen verwendet.
-GitOps senkt die Kosten für die Erstellung von Self-Service-IT-Systemen und ermöglicht Self-Service-Operationen, die bisher nicht zu rechtfertigen waren.
-Es verbessert die Fähigkeit, Systeme sicher zu betreiben, indem es
-unprivilegierten Nutzern erlaubt, große Änderungen vorzunehmen,
-ohne diesen Nutzern direkten Zugriff am Zielsystem zu erteilen.
-Über sogenannte Pull Requests können gewöhnliche Nutzer einen Antrag
-ihrer vorgeschlagenen Änderungen stellen.
-Diese Pull Requests können im Anschluss von höher privilegierten Nutzern
-überprüft und akzeptiert werden.
-Gegebenenfalls können Anpassungen vorgeschlagen, oder selbst eingearbeitet werden.
+GitOps can be viewed as an evolution of Infrastructure as Code (IaC) that uses Git as a version control system for infrastructure configurations.
+GitOps lowers the cost of building self-service IT systems and enables self-service operations that were previously unjustifiable
+\autocite{limoncelli_gitopsPathToMoreSelfService}.
+It improves the ability to operate systems securely by
+allowing unprivileged users to make major changes,
+without granting these users direct access to the target system.
+Through so-called pull requests, ordinary users can submit a request
+of their proposed changes.
+These pull requests can then be reviewed and accepted by more privileged users.
+If necessary, adjustments can be suggested or incorporated by the reviewers themselves.
 \bigskip
 
 \noindent
-Die Sicherheit kann verbessert werden, indem automatisierte Tests hinzugefügt werden.
-Diese Tests können beispielsweise
-Linting (Validierung der Syntax),
-das Erzwingen von Style-Guides,
-das Durchführen von Unit Tests,
-oder
-das Durchsetzen von Sicherheitsrichtlinien
-umfassen.
-Sicherheitsprüfungen und Audits werden einfacher, 
-da jede Änderung nachverfolgt wird.
-Jede Änderung bzw. Commit wird permanent in der Git-Historie festgehalten
+Security can be improved by adding automated tests.
+These tests can include
+Linting (validation of syntax),
+enforcing style guides,
+running end-to-end and unit tests,
+or
+enforcing security policies.
+Security reviews and audits become easier 
+because every change is tracked.
+Every change or commit is permanently recorded in the Git history
 \autocite{limoncelli_gitopsPathToMoreSelfService}.
 \bigskip
 
 % es gibt derzeit diese Probleme mit GitOps
 
 \noindent
-GitOps als Praxis für das Releasen von Software hat mehrere Vorteile,
-aber wie auch andere Lösungen, hat GitOps auch mehrere Unzulänglichkeiten.
-Derzeit gibt es mit GitOps einige ungelöste Probleme.
-Einserseits sind das Probleme, welche meist schon 
-vor der Implementierung von GitOps in einer Organisation ein Problem waren,
-andererseits bringt eine GitOps-Strategie einige Limitierungen mit sich,
-welche zu neuen Problemen führen.
-Die Organisation Codefresh,
-welche aufgrund ihrer Entwicklungen
-von diversen GitOps-Tools
-als treibende Kraft für GitOps gilt,
-spricht von folgenden Problemen mit dem zurzeit praktizierten GitOps:
+GitOps as a practice for releasing software has several advantages,
+but like other solutions, GitOps also has several shortcomings.
+Currently, there are several unresolved problems with GitOps.
+On the one hand, these are problems that often 
+were a problem in an organization already before GitOps was implemented,
+on the other hand, a GitOps strategy brings with it some limitations,
+which lead to new problems.
+The organization Codefresh
+%Codefresh is the organization behind the Argo Project (argoproj.io, 2023), which is developing a suite of open source tools for GitOps
+%\autocite{argoProjWebsite}.
+as a driving force for GitOps,
+- due to its developments
+of various GitOps tools -
+speaks of the following problems with the currently practiced GitOps:
 
 \begin{itemize}
-	\item GitOps deckt nur eine Teilmenge des Software-Lebenszyklus ab
-	\item Die Aufteilung von CI und CD mit GitOps ist nicht ganz einfach
-	\item GitOps befasst sich nicht mit der Promotion von Releases zwischen Umgebungen
-	\item Es gibt keine Standardpraxis für die Modellierung von Konfigurationen mit mehreren Umgebungen
-	\item GitOps versagt bei automatischer Skalierung und dynamischen Ressourcen
-	\item Es gibt keine Standardpraxis für GitOps-Rollbacks
-	\item Die Observability für GitOps (und Git) ist unausgereift
-	\item Auditing ist problematisch, obwohl alle Informationen in Git vorhanden sind
-	\item Der Betrieb von GitOps in großem Maßstab ist schwierig
-	\item GitOps und Helm arbeiten nicht immer gut zusammen
-	\item Continuous Deployment und GitOps passen nicht zusammen
-	\item Es gibt keine Standardpraxis für die Verwaltung von Secrets
+	\item GitOps covers only a subset of the software lifecycle
+	\item Splitting CI and CD with GitOps is not straightforward
+	\item GitOps doesn’t address promotion of releases between environments
+	\item There is no standard practice for modeling multi-environment configurations
+	\item GitOps breaks down with auto-scaling and dynamic resources
+	\item There is no standard practice for GitOps rollbacks
+	\item Observability for GitOps (and Git) is immature
+	\item Auditing is problematic despite having all information in Git
+	\item Running GitOps at scale is difficult
+	\item GitOps and Helm do not always work well together
+	\item Continuous Deployment and GitOps do not mix together
+	\item There is no standard practice for managing secrets
 \end{itemize}
 
 \noindent
@@ -122,9 +123,4 @@ spricht von folgenden Problemen mit dem zurzeit praktizierten GitOps:
 
 
 
-\noindent
-Die erforschten Ergebnisse,
-den erarbeiteten Lösungsansatz,
-sowie der vorgeschlagene Prototyp,
-können zum Ende
-an die CNCF gespendet werden.
+

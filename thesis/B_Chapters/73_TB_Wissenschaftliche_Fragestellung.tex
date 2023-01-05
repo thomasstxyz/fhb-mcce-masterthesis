@@ -1,46 +1,43 @@
-\chapter{Wissenschaftliche Fragestellung}
+\chapter{Methodology}
 
-Das Ziel dieser Arbeit ist es,
-das Problem der Promotion von Releases zwischen verschiedenen Umgebungen in GitOps
-zu addressieren.
+The goal of this thesis is to
+address the problem of promoting releases between different environments in GitOps.
 \bigskip
 
 \noindent
-Vor allem große Organisationen verfügen für gewöhnlich über viele
-Nicht-Produktions- und Produktions-Umgebungen
-wie beispielsweise: dev, qa, staging-us, staging-eu, production-us, production-eu.
-In der Regel werden neue Releases automatisch in einer Umgebung
-wie beispielsweise qa ausgerollt - mittels einer CI-Pipeline.
-Nun ist es die Aufgabe,
-neue Änderungen, welche durch ein neues Release herbeigeführt werden,
-in nachfolgende bzw. andere Umgebungen zu promoten.
-Die aktuellen GitOps-Tools haben keine einfache Antwort auf
-die Frage, was der richtige Ansatz für den Prozess der Promotion ist.
+Large organizations in particular usually have many
+non-production and production environments
+such as: dev, qa, staging-us, staging-eu, production-us, production-eu.
+Usually new releases are automatically rolled out in an environment
+such as qa - by means of a CI pipeline.
+Now the task is to promote
+new changes, which are brought about by a new release,
+into subsequent or other environments.
+Current GitOps tools do not have a simple answer to
+the question about what is the right approach for the process of promotion.
 \bigskip
 
 \noindent
-Insbesondere sollen in dieser Arbeit
-existierende Strategien für die Lösung des Problems
-mit existierenden Tools erforscht werden.
-Des Weiteren soll ein Prototyp einer neu vorgeschlagenen
-Strategie entwickelt werden.
-Im Anschluss soll der Prototyp im Rahmen eines Laborexperiments
-mit bereits existierenden Strategien
-verglichen werden.
+In particular, this thesis aims to explore
+existing strategies for the solution of the problem
+with existing tools.
+Furthermore, a prototype of a newly proposed strategy will be developed.
+Subsequently, the prototype will be tested in a laboratory experiment
+and compared to currently existing strategies.
 \bigskip
 
 % TODO: mein Lösungsvorschlag?
 
 
 \noindent
-Um das Ziel der Arbeit zu erreichen, wurden folgende Forschungsfragen identifiziert:
+To achieve the goal of the thesis, the following research questions were identified:
 
 \begin{itemize}
-	\item Wie kann die Promotion von Releases in GitOps-Umgebungen gestaltet werden?
+	\item How can the promotion of releases in GitOps environments be designed?
 	\begin{itemize}
-		\item Welche Möglichkeiten bieten bestehende Tools für die Promotion von Releases mit mehreren Deployment-Umgebungen?
-		\item Wie können Deployment-Umgebungen, sowie Promotion-Workflows abstrakt modelliert werden?
-		\item Wie kann die abstrakte Modellierung verwendet werden, um eine standardisierte Lösung zur Promotion von Releases nach den GitOps-Prinzipien zu implementieren?
+		\item What possibilities do existing tools offer for the promotion of releases with multiple deployment environments?
+		\item How can deployment environments, as well as promotion workflows be modeled abstractly?
+		\item How can abstract modeling be used to implement a standardized solution for promoting releases according to GitOps principles?
 	\end{itemize}
 \end{itemize}
 
