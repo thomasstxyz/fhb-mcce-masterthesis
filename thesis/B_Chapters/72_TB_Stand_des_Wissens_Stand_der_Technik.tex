@@ -11,11 +11,15 @@ there has been
 insufficient
 %limited
 scientific literature written about the topic.
-Prior work up until now has been mainly targeted at
-evaluating the concept of GitOps in general,
-as opposed to focusing on new and specific problems that emerge with the adoption of GitOps,
-like the one focused on in this thesis.
+The following paragraph highlights prior 
+scientific research done on the subject "GitOps",
+which has mainly been targeted at
+evaluating the concept of GitOps in general.
 \bigskip
+
+%as opposed to focusing on new and specific problems that emerge with the adoption of GitOps,
+%like the one focused on in this thesis.
+%\bigskip
 
 \noindent
 \citeauthor{limoncelli_gitopsPathToMoreSelfService} (\citeyear{limoncelli_gitopsPathToMoreSelfService})
@@ -24,7 +28,7 @@ The benefits of adoption of GitOps are presented well,
 %however any possible drawbacks of an adoption are omitted from the analysis.
 however there are not any possible problems discussed.
 \citeauthor{whatIsGitOpsSalecha2023} (\citeyear{whatIsGitOpsSalecha2023})
-discuss the definition of the term in a chapter "What Is GitOps?"
+discusses the definition of the term in the chapter "What Is GitOps?"
 of the book "Practical GitOps"
 \autocite{whatIsGitOpsSalecha2023}.
 \citeauthor{gitopsTheEvolutionOfDevops9565152} (\citeyear{gitopsTheEvolutionOfDevops9565152})
@@ -35,21 +39,72 @@ to achieve Continuous Deployment.
 They present a proof of concept to check the feasibility of applying GitOps
 in IoT Edge Computing solutions.
 \citeauthor{analysisOnDeclarativePullBasedDeploymentGitOpsArgoCD_9563984} (\citeyear{analysisOnDeclarativePullBasedDeploymentGitOpsArgoCD_9563984})
-present an analysis of a declarative and pull-based deployment models
+present an analysis of declarative and pull-based deployment models
 following GitOps principles by using the tool ArgoCD.
 The research focuses on the advantages compared to push-based deployment models.
 \bigskip
 
 \noindent
-On the topic of
-modeling multiple deployment environments with GitOps and promoting releases between them,
-there has been no scientific research conducted yet.
+There has not been any scientific research conducted yet on the
+specific topic of
+modeling multiple deployment environments with GitOps and promoting releases between them.
+However,
+%\bigskip
+%
+%\noindent
+\citeauthor{kostisKapelonisMeetACodefresher} (\citeyear{kostisKapelonisMeetACodefresher})
+at Codefresh
+published a couple of blog posts in recent years,
+where some best practices are presented on the topic.
+Codefresh is the organization behind the Argo Project \autocite{argoProjWebsite},
+and therefore a major driving force in the GitOps ecosystem.
+\bigskip
 
+\noindent
+In
+\citetitle{codefreshStopUsingBranchesGitOpsEnvironments}
+\citeauthor{codefreshStopUsingBranchesGitOpsEnvironments} (\citeyear{codefreshStopUsingBranchesGitOpsEnvironments})
+discusses
+the thought of
+modeling different GitOps environments by using Git branches.
+\citeauthor{codefreshStopUsingBranchesGitOpsEnvironments} (\citeyear{codefreshStopUsingBranchesGitOpsEnvironments})
+explains thoroughly why this approach is an anti pattern and should not be used
+\autocite{codefreshStopUsingBranchesGitOpsEnvironments}.
+In
+\citetitle{codefreshHowToModelGitOpsEnvironmentsAndPromote}
+\citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
+shares
+a multitude of suggestions and best practices
+about modeling GitOps environments and promoting releases between them.
+Different environments are modeled by customizing \autocite{kustomizeIoWebsite} configuration 
+in separate files and folders or Git repositories.
+For promoting between environments, basic file copy operations are suggested.
+It is noted, that these simple file copy operations can easily be automated by an external system.
+\citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
+suggests four categories of environment configuration.
+\textit{The application version},
+\textit{Kubernetes specific settings},
+\textit{mostly static business settings},
+and 
+\textit{non-static business settings}.
+While \textit{the application version} and \textit{non-static business settings} are promoted,
+\textit{Kubernetes specific settings} and \textit{mostly static business settings} are generally not promoted between environments
+\autocite{codefreshHowToModelGitOpsEnvironmentsAndPromote}.
+\bigskip
 
-
-
-
-
+\noindent
+In 2021 the
+Argo Project \autocite{argoProjWebsite}
+has brought forward the tool
+\citetitle{argocdAutopilotWebsite} \autocite{argocdAutopilotWebsite}
+to help new GitOps adopters with
+structuring their Git Repsitories,
+and
+promoting applications between environments.
+This command line interface (CLI) tool,
+which includes some of the earlier presented best practices,
+helps with the initial bootstrap process for ArgoCD.
+\bigskip
 
 
 
