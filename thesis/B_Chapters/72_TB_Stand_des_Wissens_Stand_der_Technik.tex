@@ -1,119 +1,227 @@
 \chapter{Related Work}
 
-The following are current practices
-shown on the topic,
-how best to model different deployment environments with GitOps.
+% TODO: geh weniger auf den technischen outcome ein, sondern eher auf den untersuchungsgegenstand, das ergebnis und die abgrenzung zu deiner arbeit ...
 
+% TODO: Delta zw. Related Work and Your Work? was machst du mehr/besser/schneller/genauer/anders/etc.?
 
-\section{branch-per-environment approach}
+Since the introduction of the term GitOps by
+\citeauthor{gitopsOperationsByPullRequest2017Weaveworks} (\citeyear{gitopsOperationsByPullRequest2017Weaveworks})
+at Weaveworks,
+there has been
+insufficient
+%limited
+scientific literature written about the topic.
+The following paragraph highlights prior 
+scientific research done on the subject "GitOps",
+which has mainly been targeted at
+evaluating the concept of GitOps in general.
+\bigskip
 
-\citeauthor{codefreshStopUsingBranchesGitOpsEnvironments} (\citeyear{codefreshStopUsingBranchesGitOpsEnvironments})
-published Codefresh's best practices on modeling environments in GitOps 
-in the blog post "Stop Using Branches for Deploying to Different GitOps Environments".
-The problems with the branch-per-environment approach are shown.
-This approach is an anti-pattern,
-and to be avoided at all costs.
-A number of points are made and justified in detail.
-
-\begin{itemize}
-	\item Using different Git branches for deployment environments is a relic of the past.
-	\item Pull requests and merges between different branches is problematic.
-	\item People are tempted to include environment specific code and create configuration drift.
-	\item As soon as you have a large number of environments, maintenance of all environments gets quickly out of hand.
-	\item The branch-per-environment model goes against the existing Kubernetes ecosystem.
-\end{itemize}
+%as opposed to focusing on new and specific problems that emerge with the adoption of GitOps,
+%like the one focused on in this thesis.
+%\bigskip
 
 \noindent
-\autocite{codefreshStopUsingBranchesGitOpsEnvironments}
+\citeauthor{limoncelli_gitopsPathToMoreSelfService} (\citeyear{limoncelli_gitopsPathToMoreSelfService})
+draws attention to GitOps in an article, where the concept is brought to the reader in an easily digestible way.
+The benefits of adoption of GitOps are presented well,
+%however any possible drawbacks of an adoption are omitted from the analysis.
+however there are not any possible problems discussed.
+\citeauthor{whatIsGitOpsSalecha2023} (\citeyear{whatIsGitOpsSalecha2023})
+discusses the definition of the term in the chapter "What Is GitOps?"
+of the book "Practical GitOps"
+\autocite{whatIsGitOpsSalecha2023}.
+\citeauthor{gitopsTheEvolutionOfDevops9565152} (\citeyear{gitopsTheEvolutionOfDevops9565152})
+discuss the idea of GitOps as an evolution of DevOps. They conduct research on the definition of both terms.
+\citeauthor{continuousDeploymentIOTEdgeComputingAGitOpsImplementation_9820108} (\citeyear{continuousDeploymentIOTEdgeComputingAGitOpsImplementation_9820108})
+publish a conference paper about implementing GitOps in IoT Edge Computing
+to achieve Continuous Deployment.
+They present a proof of concept to check the feasibility of applying GitOps
+in IoT Edge Computing solutions.
+\citeauthor{analysisOnDeclarativePullBasedDeploymentGitOpsArgoCD_9563984} (\citeyear{analysisOnDeclarativePullBasedDeploymentGitOpsArgoCD_9563984})
+present an analysis of declarative and pull-based deployment models
+following GitOps principles by using the tool ArgoCD.
+The research focuses on the advantages compared to push-based deployment models.
+\bigskip
 
-% TODO: immer fließtext nach aufzählungen, tabellen, etc.
-
-\section{folder-per-environment approach}
-
-\citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
-provides some best practices from Codefresh on the problem in the blog post: "How to Model Your Gitops Environments and Promote Releases Between Them."
+\noindent
+There has not been any scientific research conducted yet on the
+specific topic of
+modeling multiple deployment environments with GitOps and promoting releases between them.
+However,
 %\bigskip
 %
 %\noindent
-Es werden folgende Kategorien der "Umgebungskonfiguration" vorgeschlagen:
-
-\begin{itemize}
-    \item \textbf{Application version} in the form of the container tag used. This is the setting that increases with each release and decreases with each rollback - and is always promoted between environments.
-	\item \textbf{Kubernetes-specific settings} for the application (manifests).
-	\item \textbf{Mainly static settings} for the business logic. These include external URLs, internal queue sizes, UI default values, authentication profiles, etc. By "mostly static" they mean settings that are defined once for each environment and then generally do not change. These settings should never be promoted between environments.
-	\item \textbf{Non-Static Business Settings}. This is the same as the previous item, but it includes settings that are indeed promoted between environments. These can be a global VAT setting, parameters for the recommendation engine, the available bitrate encodings, and any other setting that is specific to the business or enterprise.
-\end{itemize}
-
-\noindent
-\autocite{codefreshHowToModelGitOpsEnvironmentsAndPromote}
+\citeauthor{kostisKapelonisMeetACodefresher} (\citeyear{kostisKapelonisMeetACodefresher})
+at Codefresh
+published a couple of blog posts in recent years,
+where some best practices are presented on the topic.
+Codefresh is the organization behind the Argo Project \autocite{argoProjWebsite},
+and therefore a major driving force in the GitOps ecosystem.
 \bigskip
 
 \noindent
-The application version and non-static business settings are promoted between environments.
+In
+\citetitle{codefreshStopUsingBranchesGitOpsEnvironments}
+\citeauthor{codefreshStopUsingBranchesGitOpsEnvironments} (\citeyear{codefreshStopUsingBranchesGitOpsEnvironments})
+discusses
+the thought of
+modeling different GitOps environments by using Git branches.
+\citeauthor{codefreshStopUsingBranchesGitOpsEnvironments} (\citeyear{codefreshStopUsingBranchesGitOpsEnvironments})
+explains thoroughly why this approach is an anti pattern and should not be used
+\autocite{codefreshStopUsingBranchesGitOpsEnvironments}.
+In
+\citetitle{codefreshHowToModelGitOpsEnvironmentsAndPromote}
 \citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
-suggests defining the configuration parameters per category in a separate file.
-As a result, the four categories can be promoted independently.
-The folder-per-environment approach is proposed.
-% TODO: visuell darstellen die 4 config files ?
-In general, all promotions are just copy operations. 
-Unlike the branch-per-environment approach, with the folder-per-environment approach 
-everything can be moved from any environment to any other environment
-without fear that the wrong changes will be applied. 
-Especially when it comes to backporting configurations, the folder-per-environment approach shines, 
-because configurations can be easily moved both "forward" and "backward", 
-even between unrelated environments.
-\bigskip
-
-\noindent
-\textbf{Scenario}: Promotion of the application version from qa to staging-us.
-
-\begin{verbatim}
-	cp envs/qa/version.yml envs/staging-us/version.yml
-\end{verbatim}
-
-\noindent
-\textbf{Scenario}: Promotion of the application from prod-eu to prod-us together with the additional configuration. The settings file(s) are also copied.
-
-\begin{verbatim}
-	cp envs/prod-eu/version.yml envs/prod-us/version.yml
-	cp envs/prod-eu/settings.yml envs/prod-us/settings.yml
-\end{verbatim}
-
-\noindent
-\textbf{Scenario}: Backport all settings from qa to integration-non-gpu.
-
-\begin{verbatim}
-	cp envs/qa/settings.yml envs/integration-non-gpu/settings.yml
-\end{verbatim}
-
-\noindent
+shares
+a multitude of suggestions and best practices
+about modeling GitOps environments and promoting releases between them.
+Different environments are modeled by customizing \autocite{kustomizeIoWebsite} configuration 
+in separate files and folders or Git repositories.
+For promoting between environments, basic file copy operations are suggested.
+It is noted, that these simple file copy operations can easily be automated by an external system.
 \citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
-notes,
-that the copy operations are for illustrative purposes only. 
-In a real-world application, this operation would be performed automatically by a CI system 
-or other orchestration tool. And depending on the environment 
-perhaps a pull request should be created first instead of processing the folder in the main branch directly
+suggests four categories of environment configuration.
+\textit{The application version},
+\textit{Kubernetes specific settings},
+\textit{mostly static business settings},
+and 
+\textit{non-static business settings}.
+While \textit{the application version} and \textit{non-static business settings} are promoted,
+\textit{Kubernetes specific settings} and \textit{mostly static business settings} are generally not promoted between environments
 \autocite{codefreshHowToModelGitOpsEnvironmentsAndPromote}.
 \bigskip
 
 \noindent
-\citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
-suggests the following advantages of the folder-per-environment approach:
+In 2021 the
+Argo Project \autocite{argoProjWebsite}
+has brought forward the tool
+\citetitle{argocdAutopilotWebsite} \autocite{argocdAutopilotWebsite}
+to help new GitOps adopters with
+structuring their Git Repsitories,
+and
+promoting applications between environments.
+This command line interface (CLI) tool,
+which includes some of the earlier presented best practices,
+helps with the initial bootstrap process for ArgoCD.
+\bigskip
 
-\begin{itemize}
-	\item The order of commits in the Git repository is irrelevant. When a file is copied from one folder to the next, the commit history doesn't matter.
-	\item If only files are copied, only exactly what is needed is promoted, and nothing else.
-	\item No need to use git cherry picks or other advanced git methods to promote releases. Only files need to be copied.
-	\item The user is free to commit any change from any environment to any environment, without any restrictions on the proper "order" of environments.
-	\item Using diff operations on files, it is easy to track what is different between environments in all directions (both in the source and target environments and vice versa).
-\end{itemize}
 
-\noindent
-\autocite{codefreshHowToModelGitOpsEnvironmentsAndPromote}
 
-% TODO: immer fließtext nach aufzählungen, tabellen, etc.
 
-% TODO: Delta zw. Related Work and Your Work? was machst du mehr/besser/schneller/genauer/anders/etc.?
+
+%The following are current practices
+%shown on the topic,
+%how best to model different deployment environments with GitOps.
+%
+%
+%\section{branch-per-environment approach}
+%
+%\citeauthor{codefreshStopUsingBranchesGitOpsEnvironments} (\citeyear{codefreshStopUsingBranchesGitOpsEnvironments})
+%published Codefresh's best practices on modeling environments in GitOps 
+%in the blog post "Stop Using Branches for Deploying to Different GitOps Environments".
+%The problems with the branch-per-environment approach are shown.
+%This approach is an anti-pattern,
+%and to be avoided at all costs.
+%A number of points are made and justified in detail.
+%
+%\begin{itemize}
+%	\item Using different Git branches for deployment environments is a relic of the past.
+%	\item Pull requests and merges between different branches is problematic.
+%	\item People are tempted to include environment specific code and create configuration drift.
+%	\item As soon as you have a large number of environments, maintenance of all environments gets quickly out of hand.
+%	\item The branch-per-environment model goes against the existing Kubernetes ecosystem.
+%\end{itemize}
+%
+%\noindent
+%\autocite{codefreshStopUsingBranchesGitOpsEnvironments}
+%
+%% TODO: immer fließtext nach aufzählungen, tabellen, etc.
+%
+%\section{folder-per-environment approach}
+%
+%\citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
+%provides some best practices from Codefresh on the problem in the blog post: "How to Model Your Gitops Environments and Promote Releases Between Them."
+%%\bigskip
+%%
+%%\noindent
+%Es werden folgende Kategorien der "Umgebungskonfiguration" vorgeschlagen:
+%
+%\begin{itemize}
+%    \item \textbf{Application version} in the form of the container tag used. This is the setting that increases with each release and decreases with each rollback - and is always promoted between environments.
+%	\item \textbf{Kubernetes-specific settings} for the application (manifests).
+%	\item \textbf{Mainly static settings} for the business logic. These include external URLs, internal queue sizes, UI default values, authentication profiles, etc. By "mostly static" they mean settings that are defined once for each environment and then generally do not change. These settings should never be promoted between environments.
+%	\item \textbf{Non-Static Business Settings}. This is the same as the previous item, but it includes settings that are indeed promoted between environments. These can be a global VAT setting, parameters for the recommendation engine, the available bitrate encodings, and any other setting that is specific to the business or enterprise.
+%\end{itemize}
+%
+%\noindent
+%\autocite{codefreshHowToModelGitOpsEnvironmentsAndPromote}
+%\bigskip
+%
+%\noindent
+%The application version and non-static business settings are promoted between environments.
+%\citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
+%suggests defining the configuration parameters per category in a separate file.
+%As a result, the four categories can be promoted independently.
+%The folder-per-environment approach is proposed.
+%% TODO: visuell darstellen die 4 config files ?
+%In general, all promotions are just copy operations. 
+%Unlike the branch-per-environment approach, with the folder-per-environment approach 
+%everything can be moved from any environment to any other environment
+%without fear that the wrong changes will be applied. 
+%Especially when it comes to backporting configurations, the folder-per-environment approach shines, 
+%because configurations can be easily moved both "forward" and "backward", 
+%even between unrelated environments.
+%\bigskip
+%
+%\noindent
+%\textbf{Scenario}: Promotion of the application version from qa to staging-us.
+%
+%\begin{verbatim}
+%	cp envs/qa/version.yml envs/staging-us/version.yml
+%\end{verbatim}
+%
+%\noindent
+%\textbf{Scenario}: Promotion of the application from prod-eu to prod-us together with the additional configuration. The settings file(s) are also copied.
+%
+%\begin{verbatim}
+%	cp envs/prod-eu/version.yml envs/prod-us/version.yml
+%	cp envs/prod-eu/settings.yml envs/prod-us/settings.yml
+%\end{verbatim}
+%
+%\noindent
+%\textbf{Scenario}: Backport all settings from qa to integration-non-gpu.
+%
+%\begin{verbatim}
+%	cp envs/qa/settings.yml envs/integration-non-gpu/settings.yml
+%\end{verbatim}
+%
+%\noindent
+%\citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
+%notes,
+%that the copy operations are for illustrative purposes only. 
+%In a real-world application, this operation would be performed automatically by a CI system 
+%or other orchestration tool. And depending on the environment 
+%perhaps a pull request should be created first instead of processing the folder in the main branch directly
+%\autocite{codefreshHowToModelGitOpsEnvironmentsAndPromote}.
+%\bigskip
+%
+%\noindent
+%\citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
+%suggests the following advantages of the folder-per-environment approach:
+%
+%\begin{itemize}
+%	\item The order of commits in the Git repository is irrelevant. When a file is copied from one folder to the next, the commit history doesn't matter.
+%	\item If only files are copied, only exactly what is needed is promoted, and nothing else.
+%	\item No need to use git cherry picks or other advanced git methods to promote releases. Only files need to be copied.
+%	\item The user is free to commit any change from any environment to any environment, without any restrictions on the proper "order" of environments.
+%	\item Using diff operations on files, it is easy to track what is different between environments in all directions (both in the source and target environments and vice versa).
+%\end{itemize}
+%
+%\noindent
+%\autocite{codefreshHowToModelGitOpsEnvironmentsAndPromote}
+
+
 
 
 
