@@ -2,6 +2,7 @@
 
 \noindent
 TODO intro umschreiben in 4 Absätze
+\bigskip
 
 % 1. Absatz: Beschreibe uns das Forschungsfeld in dem du dich befindest (DevOps / GitOps)
 
@@ -20,12 +21,9 @@ TODO intro umschreiben in 4 Absätze
 
 
 
-\bigskip
 
-% Forschungsfeld (Universum), 5-7 Sätze
-% wie kommt man zu GitOps? 1,2 Sätze
-% universum -> erde -> kontinent -> land -> region -> strand -> sandkorn
 
+\noindent
 Increasingly more organizations are adopting 
 a DevOps culture to develop new applications and services at high velocity. 
 After all, a culture that encourages shared responsibility, transparency and rapid feedback, 
@@ -72,46 +70,7 @@ However, the research is not limited to the definitions in OpenGitOps,
 and might even suggest changes.
 
 
-% However, since OpenGitOps is still in the sandbox phase,
-% the definitions are likely to change.
-% Furthermore, this research is not limited to the OpenGitOps initiative,
-% and might introduce new concepts or adaptions and suggest them.
 
-% The term GitOps is not exclusively limited to
-% the principles defined in OpenGitOps,
-% but goes beyond that.
-% TODO: Quelle, wo GitOps noch definiert ist
-% TODO: was ist im Groben der Unterschied zwischen OpenGitOps und generell GitOps?
-% Since the concept of GitOps itself is still quite new,
-% the definitions in OpenGitOps are still open to change
-% \bigskip
-
-%\noindent
-%GitOps can be viewed as an evolution of Infrastructure as Code (IaC) that uses Git as a version control system for infrastructure configurations.
-%GitOps lowers the cost of building self-service IT systems and enables self-service operations that were previously unjustifiable
-%\autocite{limoncelli_gitopsPathToMoreSelfService}.
-%It improves the ability to operate systems securely by
-%allowing unprivileged users to make major changes,
-%without granting these users direct access to the target system.
-%Through so-called pull requests, ordinary users can submit a request
-%of their proposed changes.
-%These pull requests can then be reviewed and accepted by more privileged users.
-%If necessary, adjustments can be suggested or incorporated by the reviewers themselves.
-%\bigskip
-%
-%\noindent
-%Security can be improved by adding automated tests.
-%These tests can include
-%Linting (validation of syntax),
-%enforcing style guides,
-%running end-to-end and unit tests,
-%or
-%enforcing security policies.
-%Security reviews and audits become easier 
-%because every change is tracked.
-%Every change or commit is permanently recorded in the Git history
-%\autocite{limoncelli_gitopsPathToMoreSelfService}.
-%\bigskip
 
 % es gibt derzeit diese Probleme mit GitOps
 
@@ -181,59 +140,39 @@ to deliver high quality software.
 
 
 
+
+
+
+
+
+
 %\noindent
-%When considering GitOps at scale,
-%adopters of GitOps and its current tools and practices
-%soon realize the problem of
-%modeling multiple environments
-%and promoting releases between them.
-%Current tools do not come with an out-of-the-box solution
-%for describing multiple environments.
-%It is to decide by the user
-%how to model their multiple environments in a GitOps fashion.
-%There have emerged a couple of models for describing environments
-%like branch-per-environment,
-%folder-per-environment, repo-per-environment,
-%which all seem to have their individual upsides and downsides.
-%For every approach, the process of promotion is different.
-
-
-
-
-
-%The organization Codefresh
-%%Codefresh is the organization behind the Argo Project (argoproj.io, 2023), which is developing a suite of open source tools for GitOps
-%%\autocite{argoProjWebsite}.
-%as a driving force for GitOps,
-%- due to its developments
-%of various GitOps tools -
-%speaks of the following problems with the currently practiced GitOps:
-%
-%\begin{itemize}
-%	\item GitOps covers only a subset of the software lifecycle
-%	\item Splitting CI and CD with GitOps is not straightforward
-%	\item GitOps doesn’t address promotion of releases between environments
-%	\item There is no standard practice for modeling multi-environment configurations
-%	\item GitOps breaks down with auto-scaling and dynamic resources
-%	\item There is no standard practice for GitOps rollbacks
-%	\item Observability for GitOps (and Git) is immature
-%	\item Auditing is problematic despite having all information in Git
-%	\item Running GitOps at scale is difficult
-%	\item GitOps and Helm do not always work well together
-%	\item Continuous Deployment and GitOps do not mix together
-%	\item There is no standard practice for managing secrets
-%\end{itemize}
-%
-%\noindent
-%\autocite{codefreshGitopsPains10}
+%GitOps can be viewed as an evolution of Infrastructure as Code (IaC) that uses Git as a version control system for infrastructure configurations.
+%GitOps lowers the cost of building self-service IT systems and enables self-service operations that were previously unjustifiable
+%\autocite{limoncelli_gitopsPathToMoreSelfService}.
+%It improves the ability to operate systems securely by
+%allowing unprivileged users to make major changes,
+%without granting these users direct access to the target system.
+%Through so-called pull requests, ordinary users can submit a request
+%of their proposed changes.
+%These pull requests can then be reviewed and accepted by more privileged users.
+%If necessary, adjustments can be suggested or incorporated by the reviewers themselves.
 %\bigskip
 %
-%% immer fließtext nach aufzählungen, tabellen, etc.
 %\noindent
-%The listed problems may not apply to every organization using GitOps.
-%Depending on the level of adoption of GitOps,
-%and how strictly the principles are followed,
-%the points listed may cause more or less troubles.
+%Security can be improved by adding automated tests.
+%These tests can include
+%Linting (validation of syntax),
+%enforcing style guides,
+%running end-to-end and unit tests,
+%or
+%enforcing security policies.
+%Security reviews and audits become easier 
+%because every change is tracked.
+%Every change or commit is permanently recorded in the Git history
+%\autocite{limoncelli_gitopsPathToMoreSelfService}.
+%\bigskip
+
 
 
 
