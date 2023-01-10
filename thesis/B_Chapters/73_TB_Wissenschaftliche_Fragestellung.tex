@@ -1,13 +1,19 @@
 \chapter{Research Question}
 
-The goal of this thesis is to
-address the problem of promoting releases between different environments in GitOps.
-\bigskip
-
-\noindent
-Large organizations in particular usually have many
+%The goal of this thesis is to
+%address the problem of promoting releases between different environments in GitOps.
+%\bigskip
+%
+%\noindent
+Large organizations in particular typically have many
 non-production and production environments
-such as: dev, qa, staging-us, staging-eu, production-us, production-eu.
+such as:
+Development (Dev),
+Quality Assurance (QA),
+Staging-US,
+Staging-EU,
+Production-US,
+Production-EU.
 Usually new releases are automatically rolled out in an environment
 such as qa - by means of a CI pipeline.
 Now the task is to promote
@@ -26,18 +32,18 @@ Subsequently, the prototype will be tested in a laboratory experiment
 and compared to currently existing strategies.
 \bigskip
 
-% TODO: mein Lösungsvorschlag?
-
-
 \noindent
-To achieve the goal of the thesis, the following research questions were identified:
+To achieve the goal of the thesis, the following research questions (RQ) were identified:
 
 \begin{itemize}
-	\item How can the promotion of releases in GitOps environments be designed?
+	\item RQ 1: How can the promotion of releases in GitOps environments be designed?
 	\begin{itemize}
-		\item What possibilities do existing tools offer for the promotion of releases with multiple deployment environments?
-		\item How can deployment environments, as well as promotion workflows be modeled abstractly?
-		\item How can abstract modeling be used to implement a standardized solution for promoting releases according to GitOps principles?
+		\item RQ 1.1: What possibilities do existing tools offer for the promotion of releases with multiple deployment environments?
+		\item RQ 1.2: How can deployment environments, as well as promotion workflows be modeled abstractly?
+		\item RQ 1.3: How can abstract modeling be used to implement a standardized solution for promoting releases according to GitOps principles?
 	\end{itemize}
 \end{itemize}
+
+% TODO: ensure bullet points do not span over page break on final PDF export
+
 
