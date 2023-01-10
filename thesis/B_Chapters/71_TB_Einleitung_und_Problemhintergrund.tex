@@ -1,5 +1,27 @@
 \chapter{Introduction}
 
+\noindent
+TODO intro umschreiben in 4 Absätze
+
+% 1. Absatz: Beschreibe uns das Forschungsfeld in dem du dich befindest (DevOps / GitOps)
+
+% 2. Absatz: Beschreib uns das Problem bzw. die Challenge in diesem Forschungsfeld (Was ist die Problemstellung, die es zu bearbeiten gilt)
+
+% 3. Absatz: Was schlägst du vor, wie man die Problemstellung bearbeiten könnte? Beschreibe uns deinen Lösugnsvorschlag dieser Arbeit, wie man das Problem bearbeiten könnte
+
+% 4. Absatz: gib uns einen Ausblick (Paint the Big Picture) wie deine Lösung mit dem großen Ganzen zusammenhängt
+
+
+% am Ende der alten Intro...
+% hier fehlt mir eine klare Beschreibung der Problemstellung...du bist sehr generisch und sagst, dass es vor und nachteile hat, benennst diese aber nicht
+% Was auch fehlt ist dein Lösungsvorschlag bzw. deine Idee, wie man die Problemstellung bearbeiten kann (was du in dieser Arbeit vorhast)
+
+
+
+
+
+\bigskip
+
 % Forschungsfeld (Universum), 5-7 Sätze
 % wie kommt man zu GitOps? 1,2 Sätze
 % universum -> erde -> kontinent -> land -> region -> strand -> sandkorn
@@ -7,19 +29,20 @@
 Increasingly more organizations are adopting 
 a DevOps culture to develop new applications and services at high velocity. 
 After all, a culture that encourages shared responsibility, transparency and rapid feedback, 
-helps narrow the gaps between teams and thus accelerate processes.
-GitOps was born out of the need for rapid innovation.
-\bigskip
-
-% Was ist denn das überhaupt
-% Was ist GitOps
-
-\noindent
+helps to narrow the gaps between teams and thus accelerate the development process.
+In order to
+reduce friction between engineering teams who are involved in the software development lifecycle (SDLC),
+a new practice called GitOps has emerged.
+It allows developers who are already familiar with the revision control system Git,
+to easily deploy their applications to target environments in a self-service model.
+System administrators and operators can also manage IT infrastructure
+purely by interfacing with declarative state definitions stored in Git.
+% GitOps
 GitOps is a set of principles for operating and managing software systems.
 These principles are derived from modern software operations, but also have their roots 
 in existing and widely adopted best practices. The primary four principles,
 which serve as principles for the desired state of a
-system managed by GitOps are the following:
+system managed by GitOps are the following \autocite{gitopsPrinciplesv100}:
 
 \begin{itemize}
 	\item \textbf{Declarative} \\
@@ -32,28 +55,36 @@ system managed by GitOps are the following:
 		Software agents continuously observe actual system state and attempt to apply the desired state.
 \end{itemize}
 
-\noindent
-\autocite{gitopsPrinciplesv100}
-\bigskip
+% TODO: ensure list does not lap over multiple pages in PDF export
 
 \noindent
-These principles are defined in OpenGitOps version 1.0.0.
-OpenGitOps is a Cloud Native Computing Foundation (CNCF) sandbox project under the GitOps Working Group.
-The GitOps Working Group is a working group under
-the CNCF App Delivery TAG,
-with the goal of establishing a clear vendor-neutral,
-principle-driven meaning of GitOps.
-This will provide a foundation for interoperability between tools, conformance and certification through enduring programs, documents and code
+These principles are defined in OpenGitOps version 1.0.0,
+which is a Cloud Native Computing Foundation (CNCF) sandbox project
+in the App Delivery TAG 
+under the GitOps Working Group.
+The overall goal of OpenGitOps is to establish a clear vendor-neutral,
+principle-driven meaning of GitOps,
+which shall provide a foundation for interoperability between tools, conformance and certification through enduring programs, documents and code
 \autocite{opengitopsDocuments}.
-%\bigskip
-%
-%\noindent
-It should be noted that the term GitOps is not exclusively limited to
-the principles defined in OpenGitOps,
-but goes beyond that.
+This thesis aims at adhering to the definitions in OpenGitOps
+for the term GitOps, its principles and the glossary around it.
+However, the research is not limited to the definitions in OpenGitOps,
+and might even suggest changes.
+
+
+% However, since OpenGitOps is still in the sandbox phase,
+% the definitions are likely to change.
+% Furthermore, this research is not limited to the OpenGitOps initiative,
+% and might introduce new concepts or adaptions and suggest them.
+
+% The term GitOps is not exclusively limited to
+% the principles defined in OpenGitOps,
+% but goes beyond that.
 % TODO: Quelle, wo GitOps noch definiert ist
 % TODO: was ist im Groben der Unterschied zwischen OpenGitOps und generell GitOps?
-\bigskip
+% Since the concept of GitOps itself is still quite new,
+% the definitions in OpenGitOps are still open to change
+% \bigskip
 
 %\noindent
 %GitOps can be viewed as an evolution of Infrastructure as Code (IaC) that uses Git as a version control system for infrastructure configurations.
@@ -87,17 +118,9 @@ but goes beyond that.
 \noindent
 GitOps as a practice for releasing software has many advantages,
 but like other solutions, GitOps also has some shortcomings.
-Currently, there are several unresolved problems with GitOps.
-%On the one hand, these are problems that often 
-%were a problem in an organization already before GitOps was implemented,
-%on the other hand, a GitOps strategy brings with it some limitations,
-%which lead to new problems.
-%Depending on the level of adoption of GitOps,
-%and how strictly the principles are followed,
-%some problems may or may not be an issue for an organization.
-One of these problems is
+One of the unresolved problems is
 the process of promoting releases between multiple deployment environments (illustrated in fig. \ref{fig:releasePromotionProcess}).
-% TODO: why is promotion important?
+%% why is promotion important?
 In recent years with DevOps and Continuous Delivery practices,
 the release promotion process through different environments is becoming ever more important.
 Containerization technologies allow for easy deployments to
