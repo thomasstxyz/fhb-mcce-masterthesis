@@ -85,39 +85,94 @@ but goes beyond that.
 % es gibt derzeit diese Probleme mit GitOps
 
 \noindent
-GitOps as a practice for releasing software has several advantages,
-but like other solutions, GitOps also has several shortcomings.
+GitOps as a practice for releasing software has many advantages,
+but like other solutions, GitOps also has some shortcomings.
 Currently, there are several unresolved problems with GitOps.
-On the one hand, these are problems that often 
-were a problem in an organization already before GitOps was implemented,
-on the other hand, a GitOps strategy brings with it some limitations,
-which lead to new problems.
-Depending on the level of adoption of GitOps,
-and how strictly the principles are followed,
-some problems may or may not be an issue for an organization.
-\bigskip
+%On the one hand, these are problems that often 
+%were a problem in an organization already before GitOps was implemented,
+%on the other hand, a GitOps strategy brings with it some limitations,
+%which lead to new problems.
+%Depending on the level of adoption of GitOps,
+%and how strictly the principles are followed,
+%some problems may or may not be an issue for an organization.
+One of these problems is
+the process of promoting releases between multiple deployment environments (illustrated in fig. \ref{fig:releasePromotionProcess}).
+% TODO: why is promotion important?
+In recent years with DevOps and Continuous Delivery practices,
+the release promotion process through different environments is becoming ever more important.
+Containerization technologies allow for easy deployments to
+uniquely different environments.
+However it is important to model different environments in
+a homogeneous way,
+in order to simplify the full automation of the software delivery process.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.55\linewidth]{figures/release-promotion.drawio.png}
+	\caption{release promotion process.
+%		(\citeauthor{ref}, \citeyear{ref}).
+	}
+	\label{fig:releasePromotionProcess}	
+\end{figure}
 
 \noindent
-When considering GitOps at scale,
-adopters of GitOps and its current tools and practices
-soon realize the problem of
-modeling multiple environments
-and promoting releases between them.
-Current tools do not come with an out-of-the-box solution
-for describing multiple environments.
-It is to decide by the user
-how to model their multiple environments in a GitOps fashion.
-There have emerged a couple of models for describing environments
-like branch-per-environment,
-folder-per-environment, repo-per-environment,
-which all seem to have their individual upsides and downsides.
-For every approach, the process of promotion is different.
+Previously, this process was usually handled by the CI/CD system,
+which would execute a pipeline, in which every environment
+is delivered to consecutively
+in an imperative way.
+With GitOps, the state of the different environments
+is completely defined
+in a declarative way.
+The system state is then continuously reconciled
+by the GitOps controller.
+What turns out to be tricky,
+is the process of promotion to other deployment environments.
+Current GitOps tools do not provide an integrated solution for this process,
+nor do they provide any sort of abstraction for defining environments.
+Users currently need to rely on separation of duties
+on a file and folder level within the Git repository,
+for modeling different environments.
+Promotions are often achieved via hard-coded file copy operations,
+which is done by the CI/CD system.
+In addition, for each configuration or templating tool which is used
+(e. g. kustomize, helm, jsonnet, etc.),
+the modeling of different environments, as well as the
+process of promotion, is unique.
+This makes the process rather difficult.
 Clear guidelines and best practices,
 as well as tools which implement them,
 are missing in the GitOps ecosystem.
+\bigskip
+
+\noindent
+In order to help with full automation of the 
+release and promotion process of new software releases,
+this gap needs to be filled.
+Not only larger organizations need a high level of automation.
+Smaller organizations also
+greatly benefit from automation, in order
+to deliver high quality software.
+\bigskip
 
 
 
+
+
+%\noindent
+%When considering GitOps at scale,
+%adopters of GitOps and its current tools and practices
+%soon realize the problem of
+%modeling multiple environments
+%and promoting releases between them.
+%Current tools do not come with an out-of-the-box solution
+%for describing multiple environments.
+%It is to decide by the user
+%how to model their multiple environments in a GitOps fashion.
+%There have emerged a couple of models for describing environments
+%like branch-per-environment,
+%folder-per-environment, repo-per-environment,
+%which all seem to have their individual upsides and downsides.
+%For every approach, the process of promotion is different.
 
 
 
