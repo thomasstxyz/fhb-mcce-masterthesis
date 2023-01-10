@@ -24,17 +24,15 @@ evaluating the concept of GitOps in general.
 \noindent
 \citeauthor{limoncelli_gitopsPathToMoreSelfService} (\citeyear{limoncelli_gitopsPathToMoreSelfService})
 draws attention to GitOps in an article, where the concept is brought to the reader in an easily digestible way.
-The benefits of adoption of GitOps are presented well,
-%however any possible drawbacks of an adoption are omitted from the analysis.
-however there are not any possible problems discussed.
-\citeauthor{whatIsGitOpsSalecha2023} (\citeyear{whatIsGitOpsSalecha2023})
-discusses the definition of the term in the chapter "What Is GitOps?"
-of the book "Practical GitOps"
-\autocite{whatIsGitOpsSalecha2023}.
+The author clearly highlights the benefits of adoption of GitOps,
+however does not mention any negative aspects.
+%\citeauthor{whatIsGitOpsSalecha2023} (\citeyear{whatIsGitOpsSalecha2023})
+%discusses the definition of the "GitOps"-term
+%\autocite{whatIsGitOpsSalecha2023}.
 \citeauthor{gitopsTheEvolutionOfDevops9565152} (\citeyear{gitopsTheEvolutionOfDevops9565152})
 discuss the idea of GitOps as an evolution of DevOps. They conduct research on the definition of both terms.
 \citeauthor{continuousDeploymentIOTEdgeComputingAGitOpsImplementation_9820108} (\citeyear{continuousDeploymentIOTEdgeComputingAGitOpsImplementation_9820108})
-publish a conference paper about implementing GitOps in IoT Edge Computing
+publish a conference paper about implementing GitOps in Internet of Things (IoT) Edge Computing
 to achieve Continuous Deployment.
 They present a proof of concept to check the feasibility of applying GitOps
 in IoT Edge Computing solutions.
@@ -61,17 +59,17 @@ and therefore a major driving force in the GitOps ecosystem.
 \bigskip
 
 \noindent
-In
-\citetitle{codefreshStopUsingBranchesGitOpsEnvironments}
+%In
+%\citetitle{codefreshStopUsingBranchesGitOpsEnvironments}
 \citeauthor{codefreshStopUsingBranchesGitOpsEnvironments} (\citeyear{codefreshStopUsingBranchesGitOpsEnvironments})
 discusses
-the thought of
+the idea of
 modeling different GitOps environments by using Git branches.
-\citeauthor{codefreshStopUsingBranchesGitOpsEnvironments} (\citeyear{codefreshStopUsingBranchesGitOpsEnvironments})
-explains thoroughly why this approach is an anti pattern and should not be used
+He
+explains thoroughly why this approach is an anti-pattern and should not be used
 \autocite{codefreshStopUsingBranchesGitOpsEnvironments}.
-In
-\citetitle{codefreshHowToModelGitOpsEnvironmentsAndPromote}
+%In
+%\citetitle{codefreshHowToModelGitOpsEnvironmentsAndPromote}
 \citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
 shares
 a multitude of suggestions and best practices
@@ -82,21 +80,21 @@ For promoting between environments, basic file copy operations are suggested.
 It is noted, that these simple file copy operations can easily be automated by an external system.
 \citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
 suggests four categories of environment configuration.
-\textit{The application version},
-\textit{Kubernetes specific settings},
-\textit{mostly static business settings},
+The application version,
+Kubernetes specific settings,
+mostly static business settings,
 and 
-\textit{non-static business settings}.
-While \textit{the application version} and \textit{non-static business settings} are promoted,
-\textit{Kubernetes specific settings} and \textit{mostly static business settings} are generally not promoted between environments
+non-static business settings.
+While the application version and non-static business settings are promoted,
+Kubernetes specific settings and mostly static business settings are generally not promoted between environments
 \autocite{codefreshHowToModelGitOpsEnvironmentsAndPromote}.
 \bigskip
 
 \noindent
 In 2021 the
 Argo Project \autocite{argoProjWebsite}
-has brought forward the tool
-\citetitle{argocdAutopilotWebsite} \autocite{argocdAutopilotWebsite}
+presented the
+\citetitle{argocdAutopilotWebsite}-tool \autocite{argocdAutopilotWebsite}
 to help new GitOps adopters with
 structuring their Git Repsitories,
 and
@@ -105,6 +103,25 @@ This command line interface (CLI) tool,
 which includes some of the earlier presented best practices,
 helps with the initial bootstrap process for ArgoCD.
 \bigskip
+
+% TODO: Schreib einen Absatz, der erklärt, inwieweit deine Arbeit anders ist als Related Work. Arbeite das Delta (den Unterschied) zwischen Related Work vs. Your Work aus und betone nochmal deinen Beitrag zum GitOps-Forschungsfeld (das was du beitragen wirst im Vergleich zu allen anderen)
+
+\noindent
+Prior research on the concrete problem is focused on presenting
+best practices and suggestions
+which users need to manually implement themselves.
+In addition it is suggested to let an external CI/CD system handle the promotion process.
+Conversely, this thesis will bring forward
+abstract models of environments and promotion processes,
+which are implemented in and by the proposed prototype tooling.
+The prototype will evaluate the feasibility of
+defining deployment environments and promotion processes declaratively,
+following the GitOps principles.
+
+
+
+
+
 
 
 
