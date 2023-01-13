@@ -1,56 +1,219 @@
 \chapter{Methodology}
 
-In the beginning, existing literature on the topic, 
-as well as the concrete research questions
-are discussed.
-Furthermore, various
-opinions and approaches of pioneering organizations in the GitOps community are analyzed.
+% TODO: adjust Figure to match updated text.
+
+% TODO: figure: add activity 1-6 
+
+To achieve the main goal of the thesis and answer the identified RQs,
+a mix of different scientific methods will be used.
+In order to help with the recognition and legitimisation of the conducted research,
+a commonly accepted framework, namely
+the methodology for conducting design science (DS) research
+in information systems (IS)
+\autocite{designScienceResearchMethodologyForInformationSystemsResearch}
+will be applied.
+It consists of six activities
+(illustrated in Figure \ref{fig:dsrmProcessReleasePromotionGitOps}):
+Identify Problem \& Motivate (activity 1),
+Define Objectives of a Solution (activity 2),
+Design \& Development (activity 3),
+Demonstration (activity 4),
+Evaluation (activity 5),
+and
+Communication (activity 6).
+%Since the model allows for process iteration,
+%it will be decided by the researcher
+%whether, at the end of activity 5,
+%to iterate back to activity 3 to try to improve the artifact.
+The process is structured in a nominally sequential order.
+For this concrete research,
+the problem-centered initiation is chosen as the entry point,
+thus the process will begin with activity 1.
+Afterwards the research will proceed sequentially,
+because the idea of the research resulted from observation of the problem
+\autocite{designScienceResearchMethodologyForInformationSystemsResearch}.
+\bigskip
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.00\linewidth]{figures/dsrm-process-release-promotion-gitops.png}
+	\caption{DSRM Process for this thesis.
+		%		(\citeauthor{ref}, \citeyear{ref}).
+	}
+	\label{fig:dsrmProcessReleasePromotionGitOps}	
+\end{figure}
+
+\noindent
+In activity 1,
+the research problem of
+release promotion with GitOps
+is defined.
+This is accomplished, by
+seeking knowledge of the state of the problem
+from practicing professionals,
+as well as analyzing prior written literature.
+To assist later evaluation,
+the problem is conceptually broken down into distinct items.
+The value of a solution is highlighted,
+in order to help the audience of the research
+understand the reasoning associated with the
+researcher's understanding of the problem
+\autocite{designScienceResearchMethodologyForInformationSystemsResearch}.
 \bigskip
 
 \noindent
-Next, existing software solutions,
-which are available under open source licenses,
-will be evaluated for their appropriate use for the present research.
-The aim is to find out the extent to which the defined research questions
-can be addressed with existing solutions.
-Finally, a baseline is defined as state-of-the-art.
+In activity 2,
+research objectives are inferred from the problem definition in activity 1.
+Each objective maps to a distinct item from the problem specification,
+which helps with later evaluation in activity 5.
+% TODO: maybe illustrate mapping of problem item to objective
+In practice, a research objective is a qualitative description of
+how a new artifact is expected to support a solution to the problem definition.
+%todo del
+%Each objective describes how a newly developed artifact is expected
+%to support a solution to a problem.
+%As stated in the previous paragraph,
+%the research problem is divided into distinct items,
+%for each of which a use case is formulated.
+%Later in the research process,
+%for each use case,
+%an artifact is designed and developed, demonstrated in context,
+%and finally evaluated against the objectives.
+\bigskip
+
+% TODO: maybe illustrate    problem -> objective
+
+\noindent
+In activity 3,
+solutions for the previously defined objectives are designed and developed
+by means of producing an artifact.
+This is achieved by
+determining the artifact's desired functionality and its architecture,
+followed by actually creating the artifact
+\autocite{designScienceResearchMethodologyForInformationSystemsResearch}.
+In practice this means that:
+Abstract model definitions of deployment environments, as well as
+promotion processes are designed;
+With the specification of the model definitions in place,
+the "release promotion operator" is developed as an artifact.
 \bigskip
 
 \noindent
-Furthermore, abstract models for deployment environments
-and promotion workflows will be defined.
-These serve as a basis for the design of the prototype in the next step.
+In activity 4,
+the in-context use of the artifact is demonstrated.
+After outlining how to use the artifact to effectively provide a solution to the problem definition,
+the artifact is implemented in a proof-of-concept-level prototype.
+%In practice,
+%the prototype 
 \bigskip
 
 \noindent
-As far as possible and reasonable, existing toolkits and best practices will be used for the prototype.
-It is desirable to solely extend
-the Kubernetes-API
-% TODO: cite
-and the
-GitOps-Toolkit
-% TODO: cite
-to integrate the prototype natively into the existing ecosystem around GitOps within the CNCF.
+In activity 5,
+the implementation of the artifact,
+and how well it supports a solution to the problem,
+is evaluated.
+This is achieved by
+comparing the objectives of a solution to actual observed results
+from use of the artifact in the demonstration
+\autocite{designScienceResearchMethodologyForInformationSystemsResearch}.
+In practice this means, that
+the functionality of the artifact implemented in the prototype in activity 4,
+is compared with the solution objectives from activity 2.
 \bigskip
 
 \noindent
-According to 
-\citeauthor{HOUDE1997367} (\citeyear{HOUDE1997367})
-a prototype is any representation of a design idea, regardless of the medium.
-A prototype is something that serves as a model or inspiration for later developments
-\autocite{HOUDE1997367}.
+In activity 6, as a final step,
+the whole conducted research is communicated by means of
+disclosing
+the problem and its importance,
+the artifact and its utility and novelty,
+and the demonstration accompanied by the evalution results
+\autocite{designScienceResearchMethodologyForInformationSystemsResearch},
+within the publication of a master thesis at FH Burgenland.
+In addition, it may be communicated to relevant audiences such as practicing professionals;
+and the CNCF.
 \bigskip
 
-\noindent
-The developed prototype will be compared to existing approaches to solving the problem in a laboratory experiment.
-\bigskip
 
-\noindent
-\citeauthor{montgomery2017design} (\citeyear{montgomery2017design})
-defines an experiment as a test 
-or series of runs in which intentional changes are made to the input variables, 
-in order to then observe and identify reasons for changes in the output result
-\autocite{montgomery2017design}.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%existing literature on the topic is analysed,
+%in order to find out 
+%what current best practices and tools
+%which address the given problem
+%are already available within the open-source community.
+%Second,
+%
+%In the beginning, existing literature on the topic, 
+%as well as the concrete research questions
+%are discussed.
+%Furthermore, various
+%opinions and approaches of pioneering organizations in the GitOps community
+%are analyzed.
+%% how? What exactly are you analyzing?
+%\bigskip
+%
+%\noindent
+%Next, existing software solutions,
+%which are available under open source licenses,
+%will be evaluated for their appropriate use for the present research.
+%The aim is to find out the extent to which the defined research questions
+%can be addressed with existing solutions.
+%Finally, a baseline is defined as state-of-the-art.
+%\bigskip
+%
+%\noindent
+%Furthermore, abstract models for deployment environments
+%and promotion workflows will be defined.
+%These serve as a basis for the design of the prototype in the next step.
+%\bigskip
+%
+%\noindent
+%As far as possible and reasonable, existing toolkits and best practices will be used for the prototype.
+%It is desirable to solely extend
+%the Kubernetes-API
+%% TODO: cite
+%and the
+%GitOps-Toolkit
+%% TODO: cite
+%to integrate the prototype natively into the existing ecosystem around GitOps within the CNCF.
+%\bigskip
+%
+%\noindent
+%According to 
+%\citeauthor{HOUDE1997367} (\citeyear{HOUDE1997367})
+%a prototype is any representation of a design idea, regardless of the medium.
+%A prototype is something that serves as a model or inspiration for later developments
+%\autocite{HOUDE1997367}.
+%\bigskip
+%
+%\noindent
+%The developed prototype will be compared to existing approaches to solving the problem in a laboratory experiment.
+%\bigskip
+%
+%\noindent
+%\citeauthor{montgomery2017design} (\citeyear{montgomery2017design})
+%defines an experiment as a test 
+%or series of runs in which intentional changes are made to the input variables, 
+%in order to then observe and identify reasons for changes in the output result
+%\autocite{montgomery2017design}.
 
 %Nach erfolgreicher Implementierung des Prototyps,
 %soll mittels einer Scheduler-Extension in einem Laborexperiment gezeigt werden,
