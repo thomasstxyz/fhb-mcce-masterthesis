@@ -1,38 +1,95 @@
 \chapter{Conclusion and Future Work}
 
-Although the adoption of GitOps brings some advantages on the one hand,
-on the other hand, it creates new problems
-that did not exist before,
-or were better solved with previously followed strategies.
-In addition, with GitOps the demands of good software have increased
-- as so often -
-and new problems have been identified as a result.
-These newly identified problems may currently turn out 
-to be merely
-luxury problems for many organizations.
-However, as an organization grows, these current luxury problems
-with the increasing growth of an organization
-and the increasing demands that come with it,
-may emerge as pressing problems.
+%In einer Conclusio wird keine neue Information präsentiert, sondern das bereits gesagte nochmal zusammenfassend wiedergegeben. Du möchtest hier dem Leser die wichtigsten Key Points deiner Arbeit mitgeben, so dass er sich ewig dran erinnernt.
+%
+%In welchem Forschungsfeld sind wir nochmal und was ist das eigentlich Problem dort?
+%
+%Welcher Lösungsvorschlag wurde präsentiert, um dieses Problem zu lösen und welche Methodik wird eingesetzt, um das zu schaffen?
+%
+%Ausblick...wenn wir das dann geschafft haben, was können wir dann mehr, was wir heute nicht können?
+%
+%Future Work -> welche neuen Forschungsfelder eröffnen sich dann, wo können wir ab dann weitermachen?
+
+\noindent
+The currently available GitOps tools
+do not provide an integrated solution to
+the problem of promoting releases between environments.
+This thesis aims at addressing the given problem.
+This is achieved by
+clearly defining the problem in distinct items,
+from which research objectives are then inferred.
+Following in designing and developing abstract models for
+environments and promotion processes;
+which are implemented in the produced artifact "release promotion operator".
+The artifact is demonstrated in a prototype serving as a proof-of-concept.
+Finally the research is evaluated by means of
+comparing the artifact's functionality with the solution objectives.
 \bigskip
 
 \noindent
-The higher the complexity and the needed degree of automation
-of an organization,
-as well as the adoption of DevOps
-and the principles like
-Continuous Integration (CI),
-Continuous Delivery (CD),
-Continuous Deployment (CDP) -
-the more important it becomes to fully automate the promotion of releases in GitOps environments.
+The developed "release promotion operator" prototype should serve as
+a modular extension to Kubernetes and existing GitOps tooling within the CNCF.
+It should provide a more streamlined and GitOps-native approach
+to the process of release promotion.
+For subsequent research projects the use of the prototype could
+be observed in a case study or tested in a field experiment,
+and adapted in another iteration of the applied methodology process model.
+The main goal for future work is the extensive adaption of the prototype
+to enable use in production by organizations or other projects.
 
-%Nachdem sich der entwickelte Prototyp als akzeptable Lösung für die Problemstellung zeigt,
-%wäre es im nächsten Schritt unter anderem sinnvoll
 
-%GitOps bringt Vorteile, aber auch Nachteile mit sich.
-%Manche Punkte sind mit anderen bzw. früheren Ansätzen
 
-% TODO: Ausblick, warum das wichtig ist...im Big Picture
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%Although the adoption of GitOps brings some advantages on the one hand,
+%on the other hand, it creates new problems
+%that did not exist before,
+%or were better solved with previously followed strategies.
+%In addition, with GitOps the demands of good software have increased
+%- as so often -
+%and new problems have been identified as a result.
+%These newly identified problems may currently turn out 
+%to be merely
+%luxury problems for many organizations.
+%However, as an organization grows, these current luxury problems
+%with the increasing growth of an organization
+%and the increasing demands that come with it,
+%may emerge as pressing problems.
+%\bigskip
+%
+%\noindent
+%The higher the complexity and the needed degree of automation
+%of an organization,
+%as well as the adoption of DevOps
+%and the principles like
+%Continuous Integration (CI),
+%Continuous Delivery (CD),
+%Continuous Deployment (CDP) -
+%the more important it becomes to fully automate the promotion of releases in GitOps environments.
+%
+%%Nachdem sich der entwickelte Prototyp als akzeptable Lösung für die Problemstellung zeigt,
+%%wäre es im nächsten Schritt unter anderem sinnvoll
+%
+%%GitOps bringt Vorteile, aber auch Nachteile mit sich.
+%%Manche Punkte sind mit anderen bzw. früheren Ansätzen
+%
+%% TODO: Ausblick, warum das wichtig ist...im Big Picture
 
 
 
