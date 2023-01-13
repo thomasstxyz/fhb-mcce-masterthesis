@@ -88,12 +88,16 @@ Users currently need to rely on separation of duties
 on a file and folder level within the Git repository,
 for modeling different environments.
 Promotions are often achieved via hard-coded file copy operations,
-which is done by the CI/CD system.
-In addition, for each configuration or templating tool which is used
-(e. g. kustomize, helm, jsonnet, etc.),
-the modeling of different environments, as well as the
+which is done manually or by a
+Continuous Integration (CI)/Continuous Delivery (CD) system.
+Due to the nature of Git, a certain flow of promotion can not currently be enforced
+(e.g. QA --> Staging --> Production).
+Furthermore, for each configuration or templating tool which is used
+(e.g. kustomize, helm, jsonnet, etc.),
+the modeling of different deployment environments, as well as the
 process of promotion, is unique.
-This makes the process of promotion rather difficult.
+This results in the process of promoting releases with GitOps
+not being a streamlined task.
 Clear guidelines and best practices,
 as well as tools which implement them,
 are missing in the GitOps ecosystem.
@@ -123,7 +127,7 @@ configuration or templating tool,
 while keeping the desired state definition intact.
 %
 Following the principles of GitOps,
-a controller would ensure the continuous reconciliation
+an operator would ensure the continuous reconciliation
 between the desired and the actual state of the resources.
 \bigskip
 
@@ -138,7 +142,7 @@ onto which future work could build upon.
 Additionally the solution should
 provide a protoype of a toolkit,
 which could serve as an optional component
-in addition to existing tooling within the CNCF.
+in addition to existing tooling within the Cloud Native Computing Foundation (CNCF).
 %
 Solving the problem of release promotion natively within the GitOps toolkit,
 would make the adoption of GitOps more appealing,

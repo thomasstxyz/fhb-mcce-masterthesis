@@ -38,13 +38,14 @@ They present a proof of concept to check the feasibility of applying GitOps
 in IoT Edge Computing solutions.
 \citeauthor{analysisOnDeclarativePullBasedDeploymentGitOpsArgoCD_9563984} (\citeyear{analysisOnDeclarativePullBasedDeploymentGitOpsArgoCD_9563984})
 present an analysis of declarative and pull-based deployment models
-following GitOps principles by using the tool ArgoCD.
-The research focuses on the advantages compared to push-based deployment models.
+following GitOps principles by using the tool ArgoCD;
+and focuses on the advantages compared to push-based deployment models.
 \bigskip
 
 \noindent
-There has not been any scientific research conducted yet on the
-specific topic of
+Hitherto, there have not been any pulications
+in academic journals or conferences
+on the specific topic of
 modeling multiple deployment environments with GitOps and promoting releases between them.
 However,
 %\bigskip
@@ -64,7 +65,7 @@ and therefore a major driving force in the GitOps ecosystem.
 \citeauthor{codefreshStopUsingBranchesGitOpsEnvironments} (\citeyear{codefreshStopUsingBranchesGitOpsEnvironments})
 discusses
 the idea of
-modeling different GitOps environments by using Git branches.
+modeling different deployment environments by using Git branches.
 He
 explains thoroughly why this approach is an anti-pattern and should not be used
 \autocite{codefreshStopUsingBranchesGitOpsEnvironments}.
@@ -73,11 +74,12 @@ explains thoroughly why this approach is an anti-pattern and should not be used
 \citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
 shares
 a multitude of suggestions and best practices
-about modeling GitOps environments and promoting releases between them.
+about modeling environments and promoting releases between them.
 Different environments are modeled by customizing \autocite{kustomizeIoWebsite} configuration 
 in separate files and folders or Git repositories.
 For promoting between environments, basic file copy operations are suggested.
-It is noted, that these simple file copy operations can easily be automated by an external system.
+It is noted, that these simple file copy operations can easily be automated by an external system,
+like a CI/CD system.
 \citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
 suggests four categories of environment configuration.
 The application version,
@@ -96,7 +98,7 @@ Argo Project \autocite{argoProjWebsite}
 presented the
 \citetitle{argocdAutopilotWebsite}-tool \autocite{argocdAutopilotWebsite}
 to help new GitOps adopters with
-structuring their Git Repsitories,
+structuring their Git repositories,
 and
 promoting applications between environments.
 This command line interface (CLI) tool,
@@ -113,8 +115,8 @@ which users need to manually implement themselves.
 In addition it is suggested to let an external CI/CD system handle the promotion process.
 Conversely, this thesis will bring forward
 abstract models of environments and promotion processes,
-which are implemented in and by the proposed prototype tooling.
-The prototype will evaluate the feasibility of
+which are implemented in the proposed prototype tooling.
+The prototype will assess the feasibility of
 defining deployment environments and promotion processes declaratively,
 following the GitOps principles.
 
