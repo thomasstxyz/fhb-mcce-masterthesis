@@ -11,7 +11,11 @@
 
 \usetheme{Frankfurt}
 \usepackage{xcolor}
-\usepackage{textpos}
+
+%\usepackage{textpos}
+% overlay the logo on every page which is in a textblock over normal text
+\usepackage[absolute,overlay]{textpos}
+
 %\usepackage{enumitem}
 
 \usepackage{graphicx}
@@ -35,7 +39,8 @@
 \begin{document}
 
 \addtobeamertemplate{frametitle}{}{%
-\begin{textblock*}{100mm}(.85\textwidth,6.3cm)
+%\begin{textblock*}{100mm}(.85\textwidth,6.3cm)
+\begin{textblock*}{100mm}(.94\textwidth,7.85cm)
 %\begin{textblock*}{100mm}(.85\textwidth,-1cm)
 \includegraphics[scale=0.2]{figures/FH-burgenland-logo.png}
 %\includegraphics[height=1cm,width=2cm]{images/FH-burgenland-logo.png}
@@ -44,181 +49,215 @@
 % title page
 \maketitle
 
-\section{Einleitung u. Zielsetzung}
+
+\section{Introduction}
 
 \begin{frame}
-    \frametitle{Problemstellung}
-    \begin{itemize}
-        \item Hoher Stromverbrauch von Rechenzentren
-        \item softwarebasierte Lösungen zur Verbesserung der Energieeffizienz fehlen
-        \item Observability in modernen verteilten Systemen ist eine Herausforderung
-    \end{itemize}
+\frametitle{Research Area}
+    
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.60\linewidth]{assets/devops-gitops.png}
+	\label{fig:devopsGitOps}	
+\end{figure}
+
+% develop new applications and services at high velocity
+
+% reduce friction between engineering teams
+
+% operations by interfacing with declarative state definitions stored in Git
+
 \end{frame}
 
 \begin{frame}
-    \frametitle{Zielsetzung u. Fragestellung}
-    \textbf{Forschungsfrage: }
-    \begin{center}
-        \large{Inwieweit lässt sich der Stromverbrauch von Kubernetes Workloads bzw. Applikationen feststellen und ein effizienz-orientiertes Scheduling implementieren?}
-    \end{center}
+\frametitle{Problem Description}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.75\linewidth]{figures/release-promotion.drawio.png}
+	\label{fig:releasePromotionProcess}	
+\end{figure}
+
+% promoting releases between multiple deployment environments
+
+% Current GitOps tools (Flux, ArgoCD) do not provide an integrated solution
+
 \end{frame}
 
-%\section{Grundlagen}
-%
-%\begin{frame}
-%    \frametitle{Grundlagen}
-%    \begin{itemize}
-%        \item Allgemeine Definitionen
-%        \item a
-%        \item b
-%        \item c
-%    \end{itemize}
-%\end{frame}
-
 \begin{frame}
-    \frametitle{Stand des Wissens}
-    \textbf{Literaturrecherche}
-    \begin{itemize}
-        \item \citeauthor{colmant:hal-01130030} (\citeyear{colmant:hal-01130030}) erforschen "Process-level Power Estimation in VM-based Systems"
-        \item \citeauthor{fieni:hal-02470128} (\citeyear{fieni:hal-02470128}) erforschen "SmartWatts: Self-Calibrating Software-Defined Power Meter for Containers"
-        \item \citeauthor{8705815} (\citeyear{8705815}) beobachten eine Reduzierung des Stromverbrauchs um 10-20 \% nach Implementierung eines intelligenten Schedulers.
-    \end{itemize}
+\frametitle{Proposed Solution}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.90\linewidth]{assets/crd-desired-actual-state-operator.png}
+	\label{fig:crdDesiredActualStateOperator}	
+\end{figure}
+
+%standardised models for defining deployment environments and promotion processes
+
+%application programming interface (API) extension for Kubernetes
+
+%custom resource definitions
+
+%allow users to define abstract representations of their environments and promotion processes
+
+%Following the principles of GitOps, an operator would ensure the continuous reconciliation between the desired and the actual state of the resources.
+
 \end{frame}
 
-\section{Methodik u. Vorgangsweise}
-
 \begin{frame}
-    \frametitle{Forschungsmethoden}
-    \textbf{Design und Implementierung eines Prototypen}
-    \begin{itemize}
-        \item Messung des Stromverbrauchs innerhalb Kubernetes
-    \end{itemize}
+\frametitle{Big Picture}
 
-    \textbf{Durchführung eines Laborexperiments}
-    \begin{itemize}
-        \item Adaptives energieeffizienz-orientiertes Scheduling
-    \end{itemize}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.00\linewidth]{assets/big-picture-release-promotion-operator-cncf-gitops.png}
+	\label{fig:bigPictureReleasePromotionOperatorCncfGitops}	
+\end{figure}
+
+%The proposed solution of the problem should
+%present a possible way of defining environments and promotion processes abstractly,
+%onto which future work could build upon.
+%
+%Additionally the solution should
+%provide a protoype of a toolkit,
+%which could serve as an optional component
+%in addition to existing tooling within the Cloud Native Computing Foundation (CNCF).
+%
+%Solving the problem of release promotion natively within the GitOps toolkit,
+%would make the adoption of GitOps more appealing,
+%especially for organisations, which have the need for many different environments.
+%
+%As a result
+%this could generally accelerate the widespread use of GitOps
+%and thus enable more organisations to develop higher quality software.
+
 \end{frame}
 
-%
-%\begin{frame}
-%    \frametitle{Vorgangsweise}
-%    %\setlist[enumerate]{label={\arabic*.}}
-%    \begin{itemize}
-%        \item Bestimmung der Messgrößen
-%    \end{itemize}
-%    \vspace{0.2cm}
-%
-%    \begin{figure}[H]
-%        \centering
-%        \begin{subfigure}{.5\linewidth}
-%            \centering
-%            \includegraphics[scale=0.3]{images/input-output-factors-in-experiment.png}
-%  %\caption{}
-%  \label{fig:sub1}
-%        \end{subfigure}%
-%        \begin{subfigure}{.5\linewidth}
-%            \centering
-%            \includegraphics[scale=0.12]{images/120s-180s.png}
-%  %\caption{}
-%  \label{fig:sub2}
-%        \end{subfigure}
-%%\caption{byrequests vs. round-robin, 100k, 2000 Anfragen}
-%\label{fig:byrequestsvs.round-robin100k2000Anfragen}
-%    \end{figure}
-%
-%    \vspace{0.2cm}
-%        100k bei 2000 Anfragen \\
-%        1M bei 500 Anfragen \\
-%        10M bei 50 Anfragen
-%\end{frame}
-%
-%\begin{frame}
-%    \frametitle{Vorgangsweise}
-%    \begin{itemize}
-%        \item Aufbau der Laborumgebung
-%    \end{itemize}
-%    \vspace{1cm}
-%    \includegraphics[scale=0.48]{images/drawio/Virtualisierungsebenen.png}
-%\end{frame}
-%
-%\begin{frame}
-%    \frametitle{Vorgangsweise}
-%    \begin{itemize}
-%        \item Durchführung des Experiments
-%    \end{itemize}
-%    \vspace{1cm}
-%    \includegraphics[scale=0.48]{images/drawio/HTTP-Anfrage.png}
-%\end{frame}
-%
-%\begin{frame}
-%    \frametitle{Vorgangsweise}
-%    \begin{itemize}
-%        \item Darstellung der Ergebnisse
-%    \end{itemize}
-%    \vspace{0.3cm}
-%    \includegraphics[scale=0.19]{images/default-10M-req.png}
-%\end{frame}
-%
-%\begin{frame}
-%    \frametitle{Vorgangsweise}
-%    \begin{itemize}
-%        \item Bewertung und Schlussfolgerungen
-%    \end{itemize}
-%\end{frame}
 
-
-\section{Ergebnisse u. Schlussfolgerungen}
+\section{Related Work}
 
 \begin{frame}
-	\frametitle{Erwartete Ergebnisse}
+\frametitle{Related Work}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.0\linewidth]{assets/related-work-timeline-2017-2023-gitops.png}
+	\label{fig:relatedWorkTimeline20172023gitops}	
+\end{figure}
+
+\end{frame}
+
+
+\section{Research Questions}
+
+\begin{frame}
+\frametitle{Research Questions}
+
 	\begin{itemize}
-		\item Kubernetes-native Messung des Stromverbrauchs von Kubernetes Workloads
-		\item Prototyp als modulare Extension zu Kubernetes
-		\item Metriken über OpenTelemetry zur Verfügung stellen
-		\item Evaluierung eines adaptiven effizienz-orientierten Scheduling
+		\item How can the promotion of releases in GitOps environments be designed?
+		\begin{itemize}
+			\item What possibilities do existing tools offer for the promotion of releases with multiple deployment environments?
+			\item How can deployment environments, as well as promotion processes be modeled abstractly?
+			\item How can abstract modeling be used to implement a standardized solution for promoting releases?
+		\end{itemize}
 	\end{itemize}
+
 \end{frame}
 
-%\begin{frame}
-%    \frametitle{Ergebnisse}
-%    \includegraphics[scale=0.19]{images/default-100k-req.png}
-%\end{frame}
-%
-%\begin{frame}
-%    \frametitle{Ergebnisse}
-%    \includegraphics[scale=0.19]{images/default-10M-req.png}
-%\end{frame}
-%
-%\begin{frame}
-%    \frametitle{Ergebnisse}
-%    \includegraphics[scale=0.22]{images/default-100k-ram.png}
-%\end{frame}
-%
-%\begin{frame}
-%    \frametitle{Ergebnisse}
-%    \includegraphics[scale=0.19]{images/1h-10M.png}
-%\end{frame}
+
+\section{Methodology}
 
 \begin{frame}
-    \frametitle{Ausblick}
-    \begin{itemize}
-        \item Stromverbrauchs-Metriken in Kubernetes Metrics API nativ integrieren
-        \item Neben CPU u. Memory auch Stromverbrauch von Pods bzw. Containern nativ in Kubernetes bereitstellen
-        \item Feststellen von effizienten Umgebungen (z. B. CPU-Architektur ARM oder AMD64) ohne vorheriges Training
-        \item Adaptives Scheduling von Kubernetes Workloads orientiert an Energieeffizienz
-    \end{itemize}
-%    \vspace{1cm}
-%    - aa \\
-%    - bb
+	\frametitle{design science research in information systems \\
+		\autocite{designScienceResearchMethodologyForInformationSystemsResearch}}
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=1.00\linewidth]{figures/dsrm-process-release-promotion-gitops.png}
+%		\caption{DSRM Process for this thesis.
+			%		(\citeauthor{ref}, \citeyear{ref}).
+%		}
+%		\label{fig:dsrmProcessReleasePromotionGitOps}	
+	\end{figure}
+
 \end{frame}
 
-%        \item  -- anotheritem --
+
+\section{Results}
 
 \begin{frame}
-    \frametitle{Ende der Präsentation}
-    Dankeschön!
+\frametitle{Results}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.0\linewidth]{assets/results-illustration-release-promotion-operator.png}
+	\label{fig:resultsIllustrationReleasePromotionOperator}	
+\end{figure}
+
+%The overall goal of the thesis is to
+%provide a solution to the problem of release promotion in GitOps environments.
+%In this regard a prototype will be developed
+%and its functionality demonstrated in a proof-of-concept evaluation.
+%The goal for the prototype is to implement it as a modular extension to Kubernetes
+%and existing GitOps tooling.
+%By doing so, users can promote releases between multiple deployment environments
+%following the GitOps principles.
+%The main contribution of this thesis is a proof of concept for the developed prototype
+%which can be used as an extension to the GitOps toolkit within the CNCF.
+
 \end{frame}
+
+
+\section{Conclusion and Future Work}
+
+\begin{frame}
+\frametitle{Conclusion}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.0\linewidth]{assets/conclusion-gitops-thesis.png}
+	\label{fig:conclusionGitopsThesis}	
+\end{figure}
+
+%The currently available GitOps tools
+%do not provide an integrated solution to
+%the problem of promoting releases between environments.
+%This thesis aims at addressing the given problem.
+%This is achieved by
+%clearly defining the problem in distinct items,
+%from which research objectives are then inferred.
+%Following in designing and developing abstract models for
+%environments and promotion processes;
+%which are implemented in the produced artifact "release promotion operator".
+%The artifact is demonstrated in a prototype serving as a proof-of-concept.
+%Finally the research is evaluated by means of
+%comparing the artifact's functionality with the solution objectives.
+	
+\end{frame}
+
+\begin{frame}
+\frametitle{Future Work}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.0\linewidth]{assets/future-work-gitops-thesis.png}
+	\label{fig:futureWorkGitopsThesis}	
+\end{figure}
+
+%The developed "release promotion operator" prototype should serve as
+%a modular extension to Kubernetes and existing GitOps tooling within the CNCF.
+%It should provide a more streamlined and GitOps-native approach
+%to the process of release promotion.
+%For subsequent research projects the use of the prototype could
+%be observed in a case study or tested in a field experiment,
+%and adapted in another iteration of the applied methodology process model.
+%The main goal for future work is the extensive adaption of the prototype
+%to enable use in production by organizations or other projects.
+
+\end{frame}
+
+
+
 
 %% columns in beamer
 %\begin{frame}
