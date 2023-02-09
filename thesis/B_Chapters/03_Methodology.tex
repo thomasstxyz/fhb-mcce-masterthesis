@@ -1,26 +1,179 @@
 \chapter{Methodology}
 
-Appendix \ref{appendix:interview-guide} you see
+In this chapter,
+the methodological approach,
+as well as
+the used scientific methods
+are presented.
 
-Approach, methods, and objectives should come here.
 
 \section{Approach}
-Alle im durchgeführten Untersuchungen und Versuche müssen systematisch und
-nachvollziehbar sein. Daher ist die gewählte Vorgangsweise genau zu beschreiben
-und zu begründen. Es empfiehlt sich, dafür Literatur zum wissenschaftlichen Arbeiten
-heranzuziehen.
+
+
+% TODO: figure: add activity 1-6 ?
+
+To achieve the main goal of the thesis and answer the identified RQs,
+a mix of different scientific methods will be used.
+In order to help with the recognition and legitimization of the conducted research,
+a commonly accepted framework, namely
+the methodology for conducting design science (DS) research
+in information systems (IS)
+\autocite{designScienceResearchMethodologyForInformationSystemsResearch}
+will be applied.
+It consists of six activities
+(illustrated in Figure \ref{fig:dsrmProcessReleasePromotionGitOps}):
+Identify Problem \& Motivate (activity 1),
+Define Objectives of a Solution (activity 2),
+Design \& Development (activity 3),
+Demonstration (activity 4),
+Evaluation (activity 5),
+and
+Communication (activity 6).
+%Since the model allows for process iteration,
+%it will be decided by the researcher
+%whether, at the end of activity 5,
+%to iterate back to activity 3 to try to improve the artifact.
+The process is structured in a nominally sequential order.
+For this concrete research,
+the problem-centered initiation is chosen as the entry point,
+thus the process will begin with activity 1.
+Afterwards the research will proceed sequentially,
+because the idea of the research resulted from observation of the problem
+\autocite{designScienceResearchMethodologyForInformationSystemsResearch}.
+\bigskip
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.00\linewidth]{figures/dsrm-process-release-promotion-gitops.png}
+	\caption{DSRM Process for this thesis.
+		%		(\citeauthor{ref}, \citeyear{ref}).
+	}
+	\label{fig:dsrmProcessReleasePromotionGitOps}	
+\end{figure}
+
+\noindent
+In activity 1,
+the research problem of
+release promotion with GitOps
+is defined.
+This is accomplished, by
+seeking knowledge of the state of the problem
+from practicing professionals,
+as well as analysing prior written literature.
+To assist later evaluation,
+the problem is conceptually broken down into distinct items.
+The value of a solution is highlighted,
+in order to help the audience of the research
+understand the reasoning associated with the
+researcher's understanding of the problem
+\autocite{designScienceResearchMethodologyForInformationSystemsResearch}.
+\bigskip
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.75\linewidth]{assets/problem-to-objective-mapping.png}
+	\caption{Inference of objectives from problems.
+		%		(\citeauthor{ref}, \citeyear{ref}).
+	}
+	\label{fig:problemToObjectiveMapping}	
+\end{figure}
+
+\noindent
+In activity 2,
+research objectives are inferred from the problem definition in activity 1.
+Each objective maps to a distinct item from the problem specification
+(illustrated in Figure \ref{fig:problemToObjectiveMapping}),
+which helps with later evaluation in activity 5.
+In practice, a research objective will be a qualitative description of
+how a new artifact is expected to support a solution to the problem definition.
+\bigskip
+
+\noindent
+In activity 3,
+solutions for the previously defined objectives are designed and developed
+by means of producing an artifact.
+This is achieved by
+determining the artifact's desired functionality and its architecture,
+followed by actually creating the artifact
+\autocite{designScienceResearchMethodologyForInformationSystemsResearch}.
+In practice this means that:
+Abstract model definitions of deployment environments, as well as
+promotion processes are designed;
+With the specification of the model definitions in place,
+the "release promotion operator" is developed as an artifact.
+\bigskip
+
+\noindent
+In activity 4,
+the in-context use of the artifact is demonstrated.
+After outlining how to use the artifact to effectively provide a solution to the problem definition,
+the artifact is implemented in a proof-of-concept-level prototype.
+%In practice,
+%the prototype 
+\bigskip
+
+\noindent
+In activity 5,
+the implementation of the artifact,
+and how well it supports a solution to the problem,
+is evaluated.
+This is achieved by
+comparing the objectives of a solution to actual observed results
+from use of the artifact in the demonstration
+\autocite{designScienceResearchMethodologyForInformationSystemsResearch}.
+In practice this means, that
+the functionality of the artifact implemented in the prototype in activity 4,
+is compared with the solution objectives from activity 2.
+\bigskip
+
+\noindent
+In activity 6, as a final step,
+the whole conducted research is communicated by means of
+disclosing
+the problem and its importance,
+the artifact and its utility and novelty,
+and the demonstration accompanied by the evalution results
+\autocite{designScienceResearchMethodologyForInformationSystemsResearch},
+within the publication of a master thesis at
+the University of Applied Sciences Burgenland (FH Burgenland).
+In addition, it may be communicated to relevant audiences such as practicing professionals;
+as well as the CNCF.
+
 
 \section{Research methods}
-Die eingesetzte Methoden (z.B. Online-Befragung, Inhaltsanalyse, Interviews) müssen
-ebenfalls nachvollziehbar beschrieben werden.
-Unterschiedliche Untersuchungsmethoden haben oft unterschiedliche Genauigkeit.
-Neben der Begründung und Beschreibung der Untersuchungsmethoden ist auch eine
-Begründung und Beschreibung der verwendeten Auswertungsmethoden bzw. dafür
-verwendete Software unerlässlich\footnote{Wenn der Abstand zwischen Fußnotentrennstrich und Fußnote zu groß wird, gehen Sie folgend vor:
-	Wählen Sie im Hauptmenü „Ansicht | Entwurf | Verweise | Notizen anzeigen |
-	Fußnotentrennlinie". Dann können Sie unnötige Leerzeichen entfernen.
-}.
-Wenn es ein Kapitel 3.2.1 gibt, muss es auch ein Kapitel 3.2.2 geben.
+
+In the following section,
+the two research methods of expert interviews and prototyping
+will be explained in detail.
+The procedure in the course of the research work is also described.
+
+\subsection{Expert Interview}
+
+Appendix \ref{appendix:interview-guide}
+
+\subsection{Prototyping}
+
+
+
+
+
+%\section{Approach}
+%Alle im durchgeführten Untersuchungen und Versuche müssen systematisch und
+%nachvollziehbar sein. Daher ist die gewählte Vorgangsweise genau zu beschreiben
+%und zu begründen. Es empfiehlt sich, dafür Literatur zum wissenschaftlichen Arbeiten
+%heranzuziehen.
+%
+%\section{Research methods}
+%Die eingesetzte Methoden (z.B. Online-Befragung, Inhaltsanalyse, Interviews) müssen
+%ebenfalls nachvollziehbar beschrieben werden.
+%Unterschiedliche Untersuchungsmethoden haben oft unterschiedliche Genauigkeit.
+%Neben der Begründung und Beschreibung der Untersuchungsmethoden ist auch eine
+%Begründung und Beschreibung der verwendeten Auswertungsmethoden bzw. dafür
+%verwendete Software unerlässlich\footnote{Wenn der Abstand zwischen Fußnotentrennstrich und Fußnote zu groß wird, gehen Sie folgend vor:
+%	Wählen Sie im Hauptmenü „Ansicht | Entwurf | Verweise | Notizen anzeigen |
+%	Fußnotentrennlinie". Dann können Sie unnötige Leerzeichen entfernen.
+%}.
+%Wenn es ein Kapitel 3.2.1 gibt, muss es auch ein Kapitel 3.2.2 geben.
 
 %\subsubsection{<<Überschrift 4. Ebene>>}
 %4 Überschriftenebenen müssen reichen.
