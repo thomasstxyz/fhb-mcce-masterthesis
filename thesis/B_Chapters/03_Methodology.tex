@@ -63,7 +63,9 @@ release promotion with GitOps
 is defined.
 This is accomplished, by
 seeking knowledge of the state of the problem
-from practicing professionals,
+from practicing professionals.
+This is done by conducting
+semi-structured interviews, as described in section \ref{methodology:interview},
 as well as analysing prior written literature.
 To assist later evaluation,
 the problem is conceptually broken down into distinct items.
@@ -108,9 +110,8 @@ determining the artifact's desired functionality and its architecture,
 followed by actually creating the artifact
 \autocite{designScienceResearchMethodologyForInformationSystemsResearch}.
 In practice this means that:
-Abstract model definitions of deployment environments, as well as
-promotion processes are designed;
-With the specification of the model definitions in place,
+Abstract model definitions are designed;
+with the specification of the model definitions in place,
 the "release promotion operator" is developed as an artifact.
 \bigskip
 
@@ -155,9 +156,13 @@ the artifact and its utility and novelty,
 and the demonstration accompanied by the evalution results
 \autocite{designScienceResearchMethodologyForInformationSystemsResearch},
 within the publication of a master thesis at
-the University of Applied Sciences Burgenland (FH Burgenland).
-In addition, it may be communicated to relevant audiences such as practicing professionals;
-as well as the CNCF.
+the University of Applied Sciences Burgenland \autocite{fhBurgenlandWebsite}.
+In addition, it is communicated to relevant audiences such as
+the GitOps Working Group \autocite{gitopsWG} of the CNCF.
+
+
+
+
 
 
 \section{Research methods}
@@ -174,23 +179,33 @@ by
 are explained in detail.
 %The procedure in the course of the research work is also described.
 
-\subsection{Semi-structured interview}
 
-%TODO: add more theory from \citeauthor{glaser2010experteninterviews} (\citeyear{glaser2010experteninterviews})
+
+
+\subsection{Semi-structured interview}\label{methodology:interview}
 
 For \nameref{methodology:activity1},
 semi-structured interviews with working professionals
 are conducted.
+For this research method,
+the suggested practices and guidelines from
+the textbook of
+\citeauthor{glaser2010experteninterviews} (\citeyear{glaser2010experteninterviews})
+are used.
 These interviews have the primary goal of aiding with
 problem identification and motivation,
 because prior written scientific literature is insufficient on the topic.
 For conducting the interviews,
 a semi-structured interview guide (Appendix \ref{appendix:interview-guide}) is used.
-For this research method,
-the suggested practices and guideline from
-the textbook of
-\citeauthor{glaser2010experteninterviews} (\citeyear{glaser2010experteninterviews})
-is used.
+
+The interview guide is created on the basis of preliminary theoretical considerations.
+The use of a guide facilitates the comparability of several interviews,
+but still leaves enough room for spontaneous statements.
+The advantage of a guide is that the researcher can stick to concrete questions.
+Follow-up questioning is allowed and the questions are mostly open.
+The open questioning enables the interviewee to present their point of view
+\autocite{berger2016wissenschaftliches}.
+
 
 \subsubsection{Preparing the interviews}
 
@@ -214,22 +229,29 @@ The selection of the interview partners is based on the questions mentioned in
 The pool of potential interview partners is mainly oriented around
 contacts from friends and acquaintances,
 who are working professionally in the GitOps field.
+The contact to the interview partners is done via Slack \autocite{slackWebsite} or e-mail.
+Prior to conducting the interview, the interview guide is sent to the interviewee.
 
 \subsubsection{Conducting the interviews}
 
 Appointments for the interviews are made with each interview partner in advance. 
-The interviews are conducted in a web video conference.
-The interviews are recorded for later evaluation.
-The developed semi-structured interview guide
-is used as a guideline for the interview process.
-The actual structure of the interview differs for each individual interview partner.
+Eventually, the interview is conducted with a web video conferencing tool like Zoom \autocite{zoomWebsite}.
+The interviews are recorded for later transcription.
+The semi-structured interview guide
+is used as a guideline for the interview process as a whole.
+However, the actual structure of the interview may differ for each individual interview and according interview partner.
 
 \subsubsection{Transcription and post-processing of the interviews}
 
-The output of the interviews are in the form of audio recordings.
+The output of the interviews are in the form of audio-video recordings.
 These are transcribed word-for-word into a written form afterwards.
+The transcriptions can be seen in Appendix \ref{appendix:interview-transcriptions}.
 The content-related answers of the interview partners are taken into consideration
-for \nameref{methodology:activity1}.
+for \nameref{methodology:activity1}, and there further processed.
+
+
+
+
 
 \subsection{Design science research methodology for information systems}
 
