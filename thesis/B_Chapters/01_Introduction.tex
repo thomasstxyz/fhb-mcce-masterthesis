@@ -1,8 +1,188 @@
 
-\chapter{Introduction}
-Welcome to the \LaTeX{} template prepared for the Computer Science department at the university of applied sciences of Burgenland\footnote{\url{https://www.fh-burgenland.at/en/information-technology/about-the-department/}}. 
+\chapter{Introduction and overview}
 
-Introduction, Problem, Objective, Demarcation, Question, Method, and a description of the overall structure should go into this chapter.
+TODO
+
+\section{Problem stating}
+
+% 1. Absatz: Beschreibe uns das Forschungsfeld in dem du dich befindest (DevOps / GitOps)
+
+%\noindent
+Increasingly more organizations are adopting 
+a DevOps culture to develop new applications and services at high velocity. 
+After all, a culture that encourages shared responsibility, transparency and rapid feedback, 
+helps to narrow the gaps between teams and thus accelerate the development process.
+In order to
+reduce friction between engineering teams who are involved in the software development lifecycle (SDLC),
+a new practice called GitOps has emerged.
+It allows developers who are already familiar with the revision control system Git,
+to easily deploy their applications to target environments in a self-service model.
+System administrators and operators can also manage IT infrastructure
+purely by interfacing with declarative state definitions stored in Git.
+%GitOps is a set of principles for operating and managing software systems.
+%These principles are derived from modern software operations, but also have their roots 
+%in existing and widely adopted best practices. 
+\bigskip
+
+% 2. Absatz: Beschreib uns das Problem bzw. die Challenge in diesem Forschungsfeld (Was ist die Problemstellung, die es zu bearbeiten gilt)
+
+% why is it important to solve the problem?
+
+\noindent
+GitOps as a practice for releasing software has many advantages,
+but like other solutions, GitOps also has some shortcomings.
+One of the unresolved problems is
+the process of promoting releases between multiple deployment environments (illustrated in Figure \ref{fig:releasePromotionProcess}).
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.55\linewidth]{figures/release-promotion.drawio.png}
+	\caption{release promotion process.
+		%		(\citeauthor{ref}, \citeyear{ref}).
+	}
+	\label{fig:releasePromotionProcess}	
+\end{figure}
+
+\noindent
+Current GitOps tools do not provide an integrated solution for this process,
+nor do they provide any sort of abstraction for defining environments.
+Users currently need to rely on separation of duties
+on a file and folder level within the Git repository,
+for modeling different environments.
+Promotions are often achieved via hard-coded file copy operations,
+which is done manually or by a
+Continuous Integration (CI)/Continuous Delivery (CD) system.
+Due to the nature of Git, a certain flow of promotion can not currently be enforced
+(e.g. QA --> Staging --> Production).
+Furthermore, for each configuration or templating tool which is used
+(e.g. kustomize, helm, jsonnet, etc.),
+the modeling of different deployment environments, as well as the
+process of promotion, is unique.
+This results in the process of promoting releases with GitOps
+not being a streamlined task.
+Clear guidelines and best practices,
+as well as tools which implement them,
+are missing in the GitOps ecosystem.
+\bigskip
+
+% 3. Absatz: Was schlägst du vor, wie man die Problemstellung bearbeiten könnte? Beschreibe uns deinen Lösugnsvorschlag dieser Arbeit, wie man das Problem bearbeiten könnte
+
+\noindent
+%
+The given problem could be addressed by
+providing standardised models 
+for defining deployment environments and promotion processes.
+%
+An application programming interface (API) extension for Kubernetes
+could provide custom resource definitions for these models.
+%
+This would allow users to define abstract representations of
+their environments,
+and how they want releases to be promoted between them.
+%
+Additional logic could be introduced into the promotion process,
+like specifying a rule which ensures that new releases must first pass
+certain environments or other objectives before being promoted to production.
+%
+The abstraction would also enable transparent replacement of the
+configuration or templating tool,
+while keeping the desired state definition intact.
+%
+Following the principles of GitOps,
+an operator would ensure the continuous reconciliation
+between the desired and the actual state of the resources.
+\bigskip
+
+% 4. Absatz: gib uns einen Ausblick (Paint the Big Picture) wie deine Lösung mit dem großen Ganzen zusammenhängt
+
+\noindent
+%
+The proposed solution of the problem should
+present a possible way of defining environments and promotion processes abstractly,
+onto which future work could build upon.
+%
+Additionally the solution should
+provide a protoype of a toolkit,
+which could serve as an optional component
+in addition to existing tooling within the Cloud Native Computing Foundation (CNCF).
+%
+Solving the problem of release promotion natively within the GitOps toolkit,
+would make the adoption of GitOps more appealing,
+especially for organisations, which have the need for many different environments.
+%
+As a result
+this could generally accelerate the widespread use of GitOps
+and thus enable more organisations to develop higher quality software.
+%
+
+
+
+
+
+
+
+
+\section{Research question and added value}
+
+
+%The goal of this thesis is to
+%address the problem of promoting releases between different environments in GitOps.
+%\bigskip
+%
+%\noindent
+Large organizations in particular typically have many
+non-production and production environments
+such as:
+Development (Dev),
+Quality Assurance (QA),
+Staging-US,
+Staging-EU,
+Production-US,
+Production-EU.
+Usually new releases are automatically deployed to an environment,
+such as QA, 
+by a CI/CD system.
+Now the task is to promote
+new changes, which are brought about by a new release,
+into subsequent or other environments.
+Current GitOps tools do not have a simple answer to
+the question about what is the right approach for the process of promotion.
+\bigskip
+
+%\noindent
+%In particular, this thesis aims to explore
+%existing strategies for the solution of the problem
+%with existing tools.
+%Furthermore, a prototype of a newly proposed strategy will be developed.
+%Subsequently, the prototype will be tested in a laboratory experiment
+%and compared to currently existing strategies.
+%\bigskip
+
+\noindent
+To achieve the goal of the thesis, the following research questions (RQ) were identified:
+
+\begin{itemize}
+	\item RQ 1: How can the promotion of releases in GitOps environments be designed?
+	\begin{itemize}
+		\item RQ 1.1: What possibilities do existing tools offer for the promotion of releases with multiple deployment environments?
+		\item RQ 1.2: How can deployment environments, as well as promotion processes be modeled abstractly?
+		\item RQ 1.3: How can the abstract models be used to implement a standardized solution for promoting releases?
+	\end{itemize}
+\end{itemize}
+
+% ensure bullet points do not span over page break on final PDF export
+
+
+
+
+
+
+
+
+
+%Welcome to the \LaTeX{} template prepared for the Computer Science department at the university of applied sciences of Burgenland\footnote{\url{https://www.fh-burgenland.at/en/information-technology/about-the-department/}}. 
+%
+%Introduction, Problem, Objective, Demarcation, Question, Method, and a description of the overall structure should go into this chapter.
 
 \section{Instruction included in the original FHBgld word processor template}
 \subsection{Problem stating[!]}
