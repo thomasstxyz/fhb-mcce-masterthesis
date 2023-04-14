@@ -288,9 +288,76 @@ In fig. \ref{fig:gitOpsConcept} a visual representation can be seen of the main 
 
 
 
-\section{Promoting Releases Across Environments}
 
-\section{Effects of GitOps on Continuous Delivery}
+\section{How GitOps changed Continuous Delivery}
+
+Before GitOps, Continuous Delivery was primarliy push-based.
+This means that a code change is introduced by a developer,
+this code change is commited to a Git repository.
+Then a CI/CD system gets triggered to execute a certain pipeline
+of jobs.
+These jobs may be to test the code and build an artifact, push the artifact
+to a registry, etc.
+The jobs are run in a pipeline - one after the other -
+if one fails, the pipeline is cancelled.
+The commit, that is a new version of the code -
+is pushed through the pipeline.
+Eventually at the end of the pipeline
+the new version is deployed by pushing the new artifact
+to the deployment environment in an imperative way.
+Once the new version is deployed, the pipeline stops.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.00\linewidth]{assets/push-based-cd.png}
+	\caption{Push based Continuous Delivery.
+		%		(\citeauthor{ref}, \citeyear{ref}).
+	}
+	\label{fig:pushBasedCD}	
+\end{figure}
+
+With GitOps, this primarily push-based process has changed.
+Namely, the last couple of steps when the new version
+is deployed to the target environment,
+are done asynchronously.
+With a GitOps workflow,
+the CI/CD pipeline usually stops when the new artifact
+is successfully pushed to the artifact registry,
+or the desired state is changed in the Git repository.
+Then another system - the GitOps controller,
+which usually lives inside the deployment environment -
+notices that the desired state changed and has now
+drifted from the actual state.
+The GitOps controller then reconciles the new desired state,
+by applying the new configuration to the managed system.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.00\linewidth]{assets/cd-gitops.png}
+	\caption{Continuous Delivery with GitOps.
+		%		(\citeauthor{ref}, \citeyear{ref}).
+	}
+	\label{fig:cd-gitops}	
+\end{figure}
+
+One major difference is that with the GitOps workflow,
+the CI/CD system no longer knows if and where the application is being
+deployed to, since the pipeline usually stops after successful push to the artifact registry.
+The desired state, which is stored in a Git repository is continuously being watched
+by the GitOps controller. Any changes that it detects are promptly applied to the
+target environment.
+
+
+
+
+
+
+
+
+
+
+
+\section{Promoting Releases Across Environments}
 
 \section{Towards Progressive Delivery \& Short-Living Environments}
 
