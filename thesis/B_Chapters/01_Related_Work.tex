@@ -112,6 +112,30 @@ which includes some of the earlier presented best practices,
 helps with the initial bootstrap process for ArgoCD.
 \bigskip
 
+\section{GitOps Pipelines}
+% https://docs.gitops.weave.works/docs/enterprise/pipelines/promoting-applications/
+
+The leading organization Weaveworks in the GitOps space,
+offer a solution in their enterprise offering,
+to deal with multiple deployment environments.
+This functionality is limited to their closed-source Weave GitOps Enterprise offering.
+It allows the user to specify an application reference,
+which is a Flux HelmRelease resource,
+which can be deployed in a Pipeline like way,
+through many environments.
+Once an environment was successfully delivered with the new version,
+it sends a HTTP webhook to the next environment, or the management cluster,
+to trigger deployment to the next environment.
+The user may configure pull requests to be created for the promotion itself,
+which a human may review and approve.
+The pipeline allows for the ability to specify, that certain environments need
+to pass before a consecutive environment can be deployed to.
+Alternatively to promoting via pull requests,
+it may be configured to send notifications
+to an external system -
+which can then promote the application in whatever way.
+
+\section{Summary}
 % Schreib einen Absatz, der erklärt, inwieweit deine Arbeit anders ist als Related Work. Arbeite das Delta (den Unterschied) zwischen Related Work vs. Your Work aus und betone nochmal deinen Beitrag zum GitOps-Forschungsfeld (das was du beitragen wirst im Vergleich zu allen anderen)
 
 \noindent
@@ -129,9 +153,9 @@ following the GitOps principles.
 
 
 
-\section{Summary}
 
-TODO
+
+
 
 
 
@@ -161,11 +185,6 @@ TODO
 %
 %\subsection{Argo-CD Autopilot}
 %\url{https://argocd-autopilot.readthedocs.io/en/stable/}
-%
-%\section{Weaveworks and Flux}
-%
-%\subsection{Weave GitOps Pipelines}
-%\url{https://docs.gitops.weave.works/docs/enterprise/pipelines/promoting-applications/}
 %
 %
 %\section{Honorable Mentions}
