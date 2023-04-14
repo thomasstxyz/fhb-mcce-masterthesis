@@ -383,6 +383,69 @@ At this point, the process continues asynchronously.
 
 \section{Towards Progressive Delivery \& Short-Living Environments}
 
+With progressive delivery tools like
+Flagger
+\autocite{flaggerWebsite}
+and
+Argo Rollouts
+\autocite{argoRolloutsWebsite},
+which offer advanced deployment strategies
+like canary and blue/green deployments, or A/B testing,
+it is now easier to ensure a bad release does not impact the end users
+as drastically.
+As an example, the named tools make it possible to release new versions
+to 10 percent of a specific region of end users,
+then this canary rollout is automatically tested and evaluated against metrics,
+if certain objectives for metrics fail to be met,
+the new release can automatically be rolled back.
+
+Since the progressive delivery tools allow for a more
+fine-grained segmentation
+of a single environment based on numerous parameters like
+client device type, user region, user type (e.g., developer, admin),
+registered or unregistered users, etc.
+the requirements to have a multitude of deployment environments
+have decreased for some organizations.
+An illustration can be seen in fig. \ref{fig:progressive-delivery}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.00\linewidth]{assets/progressive-delivery.png}
+	\caption{Progressive Delivery.
+		%		(\citeauthor{ref}, \citeyear{ref}).
+	}
+	\label{fig:progressive-delivery}	
+\end{figure}
+
+The described segmentation of an environment with the progressive delivery
+tools, however might not be possible for every use case or organization.
+Financial institutions for example, where the requirement for absolutely zero
+errors hitting the production environment is top priority and business critical,
+to say the least,
+may still want to run multiple environments next to progressive delivery tools,
+to ensure an even higher quality and level of caution.
+This is illustrated in fig. \ref{fig:deploy-multiple-envs}.
+
+Multiple environments typically mean a big increase in costs;
+with progressive delivery the need for multiple environments has decreased,
+and this way costs can be reduced.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.00\linewidth]{assets/deploy-multiple-envs.png}
+	\caption{Deploying to multiple environments.
+		%		(\citeauthor{ref}, \citeyear{ref}).
+	}
+	\label{fig:deploy-multiple-envs}	
+\end{figure}
+
+TODO: short-living environments
+
+
+
+
+
+
 \section{Beyond container orchestration with Kubernetes}
 
 The following section is about
