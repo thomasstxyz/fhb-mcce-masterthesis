@@ -12,6 +12,14 @@ TODO
 
 The following section includes general definitions of terms on the topic.
 
+\subsection*{Cloud}
+
+TODO
+
+\subsection*{Cloud Native}
+
+TODO
+
 \subsection*{Continuous}
 \begin{quotation}
 \noindent
@@ -154,6 +162,13 @@ TODO
 
 \section{DevOps \& Internal Developer Platforms}
 
+
+
+
+
+
+
+
 \section{Git + Ops Does Not Equal GitOps}
 
 \section{Promoting Releases Across Environments}
@@ -162,14 +177,153 @@ TODO
 
 \section{Towards Progressive Delivery \& Short-Living Environments}
 
-\section{Extending Kubernetes With Custom Operators}
+\section{Beyond container orchestration with Kubernetes}
 
-%\url{https://kubernetes.io/docs/concepts/extend-kubernetes/}
-%\url{https://kubernetes.io/docs/concepts/extend-kubernetes/operator/}
+The following section is about
+the role Kubernetes plays in the current cloud native ecosystem,
+and its extensible architecture.
+
+Since the birth of the cloud native computing foundation (CNCF) in 2015 and the release of Kubernetes as the first CNCF project,
+there have emerged more than a hundred projects.
+Most of the projects are hosting cloud native technologies and tools to support Kubernetes.
+The current ecosystem and toolchains are strongly centered around Kubernetes,
+although not strictly tied to it and often times with the explicit effort
+for the ability to support alternative cloud native platforms and solutions.
+
+\enquote*{Kubernetes, also known as K8s, is an open-source system for automating deployment, scaling, and management of containerized applications.}
+\autocite{kubernetesIoWebsite}
+Although this is the primary use case of Kubernetes,
+and the reason why it was created initially,
+Kubernetes is increasingly being used as a base cloud native platform,
+to build other applications and platforms on top of.
+The architecture of Kubernetes provides a solid framework and platform,
+which is easily extensible.
+Developers may extend its API by specifying custom resources and controllers.
+
+There are several advantages when extending the Kubernetes API,
+in comparison to a plain REST API.
+Some of those are the following
+\autocite{kubebuilderBookWebsite}:
+
+\begin{itemize}
+	\item \enquote*{Hosted API endpoints, storage, and validation.}
+	\item \enquote*{Rich tooling and clis such as kubectl and kustomize.}
+	\item \enquote*{Support for Authn and granular Authz.}
+	\item \enquote*{Support for API evolution through API versioning and conversion.}
+	\item \enquote*{Facilitation of adaptive / self-healing APIs that continuously respond to changes in the system state without user intervention.}
+	\item \enquote*{Kubernetes as a hosting environment}
+	\autocite{kubebuilderBookWebsite}
+\end{itemize}
+
+When developing a Kubernetes-native application,
+many of the common capabilities which are often required for all applications,
+are being provided by Kubernetes itself, or otherwise easily consumable and integrated.
+These may include resource quotas, observability, monitoring, logging and tracing,
+configuration state storage, declarative APIs, control loops, and event and message queueing.
+
+\subsection*{Extending Kubernetes}
+% https://kubernetes.io/docs/concepts/extend-kubernetes/
+Kubernetes offers several different extension points and extension patterns.
+Most extension patterns however share the same basic design and principles.
+In general, a custom extension is a program which reads and/or writes
+to the Kubernetes API. By doing that it can provide useful automation.
+Since Kubernetes is based around a declarative API,
+where resources are defined as the desired state,
+and controllers are responsible for continuously reconciling this
+desired state with the actual state,
+it has shown to be a good pattern to design custom extensions in the same way
+\autocite{extendKubernetes}.
+
+\subsection*{Controllers and Operators}
+% https://kubernetes.io/docs/concepts/architecture/controller/
+The concept of a controller and control loop within Kubernetes refers to the
+meaning from robotics and automation, where
+\enquote*{a control loop is a non-terminating loop that regulates the state of a system.}
+\autocite{controllersKubernetes}
+Controllers in Kubernetes are continuously running in a control loop,
+in specified intervals and sometimes internal or external triggers, 
+and watch the actual state of the cluster,
+and make changes to it by interacting with the API,
+in order to bring the actual state closer to the desired state,
+like specified in the declarative definition.
+It is typically a good practice to have one controller
+be responsible for one resource, 
+in order to help with separation of concerns.
+Controllers make changes to resources inside the cluster,
+like pods and deployments,
+but can also be responsible for resources external to the cluster,
+like APIs of the infrastructure provider.
+A typical controller implementation can be seen in figure \ref{fig:typicalControllerKubernetes}
+\autocite{controllersKubernetes}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.00\linewidth]{assets/typical-controller.png}
+	\caption{typical controller in Kubernetes.
+		%		(\citeauthor{ref}, \citeyear{ref}).
+	}
+	\label{fig:typicalControllerKubernetes}	
+\end{figure}
+
+When a controller has specific domain knowledge programmed into its logic,
+or does certain tasks, which would usually be done by a human "operator",
+it is called an operator.
+
+% https://kubernetes.io/docs/concepts/extend-kubernetes/operator/
+Operators typically are a set of controllers and custom resources
+with specific codified domain knowledge.
+All operational tasks -
+which would otherwise have to be done by a human operator -
+are written in code.
+This code, the controller logic, can then be automated.
+Examples for such operational tasks are
+backups and restoring of backups, error remediation, database migrations, etc.
+\autocite{operatorWhitepaperV1}.
+
+In overly simplified terms:
+An operator is a controller plus domain-specific operational knowledge
+(fig. \ref{fig:operatorAndController}).
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.00\linewidth]{assets/operator-is-controller-domain-knowledge.png}
+	\caption{Operator and Controller.
+		%		(\citeauthor{ref}, \citeyear{ref}).
+	}
+	\label{fig:operatorAndController}	
+\end{figure}
+
+The Operator Design Pattern represents a set of principles about
+managing complex applications and/or infrastructure resources,
+using domain-specific knowledge.
+The goal is to limit any manual work that needs to be done,
+and try to automate all operational tasks.
+This is done by capturing domain-specific knowledge in code,
+defining the desired state of resources and exposing them
+via a declarative API
+\autocite{operatorWhitepaperV1}.
+
+To simplify the process of creating and maintaining Kubernetes-native application
+in the form of an operator,
+there exist several operator frameworks.
+The most prominent framework is the Kubebuilder Framework.
 %\url{https://github.com/kubernetes-sigs/kubebuilder}
+The Kubebuilder framework makes the process of extending the Kubernetes API
+an easy process for developers.
+An initial project can easily be boostrapped, allowing the developer to focus
+on implementing the custom resource definitions and controller logic.
+Any needed Kubernetes primitives, such as service accounts and RBAC permissions
+are automatically generated.
+Documentation for the OpenAPI resources are also generated from the code,
+which is the Go programming language.
+There exist rich libraries for interfacing with Kubernetes components,
+since Kubernetes itself is also implemented in the Go language
+\autocite{kubebuilderBookWebsite}.
+
 
 \section{Summary}
 
+TODO
 
 
 
