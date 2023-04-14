@@ -41,6 +41,8 @@ TODO
 \autocite{gitopsGlossary}
 \end{quotation}
 
+\subsection*{DevOps}
+
 \subsection*{Drift}
 \begin{quotation}
 \noindent
@@ -94,10 +96,18 @@ for associated terms and concepts.
 %The ones needed for understanding of this thesis,
 %are the following:
 
+\subsection*{Internal Developer Platform}
+
+TODO
+
 \subsection*{Phase scheme}
 The ideal-typical structure of a project in sections of logically related tasks including the methodology,
 methods and techniques of task solution. Synonym: phase model
 \autocite{riedlManagementInformatik2019}.
+
+\subsection*{Platform Engineering}
+
+TODO
 
 \subsection*{Promotion}
 TODO
@@ -162,7 +172,69 @@ TODO
 
 \section{DevOps \& Internal Developer Platforms}
 
+DevOps, as defined in section \ref{theoretical-background:general-definitions},
+is still seeing increasingly more adoption.
+On of the most important principles of DevOps is
+to allow the developer who brings new code changes
+which end up in new product releases,
+to have as much insight into the software development lifecycle as possible.
+So it is not just bringing developers and operations closer together,
+but to shift many processes into the developers hands.
+This is to give developers as much insight as possible.
 
+Cloud native technologies have allowed for this movement to happen.
+An important aspect of cloud technologies is the self-service.
+When previously it was necessary to have many different teams and departments
+within a software development organization,
+each being responsible for individual parts of the 
+software development lifecycle,
+it is now better than ever before possible to reduce the amount of
+teams down to a minimum.
+This gives the developers much better insights of what their code changes mean.
+
+In order to increase the level of self-service for developers,
+and increase their productivity,
+many organizations implement the concept of internal developer platforms.
+While this concept has been around for quite a while,
+it has now explicitely gotten more meaning and attention.
+
+Internal Developer Platforms have received a lot of attention
+when Spotify released their project Backstage
+\autocite{backstageIOWebsite}
+with an open-source license in 2020; it later got accepted into the CNCF in 2022.
+
+%
+Backstage was initially created at Spotify, due to the need for it.
+As Spotify grew and added increasingly more microservices to their software catalog,
+their developers were observed to becoming less and less productive.
+Engineering teams at Spotify were spending too much time context switching between
+a burden of tasks, which were the result of bad organization of all their
+information around applications, microservices, infrastructure, etc.
+What was actually valuable, building, testing and releasing code,
+was becoming less frequent and more difficult to achieve over time.
+Engineers at Spotify decided that they needed to make it easier 
+for their developers to do their work
+\autocite{backstageSpotifyStory}.
+
+Their idea was to
+\enquote*{centralize and simplify end-to-end software development
+with an abstraction layer that sits on top of all of our infrastructure and developer tooling.}
+\autocite{backstageSpotifyStory}
+
+The resulting product Backstage,
+is a developer portal with a centralized software catalog,
+with a pluggable architecture,
+which allows for extensibility and customization.
+Services and software tooling can be managed via the Backstage platform.
+To summarize, the platform makes it easier for developers to create and maintain
+microservices, keep track of service owners, and the like
+\autocite{backstageSpotifyStory}.
+
+The term Platform Engineering basically refers to this concept of
+providing internal developer platforms to increase developer productivity
+in todays world of distributed microservice applications,
+and dozens of languages and frameworks,
+and tools to choose from.
 
 
 
@@ -170,6 +242,51 @@ TODO
 
 
 \section{Git + Ops Does Not Equal GitOps}
+
+Infrastructure-as-Code which is stored in a Git repository,
+and executed by a CI/CD pipeline,
+is not actually the concept behind GitOps.
+A visual representation of what is not GitOps can be seen in
+fig. \ref{fig:iacIsNotGitOps}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.00\linewidth]{assets/iac-is-not-gitops.png}
+	\caption{IaC is not GitOps.
+		%		(\citeauthor{ref}, \citeyear{ref}).
+	}
+	\label{fig:iacIsNotGitOps}	
+\end{figure}
+
+To avoid confusion with what GitOps actually is, 
+the OpenGitOps project
+\autocite{openGitOpsProject}
+was created within the CNCF;
+which is maintained by the GitOps working group.
+
+The overall goal of OpenGitOps is to establish a clear vendor-neutral,
+principle-driven meaning of GitOps,
+which shall provide a foundation for interoperability between tools, conformance and certification through enduring programs, documents and code
+\autocite{opengitopsDocuments}.
+
+The definition of GitOps as per the OpenGitOps project
+is stated in section \ref{theoretical-background:general-definitions} of this thesis.
+
+In fig. \ref{fig:gitOpsConcept} a visual representation can be seen of the main GitOps concept.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.00\linewidth]{assets/gitops-concept.png}
+	\caption{GitOps concept.
+		%		(\citeauthor{ref}, \citeyear{ref}).
+	}
+	\label{fig:gitOpsConcept}	
+\end{figure}
+
+
+
+
+
 
 \section{Promoting Releases Across Environments}
 
