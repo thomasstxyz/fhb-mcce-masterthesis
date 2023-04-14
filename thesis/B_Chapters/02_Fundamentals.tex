@@ -290,6 +290,7 @@ In fig. \ref{fig:gitOpsConcept} a visual representation can be seen of the main 
 
 
 \section{How GitOps changed Continuous Delivery}
+\label{theoretical-background:gitops-cd}
 
 Before GitOps, Continuous Delivery was primarliy push-based.
 This means that a code change is introduced by a developer,
@@ -358,6 +359,27 @@ target environment.
 
 
 \section{Promoting Releases Across Environments}
+
+With the push-based pipelines, described in the section
+\ref{theoretical-background:gitops-cd} of this thesis,
+it is typically more straight-forward of how an application
+is deployed to multiple target environments.
+When the pipeline job to deploy to environment A was successfully done,
+the next job to deploy to environment B would be executed.
+Since the push-based workflow was a synchronous process from commit
+to deployment to target environment,
+the whole process could be packed into a single pipeline.
+
+However, with the GitOps workflow the process from
+commit to deployment to target environment is usually split up after
+publishing of the artifact to the artifact registry.
+At this point, the process continues asynchronously.
+
+
+
+
+
+
 
 \section{Towards Progressive Delivery \& Short-Living Environments}
 
