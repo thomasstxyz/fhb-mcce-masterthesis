@@ -1,0 +1,13 @@
+apiVersion: promotions.gitopsprom.io/v1alpha1
+kind: Promotion
+metadata:
+  name: my-promotion
+spec:
+  sourceEnvironmentRef:
+    name: my-source-env
+  targetEnvironmentRef:
+    name: my-target-env
+  promotionSubjects:
+  - "Application Version"
+  - "Kustomization File"
+  strategy: pull-request

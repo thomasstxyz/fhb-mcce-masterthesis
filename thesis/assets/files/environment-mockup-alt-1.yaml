@@ -1,0 +1,16 @@
+apiVersion: promotions.gitopsprom.io/v1alpha1
+kind: Environment
+metadata:
+  name: my-env
+spec:
+  path: ./path/to/env
+  source:
+    url: https://gitprovider.com/org/repo
+    ref:
+      branch: main
+  promotionSubjects:
+    copy:
+    - name: "Application Version"
+      path: app-version
+    - name: "Kustomization File"
+      path: ./app-version/kustomization.yaml

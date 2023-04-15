@@ -1,0 +1,15 @@
+apiVersion: promotions.gitopsprom.io/v1alpha1
+kind: Environment
+metadata:
+  name: prod
+spec:
+  path: ./envs/prod
+  source:
+    url: https://github.com/thomasstxyz/example-kustomize-overlay-prod
+    ref:
+      branch: main
+    secretRef:
+      name: prod-ssh
+  apiTokenSecretRef:
+    name: github-api-token
+  gitProvider: github

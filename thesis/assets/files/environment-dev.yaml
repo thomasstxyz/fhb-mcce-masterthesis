@@ -1,0 +1,10 @@
+apiVersion: promotions.gitopsprom.io/v1alpha1
+kind: Environment
+metadata:
+  name: dev
+spec:
+  path: ./envs/dev
+  source:
+    url: https://github.com/thomasstxyz/example-kustomize-overlay-dev
+    ref:
+      branch: main

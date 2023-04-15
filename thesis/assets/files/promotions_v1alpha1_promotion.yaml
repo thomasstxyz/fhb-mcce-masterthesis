@@ -1,0 +1,20 @@
+apiVersion: promotions.gitopsprom.io/v1alpha1
+kind: Promotion
+metadata:
+  name: from-dev-to-prod
+spec:
+  sourceEnvironmentRef:
+    name: dev
+  targetEnvironmentRef:
+    name: prod
+  copy:
+  - name: "Application Version"
+    source: app-version
+    target: app-version
+  - name: "Kustomization File"
+    source: ./app-version/kustomization.yaml
+    target: ./app-version/
+  - name: "Application Settings"
+    source: settings
+    target: settings
+  strategy: pull-request
