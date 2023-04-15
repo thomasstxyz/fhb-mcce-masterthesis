@@ -65,9 +65,9 @@ which links to the Git repository,
 e.g.:
 
 \begin{itemize}
-	\item \verb*|http://localhost:8080/org/repo|
-	\item \verb*|https://gitprovider.com/org/repo|
-	\item \verb*|ssh://git@gitprovider.com:org/repo|
+	\item \lstinline|http://localhost:8080/org/repo|
+	\item \lstinline|https://gitprovider.com/org/repo|
+	\item \lstinline|ssh://git@gitprovider.com:org/repo|
 \end{itemize}
 
 The path has the format of a typical unix style filesystem path.
@@ -76,10 +76,10 @@ and points to the directory, which represents the GitOps environment.
 Examples for a path are the following:
 
 \begin{itemize}
-	\item \verb*|path/to/env|
-	\item \verb*|/path/to/env|
-	\item \verb*|./path/to/env|
-	\item \verb*|./path/to/env/|
+	\item \lstinline|path/to/env|
+	\item \lstinline|/path/to/env|
+	\item \lstinline|./path/to/env|
+	\item \lstinline|./path/to/env/|
 \end{itemize}
 
 Note, that these example paths all represent the same directory.
@@ -168,28 +168,28 @@ A possible mockup for a GitOps environment -
 that is a first prototype implementation of the abstract model into a custom resource -
 could look like the following.
 
-\verbatiminput{assets/files/environment-mockup.yaml}
+\lstinputlisting{assets/files/environment-mockup.yaml}
 
 In this mockup the git reference branch main is also specified \\
-in the \verb*|.spec.source.ref.branch| field.
+in the \lstinline|.spec.source.ref.branch| field.
 
 A possible mockup for a GitOps promotion 
 could look like the following.
 
-\verbatiminput{assets/files/promotion-mockup.yaml}
+\lstinputlisting{assets/files/promotion-mockup.yaml}
 
 In the promotion mockup definition,
-there are four main fields within the \verb*|.spec|.
+there are four main fields within the \lstinline|.spec|.
 These represent the minimum properties of our abstract definition.
 It is to note, that
-the \verb*|.spec.copy| field represents the promotion subjects.
+the \lstinline|.spec.copy| field represents the promotion subjects.
 It is a list of items, where each item contains
-a \verb*|name|, \verb*|source| and \verb*|target|.
-The \verb*|name| defines a custom name.
-The \verb*|source| and \verb*|target| fields together define a
+a \lstinline|name|, \lstinline|source| and \lstinline|target|.
+The \lstinline|name| defines a custom name.
+The \lstinline|source| and \lstinline|target| fields together define a
 file copy operation,
-where the \verb*|source| is the relative path from the source environment,
-and the \verb*|target| is a relative path from the target environment.
+where the \lstinline|source| is the relative path from the source environment,
+and the \lstinline|target| is a relative path from the target environment.
 
 \subsection*{Alternative Mockups}
 
@@ -204,13 +204,83 @@ Alternatively, the promotion subjects could also be specified
 in the environment resource.
 Then the environment could like the following:
 
-\verbatiminput{assets/files/environment-mockup-alt-1.yaml}
+\lstinputlisting{assets/files/environment-mockup-alt-1.yaml}
 
 In the promotion definition,
 it would then suffice to specify
 a list of promotion subjects.
 
-\verbatiminput{assets/files/promotion-mockup-alt-1.yaml}
+\lstinputlisting{assets/files/promotion-mockup-alt-1.yaml}
+
+\subsection*{Translation to Go types}
+
+Once the mockups are available,
+and the user facing declarative API design has been specified,
+the yaml specification can be translated to struct types in the
+Go programming language, which is used by the Kubebuilder framework.
+The initial structure of the custom resource Environment,
+plus the associated controller
+can be boostrapped with the kubebuilder cli:
+
+\lstinline|kubebuilder create api --group promotions --version v1alpha1 --kind Environment|
+
+The generated environment types can then be written.
+
+\lstinputlisting{assets/files/environmentSpec-type.go}
+
+What also needs to be defined is the status subresource.
+
+\lstinputlisting{assets/files/environmentStatusSpec-type.go}
+
+The same procedure is done for the Promotion api.
+
+\lstinline|kubebuilder create api --group promotions --version v1alpha1 --kind Promotion|
+
+The generated promotion types can then be written,
+
+\lstinputlisting{assets/files/promotionSpec-type.go}
+
+along with the status spec.
+
+\lstinputlisting{assets/files/promotionStatusSpec-type.go}
+
+Once the Go types are defined,
+the controller logic can be written.
+
+\subsection*{Environment Controller Logic}
+
+For the environment api,
+a controller is written.
+For this prototype the following logic was implemented,
+as seen in fig. \ref{fig:env-ctrl-logic}.
+First, the source git repository is cloned,
+with the appropriate authentication options, if it is private.
+If it succeeds, the Ready condition is set in the status subresource,
+which will mark it available and ready for the promotion.
+
+\begin{enumerate}
+	\item test the clone of Git repository with authentication
+	\item checkout reference branch locally
+	\item mark environment as ready
+\end{enumerate}
+
+\subsection*{Promotion Controller Logic}
+
+For the promotion api,
+the following controller logic is implemented.
+
+\begin{enumerate}
+	\item ensure that the source and target environments are ready
+	\item clone source and target repositories
+	\item check for a pending promotion (open Pull Request)
+	\item execute the promotion copy operations
+	\item push new commits to PR branch, if there were differences between source \& target environments
+	\item create new PR, if not yet opened
+\end{enumerate}
+
+
+
+
 
 
 
