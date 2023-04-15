@@ -135,6 +135,25 @@ it may be configured to send notifications
 to an external system -
 which can then promote the application in whatever way.
 
+\section{Related Tools}
+
+\subsection*{telefonistka}
+
+\enquote*{Telefonistka is a Github webhook server/Bot that facilitates change promotion across environments/failure domains in Infrastructure as Code(IaC) GitOps repos.}
+\autocite{telefonistka}
+
+It is designed to sync folders in Git repositories from source paths to target paths.
+When it detects changed that are not yet synced,
+it will create a pull request against the repository.
+It supports any directory structure of users GitOps repositories -
+it is unopinionated.
+It has drift detection as a feature. It can detect if there are changes in
+latter environments, which have not been promoted, i.e. are not in previous environments.
+
+Currently the tool can be run as a GitHub action, or as a
+standalone webhook server, preferably as a GitHub Application.
+In both cases it supports GitHub as the Git provider.
+
 \section{Summary}
 % Schreib einen Absatz, der erklärt, inwieweit deine Arbeit anders ist als Related Work. Arbeite das Delta (den Unterschied) zwischen Related Work vs. Your Work aus und betone nochmal deinen Beitrag zum GitOps-Forschungsfeld (das was du beitragen wirst im Vergleich zu allen anderen)
 

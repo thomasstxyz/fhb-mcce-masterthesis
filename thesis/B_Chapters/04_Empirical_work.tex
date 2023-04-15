@@ -31,7 +31,7 @@ custom resource definition + controller pattern.
 	\label{fig:crd-and-controller}	
 \end{figure}
 
-\subsection*{Abstract Models}
+\subsection{Abstract Models}
 	
 The first step of the initial design phase is the creation abstract models.
 In order to be able to represent environments and promotions,
@@ -140,7 +140,7 @@ The technological boundaries are given by the framework.
 
 
 
-\subsection*{Mockups of Custom Resources}
+\subsection{Mockups of Custom Resources}
 
 %to write mockups
 %of custom resources in YAML format,
@@ -191,7 +191,7 @@ file copy operation,
 where the \lstinline|source| is the relative path from the source environment,
 and the \lstinline|target| is a relative path from the target environment.
 
-\subsection*{Alternative Mockups}
+\subsection{Alternative Mockups}
 
 The following alternative mockups,
 for the custom resource definitions,
@@ -212,7 +212,7 @@ a list of promotion subjects.
 
 \lstinputlisting{assets/files/promotion-mockup-alt-1.yaml}
 
-\subsection*{Translation to Go types}
+\subsection{Translation to Go types}
 
 Once the mockups are available,
 and the user facing declarative API design has been specified,
@@ -247,7 +247,7 @@ along with the status spec.
 Once the Go types are defined,
 the controller logic can be written.
 
-\subsection*{Environment Controller Logic}
+\subsection{Controller Logic}
 
 For the environment api,
 a controller is written.
@@ -264,8 +264,6 @@ which will mark it available and ready for the promotion.
 	\item mark environment as ready
 \end{enumerate}
 
-\subsection*{Promotion Controller Logic}
-
 For the promotion api,
 the following controller logic is implemented.
 
@@ -277,6 +275,7 @@ the following controller logic is implemented.
 	\item push new commits to PR branch, if there were differences between source \& target environments
 	\item create new PR, if not yet opened
 \end{enumerate}
+
 
 
 
