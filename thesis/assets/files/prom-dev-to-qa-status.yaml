@@ -1,0 +1,17 @@
+apiVersion: promotions.gitopsprom.io/v1alpha1
+kind: Promotion
+metadata:
+  name: dev-to-qa
+...
+spec:
+...
+status:
+  conditions:
+  - lastTransitionTime: "2023-04-16T12:10:45Z"
+    message: A pull request is open for review.
+    reason: Succeeded
+    status: "True"
+    type: Ready
+  lastPullRequestNumber: 1
+  lastPullRequestUrl: https://github.com/thomasstxyz/mtpoc-infra-1/pull/1
+  observedGeneration: 1

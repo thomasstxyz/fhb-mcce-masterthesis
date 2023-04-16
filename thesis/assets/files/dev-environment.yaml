@@ -1,0 +1,16 @@
+apiVersion: promotions.gitopsprom.io/v1alpha1
+kind: Environment
+metadata:
+  name: dev
+  namespace: default
+spec:
+  path: ./envs/dev
+  source:
+    url: https://github.com/thomasstxyz/mtpoc-infra-1
+    ref:
+      branch: main
+    secretRef:
+      name: mtpoc-infra-1-ssh
+  apiTokenSecretRef:
+    name: github-api-token
+  gitProvider: github

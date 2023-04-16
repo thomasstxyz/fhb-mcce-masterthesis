@@ -1,0 +1,15 @@
+apiVersion: promotions.gitopsprom.io/v1alpha1
+kind: Promotion
+metadata:
+  name: prod-1-to-prod-2
+  namespace: default
+spec:
+  sourceEnvironmentRef:
+    name: prod-1
+  targetEnvironmentRef:
+    name: prod-2
+  copy:
+  - name: "Application Version"
+    source: app-version
+    target: app-version
+  strategy: pull-request

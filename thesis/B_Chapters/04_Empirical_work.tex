@@ -17,9 +17,9 @@ called the GitOps Promotions Operator.
 \section{Design \& Development}
 
 The Design of the GitOps Promotions Operator
-is based on the underlying conditions of the Kubebuilder framework,
+is based on the underlying constraints of the Kubebuilder framework,
 discussed in section \ref{theoretical-background:kubernetes} of this thesis.
-The main conditions the framework comes with, are the
+The main constraints the framework comes with, are the
 custom resource definition + controller pattern.
 
 \begin{figure}[h]
@@ -31,11 +31,21 @@ custom resource definition + controller pattern.
 	\label{fig:crd-and-controller}	
 \end{figure}
 
+As the initial step of the design phase,
+abstract model definitions are designed.
+Their key properties are identified.
+Then a sample mockup is designed as
+a custom resource definition in Yaml format.
+Afterwards this idea of the model definition is 
+translated into custom struct types of the
+Go programming language,
+which is chosen by the Kubebuilder framework.
+
 \subsection{Abstract Models}
 	
-The first step of the initial design phase is the creation abstract models.
+The first step of the initial design phase is the creation of abstract models.
 In order to be able to represent environments and promotions,
-the requirements is at least two abstractions models for each 
+the requirement is to at least start with two abstract models for each 
 the environment and promotion.
 
 The Environment represents a GitOps environment,
@@ -82,7 +92,8 @@ Examples for a path are the following:
 	\item \lstinline|./path/to/env/|
 \end{itemize}
 
-Note, that these example paths all represent the same directory.
+Note, that these example paths all represent the same directory,
+these are just alternative notations.
 
 The abstract model for a GitOps promotion needs at least the following properties:
 
@@ -99,42 +110,46 @@ The target environment defines the environment resource,
 where a promotion should promote to.
 
 A promotion subject can be potentially many different things.
-In the case of this prototype development,
+In the case of this prototype,
 a promotion subject is a file or directory,
 which is copied from the source to the target environment.
 Examples of such files or directories are the following:
 
 \begin{itemize}
-	\item kustomization.yaml
-	\item ./component/cert-manager/kustomization.yaml
-	\item ./helm-values-prod.yaml
+	\item \lstinline|kustomization.yaml|
+	\item \lstinline|./component/cert-manager/kustomization.yaml|
+	\item \lstinline|./helm-values-prod.yaml|
 \end{itemize}
 
-A promotion subject could also be fetched from another source,
-like an artifact registry,
-and updated/promoted in the target environment,
-e.g. a version tag.
+Note, that the relative paths of the promotion subjects,
+are relative to the paths of the environment, defined earlier.
+An example of the \lstinline|kustomization.yaml|, would look like this:
 
-The promotion strategy can be a git pull request.
-A pull request will be created with the changes a promotion would do, 
-which can be reviewed by a human,
-and approved and accepted/merged.
-Only after a pull request is merged,
-the promotion will take effect, and the subjects are promoted to the target environment.
+\lstinline|./path/to/env/kustomization.yaml|
+
+As an example - but outside the scope of the current prototype -
+a promotion subject could also be fetched from another source,
+like an artifact registry, or be any other type of data
+and updated/promoted in the target environment,
+e.g. a version tag, helm values, etc.
+
+With the current prototype,
+the promotion strategy is to raise a pull request at the Git provider,
+with the changes proposed by the promotion.
+A human can then review the changes and optionally approve and merge the pull request.
+After merging, the promotion will have taken place.
 
 Alternatively to a pull request, the changes could be directly
 commited and pushed to the target environment,
 without human interaction. This strategy should require different means
-of automated or otherwise external checks, in order to ensure a safe promotion.
+of automated or otherwise external or additional checks, in order to ensure a safe promotion.
 
-The abstract models which are designed,
-need to be implemented.
-Since the Kubebuilder framework -
-this prototype is developed with -
-already offers declarative APIs
-in the form of custom resource definitions,
-the implementation is focused on the content itself.
-The technological boundaries are given by the framework.
+Now that the abstract models are designed,
+they need to be implemented.
+Since the decision for the prototype is to be developed
+with the Kubebuilder framework and follow its style,
+mockups of the custom resources in Yaml format
+will be created as a next step.
 
 
 
@@ -157,10 +172,9 @@ as Kubernetes custom resource definitions.
 
 Users will mainly be dealing with the custom resources in a Yaml format.
 Yaml keys should be intuitive and make sense to the user.
-It also helps if they follow the core Kubernetes definitions,
-e.g. regarding naming conventions.
+It also helps if they follow the core Kubernetes definitions regarding naming conventions.
 An example for a naming convention is the "Ref" suffix for yaml keys.
-This suffix is appended to keys which represent a reference to another Kubernetes
+This suffix is typically appended to keys which represent a reference to another Kubernetes
 object.
 For example, "secretRef" says that this field refers to a Kubernetes secret resource.
 
@@ -178,9 +192,9 @@ could look like the following.
 
 \lstinputlisting{assets/files/promotion-mockup.yaml}
 
-In the promotion mockup definition,
+In the promotion mockup definition,\\
 there are four main fields within the \lstinline|.spec|.
-These represent the minimum properties of our abstract definition.
+These represent the minimum properties of the previously defined abstract definition.
 It is to note, that
 the \lstinline|.spec.copy| field represents the promotion subjects.
 It is a list of items, where each item contains
@@ -196,9 +210,9 @@ and the \lstinline|target| is a relative path from the target environment.
 The following alternative mockups,
 for the custom resource definitions,
 i.e. the design of the declarative API,
-are suggested.
+are suggested, but now implemented in the current prototype.
 
-\subsubsection*{Promotion Subjects decoupled from Promotion resource}
+\subsubsection*{Promotion Subjects defined in each Environment resource}
 
 Alternatively, the promotion subjects could also be specified
 in the environment resource.
@@ -212,48 +226,59 @@ a list of promotion subjects.
 
 \lstinputlisting{assets/files/promotion-mockup-alt-1.yaml}
 
+This alternative design allows that each environment could have
+a unique path of a specific promotion subject defined.
+Now if a promotion is spanning over multiple environments,
+they could each specify their own unique path to a promotion subject.
+The promotion subject is declared in the promotion,
+but the actual path is defined per each environment.
+
 \subsection{Translation to Go types}
 
-Once the mockups are available,
-and the user facing declarative API design has been specified,
-the yaml specification can be translated to struct types in the
-Go programming language, which is used by the Kubebuilder framework.
-The initial structure of the custom resource Environment,
-plus the associated controller
-can be boostrapped with the kubebuilder cli:
+Once the mockups of the custom resources in Yaml format are done,
+the declarative structure can be translated to custom Go types.
 
-\lstinline|kubebuilder create api --group promotions --version v1alpha1 --kind Environment|
-
-The generated environment types can then be written.
+The specification of the Environment resource results in the following code:
 
 \lstinputlisting{assets/files/environmentSpec-type.go}
 
+The type EnvironmentSpec represents the \lstinline|.spec| Yaml field.
+
 What also needs to be defined is the status subresource.
+In the status fields, the controller can save the current/actual state
+of the resource during runtime.
+While \lstinline|.spec| defines the desired state,
+\lstinline|.status| defines the actual state, as observed by the controller.
+
+% TODO: maybe show example of .status yaml
 
 \lstinputlisting{assets/files/environmentStatusSpec-type.go}
 
-The same procedure is done for the Promotion api.
-
-\lstinline|kubebuilder create api --group promotions --version v1alpha1 --kind Promotion|
-
-The generated promotion types can then be written,
+The specification of the Promotion resource results in the following code:
 
 \lstinputlisting{assets/files/promotionSpec-type.go}
 
-along with the status spec.
+For the promotion,
+a status subresource is also defined.
+In the status - the actual state of the resource as observed by the controller -
+most importantly the metadata of the currently opened pull request is saved,
+which the controller will pick up on every consecutive reconciliation
+of the same promotion object.
 
 \lstinputlisting{assets/files/promotionStatusSpec-type.go}
+
+The full source code of the types can be found in Appendix
+\ref{appendix:source-code}.
 
 Once the Go types are defined,
 the controller logic can be written.
 
 \subsection{Controller Logic}
 
-For the environment api,
+For the environment API,
 a controller is written.
-For this prototype the following logic was implemented,
-as seen in fig. \ref{fig:env-ctrl-logic}.
-First, the source git repository is cloned,
+For this prototype the following logic was implemented.
+First, the source git repository is cloned and checked out,
 with the appropriate authentication options, if it is private.
 If it succeeds, the Ready condition is set in the status subresource,
 which will mark it available and ready for the promotion.
@@ -264,8 +289,19 @@ which will mark it available and ready for the promotion.
 	\item mark environment as ready
 \end{enumerate}
 
-For the promotion api,
+For the promotion API,
 the following controller logic is implemented.
+First, the controller checks if the source and target environments are ready,
+if they are not yet ready, the controller cancels the reconciliation immediately.
+Then the source and target environments are cloned.
+Next the controller checks if there is a pending/open pull request,
+this information is retrieved from the object's status, and then checked
+if still up to date via the Git provider's API.
+Afterwards the controller executes the promotion tasks,
+which are the copy operations with the current state of the prototype.
+Now if there were changes since the last reconciliation, the new commits
+are pushed to the pull request branch.
+Lastly, a pull request will be raised, if not yet done during a previous reconciliation.
 
 \begin{enumerate}
 	\item ensure that the source and target environments are ready
@@ -276,6 +312,314 @@ the following controller logic is implemented.
 	\item create new PR, if not yet opened
 \end{enumerate}
 
+The full source code of the controllers can be found in Appendix
+\ref{appendix:source-code}.
+
+
+
+
+
+
+\section{Proof Of Concept Demonstration}
+
+The following section demonstrates the in-context usage of the
+developed prototype - the GitOps Promotions Operator - in a proof of concept.
+The use case described as follows is created for the purpose of this demonstration.
+
+This use case deals with a setup with multiple deployment environments.
+There are two non-critical environments \lstinline|dev| and \lstinline|qa|,
+and two production environments \lstinline|prod-1| and \lstinline|prod-2|.
+The GitOps definitions of the non-critical environments are living inside the same
+Git repository \lstinline|mtpoc-infra-1|,
+and each production environment lives in its own separate Git repository
+\lstinline|mtpoc-infra-2| for \lstinline|prod-1|,
+and \lstinline|mtpoc-infra-3| for \lstinline|prod-2|.
+In general, the application version shall be promoted with a strict flow
+through the environments, one after the other.
+An overview of the given setup can be seen in the table \ref{table:poc-environments-setup}.
+
+\begin{table}[h]
+\begin{center}
+	\begin{tabular}{||c c c||} 
+		\hline
+		Order & Environment & Source Repository \\ [0.5ex] 
+		\hline\hline
+		1 & dev & mtpoc-infra-1 \\ 
+		\hline
+		2 & qa & mtpoc-infra-1 \\
+		\hline
+		3 & prod-1 & mtpoc-infra-2 \\
+		\hline
+		4 & prod-2 & mtpoc-infra-3 \\ [1ex]
+		\hline
+	\end{tabular}
+	\caption{PoC Environments Setup}
+	\label{table:poc-environments-setup}
+\end{center}
+\end{table}
+
+The GitOps environment is centered around the used configuration management tool
+Kustomize, and generally structured for all environments as below:
+
+\begin{lstlisting}
+.
+|-- app-version
+|   `-- kustomization.yaml
+|-- kustomization.yaml
+`-- settings
+    `-- deployment.yaml
+\end{lstlisting}
+
+This structure adheres to the constraints of the currently available
+copy operation promotion type, which can copy files and directories.
+This means the configuration components which need to be promoted,
+should be defined in separate files or directories.
+This is needed, in order to only promote e.g. the application image version,
+while leaving other configuration untouched, and specific to an environment.
+With the Kustomize configuration tool, it is possible to split
+parts of the main \lstinline|kustomization.yaml| into other separated files,
+with the components feature.
+
+In this use case, the value of the application's image version lives within the 
+app-version component. This is configured in the main \lstinline|kustomization.yaml|
+like this:
+
+\begin{lstlisting}
+components:
+- app-version
+\end{lstlisting}
+
+The \lstinline|./app-version| directory contains a \lstinline|kustomization.yaml| file,
+with typical Kustomization specification.
+In this case, the images feature of Kustomize is used for configuring the application's
+image version tag.
+
+\begin{lstlisting}
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+images:
+- name: ghcr.io/stefanprodan/podinfo
+newTag: 6.3.4
+\end{lstlisting}
+
+Now the goal is to configure a promotion for the app-version component.
+To achieve this, 
+first, a \lstinline|Environment| resource needs to be created
+for all environments respectively.
+Only the \lstinline|dev| environment is shown here,
+the other three environment definitions follow the same schema,
+but are omitted for the sake of brevity.
+
+\lstinputlisting{assets/files/dev-environment.yaml}
+
+%\lstinputlisting{assets/files/qa-environment.yaml}
+%
+%\lstinputlisting{assets/files/prod-1-environment.yaml}
+%
+%\lstinputlisting{assets/files/prod-2-environment.yaml}
+
+Now the specified secrets must be created.
+The API token is required for the creation of pull requests by the promotion controller;
+it must be stored in a Kubernetes generic secret resource in a key named \lstinline|token|,
+and can be created with the following command:
+
+\lstinline|kubectl create secret generic github-api-token --from-literal=token="gh..."|
+
+With the current prototype, also a secret for the SSH connection to push and pull
+the repository, needs to be created.
+For this, a ssh key pair needs to be created by the user. Its public key needs to 
+be set as a deploy key at the Git provider,
+and its private key needs to be stored in a
+Kubernetes generic secret resource in a key named \lstinline|private|.
+
+\lstinline|kubectl create secret generic github-api-token --from-literal=private="--..."|
+
+When all the four environments are created, the \lstinline|Promotion| resources
+can be defined.
+In this use case, three promotion resources are needed for the ability to
+promote between all four environments with a straight flow - promoting from one to the next.
+Only the \lstinline|dev-to-qa| promotion is shown here,
+the other two definitions follow the same schema,
+but are omitted here for the sake of brevity.
+
+\lstinputlisting{assets/files/dev-to-qa.yaml}
+
+%\lstinputlisting{assets/files/qa-to-prod-1.yaml}
+%
+%\lstinputlisting{assets/files/prod-1-to-prod-2.yaml}
+
+
+
+
+
+At this point, all which is needed for promoting is configured.
+When the status of all the environment resources involved in a promotion,
+have a ready status condition,
+a promotion will trigger.
+
+\lstinputlisting{assets/files/env-dev-status.yaml}
+
+At this point, the controller logs can be observed.
+
+\begin{lstlisting}
+2023-04-16T12:10:40Z    INFO    Begin reconciling Promotion     {"controller": "promotion", "controllerGroup": "promotions.gitopsprom.io", "controllerKind": "Promotion", "Promotion": {"name":"dev-to-qa","namespace":"default"}, "namespace": "default", "name": "dev-to-qa", "reconcileID": "ba3775ae-d8b1-40de-ad7b-4f42f8534686", "name": {"namespace": "default", "name": "dev-to-qa"}}
+2023-04-16T12:10:46Z    INFO    Created new pull request        {"controller": "promotion", "controllerGroup": "promotions.gitopsprom.io", "controllerKind": "Promotion", "Promotion": {"name":"dev-to-qa","namespace":"default"}, "namespace": "default", "name": "dev-to-qa", "reconcileID": "ba3775ae-d8b1-40de-ad7b-4f42f8534686", "WebURL": "https://github.com/thomasstxyz/mtpoc-infra-1/pull/1"}
+2023-04-16T12:10:46Z    INFO    Reconciled Promotion successfully       {"controller": "promotion", "controllerGroup": "promotions.gitopsprom.io", "controllerKind": "Promotion", "Promotion": {"name":"dev-to-qa","namespace":"default"}, "namespace": "default", "name": "dev-to-qa", "reconcileID": "ba3775ae-d8b1-40de-ad7b-4f42f8534686", "duration": "6.050374419s", "nextReconcile": "300s"}
+\end{lstlisting}
+
+A new pull request
+%with the number \lstinline|1|
+%at the Web URL \\
+%\url{https://github.com/thomasstxyz/mtpoc-infra-1/pull/1} \\
+has been created by the controller.
+
+The promotion's status will also reflect, that
+a pull request is open for review.
+
+\lstinputlisting{assets/files/prom-dev-to-qa-status.yaml}
+
+The open pull request is ready for review in the Git provider's web interface.
+%\begin{figure}[h]
+%	\centering
+%	\includegraphics[width=1.00\linewidth]{assets/new-promotion-github.png}
+%	\caption{New Git Pull Request.
+%		%		(\citeauthor{ref}, \citeyear{ref}).
+%	}
+%	\label{fig:new-promotion-github}	
+%\end{figure}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.00\linewidth]{assets/prom-pr-dev-to-qa.png}
+	\caption{Pull Request for Promotion from dev to qa.
+		%		(\citeauthor{ref}, \citeyear{ref}).
+	}
+	\label{fig:prom-pr-dev-to-qa}	
+\end{figure}
+
+The changed difference introduced by the commit can be viewed:
+
+\begin{lstlisting}
+- newTag: 6.3.3
++ newTag: 6.3.4
+\end{lstlisting}
+
+The \lstinline|dev-to-qa| promotion requested the change of the image version from
+\lstinline|6.3.3| to \lstinline|6.3.4|.
+
+Now, since the \lstinline|qa| and the \lstinline|prod-1| environments
+also differ,
+a pull request has also been created for this promotion.
+
+%\begin{figure}[h]
+%	\centering
+%	\includegraphics[width=1.00\linewidth]{assets/prom-pr-qa-to-prod-1.png}
+%	\caption{Pull Request for Promotion from qa to prod-1.
+%		%		(\citeauthor{ref}, \citeyear{ref}).
+%	}
+%	\label{fig:prom-pr-qa-to-prod-1}	
+%\end{figure}
+
+The \lstinline|qa-to-prod-1| promotion requested the change of the image version from
+\lstinline|6.3.2| to \lstinline|6.3.3|.
+
+\begin{lstlisting}
+- newTag: 6.3.2
++ newTag: 6.3.3
+\end{lstlisting}
+
+Now, since the \lstinline|prod-1| and the \lstinline|prod-2| environments
+also differ,
+a pull request has also been created for this promotion.
+
+%\begin{figure}[h]
+%	\centering
+%	\includegraphics[width=1.00\linewidth]{assets/prom-pr-prod-1-to-prod-2.png}
+%	\caption{Pull Request for Promotion from prod-1 to prod-2.
+%		%		(\citeauthor{ref}, \citeyear{ref}).
+%	}
+%	\label{fig:prom-pr-prod-1-to-prod-2}	
+%\end{figure}
+
+The \lstinline|prod-1-to-prod-2| promotion requested the change of the image version from
+\lstinline|6.3.1| to \lstinline|6.3.2|.
+
+\begin{lstlisting}
+- newTag: 6.3.1
++ newTag: 6.3.2
+\end{lstlisting}
+
+If the \lstinline|dev| environment advances the application image version further,
+the pull request for the \lstinline|dev-to-qa| will be updated with another commit.
+Note that the previous commit is not overwritten, 
+but the commit history is kept on the pull request branch - now there are two commits on the branch.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.00\linewidth]{assets/prom-pr-dev-to-qa-round2.png}
+	\caption{Pull Request updated for Promotion from dev to qa.
+		%		(\citeauthor{ref}, \citeyear{ref}).
+	}
+	\label{fig:prom-pr-dev-to-qa-round2}	
+\end{figure}
+
+The difference for the \lstinline|dev-to-qa| promotion is now:
+
+\begin{lstlisting}
+- newTag: 6.3.3
++ newTag: 6.3.5
+\end{lstlisting}
+
+%\begin{figure}[h]
+%	\centering
+%	\includegraphics[width=1.00\linewidth]{assets/prom-pr-dev-to-qa-round2-diff.png}
+%	\caption{Pull Request updated for Promotion from dev to qa (diff).
+%		%		(\citeauthor{ref}, \citeyear{ref}).
+%	}
+%	\label{fig:prom-pr-dev-to-qa-round2-diff}	
+%\end{figure}
+
+Now if the pull request for the \lstinline|dev-to-qa| promotion
+is approved and merged by a human,
+the promotion will actually take effect.
+This will results in the \lstinline|qa-to-prod-1| promotion pull request being updated
+by the promotion controller.
+Version \lstinline|6.3.5| is now requested for promotion to the
+\lstinline|prod-1| environment.
+
+The difference for the \lstinline|qa-to-prod-1| promotion is now:
+
+\begin{lstlisting}
+- newTag: 6.3.2
++ newTag: 6.3.5
+\end{lstlisting}
+
+Once reviewed, approved and merged by a human,
+the promotion of version \lstinline|6.3.5| to the \lstinline|prod-1| environment
+will result in further propagation of version \lstinline|6.3.5|
+to the \lstinline|prod-2| environment.
+
+The difference for the \lstinline|prod-1-to-prod-2| promotion pull request is now:
+
+\begin{lstlisting}
+- newTag: 6.3.1
++ newTag: 6.3.5
+\end{lstlisting}
+
+Once reviewed, approved and merged by a human,
+the promotion of version \lstinline|6.3.5| to the \lstinline|prod-2| environment
+will take effect.
+
+The described demonstration showed,
+how an application version can be promoted across multiple environments,
+while ensuring a strict flow of promotion of \\
+e.g. \lstinline|dev --> qa --> prod-1 --> prod-2|
+
+
+
+
+%For this demonstration, it is supposed that
+%the latest version \lstinline|6.3.5| is bad and should not be promoted,
+%instead the \lstinline|dev| environment shall be rolled back to \lstinline|6.3.4|.
 
 
 
@@ -292,8 +636,24 @@ the following controller logic is implemented.
 
 
 
-\section{Proof-of-Concept Demonstration}
+
+
+
+
+
+
 \section{Evaluation Of Proof-of-Concept Use Cases}
+
+
+
+
+
+
+
+
+
+
+
 \section{Summary}
 
 
