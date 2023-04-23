@@ -12,13 +12,58 @@ TODO
 
 The following section includes general definitions of terms on the topic.
 
-\subsection*{Cloud}
+\subsection*{Cloud Computing}
 
-TODO
+\begin{quotation}
+\noindent
+\enquote*{Cloud computing is a model for enabling ubiquitous, convenient, on-demand network access to a shared
+	pool of configurable computing resources (e.g., networks, servers, storage, applications, and services) that
+	can be rapidly provisioned and released with minimal management effort or service provider interaction.
+	This cloud model is composed of five essential characteristics, three service models, and four deployment
+	models.}
+\autocite{cloudComputingNistDefinition2011}
+\end{quotation}
 
-\subsection*{Cloud Native}
+The characteristics are
+\autocite{cloudComputingNistDefinition2011}:
 
-TODO
+\begin{itemize}
+	\item On-demand self-service
+	\item Broad network access
+	\item Resource pooling
+	\item Rapid elasticity
+	\item Measured service
+\end{itemize}
+
+The service models are
+\autocite{cloudComputingNistDefinition2011}:
+
+\begin{itemize}
+	\item Software as a Service (SaaS)
+	\item Platform as a Service (PaaS)
+	\item Infrastructure as a Service (IaaS)
+\end{itemize}
+
+The deployment models are
+\autocite{cloudComputingNistDefinition2011}:
+
+\begin{itemize}
+	\item Private cloud
+	\item Community cloud
+	\item Public cloud
+	\item Hybrid cloud
+\end{itemize}
+
+\subsection*{Cloud Native Application}
+
+\begin{quotation}
+\noindent
+\enquote*{A cloud-native application (CNA) is a distributed, elastic and horizontal scalable system composed of (micro)services which isolates state in a
+minimum of stateful components. The application and each self-contained
+deployment unit of that application is designed according to cloud-focused
+design patterns and operated on a self-service elastic platform.}
+\autocite{cloudNativeApplicationDefinition2017}
+\end{quotation}
 
 \subsection*{Continuous}
 \begin{quotation}
@@ -43,6 +88,14 @@ TODO
 
 \subsection*{DevOps}
 
+\citeauthor{devopsDefinition2016} (\citeyear{devopsDefinition2016})
+define DevOps as
+a development methodology aimed at bridging the gap between
+development and operations, emphasizing communication and collaboration,
+continuous integration, quality assurance and delivery with automated deployment
+utilizing a set of development practices
+\autocite{devopsDefinition2016}.
+
 \subsection*{Drift}
 \begin{quotation}
 \noindent
@@ -51,7 +104,16 @@ TODO
 \end{quotation}
 
 \subsection*{Environment}
-TODO
+
+An Environment in the context of this thesis
+is defined as a target deployment environment for a given application;
+e.g. Development, Testing, or Production.
+Most of the time this is a Kubernetes cluster or namespace.
+
+In the context of the proposed Kubernetes Custom Resource Definition
+Environment, however it represents a folder/directory in a Git repository,
+which points to a deployment environment or cluster/namespace as defined
+in the previous paragraph.
 
 \subsection*{Feedback}
 \begin{quotation}
@@ -98,7 +160,11 @@ for associated terms and concepts.
 
 \subsection*{Internal Developer Platform}
 
-TODO
+\begin{quotation}
+	\noindent
+	\enquote*{An Internal Developer Platform (IDP) is built by a platform team to build golden paths and enable developer self-service. An IDP consists of many different techs and tools, glued together in a way that lowers cognitive load on developers without abstracting away context and underlying technologies. Following best practices, platform teams treat their platform as a product and build it based on user research, maintain and continuously improve it.}
+	\autocite{internaldeveloperplatformWhatIsIDP}
+\end{quotation}
 
 \subsection*{Phase scheme}
 The ideal-typical structure of a project in sections of logically related tasks including the methodology,
@@ -107,10 +173,16 @@ methods and techniques of task solution. Synonym: phase model
 
 \subsection*{Platform Engineering}
 
-TODO
+Platform Engineering represents the engineering processes
+for providing an internal developer platform (as defined in this section).
 
 \subsection*{Promotion}
-TODO
+
+Promotion in the context of this thesis is defined as
+the process of promoting a new application version (release)
+to another deployment environment.
+In the context of GitOps and Git repositories,
+this often means changing declarative definitions in Git repositories.
 
 \subsection*{Prototype}
 An executable model of the planned product, produced with little effort and easy to modify,
@@ -137,7 +209,17 @@ A sequence of steps consisting of using, evaluating and modifying a prototype
 \end{quotation}
 
 \subsection*{Release}
-TODO
+
+A release in the context of this thesis
+represents the process of
+publishing a new version of an application or software component
+to the users.
+When following GitOps practices,
+this usually means
+pushing a new Git tag to a Git repository,
+which triggers a CI/CD workflow,
+which as one of its steps publishes the software artifact of
+the new version of the application in an artifact registry.
 
 \subsection*{Software System}
 \begin{quotation}
