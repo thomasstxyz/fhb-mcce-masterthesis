@@ -1,6 +1,6 @@
 \chapter{Theoretical Background} 	% Produces section heading.  Lower-level
 
-Basics such as theory, definitions, relevant theories, related work and state of the art should be included here.
+%Basics such as theory, definitions, relevant theories, related work and state of the art should be included here.
 
 TODO
 
@@ -592,7 +592,7 @@ desired state with the actual state,
 it has shown to be a good pattern to design custom extensions in the same way
 \autocite{extendKubernetes}.
 
-\subsection*{Controllers and Operators}
+\subsection*{Custom Resources, Controllers and Operators}
 % https://kubernetes.io/docs/concepts/architecture/controller/
 The concept of a controller and control loop within Kubernetes refers to the
 meaning from robotics and automation, where
@@ -610,9 +610,13 @@ in order to help with separation of concerns.
 Controllers make changes to resources inside the cluster,
 like pods and deployments,
 but can also be responsible for resources external to the cluster,
-like APIs of the infrastructure provider.
-A typical controller implementation can be seen in figure \ref{fig:typicalControllerKubernetes}
+like APIs of the infrastructure provider
 \autocite{controllersKubernetes}.
+A typical controller implementation can be seen in figure
+\ref{fig:typicalControllerKubernetes}.
+As an example here, the deployment controller continuously ensures the desired state
+of three replicas; if it notices the desired state and actual state differ
+from one another, it does necessary actions to make them match again.
 
 \begin{figure}[h]
 	\centering
@@ -623,7 +627,7 @@ A typical controller implementation can be seen in figure \ref{fig:typicalContro
 	\label{fig:typicalControllerKubernetes}	
 \end{figure}
 
-When a controller has specific domain knowledge programmed into its logic,
+When a controller has specific domain knowledge,
 or does certain tasks, which would usually be done by a human "operator",
 it is called an operator.
 
@@ -637,7 +641,6 @@ This code, the controller logic, can then be automated.
 Examples for such operational tasks are
 backups and restoring of backups, error remediation, database migrations, etc.
 \autocite{operatorWhitepaperV1}.
-
 In overly simplified terms:
 An operator is a controller plus domain-specific operational knowledge
 (fig. \ref{fig:operatorAndController}).
@@ -678,10 +681,20 @@ There exist rich libraries for interfacing with Kubernetes components,
 since Kubernetes itself is also implemented in the Go language
 \autocite{kubebuilderBookWebsite}.
 
+With custom resources, the Kubernetes API can dynamically be extended during runtime,
+without the need to access its source code or recompile it.
+
+While a resource is
+\enquote*{an endpoint in the Kubernetes API that stores a collection of API objects of a certain kind}
+\autocite{customResourcesKubernetesIO},
+a custom resource is
+\enquote*{an extension of the Kubernetes API that is not necessarily available in a default Kubernetes installation}
+\autocite{customResourcesKubernetesIO}.
+Custom resources can be dynamically registered and independently updated.
+Users can interface with its objects as they do with the Kubernetes built-in resources
+\autocite{customResourcesKubernetesIO}.
 
 \section{Summary}
-
-TODO: explain CRDs
 
 TODO
 
