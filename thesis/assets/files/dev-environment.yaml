@@ -11,6 +11,10 @@ spec:
       branch: main
     secretRef:
       name: mtpoc-infra-1-ssh
+  dependentObjects:
+    workloadRef:
+    - kind: Deployment
+      name: dev-podinfo
   apiTokenSecretRef:
     name: github-api-token
   gitProvider: github

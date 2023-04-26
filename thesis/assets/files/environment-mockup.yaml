@@ -8,3 +8,7 @@ spec:
     url: https://gitprovider.com/org/repo
     ref:
       branch: main
+  dependentObjects:
+    workloadRef:
+    - kind: Deployment
+      name: my-deployment
