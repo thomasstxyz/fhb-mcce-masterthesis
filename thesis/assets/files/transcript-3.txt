@@ -1,0 +1,194 @@
+Speaker 1
+What is your position or role? What is your practical experience with the topic and in which industry do you work?
+
+Speaker 2
+I've basically been in IT for about 20 years.
+
+Speaker 2
+17 of which I've worked in a banking data center and there basically always as a platform engineer. Even though they didn't call it that in the past. I used to be an admin in the Java EE / Application Server area, but I've actually always been involved in providing platforms for developers. They used to be less self-service than nowadays with Kubernetes, but eventually we evolved there. We built a platform ourselves before Kubernetes, but it was still very highly automated.
+
+Speaker 2
+And then at some point we switched to Kubernetes, so from there I was in the position of a senior platform engineer. Was then also for a short time at Dynatrace in Application Delivery as a Platform Engineer and we have now together with colleagues, we are in the process of building a company that essentially does exactly that again for other companies to develop platforms based on Kubernetes and there I am in the role of a IT senior consultant or platform engineer. We want to develop modern platforms that have Kubernetes in the substructure. And there is also an essential pillar of the whole Continuous Delivery part.
+
+Speaker 1
+Very interesting. In the bank's data center. Are there a lot of environments there? e.g. Dev, QA, Staging, Production, etc.?
+
+Speaker 2
+If I remember correctly, that was up to twelve environments for the core banking system. That was not running on Kubernetes at the time, but a very high sophisticated staging of an integration environment, so integration, test environment, pre-production, acceptance testing, performance testing, test environment. Then there was even a pilot environment, where there were already productive users, but only in a limited circle, and then finally a production environment, there were several depending on the application type.
+
+Speaker 2
+There have been many, many environments. Production was only a very small part of it.
+
+Speaker 1
+What do you think, is it still like that. although now with Continuous Integration and fully automated pipelines you can test every commit automated well. It's maybe easier today that you need less fixed environments like you used to. But what do you think, for example in a bank, is it still the requirement for so many environments?
+
+Speaker 2
+I think so, because the criterion for a stage was on the one hand, the quality level of the software. So does the software still have a lot of bugs, or is it close to acceptance. And because you had to run them all in parallel, you simply needed this high number of stages.
+
+Speaker 2
+And always on different data partly.
+
+Speaker 2
+And a different circle of users. And from these criteria, it simply resulted that one and different software statuses and partly then different status of the application, but different status of the platform underneath. And then you have a rotation like that.
+
+Speaker 2
+of different combinations of components that all have to be tested. So I think the need for a lot of stages has not become less, which maybe with modern technologies you get a little bit better handle that you don't need them all the time. The environments, for example, an immense cost to us to consistently provide a performance test environment that was very production representative, so just as many CPUs as in production and other resources as well.
+
+Speaker 2
+That was immensely expensive and it was provided continuously because it was set up manually and only set up once and then you were happy when it worked and then it cost a lot. But you only used it a few times a year and with today's technologies fully automated via Kubernetes also GitOps, where you can say you don't need it, I can do scale to zero completely delete the environment, because the truth is in Git anyway and can then reproduce it again if necessary.
+
+Speaker 2
+So you create a little bit of flexibility a only create them when needed and therefore only have costs when needed. That will change, but the number of stages may even increase because of the fact that it is now possible to be so flexible. There are also approaches that say you create a separate environment for each pull request to test that pull request on a real system.
+
+Speaker 2
+I believe that this possibility will create a new need. But you might have the chance to make the whole thing cheaper anyway.
+
+Speaker 1
+What do you say to the term GitOps, what do you understand by it?
+
+Speaker 2
+For me GitOps means to map the complete infrastructure declaratively in Git, that is important point for me. I describe how the infrastructure should look and there is then a GitOps engine outside, which constantly tries to bring this target state from Git into an actual state on the real system via a reconciliation loop and to clean up the configuration drift on both sides. So even if I change something on the actual system that does not correspond to the target state in Git that the GitOps engine then also restores the target state in the real system.
+
+Speaker 2
+And the whole thing is also independent of Kubernetes. I think Kubernetes is well suited because it's completely API-driven. But basically, I would say that it's technology agnostic.
+
+Speaker 1
+Now when you talk about promotion between environments there is the term release, and the process when there is a new version of the software. Could you explain your practical experience, deployments, use cases with the release or rollout of a new version, in the context of GitOps.
+
+Speaker 1
+And what it is for example an application release, or container image or something else? Is an environment a Kubernetes cluster? What do you need to update, and roll out for new releases?
+
+Speaker 2
+I'm almost inclined to say that I don't care what a release is. I'm talking about a general change to the system, and whether you call it a release or a hotfix or a minor change or a major change, I wouldn't make that big of a distinction. And I wouldn't distinguish whether it's about rolling out a new container image or whether it's a change in a ConfigMap, for example.
+
+Speaker 2
+I've always tried to look at it that way. It's just a change to the application and or to the application specific infrastructure. So this is how I always try to explain Helm Charts or the Kubernetes Yamls. That's actually infrastructure, but just very application-specific infrastructure.
+
+Speaker 1
+What is actually relevant or what are we actually about with this whole thing? We want to use the Git system, which we all already know, to be able to record any changes to the system, and for example, if there is a worse change and a resulting failure, to know immediately what has changed, and to be able to jump back to a working state as quickly as possible.
+
+Speaker 2
+Exactly, and that is why I would also, now related to pipeline or promotion, and that is how we have always done it in the past, regardless. That's just a push into the Main Branch or any Branch happens and then you just run all your tests through. Whether that was testing whether the Kubernetes manifest was semantically correct or that meets its compliance requirements or even other functional testing at that point, I would always say it's important to test everything through because you often don't know. An entry in the ConfigMap can often destroy as much in functionality as a new image.
+
+Speaker 1
+You know the tools Kustomize, Helm or others that make it easier to map or set up multiple environments or multiple clusters? What tools do you use for this configuration management and do you have preferences?
+
+Speaker 2
+I have been using mostly Helm or Plain Kubernetes Manifests until now. Now in the new company we're trying to do a little bit with Kustomize, but I'm still a little bit at war with Kustomize. Especially because of the promotion. But maybe I lack a little bit of experience there. With Kustomize I always have the feeling that you have to change things in the base layer very often, and not only via the overlays. So I use mainly Helm and I have so the feeling that very many 3rd party applications that you find in service or application catalogs, also for example from Bitnami, that are mainly Helm charts.
+
+Speaker 2
+Now you might have to talk a little bit about which strategy you follow regarding Env-per-Folder or Env-per-Branch. I come very much from the Env-per-Branch corner, and find it quite practical from that point of view in the context of Helm. So if you're interested, I can explain briefly how we built the git repos. I have the Helm Chart and then for each environment an own stage-specific values.yaml. Additionally a values.yaml, where the non-stage specific values are in, and the whole package I merge through the git branches in the repository for promotion.
+
+Speaker 2
+And with that I've actually achieved two things, I can stage any change, whether it's in the base templates or just in the values files. And I can also differentiate if I want to make the change only for a certain stage by simply mapping that part in the stage specific values file.
+
+Speaker 2
+And the combination. Now I already know that big ideological discussions have arisen that Env-per-Branch is bad. But I don't think that's the case. I think that you can actually cover a lot with the combination in a safe way. And I have not yet managed these use cases with Kustomize. With Kustomize I've always had some situation where I thought to myself hmm, I actually have to change the base now, but if I don't have my own branch now, then I change all stages at the same time or I can't just promote my change that I have as a patch in Kustomize.yaml to the next stage, because if I copy the Kustomize.yaml, there are also a lot of stage-specific things inside, which I don't want to promote, because there might be the patch for the Ingress host inside, and it's supposed to be different. And there I have just not yet found a good strategy. I do know, but I wanted to add that. I know there's a great tutorial from Codefresh on how to separate business values, stage-specific and non-stage-specific values, etc., but for me it's a bit illusory that you can get that right at the beginning in the first step during setup. Then when you are in production and only then you have to refactor the Kustomize package. Then you're just faced with the misery again. How do I do that without affecting the production.
+
+Speaker 1
+With the Git Env-per-Branch approach, have you ever had a problem where you had a merge conflict?
+
+Speaker 2
+There maybe it depends a little bit on your workflow, if you sort of go into production with every change and with a fast forward merge I even have every environment branch hanging on the same commit, then if everything goes through, everything promotes through, then really every branch is on the same identical commit, then that can't happen to you.
+
+Speaker 2
+If you now start with Git cherry-picking between the branches and then say I only want to make certain changes in production that I don't want to make in pre-production, then you probably run into the problem. But I think that's not a Git problem, it's a problem with a disciplined approach to staging. And we used to have that before Kubernetes and before GitOps.
+
+Speaker 2
+As a systems engineer who has an operations responsibility, you've always had to look at, how do I create good dev-prod parity. In other words, how do I ensure that environments are very similar and only differ in exceptional cases at very specific, deliberate points in order to achieve a certain test quality? Because if I then at some point in the life span of an environment - it used to be about five to six years - if everyone just kind of tinkers a bit here and there, and doesn't have a disciplined approach, you eventually get the case that e.g. pre-production no longer corresponds to the production at all. And everything I test in pre-production is actually redundant/useless. Because it can be that it works completely differently in production, so I always think like that.
+
+Speaker 2
+The disciplined approach should actually come first and then you can think about whether now the git branch, git merge is a problem or not a problem. And that's important to know for promotion actually I want to promote everything and the differences should be very, very marginal.
+
+Speaker 1
+Which Git providers or Git servers do you use in your practice? GitHub, GitLab, BitBucket, etc.?
+
+Speaker 2
+Mostly GitLab.
+
+Speaker 2
+Now that we want to be Kubernetes providers, or platform providers, platform consultants, we want to be a little bit broader, but we're looking at GitHub first, in addition to GitLab.
+
+Speaker 2
+That's actually it. Somebody brought up Azure DevOps Repos, but I've never looked at that. I'm just hoping that with GitHub and GitLab, we cover a lot of ground.
+
+Speaker 1
+What about the GitOps tools? What tools are you using (Argo CD, Flux, etc.)?
+
+Speaker 2
+We use Argo CD. Whereas right now we're mainly using OpenShift, and OpenShift has
+
+Speaker 2
+released its own Argo CD derivative and that's called OpenShift GitOps. but it basically more or less Argo CD, I don't even know if they have any additional features built in.
+
+Speaker 2
+Are now, as far as I know, the main contributor to Argo CD, along with Intuit.
+
+Speaker 1
+What problems do you have with this promotion between environments? If you follow the GitOps approach.
+
+Speaker 2
+Is the promotion for you.
+
+Speaker 2
+Really just.
+
+Speaker 2
+Transferring the state from a lower stage to the upper stage or even the whole issue of, what quality gates are there for that, making sure that the new state meets the quality requirements? And what all do you have to do to make sure that the state is going to be promoted at all.
+
+Speaker 2
+Or is it just a matter of, okay, we want to promote this and now it's a matter of pushing the state to the next stage.
+
+Speaker 1
+I understand. My point is now, for example, if I have an Argo CD Application defined in a git repository, and I have multiple environments, like now once starting from Dev and Prod, now these two environments. Let's say in the Dev environment, that's automatically deployed. And now I want to put that state into production because I say the Dev environment fits after maybe doing tests.
+
+Speaker 1
+It seems like there's a little bit of a lack of tools right now to make the process of promotion work in a structured, machine-driven way. It doesn't have to be fully automated though.
+
+Speaker 2
+As a cloud-native platform provider that wants to support different customers, this is exactly our challenge in the future. We actually basically want to take as much complexity away from the customer as possible. And the promotion. He actually just wants the new version and would prefer that the platform takes care of it. The version or change goes into production with all its quality gates, that the customer sets. and we have to be relatively flexible in the promotion. We have to be flexible whether he uses Kustomize or Helm. We have to be flexible as to whether they want to work via branches. So Env-per-Branch, because he says that's better for him security-wise, because he can secure Branches better. Maybe he also has the possibility to use all the approval rules, Pull Request rules to use in his Git provider. Others say again, this is all far too complicated for me, I want Env-per-Folder and I just want it to be quite uncomplicated and I have to - this is exactly the problem we are currently facing - if you make a good solution, then we would buy you and your tool right into our company. Haha, that you have a very flexible solution, and possibly also a solution that supports different Git providers. That means you have to think about it, because the pull requests, the APIs often look different with the different Git providers and maybe I would also like to have that modular, the tool, that I would like to be able to integrate e.g. in GitHub Actions or GitLab Pipeline, Tekton that runs in Kubernetes, etc. so I find that a big challenge to remain very flexible in the implementation.
+
+Speaker 2
+And also to support the war of faith between Env-per-Folder or Env-per-Branch, as the case may be. I think there are always enough who need the other as well.
+
+Speaker 2
+I see that as a big challenge technologically. Then there is another point that comes to my mind, because it may well be that you have dependencies between applications. I often take the approach that I have one GitOps repo per application or microservice. Now, for example, you want to promote the new version of one repo first, if the other one is also on a certain level, then there is the issue of dependencies to infrastructures, to databases, etc.. There are also different approaches. You can also solve this in the application and say that this is part of the application of the infrastructure, e.g. via crossplane and so on. And I also make the data model change internally or you say that has to be done outside of the application and e.g. solve a promotion orchestrator outside.
+
+Speaker 2
+And the next topic is that you might not only promote once in production, but you have instantiated the application for multiple customers. So multi-tenant is not implemented within the application, but for each, I make a separate instance and then I do not want to roll out all at the same time, but there I also want to do promotion. And this is not a classic stage, but rather, I first deployed the new version for the unimportant customer, now I also want to use it with the important customer, that would be interesting how to get a grip on it.
+
+Speaker 2
+Otherwise, it's worth mentioning again that when you're promoting, you should consider not just the image version, but all Kubernetes resources.
+
+Speaker 2
+And even if you now take the approach of putting a promotion tool in an operator, which I think is great, it would be good if you make it modular so that you say the promotion part, you can take it out and call it in a CLI or put it in other pipelines and parameterize it there.
+
+Speaker 1
+I would be interested to know where in your new company, as a platform provider the point of handover is, to the customer. What is managed for the customer, and what is the customer responsible for?
+
+Speaker 2
+It's a very good question, we are figuring out the right thing ourselves.
+
+Speaker 2
+It would be good if the customer already has his version control system. That's what he needs if he's writing software somewhere that he has to store somewhere. The customer will also be responsible for building their Docker images.
+
+Speaker 2
+He may then have a container registry himself.
+
+Speaker 2
+And then it depends on that,
+
+Speaker 2
+How well we can take certain parts off the customer's hands without at the same time taking away certain flexibility. So our solution can be, he provides his GitOps repository, where his Helm Charts, his Kubernetes Yamls are in there, and we support him with the GitOps pipeline. So we tell him how to do things like renovate or updatecli.
+
+Speaker 2
+Definitely, that the customer provides the repo in the version control system of his choice, and we hang ourselves with the CD pipeline on it, because we believe that the continuous delivery part is then already so close to the platform. It depends on whether you have Flux or Argo CD on the platform and.
+
+Speaker 2
+That's where we just want to support the customer, the handover is kind of the Helm Chart and the container image.
+
+Speaker 1
+Now that means if you want to run the software on the Kubernetes platform, that means now for example you manage the infrastructure and the clusters.
+
+Speaker 2
+It can then still have different manifestations. It can be on-premises at the customer, or it can be a SaaS solution at our end. That we are like a hosting provider, but in any case we completely manage the platform.
