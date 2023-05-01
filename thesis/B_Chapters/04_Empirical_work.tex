@@ -3,18 +3,235 @@
 
 \chapter{Interviews with Working Professionals}
 
-TODO
+This chapter discusses the conducted interviews with the working professionals.
+The interviews within this research have the main purpose of helping with
+identifying the problem with promotion of releases in GitOps environments,
+because there is insufficient prior written literature on this topic.
+Working professionals in the GitOps field are interviewed on the topic.
+Their personal opinion and practical experience, use cases and concrete problems
+are brought up for discussion. The importantance of a solution to the
+problem is highlighted and motivated.
+With the problem identification in place, several distinct solution objectives
+are defined from the basis of the discussions from the interviews.
+These solution objectives are then further elaborated in the following chapter
+\ref{chapter:prototype} \nameref{chapter:prototype}
+of this thesis, where they primarily serve as the basis for the
+desired functionality of the developed prototype.
 
 \section{Problem Identification \& Motivation}
-%As a first step in the initial design phase,
-%the overarching problem with promoting releases in GitOps environments
-%needs to be looked at.
 
-TODO
+As a first step in the research process,
+the overarching problem with promoting releases in GitOps environments
+needs to be looked at in detail.
+To help with this process, a series of semi-structured interviews are conducted with
+practicing professionals in the GitOps field. In addition, prior written literature
+is also brought up to help with identification of the problem.
+Furthermore, several distinct problem items are defined,
+for further use in the next research activity
+\ref{interviews:definitionSolutionObjectives} \nameref{interviews:definitionSolutionObjectives}.
+The importance of a practical solution to the problem is accentuated.
+
+\subsection{Problem 1: Promotion is limited to container image}
+
+\textbf{Objective}: arbitrary files in Git can be promoted
+
+The currently available GitOps toolchains -
+from e.g. Flux or Argo Projects -
+provide a way to patch the newest container image version
+into the desired state defined in Git.
+This is offered as a plain commit without human interaction,
+and is mostly used, in order to have a desired state in Git updated with
+the currently latest version of a container image,
+that is available in a specific container image registry.
+
+When promoting new releases of applications or infrastructure resources defined in Git as the 
+desired state, it is not only desirable to promote new version tags,
+but it is also needed to promote arbitrary resources like any files
+defined in the Git repository.
+Furthermore, it is desirable to have a human approve the changes,
+which are done by a machine, e.g. with the help of Git pull requests.
+
+As interview partner 1 says:
+\enquote*{I think that very few companies really do Continuous Deployment, most of them want to have some kind of manual release.}
+% TODO: cite i2
+
+Interview partner 3 defined a release
+as a \enquote*{generic change to the system}:
+
+\begin{quotation}
+	\noindent
+	\enquote*{I'm almost inclined to say that I don't care what a release is. I'm talking about a general change to the system, and whether you call it a release or a hotfix or a minor change or a major change, I wouldn't make that big of a distinction. And I wouldn't distinguish whether it's about rolling out a new container image or whether it's a change in a ConfigMap, for example.}
+	% TODO: cite i3
+\end{quotation}
+
+While a container image is a specific type of information inside a file in a desired state definition,
+the ConfigMap stands for a generic resource, typically a separate file inside the GitOps repository.
+With this statement, the interview partner means, that a release can include any type of information
+or resource. When following the principles of GitOps this is usually constrained to a plain text
+file in the GitOps repository, which then may be promoted by copying the file contents from
+one to another GitOps environment definition.
+
+\begin{quotation}
+	\noindent
+	\enquote*{It's just a change to the application and or to the application specific infrastructure. So this is how I always try to explain Helm Charts or the Kubernetes Yamls.}
+	% TODO: cite i3
+\end{quotation}
+
+\begin{quotation}
+	\noindent
+	\enquote*{When you're promoting, you should consider not just the image version, but all Kubernetes resources.}
+	% TODO: cite i3
+\end{quotation}
+
+\subsection{Problem 2: Order of promotion to multiple environments}
+
+\textbf{Objective}: strict flow of promotion through multiple environments
+
+Since currently there is no general standardized tool for promotion to multiple environments with the GitOps approach,
+a specific order of promotion through environments can not easily be achieved.
+
+\begin{table}[h]
+	\begin{center}
+		\begin{tabular}{||c c||} 
+			\hline
+			Order & Environment \\ [0.5ex] 
+			\hline\hline
+			1 & DEV \\ 
+			\hline
+			2 & INT \\ 
+			\hline
+			3 & QA \\
+			\hline
+			4 & PERF \\
+			\hline
+			5 & PRE-PROD \\
+			\hline
+			6 & PROD \\
+			%[1ex]
+			\hline
+		\end{tabular}
+		\caption{Order of promotion to multiple environments}
+		\label{table:order-promotion-multi-env}
+	\end{center}
+\end{table}
+
+The desired specified order of environments could be like interview partner 3 mentioned,
+where the core banking system had up to twelve environments,
+% TODO: cite i3
+which a new application release needed to pass for testing,
+in a specific order:
+
+\begin{quotation}
+	\noindent
+	\enquote*{There have been many, many environments. Production was only a very small part of it.}
+	% TODO: cite i3
+\end{quotation}
+
+Due to the high criticality in the banking system,
+it is the highest priority for an application to run in a stable manner throughout its lifetime,
+and for new version releases and new features to not break anything.
+The bank has a lot of environments/stages just for testing, in order to ensure the
+very high quality of the software.
+
+\begin{quotation}
+	\noindent
+	\enquote*{The criterion for a stage was on the one hand, the quality level of the software. So does the software still have a lot of bugs, or is it close to acceptance.}
+	% TODO: cite i3
+\end{quotation}
+
+Additionally to the order of promotion through environments,
+there is the problem of rolling out new releases to all environments at once.
+When
+\enquote*{multi-tenant is not implemented within the application,}
+% TODO: cite i3
+\enquote*{I do not want to roll out all at the same time.}
+% TODO: cite i3
+For example, as a platform provider with tenants represented as separate GitOps
+environments, it can be desirable to split up the rollout of the new release into
+stages. Interview partner 3 discussed this:
+
+\begin{quotation}
+	\noindent
+	\enquote*{I first deployed the new version for the unimportant customer, now I also want to use it with the important customer.}
+	% TODO: cite i3
+\end{quotation}
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{ |p{2.8cm}||p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|  }
+	\hline
+	Tenant/Customer & A & B & C & D\\
+	\hline
+	Stage 1   & v1 --> v2    &v1&   v1 & v1\\
+	Stage 2 &   v2  & v1 --> v2   & v1 --> v2 & v1\\
+	Stage 3 &v2 & v2&  v2 & v1 --> v2 \\
+	Stage 4 &v2 & v2&  v2 & v2\\
+	\hline
+\end{tabular}
+\caption{Rollout to environments in stages}
+\label{table:rollout-envs-stages}
+\end{center}
+\end{table}
+
+\subsection{Problem 3: Dependencies can not be defined}
+
+\textbf{Objective}: define dependencies for promotion
+
+Before promoting a new release to another environment,
+it may be desirable to have specific
+quality gates, which define the quality standards the
+software must meet, in order to be considered for a promotion.
+These can be integration and end-to-end tests for example.
+Additionally with a monitoring and observability tool,
+certain metrics can be evaluated with the new release,
+and if they do not meet a certain value, the release would not
+be a candidate for promotion.
+As a minimum, it must be ensured that the new version is 
+deploying correctly. When only given the desired state definiton
+in Git, it can not be measured, if the system will end up in a running
+and successful deployment.
+
+\begin{quotation}
+	\noindent
+	\enquote*{It may well be that you have dependencies between applications. I often take the approach that I have one GitOps repo per application or microservice. Now, for example, you want to promote the new version of one repo first, if the other one is also on a certain level, then there is the issue of dependencies to infrastructures, to databases, etc.}
+	% TODO: cite i3
+\end{quotation}
+
+To provide an example, in the context of the Kubernetes platform,
+an application may need an internal service or any other external (to Kubernetes)
+dependency like a managed database.
+When thinking of release promotion,
+a dependency might be a Kubernetes object like a job or another custom resource,
+which - when it is observed with a ready or successful status -
+can be seen as a test result or in prinicple a quality gate, which qualifies the
+new application release for promotion.
+
+\subsection{Problem 4: Provider and tool dependency}
+
+\textbf{Objective}: vendor-neutrality, agnostic to git provider and configuration tool
+
+With the currently available GitOps toolchains,
+and due to the lack of best practices and standardized solutions,
+users or platform engineers are inclined to build
+and setup
+\enquote*{advanced complex pipelines that are kind of like all interdependent on a lot of things.}
+% TODO: cite i1
+This usually results in tight coupling of the Git provider, the CI workflow/pipeline platform,
+configuration management tools, and other components.
+Additionally there need to be permissions and policies granted to many different people and
+machines on many different systems.
+In the end, it results in vendor lock-in and tightly coupled toolchains.
+
+
+
+
+
 
 \section{Definition of Solution Objectives}\label{interviews:definitionSolutionObjectives}
 
 TODO
+
+% visualize the problem solutions!
 
 \section{Summary}
 
@@ -31,6 +248,7 @@ TODO
 
 
 \chapter{GitOps Promotions Operator Prototype}
+\label{chapter:prototype}
 
 This chapter describes the developed prototype,
 called the GitOps Promotions Operator.
@@ -495,7 +713,8 @@ An overview of the given setup can be seen in the table \ref{table:poc-environme
 		\hline
 		3 & prod-1 & mtpoc-infra-2 \\
 		\hline
-		4 & prod-2 & mtpoc-infra-3 \\ [1ex]
+		4 & prod-2 & mtpoc-infra-3 \\
+%		[1ex]
 		\hline
 	\end{tabular}
 	\caption{PoC Environments Setup}
