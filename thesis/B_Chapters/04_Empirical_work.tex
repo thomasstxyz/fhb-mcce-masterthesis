@@ -83,6 +83,14 @@ one to another GitOps environment definition.
 	% TODO: cite i3
 \end{quotation}
 
+A solution to this problem could enable users to promote any arbitrary information
+like a file or folder in the Git repository,
+or another data from another source (e.g. artifact repository).
+This is especially valuable, when thinking broadly, that the tool
+which implements this problem solution, could also be used as a general
+GitOps tool for interfacing with desired state definitions and moving certain
+resources, or patching and updating them.
+
 \subsection{Problem 2: Order of promotion to multiple environments}
 
 \textbf{Objective}: strict flow of promotion through multiple environments
@@ -173,6 +181,9 @@ stages. Interview partner 3 discussed this:
 \end{center}
 \end{table}
 
+A solution to this problem formulation is especially valuable for
+use cases with a high amount of regulations like e.g. financial institutions.
+
 \subsection{Problem 3: Dependencies can not be defined}
 
 \textbf{Objective}: define dependencies for promotion
@@ -206,6 +217,13 @@ which - when it is observed with a ready or successful status -
 can be seen as a test result or in prinicple a quality gate, which qualifies the
 new application release for promotion.
 
+A solution to this problem statement is especially valuable when having the whole
+continuous delivery lifecycle in mind. After deployment of a new application release
+to a certain environment, it should be evaluated for its quality. So, tests
+and other metrics should be evaluated, in order to ensure high software quality
+at every stage in the development and also deployment cycle,
+all this in a fully automated way.
+
 \subsection{Problem 4: Provider and tool dependency}
 
 \textbf{Objective}: vendor-neutrality, agnostic to git provider and configuration tool
@@ -222,6 +240,12 @@ Additionally there need to be permissions and policies granted to many different
 machines on many different systems.
 In the end, it results in vendor lock-in and tightly coupled toolchains.
 
+A solution to this problem enables users to avoid vendor lock-in as much as possible.
+This fits well with the Kubernetes ecosystem, which is currently the most prominent
+cloud native software platform,
+in that it also tries to be cloud and platform agnostic at every step of the way.
+With Kubernetes it is always desirable that applications running on the platform can
+run on any type of infrastructure.
 
 
 
@@ -229,9 +253,14 @@ In the end, it results in vendor lock-in and tightly coupled toolchains.
 
 \section{Definition of Solution Objectives}\label{interviews:definitionSolutionObjectives}
 
-TODO
-
 % visualize the problem solutions!
+
+Now that the 
+
+
+
+
+
 
 \section{Summary}
 
