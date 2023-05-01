@@ -19,6 +19,7 @@ of this thesis, where they primarily serve as the basis for the
 desired functionality of the developed prototype.
 
 \section{Problem Identification \& Motivation}
+\label{interviews:problem-identification}
 
 As a first step in the research process,
 the overarching problem with promoting releases in GitOps environments
@@ -32,8 +33,6 @@ for further use in the next research activity
 The importance of a practical solution to the problem is accentuated.
 
 \subsection{Problem 1: Promotion is limited to container image}
-
-\textbf{Objective}: arbitrary files in Git can be promoted
 
 The currently available GitOps toolchains -
 from e.g. Flux or Argo Projects -
@@ -92,8 +91,6 @@ GitOps tool for interfacing with desired state definitions and moving certain
 resources, or patching and updating them.
 
 \subsection{Problem 2: Order of promotion to multiple environments}
-
-\textbf{Objective}: strict flow of promotion through multiple environments
 
 Since currently there is no general standardized tool for promotion to multiple environments with the GitOps approach,
 a specific order of promotion through environments can not easily be achieved.
@@ -186,8 +183,6 @@ use cases with a high amount of regulations like e.g. financial institutions.
 
 \subsection{Problem 3: Dependencies can not be defined}
 
-\textbf{Objective}: define dependencies for promotion
-
 Before promoting a new release to another environment,
 it may be desirable to have specific
 quality gates, which define the quality standards the
@@ -226,8 +221,6 @@ all this in a fully automated way.
 
 \subsection{Problem 4: Provider and tool dependency}
 
-\textbf{Objective}: vendor-neutrality, agnostic to git provider and configuration tool
-
 With the currently available GitOps toolchains,
 and due to the lack of best practices and standardized solutions,
 users or platform engineers are inclined to build
@@ -255,7 +248,29 @@ run on any type of infrastructure.
 
 % visualize the problem solutions!
 
-Now that the 
+Now that the problem has been identified in the earlier section
+\ref{interviews:problem-identification},
+research objectives of a solution to the problem will be inferred.
+Each research objective tries to provide a solution to a distinct problem item.
+A research objective is a qualitative description of how a functionality
+of the developed prototype is expected to support a solution to the problem definition.
+
+\subsection{Objective 1: Arbitrary resources can be promoted}
+
+TODO
+
+\subsection{Objective 2: Strict flow of promotion through environments}
+
+TODO
+
+\subsection{Objective 3: Dependencies of a promotion}
+
+TODO
+
+\subsection{Objective 4: Vendor-neutral, agnostic to git provider and configuration tool}
+
+TODO
+
 
 
 
@@ -265,6 +280,10 @@ Now that the
 \section{Summary}
 
 TODO
+
+
+
+
 
 
 
