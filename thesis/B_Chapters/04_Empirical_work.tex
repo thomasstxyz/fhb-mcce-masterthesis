@@ -304,8 +304,8 @@ and is labelled with a code, from a combination of the
 objective's code (e.g. OBJ1) and the requirement's code (e.g. R1).
 
 \begin{itemize}
-	\item \textbf{OBJ1R1}: As a user, I can define any filesystem path inside a Git repository, with a respective target path in a Git repository, as a promotion subject.
-	\item \textbf{OBJ1R2}: As a user, I can define a descriptive name for a promotion subject, which is represented as an arbitrary filesystem path.
+	\item \textbf{OBJ1R1}: \setword{As a user, I can define any filesystem path inside a Git repository, with a respective target path in a Git repository, as a promotion subject.}{OBJ1R1}
+	\item \textbf{OBJ1R2}: \setword{As a user, I can define a descriptive name for a promotion subject, which is represented as an arbitrary filesystem path.}{OBJ1R2}
 \end{itemize}
 
 \subsection{Objective 2: Strict flow of promotion through environments}
@@ -340,8 +340,8 @@ and is labelled with a code, from a combination of the
 objective's code (e.g. OBJ2) and the requirement's code (e.g. R1).
 
 \begin{itemize}
-	\item \textbf{OBJ2R1}: As a user, I can promote releases through multiple environments in a certain user-defined order.
-%	\item \textbf{OBJ2R2}: As a user, I can rollout a release to specific environments, while leaving others untouched.
+	\item \textbf{OBJ2R1}: \setword{As a user, I can promote releases through multiple environments in a certain user-defined order.}{OBJ2R1}
+%	\item \textbf{OBJ2R2}: \setword{As a user, I can rollout a release to specific environments, while leaving others untouched.}{OBJ2R2}
 \end{itemize}
 
 \subsection{Objective 3: Dependencies of a promotion}
@@ -372,7 +372,7 @@ and is labelled with a code, from a combination of the
 objective's code (e.g. OBJ3) and the requirement's code (e.g. R1).
 
 \begin{itemize}
-	\item \textbf{OBJ3R1}: As a user, I can define Kubernetes objects as dependencies for a promotion.
+	\item \textbf{OBJ3R1}: \setword{As a user, I can define Kubernetes objects as dependencies for a promotion.}{OBJ3R1}
 \end{itemize}
 
 \subsection{Objective 4: Vendor-neutral, tool-agnostic}
@@ -406,8 +406,10 @@ and is labelled with a code, from a combination of the
 objective's code (e.g. OBJ4) and the requirement's code (e.g. R1).
 
 \begin{itemize}
-	\item \textbf{OBJ4R1}: As a user, I can use any GitOps engine, Git provider and configuration/templating tool.
+	\item \textbf{OBJ4R1}: \setword{As a user, I can use any GitOps engine, Git provider and configuration/templating tool.}{OBJ4R1}
 \end{itemize}
+
+
 
 
 
@@ -419,6 +421,9 @@ objective's code (e.g. OBJ4) and the requirement's code (e.g. R1).
 \section{Summary}
 
 TODO
+
+
+
 
 
 
@@ -870,7 +875,17 @@ The full source code of the controllers can be found in Appendix
 
 
 
-\section{Proof Of Concept Demonstration}
+
+
+
+
+
+
+
+
+
+\section{Demonstration}
+\label{prototype:demonstration}
 
 The following section demonstrates the in-context usage of the
 developed prototype - the GitOps Promotions Operator - in a proof of concept.
@@ -1194,12 +1209,100 @@ e.g. \lstinline|dev --> qa --> prod-1 --> prod-2|.
 
 
 
-\section{Evaluation Of Proof-of-Concept Use Cases}
+\section{Evaluation}
 
+Now that the prototype has been demonstrated in a proof of concept,
+its functionality can be compared against the solution objectives,
+as defined in section
+\ref{interviews:definitionSolutionObjectives}
+earlier in this thesis.
 
+\subsection*{Objective 1}
 
+The requirement 1 of objective 1 (OBJ1R1), formulated as a user story,
+was the following:
 
+\begin{quotation}
+	\noindent
+	\ref{OBJ1R1}
+\end{quotation}
 
+As demonstrated in section
+\ref{prototype:demonstration}
+the user of the GitOps Promotions Operator can define promotion subjects
+in the form of file/directory copy operations inside the Promotion custom resource.
+The source and target may be in separate Git repositories, respective Environment custom resources.
+This creates the possibility to promote arbitrary resources.
+The demonstration shows a promotion of the "Application Version",
+which is actually a specified file kustomization.yaml with a Kustomize component,
+which sets a new image tag.
+The defined name of the arbitrary filesystem path serves as the demonstration for the requirement 2 (OBJ1R2).
+
+\begin{quotation}
+	\noindent
+	\ref{OBJ1R2}
+\end{quotation}
+
+The definition of such a descriptive name helps to identify promotion subjects more easily, especially when
+they are arbitrary files or directories. The name can be represented in the commit message or pull request, as demonstrated.
+
+\subsection*{Objective 2}
+
+The requirement 1 of objective 2 (OBJ2R1) was the following:
+
+\begin{quotation}
+	\noindent
+	\ref{OBJ2R1}
+\end{quotation}
+
+The in the prototype implemented functionality of the solution objective is demonstrated in section
+\ref{prototype:demonstration}.
+It is shown, how a new application release can be promoted through multiple environments in a specified order.
+After deployment to the dev environment, a promotion is requested for the qa environment.
+Once a human has approved and merged the pull request, the promotion to qa takes its effect.
+Afterwards the promotion from qa to prod-1 environment is requested. Upon successful promotion to prod-1,
+the release is finally promoted from prod-1 to prod-2.
+
+\subsection*{Objective 3}
+
+The requirement 1 of objective 3 (OBJ3R1) was the following:
+
+\begin{quotation}
+	\noindent
+	\ref{OBJ3R1}
+\end{quotation}
+
+The functionality of this objective is demonstrated in context in the proof of concept
+in section \ref{prototype:demonstration}.
+In the \lstinline|Environment| custom resource,
+a field \lstinline|dependentObjects.workloadRef| may be defined, under which a user can specify
+a list of Kubernetes workloads of the kind Deployment.
+The developed prototype supports object types of kind Deployment,
+however, any Kubernetes native resource, as well as custom resource, can potentially be added as an
+additional feature for the prototype.
+For example, a field \lstinline|dependentObjects.externalHttpRef| could be added,
+with the logic for calling HTTP/S URIs, and parsing the result.
+
+\subsection*{Objective 4}
+
+The requirement 1 of objective 4 (OBJ4R1) was the following:
+
+\begin{quotation}
+	\noindent
+	\ref{OBJ4R1}
+\end{quotation}
+
+The developed prototype GitOps Promotions Operator supports the use of GitHub currently,
+however the custom resource API is designed with a generic specification and therefore allows
+for adding the support for any other Git provider in the future.
+The same vendor-neutral approach was chosen for the GitOps engine.
+These are most often from the Flux or Argo projects.
+The GitOps Promotions Operator prototype allows the use of any GitOps engine,
+because it interfaces only with Kubernetes built-in resources at this point.
+Furthermore, the prototype is agnostic to the configuration/templating tool which may be used or not.
+This is most prominently Helm and Kustomize. Since the operator provides the ability
+to promote arbitrary files or directories in Git repositories, it is not needed to specifically integrate
+with the named tools.
 
 
 
@@ -1208,6 +1311,7 @@ e.g. \lstinline|dev --> qa --> prod-1 --> prod-2|.
 
 \section{Summary}
 
+TODO
 
 
 

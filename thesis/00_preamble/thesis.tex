@@ -95,6 +95,14 @@
 \hyphenation{Kubernetes}
 \hyphenation{Kustomize}
 
+\makeatletter
+\newcommand{\setword}[2]{%
+  \phantomsection
+  #1\def\@currentlabel{\unexpanded{#1}}\label{#2}%
+}
+\makeatother
+
+
 
 \renewcommand{\autodot}{}% Remove all end-of-counter dots
 
