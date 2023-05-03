@@ -1,0 +1,326 @@
+Speaker 1
+Okay, so what's your current position or role?
+
+Speaker 2
+My current position is principal cloud engineer at Amesto Fortytwo.
+
+Speaker 1
+Okay.
+
+Speaker 2
+We don't really do titles in like a general sense. Everyone's a cloud engineer and there's different degrees of seniority. But I used to be the head of platform engineering in previous roles, so it's kind of like that type of role, like creating internal platforms, solutions and products. So yeah, it's principal cloud engineer, or you could also say like product manager for
+
+Speaker 2
+some of the services that we have or product owner for some of the services that we have. But officially just principal cloud engineer.
+
+Speaker 1
+All right. So that's that's more on like the operations and infrastructure side as opposed to the developer side?
+
+Speaker 2
+It depends on how you look at it. The services that we're building, we're developing that, which again, is one of those things where we like I said, we don't really have titles. So, it is kind of hard to pinpoint what we do against like what kind of titles people have. Personally, I do some operational and architectural things when it comes to the platform that we're building.
+
+Speaker 2
+But at the same time, I'm also one of the main persons that are developing the services. I also write code. So I'm kind of all over the place in that sense.
+
+Speaker 1
+What are your years of experience in your current position?
+
+Speaker 2
+I started here in November at Amesto Fortytwo, we're closing down on being one year old. So it is a startup, uh, you know, call it startup or, you know, I prefer to call that a scale up because the company that we are now is a renaming of an existing company.
+
+Speaker 2
+So we, we didn't start off like, completely from scratch. We, we had something to build off of.
+
+Speaker 1
+Okay. And what is the business sector of the company?
+
+Speaker 2
+So you know managed service provider.
+
+Speaker 1
+Okay.
+
+Speaker 2
+It's probably the easiest. So private sector managed service provider.
+
+Speaker 1
+Yeah. Okay.
+
+Speaker 1
+So what do you think when you think about the term gitops? What's that for you? You can also provide an example.
+
+Speaker 2
+Uh, well, gitops for me is, uh, is an operational model for continuous deployment, which simplifies and secures the process. Uh, really, It is a term, that I obviously, you know, I'm one of the maintainers of the OpenGitOps project, and I have been in the GitOps working group in the CNCF for several years now and been part of like defining the principles and everything like that.
+
+Speaker 2
+But what I see is that GitOps is often confused just due to the name. So there's a lot of people that talk about GitOps and then just all of a sudden start talking about having their infrastructure as code in Git and then doing pipelines, which is not GitOps. So GitOps is a very specific operational model that adheres to those principles that that we kind of defined.
+
+Speaker 1
+Great.
+
+Speaker 1
+I also see that what you described some people talking about GitOps but it's not really GitOps, and the OpenGitOps initiative helps with that. Yeah.
+
+Speaker 2
+Yeah. Yeah. And one of the things that we we haven't really done a lot of, but there's several people who are, uh, you know, call it I think their working title is like Media Disinformation Squad or whatever by just going out there and actually making sure that people are aware that GitOps is a specific thing.
+
+Speaker 2
+It's not just like a, you know, term for, you know, everything that you do by putting stuff into Git and automating it. You know, it is a very specific thing or else you're just doing CI/CD, you know, traditional pipelines which GitOps is not a pipeline in that sense.
+
+Speaker 1
+Mm hmm.
+
+Speaker 1
+So the next term, what is a promotion for you in the context of GitOps?
+
+Speaker 2
+Yeah. Promotion is
+
+Speaker 2
+a relatively easy term, I think. And then it just kind of depends on how you look at it. But you know, it's literally the cycle of taking something from a development stage into a production stage which could be several steps depending on how you look at it. That is kind of like the traditional term.
+
+Speaker 2
+But now that we do stuff like progressive delivery, I feel that promotion is kind of one of those things that is kind of changing at least how you're doing it, because traditionally used to be you have something in dev and then you're promote it to some sort of like testing environment or staging environment or both. And when you're done with all of those checks, then you put it into the production environment.
+
+Speaker 2
+While with progressive delivery and GitOps, it would be more common to, for instance, have a tool like Flagger where you build your software. It's a new version, will create a a second copy with that version and start looking at if it fails like does this work and then gradually scale in the new deployment until the old one is out.
+
+Speaker 2
+You know, the promotion is now not kind of what it used to be, I think it's a step in the right direction, like we can't have big manual processes between these different stages. It just takes too much time.
+
+Speaker 1
+Mm hmm. Mm hmm.
+
+Speaker 1
+For me personally, that's the first time I hear it from someone that promotion is changing.
+
+Speaker 2
+Mm hmm.
+
+Speaker 2
+Progressive delivery is something that's been going on for a while, but it's also one of those things that have been kind of hard when you did traditional CI/CD because at that point, doing that would mean duct taping and rubber banding a lot of things together to get that type of functionality. Well, if you're doing stuff through a GitOps way of delivering applications, it's so much more easier because you have these operators that could literally do that job for you and you get that out of the box with like progressive delivery tools, which is why you see when it comes to flux, you have a Flagger
+
+Speaker 2
+And with Argo, you got Argo Rollouts. Like there's a reason why these progressive delivery tools are also in the same projects as the GitOps tooling itself, because they just complement each other in a fashion that kind of gets rid of a lot of the, you know, complexities of having several environments to do stuff.
+
+Speaker 2
+So for me, it's you're doing development and then it's into production, there's no there's no testing, there's no staging, there's nothing like that. Because if you use the tools, right, you should just be able to do your development even locally. And when you're done, you're, you push your code out and then it automagically just like fixes itself. And if there's an error, it would, you know, retract that version when it sees errors.
+
+Speaker 1
+Mm hmm.
+
+Speaker 1
+So you already described the release. But just to summarize, what's a release for you?
+
+Speaker 2
+For me is the process of.
+
+Speaker 2
+Um.
+
+Speaker 2
+You know, a release is when you acknowledged that you have something that's deployable or you know, when you go back to continuous integration, which is just working on code together several people and then continuously integrate that into the one place and continues delivery, which means getting something ready for delivery, like it should always be deliverable, like when you have that new version, you know, that is a release, which is something it's an event that you can then trigger other stuff on.
+
+Speaker 2
+Like if you go back to the example of doing stuff through GitOps, you don't want to define, for instance, a specific or you don't want to use latest or container versions, right? Because that doesn't make sense. Like latest depending on what the time you put it out. Like if the cluster isn't new and it hasn't pull down the latest version, it wouldn't have that latest version.
+
+Speaker 2
+And so you have two clusters with two different latest, which makes no sense. So you want that to be specifically pinned to a specific version, but then you can do like, like image reflector and things like that to look at a image repository and say, Ah, there is some new tag here, there's a new version tag here which is higher than the previous one.
+
+Speaker 2
+Update the definition or the desired state and get to say that we are now using the newest version, which is something you could do when you have the proper release process.
+
+Speaker 1
+Mm hmm.
+
+Speaker 1
+And next, what's typically an environment for you? So is that like a namespace or a cluster or is it a higher abstract thing.
+
+Speaker 2
+I have a tendency of always saying it depends but, but it does depend. We when we create services, we are mostly going to see environments as a cluster. That's just simply because, well, in production it's going to be a cluster. So the production environment is going to be a cluster, but then we're going to have a development environment where that can be several namespaces with several version of, you know, the same services and applications, you know, for for different people, for doing different tests to doing like, you know, you know that that's our, that's our sandbox environment which consists of several environments.
+
+Speaker 2
+So, we also have in Norway, we have actually one of the biggest governmental agencies that are, you know, focused on the people who are doing like personal welfare and stuff like that. So when you're sick, you get sick money from them, etc., etc.. They are also actually extremely cloud native. So, they run stuff on Kubernetes.
+
+Speaker 2
+They have everything open source like it's one of the few like, you know, public sector, you know, organizations that actually are doing stuff in a cool way. And they have one cluster for everything. So that's how they solve that. So they have one giant cluster and then they do namespaces for environments and so on and so forth. So like some of the biggest systems in Norway are running on that model, but it's just basically how do you want to structure or split up your environments and, you know, do you need certain, you know, what is the differentiator?
+
+Speaker 2
+What is the thing that makes like a cluster for everything work? Or when does it make sense to have several clusters? This is just hard to define. Like there's not one approach to do environments.
+
+Speaker 1
+Mm hmm.
+
+Speaker 1
+What tools to use like Argo or Flux you mentioned, and do you have preferences or why you use them?
+
+Speaker 2
+I have a preference for flux for a variety of reasons, and that doesn't mean that Argo is worse. It's just a different way of doing things. One of the things that makes me prefer flux is that I don't necessarily have to think of my configuration in any other fashion than what I would do if I create a manifest and just did kubectl apply, just the fact that I can put in a straightforward Kubernetes manifest or use Kustomize if I want to do it a little bit more, you know, dynamic and and such.
+
+Speaker 2
+That is kind of what sells me on Flux as a tool. I also feel that me as a person who do a lot of automation and let's call it backend services, I prefer to just have like these controllers doing everything and dealing directly with the Kubernetes API. The main benefit that I see a lot of people kind of like take from from Argo CD is the the graphical interface and that might be something that we as a company who are delivering services using GitOps, we will always use flux for our things, but we might have custom made cases where people want to use Argo and we can do both right?
+
+Speaker 2
+So so at the moment, like primarily I work with Flux, I prefer the flux personally on a lot of levels and you can kind of see it. You know, the discussion that came out from GitLab. You know, they're choosing flux for their tooling. Flux is also part of like the GitOps initiatives from different cloud vendors.
+
+Speaker 2
+So me as an Azure person, I use AKS. AKS has a GitOps add-on, which is flux, you know, So it just kind of makes sense as like a backend services type of thing. For me. Also, I don't have to teach other people how to set up the application spec from an Argo CD perspective because, you know, that's a very specific thing.
+
+Speaker 2
+Like if you need to create a namespace is literally a namespace manifest. You know, there's nothing to it either. Not what you would learn from just go into, you know, Kubernetes dot io slash docs, which is good.
+
+Speaker 1
+Thank you for that. Do you use the flux image reflector controller?
+
+Speaker 2
+Yes.
+
+Speaker 2
+Uh.
+
+Speaker 2
+We, we do in some cases and in some cases we don't. So for instance in production code we might, we are moving towards using all those tools, but at the same time in certain cases with certain customers, when we work with customers and not just doing internal things, people might be a little bit uncomfortable by having that automation. So for like production it might be that you go in and you manually update your manifest to a certain version when you feel it's ready while potentially in development.
+
+Speaker 2
+You know, go ahead, update the image. It doesn't matter. That's what we're supposed to do when we're doing development stuff. Mm hmm. So, again, it kind of depends. Internally, we are trying to move against towards doing everything as automatic as possible. And, you know, instead of being afraid of that, like, just like reading it, just to create the tools and the guidelines around it so that if something goes wrong, you know, we can easily revert that or find out what's going on and remedy it.
+
+Speaker 1
+Mm hmm.
+
+Speaker 1
+And what typically what Git providers or what service do you typically use, like GitHub or GitLab?
+
+Speaker 2
+Yes. So we use primarily GitHub and Azure repositories. So we again, since we're microsoft centric. You're doing stuff with Azure. Azure DevOps is one of the tools that we're using, but we're using both. Everything that we do open source will be on GitHub no matter what because that just makes sense because you can actually find it there.
+
+Speaker 2
+We could have done it through Azure DevOps but then we would have to go around linking that stuff to people which, you know, again, you can't really find it there. But there's, you know, we as a company, we have different teams that are doing they're using Azure DevOps boards that are using some of the pipelines there. We we again, since we are Microsoft centric, we have kind of like a license to do stuff on Azure DevOps more easily.
+
+Speaker 2
+While on GitHub, we haven't started to pay yet probably will be paying for for an enterprise or professional license and then not too distant future but so that so it just makes sense of GitHub stuff you're doing open source we're getting, you know, a lot of things for free while the Azure DevOps side is more of the things that are not yet ready to be open source because we will eventually do everything.
+
+Speaker 2
+Open source. So you know how that looks and, and six months, who knows? But for now we're both using GitHub and Azure DevOps.
+
+Speaker 1
+Mm hmm.
+
+Speaker 1
+So you mentioned how you do and in the future want to do promotions with GitOps and progressive delivery. So if you want to stick in this context, it's okay. Do you see any problems with promotions in GitOps?
+
+Speaker 2
+I think the main issues are related to people and processes rather than the tools. I think the tools are ready to do it, but the people are usually, you know, having a hard time keeping up with what's going on. Right. So when we're working against customers, we might see that they kind of get they're not really into the entire idea of just like changing versions on the fly and things like that.
+
+Speaker 2
+They want to kind of have that process. For us internally, it's more of a we need to get it up and running. We need to get a proof of concept for everything that can go wrong, do some fire drills and everything like that, just to make sure because at some point we're currently still developing our services. So when before we go out and say like this is this is open to be used, we need for all of those things to actually have been tested and stuff like that.
+
+Speaker 2
+But in self, it's not really a this is just like I said, like the, the pragmatic part of working with these type of solutions. We, we just need to test it. We just need to have gone through it and make sure that we know that if something were to happen, how do we go back to a state that is that is operational?
+
+Speaker 2
+And how do we you know, because we I, I've been talking about like, you know, rolling production environments or whatever I want to call it, where if we have major changes instead of doing progressive delivery on an application level, how about just setting up a new production environment and then start doing progressive delivery against the new cluster? So, you know, upgrading versions of Kubernetes, you know, doing major changes to the application that we're running versions there.
+
+Speaker 2
+Why not just set up a new cluster since it's GitOps, We can just you know, we we have environment creation automated, we have everything stored in Git. we just need to point it to ports that and go like just deploy stuff and then everything would be that desired state and then we can actually look at it and see if it works.
+
+Speaker 2
+So at some point we're going to have progressive delivery, not on a specific application, but more of on entire environments.
+
+Speaker 1
+
+
+Speaker 1
+So it's it's all about leveraging GitOps and that you can track every every change to your whole entire system. Yeah.
+
+Speaker 2
+So you know, when I say service, you know, for me that means a number of applications. It is, you know, if you're doing ingress, you want to have a certificate on it. So we're going to use CERT manager just there. We have two applications and we do flux. So there we have like four different applications that are running.
+
+Speaker 2
+We want to do policy stuff. So there's applications there, etc., etc., etc. before we even get to the part that is our particular code, we have like 20 different applications that are backing up this system and they change versions, our code changes versions, Kubernetes is upgraded and stuff might be deprecated or even removed. Doing that as the environment is actually running is what kind of makes people sweat.
+
+Speaker 2
+This is that's why you have the maintenance windows where people are staring at the clusters doing upgrades and things like that. Well, for me it just makes so much more sense. Just putting up an entirely new environment with all new versions and our new production, you know, code. Does it work? Cool. All right, Point DNS towards new cluster and you're done, right?
+
+Speaker 2
+So there's no downtime for users even. Because you would go to one cluster up to the point where all of a sudden, you know, the other cluster. So that is I think the end goal for us when it comes to how we do promotions and getting new code out there.
+
+Speaker 1
+Are you talking about a blue green deployment?
+
+Speaker 2
+You could call it that. But but blue green. What I don't like about that term is that you are kind of referencing that you're having two points, that you're switching back and forth. Again, that's not very close. Native cloud, native is immutable infrastructure. So why shouldn't the platform also be immutable? You know, so it's more, like I said, rolling production environment.
+
+Speaker 2
+So you have your cluster, you put up a new version and when that is the active one that gets destroyed, if there's something new, there's a new one, etc., etc.. So it's rolling production environments. Blue, Green kind of indicates that you have two services that you upgrade one that works right, point traffic towards that and then you, you know, do stuff here on that one and you kind of keep that going, which is for me, Blue Green is a very traditional type of of handling these types of scenarios.
+
+Speaker 2
+So I would rather not call it blue green and rather have a new term for it.
+
+Speaker 1
+So it's all about using the power of GitOps to stand up the whole system with not only the app, also the platform, the infrastructure itself, everything that could be a potential problem through just the Git repository.
+
+Speaker 2
+Yes. So you know, and everything that's happening in our environments are we try as much as possible to be stateless so secrets will be stored elsewhere. The configuration will be stored in Git. We are doing stuff by automating TerraForm. TerraForm has a state file. The state file is going to live in an Azure storage account blob storage.
+
+Speaker 2
+So when we pull down an environment and then put up the exact same and just point it towards the different, you know, you know where we are different sources of truth depending on how we look at it, the environment should just then be up and running as if nothing happened except it was totally destroyed and put up again.
+
+Speaker 1
+Hmm.
+
+Speaker 1
+Do you use these configuration management tools, Helm, Kustomize and do you use them at the same time or why do you use them?
+
+Speaker 2
+The differentiator for me is that Helm is more of a tool that's very good for making sure that if you're creating something like a like a Flux or Prometheus operator is probably one of the best examples. If you then set up a helm chart to do that kind deployment too, that's flexible. You know, it takes a lot of work to do that, but you can get something that's really flexible, but at the same time it's very customizable.
+
+Speaker 2
+I don't do helm for my configuration because it gets too complicated for what it is. If I, on the other hand, create an application that I wanted to offer for anyone to consume, I would make a helm chart for that. So at that point I would take the time to make sure that we have, you know, a safe deployment that is also customizable.
+
+Speaker 2
+We do use Kustomize for doing templating, which is much easier to do. And it's also tightly integrated into how flux works. So I can, since there's a sense there's a Git resource where I said this is my Git repository, it actually looks at all the code there, but I might set up automation against a certain folder and I could reference a base template somewhere completely else and then have different environments with just the overlays being the differentiator which works really well in that type of workflow.
+
+Speaker 2
+So but you can also do helm releases and things like that with flux obviously, but I just use that if I have something that I want to put up like Prometheus operators like the Kube-Prometheus stack Helm chart that I use heavily as sort of manager and so on, so forth. And when I consume stuff and there's a health chart for it that works, perfect. But if I'm creating the code, I would prefer to use Kustomize as much as possible.
+
+Speaker 1
+Great. What solutions can you imagine or do you have something in your mind that you would like to see being developed like an extension to the tools or a new functionality in the GitOps tools ecosystem?
+
+Speaker 2
+Hmm. One of the things that I was kind of looking for actually is already existing though. So me as a person who would do a lot of things with infrastructure as code, mainly terraform. When I'm doing deployments, it makes a lot of sense for me to use TerraForm and also most other people that are working as like cloud engineers or platform engineers, they are familiar with TerraForm.
+
+Speaker 2
+TerraForm is easy for people that don't understand like programing logic to just define their infrastructure. That is part of what we do set up our services. So we we define as TerraForm so people can contribute, but without having to know how to do everything, you know, GitOps and everything like that and develop stuff. And WeaveWorks who created at Flux, they made a TerraForm controller that is utilizing the same existing base controllers, so the source controller and everything like that.
+
+Speaker 2
+And then we can define TerraForm deployments as, you know, Kubernetes manifests. And by doing that, you have an automatic process for TerraForm and that is an extension of the flux. You know, base controllers. It's hard to imagine more now, because I feel that there's so much like pieces of the puzzle that's kind of solved by now.
+
+Speaker 2
+So I can't really think of anything that would in particular be like from from the GitOps side that could come in and change everything.
+
+Speaker 1
+Do you see a problem with promotions in GitOps?
+
+Speaker 2
+And, you know, I would say there's at least there's a at least like processes there that would make it easier for you if you get your tooling set up correctly and if your process is around how you do this, you know when you talk about continuous integration and continuous delivery. Like if you have those things set up correctly.
+
+Speaker 2
+I think the promotion in itself is not really that hard. When when you look at, for instance, a lot of flux people when they speak about different environments and promotion in that sense what you could do is you could have a much simpler process where you have in your get repository, you have a clusters folder and in the clusters folder you have different folders for different clusters and promotion between there would literally be you update the manifest in one folder and you look at it and go, Ah, this looks fine.
+
+Speaker 2
+Then they go to the next folder and just update that version, you know. So it is, it makes it simpler for developers to do that because it's not all this advanced complex pipelines that are kind of like all interdependent on a lot of things. You don't need to get a lot of rights and different systems, etc., etc.. You could literally go in and say, All right, do you have access to the Git repository?
+
+Speaker 2
+Here's the folders. And a developer would just go into one folder and say, All right, it's version 1.8 now, you know, Did that deploy? Yeah. All right. It looks good. All right. Go to the production folder, update the 1.8, you know, but obviously at that point, you're doing stuff manually again, which I think the I think the main idea is to what I usually say, like continuous integration and continuous delivery, those are advanced tools to do advanced stuff, continuous deployment.
+
+Speaker 2
+The way that we have been doing is using continuous delivery tools to do continuous deployment. Continuous deployment should just work at some point. I feel that like the software is ready, it should go out to production. That is kind of like the end goal, right? You don't want to have a redundancy in infrastructure, you know, more cost because you need to have a production like environment.
+
+Speaker 2
+So you're kind of doubling the cost of a production, which is not great from like a financial perspective for a company. But obviously when we're talking about like sustainability and the environmental things like we are, we don't just because we can consume a lot of things and the cloud do we have to do it just because like there's no reason why you should do that.
+
+Speaker 2
+At some point you should be able to do your tests automatically and just push out the new version. And it's live, which is, which is what these tools are. Again, because I'm so familiar with the flux side of things is I just have to like those are the things like a namedrop but like but just like how flux and Flagger work together, you know, that's why those tools exist.
+
+Speaker 2
+And I think that is the right approach going forward for, for application delivery.
