@@ -33,6 +33,7 @@ for further use in the next research activity
 The importance of a practical solution to the problem is accentuated.
 
 \subsection{Problem 1: Promotion is limited to container image}
+\label{problem1}
 
 The currently available GitOps toolchains -
 from e.g. Flux or Argo Projects -
@@ -91,6 +92,7 @@ GitOps tool for interfacing with desired state definitions and moving certain
 resources, or patching and updating them.
 
 \subsection{Problem 2: Order of promotion to multiple environments}
+\label{problem2}
 
 Since currently there is no general standardized tool for promotion to multiple environments with the GitOps approach,
 a specific order of promotion through environments can not easily be achieved.
@@ -182,6 +184,7 @@ A solution to this problem formulation is especially valuable for
 use cases with a high amount of regulations like e.g. financial institutions.
 
 \subsection{Problem 3: Dependencies can not be defined}
+\label{problem3}
 
 Before promoting a new release to another environment,
 it may be desirable to have specific
@@ -220,6 +223,7 @@ at every stage in the development and also deployment cycle,
 all this in a fully automated way.
 
 \subsection{Problem 4: Provider and tool dependency}
+\label{problem4}
 
 With the currently available GitOps toolchains,
 and due to the lack of best practices and standardized solutions,
@@ -227,7 +231,7 @@ users or platform engineers are inclined to build
 and setup
 \enquote*{advanced complex pipelines that are kind of like all interdependent on a lot of things.}
 % TODO: cite i1
-This usually results in tight coupling of the Git provider, the CI workflow/pipeline platform,
+This usually results in tight coupling of the Git provider, the GitOps engine, the CI workflow/pipeline platform,
 configuration management tools, and other components.
 Additionally there need to be permissions and policies granted to many different people and
 machines on many different systems.
@@ -249,27 +253,162 @@ run on any type of infrastructure.
 % visualize the problem solutions!
 
 Now that the problem has been identified in the earlier section
-\ref{interviews:problem-identification},
+\ref{interviews:problem-identification} \nameref{interviews:problem-identification},
 research objectives of a solution to the problem will be inferred.
 Each research objective tries to provide a solution to a distinct problem item.
 A research objective is a qualitative description of how a functionality
 of the developed prototype is expected to support a solution to the problem definition.
 
-\subsection{Objective 1: Arbitrary resources can be promoted}
+TODO visualize the above
 
-TODO
+\subsection{Objective 1: Arbitrary resources can be promoted}
+\label{objective1}
+
+From the problem definition
+\textbf{\nameref{problem1}},
+a solution objective
+\textbf{\nameref{objective1}},
+is inferred.
+A qualitative description of the solution objective
+is pointed out in the following.
+
+A promotion subject, which is promoted between GitOps environments can potentially
+be of many types. A popular type of data, which can be promoted,
+is the version tag of the container image of a particular application.
+For some use cases it is not sufficient to promote only the version of the container image.
+In order to provide a solution to this problem,
+the solution must provide a way to promote arbitrary types of resources.
+In the GitOps context, resources are typically constrained to declarative
+representations in plain text format, which are defined in a Git repository.
+By providing a way to copy user defined files or directories in the form
+of filesystem paths inside a Git repository,
+potentially any type of resource may be a possible subject for promotion.
+When GitOps environments are stored in multiple, separate Git repositories,
+there needs to be the functionality to copy between these repositories.
+Furthermore, for these arbitrary files or directories in GitOps repositories
+a descriptive name for a certain file or directory
+should be defined alongside the
+respective copy operation of the promotion subject.
+This is useful for identifying the specific promotion subject
+on a higher abstract level.
+This way, for example, an application's environment variables,
+which are defined and actually disguised as a Kustomize overlay in a Kubernetes deployment resource,
+can be given a friendly name like "Environment variables/Application Configuration".
+This makes it a lot easier to identify a particular promotion subject, without
+needing to manually inspect the raw contents of a file or even multiple files or
+directory trees.
+
+A collection of the requirements for the solution objective is shown below
+Each requirement is represented in the form of a user story,
+and is labelled with a code, from a combination of the
+objective's code (e.g. OBJ1) and the requirement's code (e.g. R1).
+
+\begin{itemize}
+	\item \textbf{OBJ1R1}: As a user, I can define any filesystem path inside a Git repository, with a respective target path in a Git repository, as a promotion subject.
+	\item \textbf{OBJ1R2}: As a user, I can define a descriptive name for a promotion subject, which is represented as an arbitrary filesystem path.
+\end{itemize}
 
 \subsection{Objective 2: Strict flow of promotion through environments}
+\label{objective2}
 
-TODO
+From the problem definition
+\textbf{\nameref{problem2}},
+a solution objective
+\textbf{\nameref{objective2}},
+is inferred.
+A qualitative description of the solution objective
+is pointed out in the following.
+
+When promoting a new application release to multiple environments,
+it may be necessary to define a certain order, in which the promotion proceeds
+through the environments.
+This can have many reasons,
+as defined in the problem identification section \ref{problem2} earlier.
+A release may be rolled out to the initial development environment continuously,
+without any quality gates or other checks, to ensure software code and runtime quality.
+However, in order for a new version release to proceed to environments like
+performance test environments, which can produce high resource costs for each test,
+it may be useful to control the deployment to certain environments and this way, further constrain
+the deployment to subsequent environments, with a step in between.
+Another use case for this solution objective is for service providers
+with a multi-tenant architecture, which is implemented with GitOps environments.
+These service or platform providers may want to rollout a new release with a certain staging process.
+
+A collection of the requirements for the solution objective is shown below
+Each requirement is represented in the form of a user story,
+and is labelled with a code, from a combination of the
+objective's code (e.g. OBJ2) and the requirement's code (e.g. R1).
+
+\begin{itemize}
+	\item \textbf{OBJ2R1}: As a user, I can promote releases through multiple environments in a certain user-defined order.
+%	\item \textbf{OBJ2R2}: As a user, I can rollout a release to specific environments, while leaving others untouched.
+\end{itemize}
 
 \subsection{Objective 3: Dependencies of a promotion}
+\label{objective3}
 
-TODO
+From the problem definition
+\textbf{\nameref{problem3}},
+a solution objective
+\textbf{\nameref{objective3}},
+is inferred.
+A qualitative description of the solution objective
+is pointed out in the following.
 
-\subsection{Objective 4: Vendor-neutral, agnostic to git provider and configuration tool}
+After deploying a new release to a certain environment,
+the minimum requirement for further proceeding to a subsequent deployment environment,
+is typically to check if the application was deployed successfully and is running in a healthy state.
+While this is the minimum that should always be ensured before promotion,
+other types of processes may be done, in order to reduce the likelihood of delivering bad quality software,
+which could likely be introduced by a bad release.
+One of these can be to have dependencies for a promotion.
+In the context of Kubernetes, this could be another Kubernetes workload, or any other object or custom resource.
+Kubernetes native testing tools or workflow engines may provide custom resources with Kubernetes API conformant
+conditions, in order for other programs to check the state of the resource, in particular this may be the ready condition.
 
-TODO
+A collection of the requirements for the solution objective is shown below
+Each requirement is represented in the form of a user story,
+and is labelled with a code, from a combination of the
+objective's code (e.g. OBJ3) and the requirement's code (e.g. R1).
+
+\begin{itemize}
+	\item \textbf{OBJ3R1}: As a user, I can define Kubernetes objects as dependencies for a promotion.
+\end{itemize}
+
+\subsection{Objective 4: Vendor-neutral, tool-agnostic}
+\label{objective4}
+
+From the problem definition
+\textbf{\nameref{problem4}},
+a solution objective
+\textbf{\nameref{objective4}},
+is inferred.
+A qualitative description of the solution objective
+is pointed out in the following.
+
+When following current good practices and guidelines
+to build a promotion setup for GitOps environments,
+users are inclined to build workflows which are constrained to specific Git providers, GitOps engines,
+CI pipeline and configuration tools. This leads to tightly coupled setups,
+and vendor lock-in.
+With the strong open-source foundation of the Kubernetes platform and ecosystem,
+it is a good practice to build additional tools and platforms on top of Kubernetes,
+in order to remain cloud and vendor agnostic. In the space of GitOps promotions,
+there is currently insufficient tooling for this purpose.
+Therefore, one solution objective of this research is to
+provide a generic tool,
+which is vendor-neutral,
+and agnostic to the Git provider, as well as the configuration/templating tool.
+
+A collection of the requirements for the solution objective is shown below
+Each requirement is represented in the form of a user story,
+and is labelled with a code, from a combination of the
+objective's code (e.g. OBJ4) and the requirement's code (e.g. R1).
+
+\begin{itemize}
+	\item \textbf{OBJ4R1}: As a user, I can use any GitOps engine, Git provider and configuration/templating tool.
+\end{itemize}
+
 
 
 
