@@ -1,0 +1,179 @@
+Speaker 1
+What is your current position or role?
+
+Speaker 2
+I am the CEO of the company WhizUs.
+
+Speaker 2
+I'm still involved technically, I'm still an IT consultant, and I've been doing that for about 9 years in different companies.
+
+Speaker 2
+We are active with consulting in different industries. From gastronomy to retail to the financial sector.
+
+Speaker 2
+We have clients in many industries.
+
+Speaker 2
+So we ourselves are in the consulting sector, so our company is an IT consulting company, but our clients are across all industries actually. We have gastronomy clients, industrial clients, retail, clients in the financial sector, insurance and banking sector, so right across.
+
+Speaker 1
+Okay, thank you.
+
+Speaker 1
+How would you explain in your words, you can also briefly explain that as an example, the term GitOps. And how do you guys use GitOps?
+
+Speaker 2
+GitOps for me is simply the approach that from a Git repository, you sort of describe the environment and then from that state, you build the environment. What comes out of practice is that you can very well separate CI and CD, decouple them.
+
+Speaker 2
+For example, the CI is the part where you create container images and store them in an image repository, and because this is technically so separate, you can also separate it well from an organizational point of view. This means, for example, that the software developers are responsible for the first part of the CI. And then another team is responsible for the CD. Of course, these can also be different people in the same team.
+
+Speaker 2
+Then there is often a GitOps Repo or Environment Repo.
+
+Speaker 2
+That is then updated as soon as you want to update the environment. This can be asynchronous and sometimes it is also checked that the GitOps Repo is updated immediately after the push to the image repository.
+
+Speaker 2
+We have different customers, which means we have different tools. Mostly we use Argo CD, with Flux we have also had smaller points of contact. Then there is Fleet from Rancher, which we also use.
+
+Speaker 2
+Mostly Argo CD, then Fleet, and then Flux.
+
+Speaker 2
+In the GitOps world, you're very much in the container world, whereas the GitOps pattern basically has nothing to do with containers. But in practice, it's very much there.
+
+Speaker 2
+Otherwise we use Helm and also Kustomize.
+
+Speaker 2
+Because we have a large number of customers, a lot of tools come together.
+
+Speaker 1
+In your practice, do you often have the requirement for multiple environments?
+
+Speaker 2
+Yes. What you always have at least is a development environment, and a production environment. Often there is also test or QA in between, so there are then three, four environments. The environments are often clusters, if you're in the Kubernetes environment. Whether that's vanilla Kubernetes, or also various managed Kubernetes services from cloud providers. For example, AWS, Azure, or Exoscale. Or also OpenShift or Rancher.
+
+Speaker 2
+That it's really just one environment, we almost never have, actually.
+
+Speaker 1
+What tools do you use the most (e.g. Helm, Kustomize)?
+
+Speaker 2
+Yeah, so I'm most familiar with Kustomize, I find it easier to read. We also use Helm, of course. With Helm, you're a little bit more flexible. It always depends.
+
+Speaker 2
+Basically the approach is a little bit different with both tools. I think the problem remains with both tools.
+
+Speaker 2
+You actually have two things that need to be updated, one is the version of the software, the application, and the other is the version of the infrastructure. Then you have two versions that are interrelated. You either take a step forward, which is an update, or you take a step back, roll back, which is going back to a previous version.
+
+Speaker 2
+On the one hand just the infrastructure version and on the other hand the app version and they have to be somewhere.
+
+Speaker 2
+That's not always so easy to solve.
+
+Speaker 1
+Do you have practical examples of a promotion from one environment to another environment? Is that a manual process, that you manually write a new version into the git repository, do you see a problem there, etc.?
+
+Speaker 2
+It always depends on how you set it up with the GitOps approach. with Argo CD for example, there is the application or ApplicationSet, and there are generators where you say you now go to a repository and you have different folders there for dev and production for example.
+
+Speaker 2
+In each folder you have, for example, a config folder for a specific app and in the config folder, there's json in there and there's an applications version and a revision of the Helm Chart or of the Kustomize repo.
+
+Speaker 2
+The promotion is currently solved from my point of view. If a new version comes out with the CI, one will simply write in the repo, the new version of the software into it, so in the config folder one writes the App version into it. Then with Argo CD, for example, the generator would recognize the new version.
+
+Speaker 2
+I don't think that's the problem at all I think, that you write something in the repositories. What is the issue for me, on the one hand, when the version of Helm Charts or Kustomize Repos comes in addition to that.
+
+Speaker 2
+That means you actually have three versions, the application version, the version of the configuration files, and the version of the Helm or Kustomize files. And all these versions can change constantly.
+
+Speaker 2
+And if you have e.g. the Kustomize or Helm version there, it is nicely decoupled, which is what you actually want, because it could be that you only want to update the application version and not the infrastructure and vice versa. that you only want to update the infrastructure and not release an application or release an image. and that's where the cat bites its own tail a little bit, because you actually have so many versions and you would have to always come back when you change something in the configuration, e.g. a new value, or you have a breaking change, that would be bad at all, in this case you actually always have a hard time coming back.
+
+Speaker 2
+You actually have to version every repo (config repo, Helm, Kustomize repo). however you do that, for example with tags, and then say these are the versions. There is also again a topic, one goes now for example on Branches or Tags. Normally you should work with tags, in my opinion. Branches are, as far as I know, also an anti-pattern in GitOps.
+
+Speaker 2
+You have a lot of versions, and that makes it very confusing. And often it's not clear which version you have now and with Argo CD, for example, that's still not well solved because you have revision, but the revision is actually the revision of the configuration and not the version of the Helm or Kustomize, which is what I would actually want.
+
+Speaker 2
+Because I want to know what revision of helm or Kustomize is in there and not the revision of the config repo, which is actually just the composition of the versions that are deployed. Yes, so the issue, so these different versions. That's in practice, you have to look through how that works and then which versions are deployed there.
+
+Speaker 2
+This topic of the overview of the repo and the versions. Where do you look then? What is the current status? Because on the one hand you have to look at this configuration, what is the current version? If I want to say, what is then in total everything in it. I have to look in the Helm Charts or the Kustomize Files.
+
+Speaker 2
+Then I see, which Yaml files are there at all, is there Ingress, is there a database in it, etc.? The nice overview that GitOps is supposed to bring in theory, where I can say, ok I have a single place where I look in, which for me is already a big advantage of the whole approach, I lose it a bit, you always have to look at different places to know what is deployed there, the overview is missing a bit.
+
+Speaker 2
+That's something that I find a bit unattractive currently with GitOps.
+
+Speaker 2
+Those are the issues, and I don't think there is a great solution at the moment.
+
+Speaker 1
+Does that mean that in practice you don't see the problem that now, for example, there is the requirement that a new version is first deployed in the dev environment, and then fully automatically deployed to the next environment, and then again fully automatically to the next environment?
+
+Speaker 2
+So in terms of continuous deployment?
+
+Speaker 2
+I think that very few companies really do Continuous Deployment, most of them want to have some kind of manual release. and then you can map that relatively well with a pipeline, and you could do that so yes, you could do Continuous Deployment that way as well, because you, if you say you have now only the application that is updated, then you just commit to the respective repos. It depends a little bit on how you have structured it, you could say you do a separate Git repository per environment.
+
+Speaker 2
+That would work, then I would change it there. So then I can look at, for example, Dev and Prod respectively, and I can commit into that respectively. and so then I can update the respective environment that I want. It would work this way. So if it's just the application, I don't think that's such a complicated issue.
+
+Speaker 2
+So if we didn't have to look at all the other stuff now, so infrastructure version of the Helm Charts or Kustomize Files.
+
+Speaker 2
+From my point of view you can simply deploy it. You just create a pipeline and then it does a commit and you write a message into it, for example, update of app x in version y.
+
+Speaker 2
+If you have a lot of commits, a lot of updates, then you have to be careful that they don't block each other, but that is very rare. In very few environments you have so many commits that there would be problems with Git with the frequency of commits. And I very rarely experience continuous deployment that it is really carried out.
+
+Speaker 2
+There are almost always some kind of releases, e.g. another team or somewhere there is always something that someone has to look over or test. Of course, a lot of it is already automated, but in very few environments is it fully automated, almost none.
+
+Speaker 2
+On the subject of Canary and Blue Green Deployments, we also do that, that is of course a security mechanism and a very important one. Because that gives the developers additional confidence that it will run resilient in the environment. This helps with rapid innovation and allows developers to work more freely. And that is very important.
+
+Speaker 2
+Feature toggles, for example, are also used time and again. But it's very different which technologies are used. We also have Canary deployments, where the customers use a kind of discovery, where the user then goes through a proxy, through a discovery service and it then says. Okay, this is the user, this customer or it's an employee, or a tester or something.
+
+Speaker 2
+And that then comes to that version of the service. There are quite a lot of different approaches, but is definitely an important pattern. Not only in the sense of GitOps, but also for the development from my point of view, that you create trust in the environment, and so before you go completely out to the customers, that you still have a version in a productive environment, in the productive environment. That makes a lot of sense, that you release a new version, but at first only a limited user group is on it.
+
+Speaker 1
+You have actually already talked about this. So do you have any suggestions or do you see any problems or do you say that maybe I could better imagine this promotion process when you have the requirements with multiple environments.
+
+Speaker 2
+So for me, the issue is with version handling. It would be nice to have that solved better somehow. That you have a nice overview of the versions, and you don't have to look in three different repos in different files.
+
+Speaker 2
+So far I haven't seen a really nice solution. The problem is not always that it is technically feasible in some way, but the issue is. I work with a lot of customers, and that is a complex issue all in all. Actually, you want to release software. And now with Kubernetes, a lot of developers are already having a hard time anyway, when you talk about Ingress, for example. For many, that's already a hard subject. And then you have the problem that in addition to the software version, you have a revision of the files, and then you have the app version.
+
+Speaker 2
+Then you have the version or revision of the GitOps repo, then the additional tag from the repository, which is a version, from the infrastructure or that, for example, if you don't want to increase the app version, but just the infrastructure, so for example, the Ingress API, or add some annotation because I want to enable a new feature.
+
+Speaker 2
+With the different additional versions, somebody has to see through that and say okay, now I'm updating the version of the configuration file or of Helm or Kustomize repo, or the GitOps repo.
+
+Speaker 2
+So all these versions, the handling with it is madness, and also the handling is currently rather impracticable.
+
+Speaker 1
+It's pretty good compared to previous years and decades in software development, but we would like, if I'm hearing this correctly from you. We would like to have it one step better and a revision for the complete state or a better overview of the versions, the application, Helm, kustomize and infrastructure, etc.
+
+Speaker 2
+Yes, so the handling of it, I'm not sure you can have that in one version or you want to have that, you often have at least the infrastructure and the application itself with it. It's just the handling of it is difficult at the moment.
+
+Speaker 2
+It can be, you want to update Ingress for example, or have a different Ingress provider. Not Nginx, but Traefik. or with the service you want to update something, or add an annotation to the deployment. Which has nothing to do with the software itself. So there you need some version anyway, but that doesn't work so nice currently.
