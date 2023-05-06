@@ -112,11 +112,25 @@ which includes some of the earlier presented best practices,
 helps with the initial bootstrap process for ArgoCD.
 \bigskip
 
-\section{GitOps Pipelines}
+
+
+
+
+
+
+
+
+\section{Related Tools}
+
+This section presents software tools,
+which provide similar problem solutions compared to that of
+this concrete research.
+
+\subsection*{Weave GitOps Pipelines}
 % https://docs.gitops.weave.works/docs/enterprise/pipelines/promoting-applications/
 
-The leading organization Weaveworks in the GitOps space,
-offer a solution in their enterprise offering,
+The company Weaveworks,
+offer a solution in their enterprise GitOps offering,
 to deal with multiple deployment environments.
 This functionality is limited to their closed-source Weave GitOps Enterprise offering.
 It allows the user to specify an application reference,
@@ -133,19 +147,28 @@ to pass before a consecutive environment can be deployed to.
 Alternatively to promoting via pull requests,
 it may be configured to send notifications
 to an external system -
-which can then promote the application in whatever way.
+which can then promote the application in whatever way
+\autocite{weaveGitOpsPipelines}.
 
-\section{Related Tools}
+\subsection*{akuity/kargo}
 
-\subsection*{Kargo}
+As per the website
+\enquote*{Kargo is a next-generation continuous delivery (CD) platform for Kubernetes. It builds upon established practices (like GitOps) and existing technology (like Argo CD) to streamline, or even automate, the progressive rollout of changes across multiple environments.}
+\autocite{kargoAkuityWebsite}
+Kargo is still in very early development by the company Akuity.
+The tool is in the form of a Kubernetes custom operator, which provides custom resources
+for Environment, Promotion, and PromotionPolicy.
+Kargo allows users to define promotion processes in the form of updates of desired state,
+which is stored in Git. It supports updating Kubernetes manifests, container images, helm charts,
+and ArgoCD Applications, all by updating the desired state in a Git repository.
+It offers health checks for ArgoCD Applications to determine a healthy state of a particular environment.
+For the promotion process, Kargo commits to Git repositories
+\autocite{kargoAkuityWebsite}.
 
-TODO
-
-\subsection*{telefonistka}
+\subsection*{wayfair-incubator/telefonistka}
 
 \enquote*{Telefonistka is a Github webhook server/Bot that facilitates change promotion across environments/failure domains in Infrastructure as Code(IaC) GitOps repos.}
 \autocite{telefonistka}
-
 It is designed to sync folders in Git repositories from source paths to target paths.
 When it detects changed that are not yet synced,
 it will create a pull request against the repository.
@@ -153,15 +176,30 @@ It supports any directory structure of users GitOps repositories -
 it is unopinionated.
 It has drift detection as a feature. It can detect if there are changes in
 latter environments, which have not been promoted, i.e. are not in previous environments.
-
 Currently the tool can be run as a GitHub action, or as a
 standalone webhook server, preferably as a GitHub Application.
-In both cases it supports GitHub as the Git provider.
+In both cases it supports GitHub as the Git provider
+\autocite{telefonistka}.
+
+\subsection*{XenitAB/gitops-promotion}
+
+\enquote*{gitops-promotion interacts with a Git provider to do automatic propagation of container images across a succession of environments.}
+\autocite{xenitABgitopsPromotion}
+The supported Git providers are GitHub and Azure DevOps.
+gitops-promotion is a command line interface program.
+It is best suited to be used as part of a CI pipeline/workflow
+\autocite{xenitABgitopsPromotion}.
+
+\subsection*{form3tech-oss/k8s-promoter}
+
+The k8s-promoter command line interface tool can promote Kubernetes manifests, by
+taking a Git commit range between two or more commits, and applying that to another environment.
+For the promotion itself it raises a pull request on GitHub
+\autocite{form3techK8sPromoter}.
 
 \section{Summary}
 % Schreib einen Absatz, der erklärt, inwieweit deine Arbeit anders ist als Related Work. Arbeite das Delta (den Unterschied) zwischen Related Work vs. Your Work aus und betone nochmal deinen Beitrag zum GitOps-Forschungsfeld (das was du beitragen wirst im Vergleich zu allen anderen)
 
-\noindent
 Prior research on the concrete problem is focused on presenting
 best practices and suggestions
 which users need to manually implement themselves.
@@ -214,14 +252,8 @@ TODO
 %
 %\section{Honorable Mentions}
 %
-%\subsection{github.com/XenitAB/gitops-promotion}
-%\url{https://github.com/XenitAB/gitops-promotion}
-%
 %\subsection{IBM Cloud Pak - Guide - Promoting across environments}
 %\url{https://production-gitops.dev/guides/cp4i/mq/cloud-native/promote-environments/#production-environment}
-%
-%\subsection{k8s-promoter}
-%\url{https://github.com/form3tech-oss/k8s-promoter}
 %
 %\section{Summary}
 
