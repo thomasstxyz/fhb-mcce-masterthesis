@@ -256,13 +256,17 @@ the new version of the application in an artifact registry.
 
 DevOps, as defined in section \ref{theoretical-background:general-definitions},
 is still seeing increasingly more adoption.
-On of the most important principles of DevOps is
+One of the most important principles of DevOps is
 to allow the developer who brings new code changes
 which end up in new product releases,
 to have as much insight into the software development lifecycle as possible.
 So it is not just bringing developers and operations closer together,
 but to shift many processes into the developers hands.
-This is to give developers as much insight as possible.
+This is to give developers as much insight as possible,
+in order to decrease efficiency and productivity to finally
+decrease the time-to-market for product releases, features and bug fixes.
+This is essentially needed for organizations to continue to thrive in todays
+rapidly changing information technology sector.
 
 Cloud native technologies have allowed for this movement to happen.
 An important aspect of cloud technologies is the self-service.
@@ -270,15 +274,15 @@ When previously it was necessary to have many different teams and departments
 within a software development organization,
 each being responsible for individual parts of the 
 software development lifecycle,
-it is now better than ever before possible to reduce the amount of
-teams down to a minimum.
-This gives the developers much better insights of what their code changes mean.
+it is now easier than ever before possible to reduce the amount of
+teams down to a minimum, in order to reduce friction between people communications.
+This additionally gives the developers much better insights of what effect their code changes have.
 
 In order to increase the level of self-service for developers,
 and increase their productivity,
 many organizations implement the concept of internal developer platforms.
 While this concept has been around for quite a while,
-it has now explicitely gotten more meaning and attention.
+it has now in recent years explicitely gotten more meaning and attention.
 
 Internal Developer Platforms have received a lot of attention
 when Spotify released their project Backstage
@@ -412,7 +416,7 @@ which usually lives inside the deployment environment -
 notices that the desired state changed and has now
 drifted from the actual state.
 The GitOps controller then reconciles the new desired state,
-by applying the new configuration to the managed system.
+by applying it to the managed system.
 
 \begin{figure}[h]
 	\centering
@@ -442,8 +446,8 @@ target environment.
 
 \section{Promoting Releases Across Environments}
 
-With the push-based pipelines, described in the section
-\ref{theoretical-background:gitops-cd} of this thesis,
+With the push-based pipelines, described in section
+\ref{theoretical-background:gitops-cd},
 it is typically more straight-forward of how an application
 is deployed to multiple target environments.
 When the pipeline job to deploy to environment A was successfully done,
@@ -481,15 +485,6 @@ then this canary rollout is automatically tested and evaluated against metrics,
 if certain objectives for metrics fail to be met,
 the new release can automatically be rolled back.
 
-Since the progressive delivery tools allow for a more
-fine-grained segmentation
-of a single environment based on numerous parameters like
-client device type, user region, user type (e.g., developer, admin),
-registered or unregistered users, etc.
-the requirements to have a multitude of deployment environments
-have decreased for some organizations.
-An illustration can be seen in fig. \ref{fig:progressive-delivery}.
-
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1.00\linewidth]{assets/progressive-delivery.png}
@@ -498,6 +493,15 @@ An illustration can be seen in fig. \ref{fig:progressive-delivery}.
 	}
 	\label{fig:progressive-delivery}	
 \end{figure}
+
+Since the progressive delivery tools allow for a more
+fine-grained segmentation
+of a single environment based on numerous parameters like
+client device type, user region, user type (e.g., developer, admin),
+registered or unregistered users, etc.
+the requirements to have a multitude of deployment environments
+have decreased for some organizations.
+An illustration can be seen in fig. \ref{fig:progressive-delivery}.
 
 The described segmentation of an environment with the progressive delivery
 tools, however might not be possible for every use case or organization.
