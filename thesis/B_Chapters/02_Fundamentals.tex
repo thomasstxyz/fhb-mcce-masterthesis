@@ -254,6 +254,74 @@ the new version of the application in an artifact registry.
 
 
 
+
+
+\section{Configuration Management Tools}
+
+A main component when following the GitOps approach is the configuration management or templating tool
+for the Kubernetes manifests.
+Since the Kubernetes manifests are declarative and highly configurable in nature,
+the configuration can be rather cumbersome.
+Many definitions are duplicated, so it is desirable to use variables, templates and the like,
+for making the configuration easier to use and maintain.
+Popular tools are Kustomize, Helm, cdk8s and Carvel ytt.
+
+\enquote*{Kustomize introduces a template-free way to customize application configuration that simplifies the use of off-the-shelf applications. Now, built into kubectl as apply -k.}
+\autocite{kustomizeIoWebsite}
+
+Kustomize provides a way to customize base Kubernetes manifests with minimal additional overhead.
+It is built into kubectl and works purely declarative with raw manifests as input and output.
+
+Helm is the de-facto standard package manager for Kubernetes.
+It provides a way to package the configuration and easily deploy those packages
+which can be highly configurable.
+Most third-party applications offer a helm chart for installation.
+It is based on using templates with variables and minimal logic,
+which can be rendered into plain Kubernetes manifests, usually at deployment time,
+as variables may be input for last-mile configuration.
+
+Cdk8s is a development kit for Kubernetes.
+It
+\enquote*{is an open-source software development framework for defining Kubernetes applications and reusable abstractions using familiar programming languages and rich object-oriented APIs. cdk8s apps synthesize into standard Kubernetes manifests.}
+\autocite{cdk8sWebsite}
+
+Carvel ytt is used to template and patch any YAML definitions.
+It strives to function deterministically,
+meaning the
+\enquote*{ytt execution environment is hermetic and side-effect free, with no access to filesystem, network, time, randomness, or the operating system interfaces. This guarantees that templates produce identical output with the same inputs. Your configuration changes only when you change it.}
+\autocite{carvelYttWebsite}
+
+
+
+
+
+
+
+
+
+\section{GitOps Engines}
+
+TODO
+
+
+
+
+
+
+
+
+\section{Git Providers}
+
+TODO
+
+
+
+
+
+
+
+
+
 \section{DevOps \& Internal Developer Platforms}
 
 DevOps, as defined in section \ref{theoretical-background:general-definitions},
@@ -463,6 +531,35 @@ commit to deployment to target environment is usually split up after
 publishing of the artifact to the artifact registry.
 At this point, the process continues asynchronously.
 
+There are multiple ways how the promotion across environments can be achieved.
+In the simplest form, the desired state could be stored in a Git repository,
+and the GitOps engine would synchronize every new commit, which is detected -
+meaning each and every new change to the desired state is immediately
+applied to the actual system state.
+For each environment, there would be a representing folder in the Git repository,
+or a separate repository.
+On every new commit, the reconciliation immediately happens.
+It could also be done differently, in that the state or source controller
+is configured to watch a specific git refspec, meaning a certain Git tag, for example.
+This way, not every commit is deployed, but rather only specific Git tags,
+which may be created manually by a human.
+When having the desired state as fixed Git tags,
+it can possibly provide for more control over what is deployed.
+
+Additionally to leveraging Git tags as fixed and immutable versions,
+the desired state could be packaged and pushed to an artifact registry.
+Especially when using configuration or templating tools like Kustomize or Helm,
+where the Kubernetes manifests need to be rendered before being applied,
+it could make sense to go with this approach.
+Packaging the desired state into an immutable artifact can also increase
+security, when the artifact is signed with a digital signature, and also validated upon deployment.
+
+Whether the desired state is packaged as an artifact with an immutable version and signed signature,
+or just stored in a Git repository and secured purely by the built-in Git commit functionality, providing
+unique snapshots, which can be rolled back any time;
+it always comes down to changing plain text files stored somewhere.
+For promotion to other environments, these changes are typically done again for the desired state of the other environment.
+There is no way around changing files in Git repositories, as this is within the nature of the GitOps approach.
 
 
 
@@ -653,7 +750,7 @@ An operator is a controller plus domain-specific operational knowledge
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=1.00\linewidth]{assets/operator-is-controller-domain-knowledge.png}
+	\includegraphics[width=0.85\linewidth]{assets/operator-is-controller-domain-knowledge.png}
 	\caption{Operator and Controller.
 		%		(\citeauthor{ref}, \citeyear{ref}).
 	}
@@ -710,36 +807,27 @@ Users can interface with its objects as they do with the Kubernetes built-in res
 
 \section{Modeling GitOps Environments}
 
-TODO
+GitOps environments as defined in section
+\ref{theoretical-background:general-definitions},
+are currently being modeled using different approaches.
+The most prominent approach is to have a folder in a Git repository
+per environment. This is straight-forward and easily compatible with
+the currently most used configuration and templating tools like Kustomize and Helm.
+Promotion would be just a file copy operation from one to another file or folder.
+
+Another approach is to have a Git branch per environment.
+Promotion would be a Git merge from one to another branch.
+When taking this approach, and also having environment-specific configuration,
+it is possible, when not being careful, that a merge conflict happens,
+and the promotion would need to be solved manually.
+However when this approach is purely used for the purpose of staging,
+meaning environments are identical, but new releases are deployed to some environments first
+after other ones,
+it could provide a seamless way of promotion by solely leveraging the built-in merge mechanism in Git.
+
+This research focuses primarily on the modeling of folder per environment.
 
 
-
-
-
-
-\section{Configuration Management Tools}
-
-TODO
-
-
-
-
-
-
-\section{GitOps Engines}
-
-TODO
-
-
-
-
-
-
-
-
-\section{Git Providers}
-
-TODO
 
 
 
