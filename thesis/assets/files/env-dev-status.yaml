@@ -3,8 +3,6 @@ kind: Environment
 metadata:
   name: dev
 ...
-spec:
-...
 status:
   conditions:
   - lastTransitionTime: "2023-04-16T11:51:51Z"

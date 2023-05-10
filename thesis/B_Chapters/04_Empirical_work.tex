@@ -488,7 +488,7 @@ TODO
 
 
 
-\chapter{GitOps Promotions Operator Prototype}
+\chapter{Prototype}
 \label{chapter:prototype}
 
 This chapter describes the developed prototype,
@@ -609,11 +609,34 @@ Once the architecture of the asynchronous GitOps deployment process,
 and where the GitOps Promotions Operator fits within this process is clear,
 the abstract models for the custom resources and their functionality can be designed.
 
+
+
+
+
+
 \subsection{Abstract Models}
+
+TODO
+
+Now that the abstract models are designed,
+they need to be implemented.
+Since the decision for the prototype is to be developed
+as an extension to the declarative Kubernetes API,
+and the resources to be implemented as Kubernetes custom resources,
+the design of the custom resources is described in the next section.
+
+
+
+
+
+
+\subsection{Design of Custom Resources}
 	
 In order to be able to represent environments and promotions,
-the requirement is to at least start with two abstract models for each 
+the requirement is to at least start with two custom resources for each 
 the environment and the promotion.
+
+\subsubsection*{Environment Resource}
 
 The Environment represents a GitOps environment,
 which is a Git repository + path.
@@ -621,14 +644,14 @@ The Git repository can be a clone URL to the repository,
 and the path is the relative filesystem path, which points to the 
 environment, inside the repository.
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=1.00\linewidth]{assets/gitops-env-repo-and-path.png}
-	\caption{GitOps Environment.
-		%		(\citeauthor{ref}, \citeyear{ref}).
-	}
-	\label{fig:gitops-env-repo-and-path}	
-\end{figure}
+%\begin{figure}[h]
+%	\centering
+%	\includegraphics[width=1.00\linewidth]{assets/gitops-env-repo-and-path.png}
+%	\caption{GitOps Environment.
+%		%		(\citeauthor{ref}, \citeyear{ref}).
+%	}
+%	\label{fig:gitops-env-repo-and-path}	
+%\end{figure}
 
 The abstract model for a GitOps environment needs at least the following properties:
 
@@ -639,36 +662,32 @@ The abstract model for a GitOps environment needs at least the following propert
 \end{itemize}
 
 The URL has the format of a HTTP(S) or SSH URL,
-which links to the Git repository,
-e.g.:
-
-\begin{itemize}
-	\item \lstinline|http://localhost:8080/org/repo|
-	\item \lstinline|https://gitprovider.com/org/repo|
-	\item \lstinline|ssh://git@gitprovider.com:org/repo|
-\end{itemize}
+which links to the Git repository, e.g.
+\lstinline|http://localhost:8080/org/repo|,
+\lstinline|https://gitprovider.com/org/repo|,
+\lstinline|ssh://git@gitprovider.com:org/repo|.
 
 The path has the format of a typical unix style filesystem path.
 It starts relative from the root of the given Git repository,
 and points to the directory, which represents the GitOps environment.
 Examples for a path are the following:
-
-\begin{itemize}
-	\item \lstinline|path/to/env|
-	\item \lstinline|/path/to/env|
-	\item \lstinline|./path/to/env|
-	\item \lstinline|./path/to/env/|
-\end{itemize}
-
+\lstinline|path/to/env|,
+\lstinline|/path/to/env|,
+\lstinline|./path/to/env|,
+\lstinline|./path/to/env/|.
 Note, that these example paths all represent the same directory,
 these are just alternative notations.
 
 The dependent resources are the resources (objects) in the deployment environment,
 which need to be successfully deployed, in order for the promotion to trigger.
+Examples of such resources can be Kubernetes workloads like deployments,
+or custom resources like ArgoCD Applications or Flux Kustomizations and Helm Releases.
+
+\subsubsection*{Promotion Resource}
 
 The abstract model for a GitOps promotion
 (fig. \ref{fig:gitops-promo})
-needs at least the following properties:
+needs at least the following properties (explained in detail in the following paragraphs):
 
 \begin{itemize}
 	\item source environment
@@ -684,7 +703,7 @@ where a promotion should promote to.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=1.00\linewidth]{assets/gitops-promo.png}
+	\includegraphics[width=0.70\linewidth]{assets/gitops-promo.png}
 	\caption{GitOps Promotion.
 		%		(\citeauthor{ref}, \citeyear{ref}).
 	}
@@ -696,26 +715,19 @@ In the case of this prototype,
 a promotion subject is a file or directory,
 which is copied from the source to the target environment.
 Examples of such files or directories are the following:
-
-\begin{itemize}
-	\item \lstinline|kustomization.yaml|
-	\item \lstinline|./component/cert-manager/kustomization.yaml|
-	\item \lstinline|./helm-values-prod.yaml|
-\end{itemize}
-
+\lstinline|kustomization.yaml|,
+\lstinline|./component/cert-manager/kustomization.yaml|,
+\lstinline|./helm-values-prod.yaml|.
 Note, that the relative paths of the promotion subjects,
-are relative to the paths of the environment, defined earlier.
-An example of the \lstinline|kustomization.yaml|, would look like this:
+are relative to the paths of the environment, as defined earlier.
 
-\lstinline|./path/to/env/kustomization.yaml|
-
-As an example - but outside the scope of the current prototype -
+As an example - but outside the scope of the implemented prototype -
 a promotion subject could also be fetched from another source,
 like an artifact registry, or be any other type of data
 and updated/promoted in the target environment,
 e.g. a version tag, helm values, etc.
 
-With the current prototype,
+With the proposed and implemented prototype,
 the promotion strategy is to raise a pull request at the Git provider
 (fig. \ref{fig:raise-pull-request-and-approve}),
 with the changes proposed by the promotion.
@@ -737,7 +749,7 @@ without human interaction. This strategy should require different means
 of automated or otherwise external or additional checks, in order to ensure a safe promotion.
 This strategy is not implemented in the developed prototype.
 
-Now that the abstract models are designed,
+Now that the custom resources are designed,
 they need to be implemented.
 Since the decision for the prototype is to be developed
 with the Kubebuilder framework and follow its style,
@@ -816,8 +828,7 @@ are suggested, but not implemented in the current prototype.
 \subsubsection*{Promotion Subjects defined in each Environment resource}
 
 Alternatively, the promotion subjects could also be specified
-in the environment resource.
-Then the environment could like the following:
+in the environment resource like the following:
 
 \lstinputlisting{assets/files/environment-mockup-alt-1.yaml}
 
@@ -839,12 +850,8 @@ but the actual path is defined per each environment.
 Once the mockups of the custom resources in Yaml format are done,
 the declarative structure can be translated to custom Go types.
 
-The specification of the Environment resource results in the following code:
-
-% TODO: needs update after dependentObjects implementation
-
-\lstinputlisting{assets/files/environmentSpec-type.go}
-
+The specification of the Environment resource can be seen in Appendix
+\ref{appendix:source-code:environmentSpec-type} \nameref{appendix:source-code:environmentSpec-type}.
 The type EnvironmentSpec represents the \lstinline|.spec| Yaml field.
 
 What also needs to be defined is the status subresource.
@@ -852,14 +859,11 @@ In the status fields, the controller can save the current/actual state
 of the resource during runtime.
 While \lstinline|.spec| defines the desired state,
 \lstinline|.status| defines the actual state, as observed by the controller.
+The specification of the status resource can be seen in Appendix
+\ref{appendix:source-code:environmentStatusSpec-type} \nameref{appendix:source-code:environmentStatusSpec-type}.
 
-% TODO: maybe show example of .status yaml
-
-\lstinputlisting{assets/files/environmentStatusSpec-type.go}
-
-The specification of the Promotion resource results in the following code:
-
-\lstinputlisting{assets/files/promotionSpec-type.go}
+The specification of the Promotion resource can be seen in Appendix
+\ref{appendix:source-code:promotionSpec-type} \nameref{appendix:source-code:promotionSpec-type}.
 
 For the promotion,
 a status subresource is also defined.
@@ -867,30 +871,79 @@ In the status - the actual state of the resource as observed by the controller -
 most importantly the metadata of the currently opened pull request is saved,
 which the controller will pick up on every consecutive reconciliation
 of the same promotion object.
+The specification of the status resource can be seen in Appendix
+\ref{appendix:source-code:promotionStatusSpec-type} \nameref{appendix:source-code:promotionStatusSpec-type}.
 
-\lstinputlisting{assets/files/promotionStatusSpec-type.go}
-
-The full source code of the types can be found in Appendix
-\ref{appendix:source-code}.
+%The full source code of the types can be found in Appendix
+%\ref{appendix:source-code}.
 
 Once the Go types are defined,
 the controller logic can be written.
 
 \subsection{Controller Logic}
 
+In this section,
+the controller logic of each implemented control loop, responsible for the according resource,
+is described.
+
+\subsubsection*{Environment Controller}
+
 For the environment API,
 a controller is written.
-For this prototype the following logic was implemented.
+For this prototype the following logic is implemented.
 First, the source git repository is cloned and checked out,
 with the appropriate authentication options, if it is private.
-If it succeeds, the Ready condition is set in the status subresource,
-which will mark it as available and ready.
+If the cloning succeeds, the environment will be marked as available.
+A diagram of the environment controller logic can be seen in fig. \ref{tikz:environment-controller-logic}.
 
-\begin{enumerate}
-	\item test the clone of Git repository with authentication
-	\item checkout reference branch locally
-	\item mark environment as ready
-\end{enumerate}
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[node distance=1.3cm]
+	\node (start) [startstop] {Start};
+	\node (dec1) [decision, below of=start, yshift=-1.8cm] {repo is private};
+	\node (pro1a) [process, right of=dec1, xshift=4cm] {configure auth};
+	\node (pro1) [process, below of=dec1, yshift=-1.8cm] {test clone};
+	\node (out1) [io, below of=pro1] {mark as available};
+	\node (stop) [startstop, below of=out1] {Stop};
+	
+	\draw [arrow] (start) -- (dec1);
+	\draw [arrow] (dec1) -- node[anchor=east] {yes} (pro1a);
+	\draw [arrow] (dec1) -- node[anchor=south] {no} (pro1);
+	\draw [arrow] (pro1a) |- (pro1);
+	\draw [arrow] (pro1) -- (out1);
+	\draw [arrow] (out1) -- (stop);
+\end{tikzpicture}
+\caption{Environment Controller Logic} \label{tikz:environment-controller-logic}
+\end{figure}
+
+%\begin{tikzpicture}[node distance=2cm]
+%	
+%	\node (start) [startstop] {Start};
+%	\node (in1) [io, below of=start] {Input};
+%	\node (pro1) [process, below of=in1] {Process 1};
+%	\node (dec1) [decision, below of=pro1, yshift=-0.5cm] {Decision 1};
+%	
+%	\node (pro2a) [process, below of=dec1, yshift=-0.5cm] {Process 2a
+%		text text text text
+%		text text text 
+%		text text text};
+%	
+%	\node (pro2b) [process, right of=dec1, xshift=2cm] {Process 2b};
+%	\node (out1) [io, below of=pro2a] {Output};
+%	\node (stop) [startstop, below of=out1] {Stop};
+%	
+%	\draw [arrow] (start) -- (in1);
+%	\draw [arrow] (in1) -- (pro1);
+%	\draw [arrow] (pro1) -- (dec1);
+%	\draw [arrow] (dec1) -- node[anchor=east] {yes} (pro2a);
+%	\draw [arrow] (dec1) -- node[anchor=south] {no} (pro2b);
+%	\draw [arrow] (pro2b) |- (pro1);
+%	\draw [arrow] (pro2a) -- (out1);
+%	\draw [arrow] (out1) -- (stop);
+%	
+%\end{tikzpicture}
+
+\subsubsection*{Promotion Controller}
 
 For the promotion API,
 the following controller logic is implemented.
@@ -906,16 +959,37 @@ which are the copy operations with the current state of the prototype.
 Now if there were changes since the last reconciliation, the new commits
 are pushed to the pull request branch.
 Lastly, a pull request will be raised, if not yet done during a previous reconciliation.
+A diagram of the promotion controller logic can be seen in fig. \ref{tikz:promotion-controller-logic}.
 
-\begin{enumerate}
-	\item ensure that the source and target environments are ready
-	\item clone source and target repositories
-	\item check for a pending promotion (open Pull Request)
-	\item execute the promotion copy operations
-	\item push new commits to PR branch, if there were differences between source \& target environments
-	\item create new PR, if not yet opened
-\end{enumerate}
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[node distance=1.3cm]
+		\node (start) [startstop] {Start};
+		\node (in1) [io, below of=start] {ensure environments are available};
+		\node (proClone) [process, below of=in1] {clone repos};
+		\node (proCheckPending) [process, below of=proClone] {check pending promotion};
+		\node (proExecProm) [process, below of=proCheckPending] {execute promotion operations};
+		\node (dec1) [decision, below of=proExecProm, yshift=-1.8cm,text width=3cm] {source != target environment};
+		\node (pro1a) [process, right of=dec1, xshift=4cm] {push PR branch};
+		\node (pro1) [process, below of=dec1, yshift=-1.8cm] {create/update PR};
+		\node (out1) [io, below of=pro1] {mark as ready};
+		\node (stop) [startstop, below of=out1] {Stop};
+		
+		\draw [arrow] (start) -- (in1);
+		\draw [arrow] (in1) -- (proClone);
+		\draw [arrow] (proClone) -- (proCheckPending);
+		\draw [arrow] (proCheckPending) -- (proExecProm);
+		\draw [arrow] (proExecProm) -- (dec1);
+		\draw [arrow] (dec1) -- node[anchor=east] {yes} (pro1a);
+		\draw [arrow] (dec1) -- node[anchor=south] {no} (pro1);
+		\draw [arrow] (pro1a) |- (pro1);
+		\draw [arrow] (pro1) -- (out1);
+		\draw [arrow] (out1) -- (stop);
+	\end{tikzpicture}
+	\caption{Promotion Controller Logic} \label{tikz:promotion-controller-logic}
+\end{figure}
 
+% TODO: maybe reference exact section in Appendix of each controller
 The full source code of the controllers can be found in Appendix
 \ref{appendix:source-code}.
 
@@ -985,6 +1059,8 @@ Kustomize, and generally structured for all environments as below:
     `-- deployment.yaml
 \end{lstlisting}
 
+However it is independent of the tool Kustomize;
+any other tools can be used in conjunction with the proposed operator prototype.
 This structure adheres to the constraints of the currently available
 copy operation promotion type, which can copy files and directories.
 This means the configuration components which need to be promoted,
@@ -1072,37 +1148,35 @@ When the status of all the environment resources involved in a promotion,
 have a ready status condition,
 and the dependent objects are successfully deployed,
 a promotion will trigger.
-
-\lstinputlisting{assets/files/env-dev-status.yaml}
-
+%\lstinputlisting{assets/files/env-dev-status.yaml}
 At this point, the controller logs can be observed.
 
 \begin{lstlisting}
-2023-04-16T12:10:40Z    INFO    Begin reconciling Promotion     {"controller": "promotion", "controllerGroup": "promotions.gitopsprom.io", "controllerKind": "Promotion", "Promotion": {"name":"dev-to-qa","namespace":"default"}, "namespace": "default", "name": "dev-to-qa", "reconcileID": "ba3775ae-d8b1-40de-ad7b-4f42f8534686", "name": {"namespace": "default", "name": "dev-to-qa"}}
-2023-04-16T12:10:46Z    INFO    Created new pull request        {"controller": "promotion", "controllerGroup": "promotions.gitopsprom.io", "controllerKind": "Promotion", "Promotion": {"name":"dev-to-qa","namespace":"default"}, "namespace": "default", "name": "dev-to-qa", "reconcileID": "ba3775ae-d8b1-40de-ad7b-4f42f8534686", "WebURL": "https://github.com/thomasstxyz/mtpoc-infra-1/pull/1"}
-2023-04-16T12:10:46Z    INFO    Reconciled Promotion successfully       {"controller": "promotion", "controllerGroup": "promotions.gitopsprom.io", "controllerKind": "Promotion", "Promotion": {"name":"dev-to-qa","namespace":"default"}, "namespace": "default", "name": "dev-to-qa", "reconcileID": "ba3775ae-d8b1-40de-ad7b-4f42f8534686", "duration": "6.050374419s", "nextReconcile": "300s"}
+2023-04-16T12:10:46Z INFO    Created new pull request    [...]
 \end{lstlisting}
+%2023-04-16T12:10:40Z    INFO    Begin reconciling Promotion     {"controller": "promotion", "controllerGroup": "promotions.gitopsprom.io", "controllerKind": "Promotion", "Promotion": {"name":"dev-to-qa","namespace":"default"}, "namespace": "default", "name": "dev-to-qa", "reconcileID": "ba3775ae-d8b1-40de-ad7b-4f42f8534686", "name": {"namespace": "default", "name": "dev-to-qa"}}
+%2023-04-16T12:10:46Z    INFO    Created new pull request        {"controller": "promotion", "controllerGroup": "promotions.gitopsprom.io", "controllerKind": "Promotion", "Promotion": {"name":"dev-to-qa","namespace":"default"}, "namespace": "default", "name": "dev-to-qa", "reconcileID": "ba3775ae-d8b1-40de-ad7b-4f42f8534686", "WebURL": "https://github.com/thomasstxyz/mtpoc-infra-1/pull/1"}
+%2023-04-16T12:10:46Z    INFO    Reconciled Promotion successfully       {"controller": "promotion", "controllerGroup": "promotions.gitopsprom.io", "controllerKind": "Promotion", "Promotion": {"name":"dev-to-qa","namespace":"default"}, "namespace": "default", "name": "dev-to-qa", "reconcileID": "ba3775ae-d8b1-40de-ad7b-4f42f8534686", "duration": "6.050374419s", "nextReconcile": "300s"}
 
 A new pull request
 %with the number \lstinline|1|
 %at the Web URL \\
 %\url{https://github.com/thomasstxyz/mtpoc-infra-1/pull/1} \\
 has been created by the controller.
-
 The promotion's status will also reflect, that
 a pull request is open for review.
 
 \lstinputlisting{assets/files/prom-dev-to-qa-status.yaml}
 
 The open pull request is ready for review in the Git provider's web interface.
-%\begin{figure}[h]
-%	\centering
-%	\includegraphics[width=1.00\linewidth]{assets/new-promotion-github.png}
-%	\caption{New Git Pull Request.
-%		%		(\citeauthor{ref}, \citeyear{ref}).
-%	}
-%	\label{fig:new-promotion-github}	
-%\end{figure}
+%%\begin{figure}[h]
+%%	\centering
+%%	\includegraphics[width=1.00\linewidth]{assets/new-promotion-github.png}
+%%	\caption{New Git Pull Request.
+%%		%		(\citeauthor{ref}, \citeyear{ref}).
+%%	}
+%%	\label{fig:new-promotion-github}	
+%%\end{figure}
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1.00\linewidth]{assets/prom-pr-dev-to-qa.png}
@@ -1229,6 +1303,11 @@ The described demonstration showed,
 how an application version can be promoted across multiple environments,
 while ensuring a strict flow of promotion of \\
 e.g. \lstinline|dev --> qa --> prod-1 --> prod-2|.
+Alongside the application version or any arbitrary resource,
+users of the prototype operator may specify multiple other
+promotion subjects in the copy operations list \lstinline|.spec.copy|, which shall be promoted.
+For the sake of easy understanding, this was not shown in detail above.
+
 
 
 
@@ -1261,7 +1340,7 @@ e.g. \lstinline|dev --> qa --> prod-1 --> prod-2|.
 \section{Evaluation}
 
 Now that the prototype has been demonstrated in a proof of concept,
-its functionality can be compared against the solution objectives,
+its functionality is compared against the solution objectives,
 as defined in section
 \ref{interviews:definitionSolutionObjectives}
 earlier in this thesis.
