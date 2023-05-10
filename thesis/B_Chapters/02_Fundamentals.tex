@@ -105,7 +105,9 @@ utilizing a set of development practices
 
 \subsection*{Environment}
 
-An Environment in the context of this thesis
+An Environment
+- or GitOps Environment -
+in the context of this thesis
 is defined as a target deployment environment for a given application;
 e.g. Development, Testing, or Production.
 Most of the time this is a Kubernetes cluster or namespace.
@@ -179,10 +181,10 @@ for providing an internal developer platform (as defined in this section).
 \subsection*{Promotion}
 
 Promotion in the context of this thesis is defined as
-the process of promoting a new application version (release)
+the process of promoting a new application or infrastructure version (release)
 to another deployment environment.
 In the context of GitOps and Git repositories,
-this often means changing declarative definitions in Git repositories.
+this often means changing declarative definitions of the desired state in Git repositories.
 
 \subsection*{Prototype}
 An executable model of the planned product, produced with little effort and easy to modify,
@@ -697,6 +699,61 @@ a custom resource is
 Custom resources can be dynamically registered and independently updated.
 Users can interface with its objects as they do with the Kubernetes built-in resources
 \autocite{customResourcesKubernetesIO}.
+
+
+
+
+
+
+
+
+
+\section{Modeling GitOps Environments}
+
+TODO
+
+
+
+
+
+
+\section{Configuration Management Tools}
+
+TODO
+
+
+
+
+
+
+\section{GitOps Engines}
+
+TODO
+
+
+
+
+
+
+
+
+\section{Git Providers}
+
+TODO
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \section{Summary}
 

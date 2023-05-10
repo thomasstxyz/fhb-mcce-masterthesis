@@ -497,7 +497,7 @@ called the GitOps Promotions Operator.
 First, the asynchronous nature of a typical GitOps deployment is described,
 and where the proposed GitOps Promotions Operator prototype finds its place within
 this architecture.
-Next, abstract models are designed which describe the Environment and Promotion 
+Next, abstract models and their respective custom resources are designed which describe the Environment and Promotion 
 custom resources; which are then afterwards implemented as mockups of 
 Kubernetes custom resources in the declarative Yaml specification syntax.
 Next to the mockups implemented in the prototype,
@@ -616,7 +616,94 @@ the abstract models for the custom resources and their functionality can be desi
 
 \subsection{Abstract Models}
 
-TODO
+In this section,
+abstract models for environments, as well as promotions are designed.
+The term abstract model stands for a qualitative description of a resource.
+The abstract model is supposed to function as a high level abstract representation of a resource,
+that exists in the actual world, either internal or external to the system,
+or is used purely as an abstraction layer for such an actual resource.
+
+\subsubsection*{Environment Model}
+
+In the context of this software prototype,
+an environment is a GitOps environment as defined in section
+\ref{theoretical-background:general-definitions} \nameref{theoretical-background:general-definitions}.
+As a reminder, this is a folder/directory in a Git repository,
+which essentially points to a deployment environment, typically being a Kubernetes cluster/namespace.
+Therefore, the model for the environment primarily represents a directory path in a certain Git repository.
+This can potentially be a specific branch or any commit or refspec in the Git repository.
+
+In addition to the Git repository and the path pointing to the GitOps environment,
+the abstract model has a definition of dependent resources inside the deployment environment.
+This is needed in order for the operator to know which resources are deployed and belong to the desired state definition;
+and furthermore to achieve the possibility to define dependencies,
+which need to be fulfilled before a promotion is allowed to be triggered.
+A dependency can be potentially anything, which needs to be in a certain state, before a promotion is triggered.
+Abstract examples of dependencies could be e.g.
+HTTP(S) endpoints internal or external to the deployment environment which return a certain response;
+Kubernetes objects which need to have a certain condition or be in a certain state.
+
+As an alternative to a Git repository,
+the desired state of the GitOps environment could also be stored in a object store elsewhere
+like an object or blob store or an artifact registry;
+or it could be stored in an alternative version control system, other than Git.
+The desired state could also be a combination of these possible sources.
+The described other possiblities for the desired state store are not further handled in the proposed prototype,
+however they must be noted and considered in the base architecture, in order for the possibility to support
+them in the future.
+
+\subsubsection*{Promotion Model}
+
+In the context of this software prototype,
+a promotion is a GitOps promotion as defined in section
+\ref{theoretical-background:general-definitions} \nameref{theoretical-background:general-definitions}.
+As a reminder, this is the process of promoting a new application or infrastructure version
+to another deployment environment, which typically means a change in the desired state definition in a GitOps environment.
+
+For the proposed and implemented prototype within this concrete research,
+the process of a GitOps promotion is the change of the desired state definition of a certain GitOps environment,
+typically mentioned as the target environment of a promotion. For the prototype,
+the declarative state, which is promoted, i.e. changed in the target environment is drawn from the
+source environment's desired state definition. In the easiest case, this means that a certain
+file or directory is copied from the source to the target environment - or a list of files/directories.
+These files or directories which are promoted, are called promotion subjects within the context of this
+prototype.
+
+Promotion subjects can potentially be of many other types, however possible other types are not implemented in the prototype.
+Examples for other promotion subjects could be other representations of resources in the desired state,
+like object references to Kubernetes built-in resources or custom resources instead of plain text files or directories.
+Custom resources could be ArgoCD Applications or other high-level abstractions or collections of resources.
+As alternative sources for promotion subjects,
+the operator could gather other arbitrary information. For example this could be information like a version tag
+of an artifact repository.
+This arbitrary data point could then be patched statically in a certain YAML path of a file.
+Alternatively, it could be patched into lines, which have been marked as comments in files in advance.
+The mentioned strategies are used by other software programs, which interface with plain text desired state definitions.
+
+What should also be mentioned, but is not implemented in the proposed prototype,
+is that a promotion process could be of other types.
+As an example, this could be the difference between two commits of Git repositories,
+which is essentially a patch between two states. This difference could be applied to another environment.
+
+The promotion process could possibly have hooks or phases before and afterwards, which could be configurable by the user.
+Furthermore, such a promotions operator could have the functionality to combine multiple promotions together.
+This way, the end-to-end observability and manageability would be improved.
+This is in line with a problem discussed earlier, of the overview over GitOps environments
+and the deployed applications. On top of that, a functionality could be developed
+to increase observability into e.g. the current state of a specific release and which environments it passed.
+
+Another alternative possibility of a promotion process or how a promotion could be achieved,
+is that Git branches are leveraged.
+This could mean, that an environment would differ from another environment just by the branch of the same Git repository.
+
+\subsubsection*{Changing ecosystem}
+
+What also needs to be raised for discussion is that
+the understanding of what a GitOps environment and promotion is,
+could change in the future, depending on how the GitOps ecosystem changes
+and in which direction it is going. Currently the GitOps space
+is strongly centered around Kubernetes, at least for the controller or engine which does the reconciliation
+between the desired and the actual state.
 
 Now that the abstract models are designed,
 they need to be implemented.
@@ -653,7 +740,7 @@ environment, inside the repository.
 %	\label{fig:gitops-env-repo-and-path}	
 %\end{figure}
 
-The abstract model for a GitOps environment needs at least the following properties:
+The custom resource for a GitOps environment needs at least the following properties:
 
 \begin{itemize}
 	\item URL of the source Git repository
@@ -685,7 +772,7 @@ or custom resources like ArgoCD Applications or Flux Kustomizations and Helm Rel
 
 \subsubsection*{Promotion Resource}
 
-The abstract model for a GitOps promotion
+The custom resource for a GitOps promotion
 (fig. \ref{fig:gitops-promo})
 needs at least the following properties (explained in detail in the following paragraphs):
 
@@ -775,7 +862,7 @@ will be created as a next step.
 %The YAML representation of the custom resource should be similar to other ones
 %from the Kubernetes core types.
 
-When the abstract models have been specified,
+When the custom resources have been specified,
 they can be actually implemented with the framework
 as Kubernetes custom resource definitions.
 
@@ -787,8 +874,7 @@ This suffix is typically appended to keys which represent a reference to another
 object.
 For example, "secretRef" says that this field refers to a Kubernetes secret resource.
 
-A possible mockup for a GitOps environment -
-that is a first prototype implementation of the abstract model into a custom resource -
+A possible mockup for a GitOps environment resource
 could look like the following.
 
 \lstinputlisting{assets/files/environment-mockup.yaml}
