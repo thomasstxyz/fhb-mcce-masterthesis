@@ -254,9 +254,15 @@ the new version of the application in an artifact registry.
 
 
 
+\section{Configuration Management Tools, GitOps Engines, and Git Providers}
 
+In the following section,
+the role of configuration management tools,
+GitOps engines,
+and Git providers
+is explained.
 
-\section{Configuration Management Tools}
+\subsection*{Configuration Management Tools}
 
 A main component when following the GitOps approach is the configuration management or templating tool
 for the Kubernetes manifests.
@@ -299,9 +305,26 @@ meaning the
 
 
 
-\section{GitOps Engines}
+\subsection*{GitOps Engines}
 
-TODO
+The GitOps engine or controller is responsible for the
+reconciliation of the desired state with the actual state
+in the target deployment environment.
+It adheres to the GitOps principles and is the primary tool
+to achieve the GitOps pattern.
+
+The different alternative GitOps engines offer similar functionality,
+and they have their own advantages and disadvantages.
+When extending the GitOps toolchain, it should not make a difference which specific
+tool from which provider is used.
+GitOps engines should work together with any other tool in the GitOps ecosystem.
+
+The most widely adopted GitOps engines and accompanying projects are those from
+the Argo
+\autocite{argoProjWebsite}
+and Flux
+\autocite{fluxWebsite}
+projects.
 
 
 
@@ -310,9 +333,27 @@ TODO
 
 
 
-\section{Git Providers}
+\subsection*{Git Providers}
 
-TODO
+Git providers or otherwise called Git servers are a relevant component of
+a GitOps setup.
+For the most important Git functionalities like branches, commits, history
+tags, cherry-picking or merges, each Git provider functions the same.
+However, one of the most important functions which is part of the primary pattern
+of GitOps, is the Git pull request.
+As pull requests are not part of the open-source core of Git,
+each Git provider offers a different API for the pull requests.
+Integrations with the pull request component therefore need to be implemented
+for each Git provider separately. Thus many software tools support only a limited amount
+of Git providers.
+
+Some of the most prominent Git providers are
+Github,
+Gitlab,
+Bitbucket,
+Azure DevOps, and
+Gitea.
+
 
 
 
