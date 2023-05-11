@@ -469,7 +469,71 @@ objective's code (e.g. OBJ4) and the requirement's code (e.g. R1).
 
 \section{Summary}
 
-TODO
+This chapter discussed the problem identification and motivation of the main topic of this thesis,
+namely the promotion of releases in GitOps environments.
+With the help of practicing professionals, who are working in the GitOps field,
+several problems have been identified.
+
+\textbf{\nameref{problem1}},
+relates to a frequent issue with currently available tooling in the GitOps ecosystem. 
+Often times solely container image version tags are the focus with current tools when promoting
+new versions or releases. It was discussed, that this is insufficient for some use cases.
+It is sometimes required to handle all sorts of resources, not just the version tag of a container image.
+Especially when not using containerization technologies for runtime, this is an important problem to handle.
+In order to be able to provide a solution to this problem with a comprehensible approach,
+a solution objective was inferred and its requirements defined.
+
+\textbf{\nameref{objective1}},
+defines a qualitative description of how the respective problem is supposed to be solved
+by the developed artifact. The main idea is to offer the capability to promote arbitrary resources,
+meaning any type of resource, instead of solely the container image version.
+The technical implementation in the proposed prototype foresees the functionality for
+promoting a list of filesystem paths inside the Git repository of the desired state to other environments.
+In addition these arbitrary resources should be able to be assigned a descriptive name,
+in order to identify the promotion subjects more easily.
+
+\textbf{\nameref{problem2}},
+states the fact, that it is not a straight-forward process of how the order of promotion
+through multiple GitOps environments can be setup. When adhering to the principles of GitOps
+and sticking with the asynchronous deployment process (described in the
+\nameref{theoretical-background} chapter)
+there is no streamlined approach or tooling, that automates this, while still sticking to the asynchronous process.
+
+\textbf{\nameref{objective2}},
+defines the requirements for the proposed prototype,
+in regards to the according problem of having a certain order of promotion through environments or stages.
+The objective describes the capability for defining a certain order of environments, in which releases traverse through.
+In addition, this solution objective opens up the possibility to setup promotion in stages, in which
+certain environments must be deployed to first, before the release can deploy to other specified environments.
+
+\textbf{\nameref{problem3}},
+relates to the problem that when wanting to promote a new release from environment one to another environment,
+it is not easily achievable with the available tools to specify certain dependencies, like other workloads or
+microservices in the same or another environment, or altogether dependencies from external sources.
+This is especially desirable for evaluating test results or other metrics, before triggering the promotion.
+
+\textbf{\nameref{objective3}},
+describes how the respective problem of being able to specify dependencies for a promotion,
+could be solved in the proposed prototype. While the minimum dependency is the successful deployment
+of the workload of a release,
+it may also be desirable to specify other resources or workloads which need to be in a certain state,
+before triggering a promotion.
+
+\textbf{\nameref{problem4}},
+draws attention to the common problem of being dependent on single tools and providers.
+The more complex the Continuous Delivery is setup for a particular project,
+the more difficult it is to de-couple or switch providers for certain components.
+% TODO: move this sentence also to the main section (not only in the summary)
+Furthermore, since many tools in the GitOps ecosystem are not very mature in their development and adoption,
+it is of use that components are loosely coupled and can be exchanged with alternatives in the future.
+
+\textbf{\nameref{objective4}},
+defines the requirements of how a vendor-neutral and tool-agnostic prototype can be implemented.
+The main components which are desirable to support all alternatives,
+for being able to switch between them,
+are the Git providers (e.g. GitHub, GitLab),
+the GitOps engines (e.g. Argo, Flux),
+the configuration/templating tools (e.g. Kustomize, Helm).
 
 
 

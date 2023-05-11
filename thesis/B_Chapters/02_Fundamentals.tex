@@ -1,4 +1,5 @@
 \chapter{Theoretical Background} 	% Produces section heading.  Lower-level
+\label{theoretical-background}
 
 %Basics such as theory, definitions, relevant theories, related work and state of the art should be included here.
 
@@ -908,7 +909,7 @@ The pipeline ends at this point.
 Afterwards the GitOps engine, another system than the CI/CD system, is responsible for detecting the new desired state and starting reconciliation.
 However, the desired state first needs to be changed after a new artifact is available,
 and especially when multiple environments are needed and promotion should be achieved between them,
-this is not straight-forward with this asynchronuous process.
+this is not straight-forward with this asynchronous process.
 It may be desirable to trigger tests after a deployment to a certain environment is done,
 and only afterwards promote to another environment.
 The GitOps approach proposes to have the source of truth in the Git repository as the desired state of a system.
