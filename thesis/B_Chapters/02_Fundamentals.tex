@@ -377,7 +377,7 @@ This is to give developers as much insight as possible,
 in order to decrease efficiency and productivity to finally
 decrease the time-to-market for product releases, features and bug fixes.
 This is essentially needed for organizations to continue to thrive in todays
-rapidly changing information technology sector.
+rapidly changing world.
 
 Cloud native technologies have allowed for this movement to happen.
 An important aspect of cloud technologies is the self-service.
@@ -443,6 +443,7 @@ and tools to choose from.
 Infrastructure-as-Code which is stored in a Git repository,
 and executed by a CI/CD pipeline,
 is not actually the concept behind GitOps.
+
 A visual representation of what is not GitOps can be seen in
 fig. \ref{fig:iacIsNotGitOps}.
 
@@ -855,6 +856,12 @@ The most prominent approach is to have a folder in a Git repository
 per environment. This is straight-forward and easily compatible with
 the currently most used configuration and templating tools like Kustomize and Helm.
 Promotion would be just a file copy operation from one to another file or folder.
+For each environment, or only critical ones, there could be a completely separate Git repository.
+Having a separate repository opens up the possibility to have a more strict separation of concerns,
+regarding permissions and access rights.
+Anyone who has access to a Git repository has read access to the entire repository tree.
+While the write access could potentially be limited by administrators or maintainers
+to certain folders, the read access will always be open for anyone who has access to the repository.
 
 Another approach is to have a Git branch per environment.
 Promotion would be a Git merge from one to another branch.
@@ -865,8 +872,10 @@ However when this approach is purely used for the purpose of staging,
 meaning environments are identical, but new releases are deployed to some environments first
 after other ones,
 it could provide a seamless way of promotion by solely leveraging the built-in merge mechanism in Git.
+Branches can usually be restricted or limited to certain developers only,
+which would make it easier to implement the access permissions than the previous folder-per-environment approach.
 
-This research focuses primarily on the modeling of folder per environment.
+This research focuses primarily on the modeling of folder-per-environment.
 
 
 
@@ -877,7 +886,39 @@ This research focuses primarily on the modeling of folder per environment.
 
 \section{Promotion Strategies with Existing Tools}
 
-TODO
+There are many ways for achieving a promotion process when using the GitOps approach for the Continuous Delivery of
+an application or any other infrastructure declared in code.
+When a push-based CI/CD pipeline is already in place, it is often the first thing that comes to mind
+to just append the GitOps deployment as a synchronized process to the end of the pipeline.
+GitOps engines like ArgoCD offer the capability for the user to configure webhook receivers
+which reconcile an application. This makes it possible to setup a synchronous pipeline,
+which results in every code change being delivered through a pipeline step by step in a synchronous manner.
+After the push-based synchronous deployment step succeeds in the pipeline process,
+the pipeline developer can configure another imperative step which triggers reconcilication for another environment.
+
+However, there is a downside when choosing to go with such a push-based imperative approach.
+In fact, this approach would abide by the core principles of GitOps,
+namely the principle of desired state being continuously being pulled by the GitOps engine/agent.
+So the advantage of drift detection and automatic mending, would no longer be given.
+
+When following the GitOps approach, it may be desirable to decouple Continuous Integration/Delivery and Continuous Deployment.
+This means that a code change, namely a Git commit, triggers a Continuous Integration pipeline,
+which ends in a step which builds and pushes an artifact of the new version to an artifact registry.
+The pipeline ends at this point.
+Afterwards the GitOps engine, another system than the CI/CD system, is responsible for detecting the new desired state and starting reconciliation.
+However, the desired state first needs to be changed after a new artifact is available,
+and especially when multiple environments are needed and promotion should be achieved between them,
+this is not straight-forward with this asynchronuous process.
+It may be desirable to trigger tests after a deployment to a certain environment is done,
+and only afterwards promote to another environment.
+The GitOps approach proposes to have the source of truth in the Git repository as the desired state of a system.
+
+Currently there is insufficient tooling in the GitOps ecosystem for streamlining such a
+multi-environment promotion process.
+
+{\color{red}\larger TODO review section!}
+
+
 
 
 
