@@ -1589,7 +1589,36 @@ with the named tools.
 
 \section{Summary}
 
-TODO
+In the preceding chapter,
+the proposed prototype was presented.
+
+The asynchronous nature of GitOps deployments, and where
+the operator prototype fits within this architecture was described.
+Next, abstract models for the environment and promotion custom resources as well as their prototype
+design as declarative Kubernetes custom resources was described.
+The implementation of these custom resources was shown in the form of mockups
+of Kubernetes custom resources in the YAML format.
+Alternative mockup designs were shown as a way to draw attention to the fact
+that the actual design of the API specification is not cast in stone.
+Moreover, the API specification should be tested with users of it,
+and should be adapted for usability and ease of use.
+The translation of the API specification in YAML format into Go types was described,
+and finally the implemented controller logic of both the environment, as well as
+the promotion controller was presented.
+
+In the next step, the developed artifact of the prototype operator was
+demonstrated in the context of a proof-of-concept use case.
+The demonstration of the prototype's functionality was then evaluated against
+the research objectives defined in
+\ref{interviews:definitionSolutionObjectives} \nameref{interviews:definitionSolutionObjectives}.
+
+
+
+
+
+
+
+
 
 
 
