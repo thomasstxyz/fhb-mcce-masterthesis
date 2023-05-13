@@ -20,6 +20,10 @@ These solution objectives are then further elaborated in the following chapter
 of this thesis, where they primarily serve as the basis for the
 desired functionality of the developed prototype.
 
+Direct citations from interview transcripts are referred to in the following style:
+(interview 1, line 1).
+The interview transcripts are found in the Appendix \ref{appendix:interview-transcriptions}.
+
 \section{Problem Identification \& Motivation}
 \label{interviews:problem-identification}
 
@@ -54,7 +58,7 @@ defined in the Git repository.
 \begin{quotation}
 	\noindent
 	\enquote*{When you're promoting, you should consider not just the image version, but all Kubernetes resources.}
-	% TODO: cite i3
+	(interview 3, line 161)
 \end{quotation}
 
 Furthermore, it is desirable to have a human approve the changes,
@@ -62,7 +66,7 @@ which are done by a machine, e.g. with the help of Git pull requests.
 
 As interview partner 1 says:
 \enquote*{I think that very few companies really do Continuous Deployment, most of them want to have some kind of manual release.}
-% TODO: cite i2
+(interview 2, line 128)
 
 Interview partner 3 defined a release
 as a \enquote*{generic change to the system}:
@@ -70,7 +74,7 @@ as a \enquote*{generic change to the system}:
 \begin{quotation}
 	\noindent
 	\enquote*{I'm almost inclined to say that I don't care what a release is. I'm talking about a general change to the system, and whether you call it a release or a hotfix or a minor change or a major change, I wouldn't make that big of a distinction. And I wouldn't distinguish whether it's about rolling out a new container image or whether it's a change in a ConfigMap, for example.}
-	% TODO: cite i3
+	(interview 3, line 62)
 \end{quotation}
 
 While a container image is a specific type of information inside a file in a desired state definition,
@@ -83,7 +87,7 @@ one to another GitOps environment definition.
 \begin{quotation}
 	\noindent
 	\enquote*{It's just a change to the application and or to the application specific infrastructure. So this is how I always try to explain Helm Charts or the Kubernetes Yamls.}
-	% TODO: cite i3
+	(interview 3, line 65)
 \end{quotation}
 
 A solution to this problem could enable users to promote any arbitrary information
@@ -126,15 +130,15 @@ a specific order of promotion through environments can not easily be achieved.
 \end{table}
 
 The desired specified order of environments could be like interview partner 3 mentioned,
-where the core banking system had up to twelve environments,
-% TODO: cite i3
+where the core banking system had up to twelve environments
+(interview 3, line 17),
 which a new application release needed to pass for testing,
 in a specific order:
 
 \begin{quotation}
 	\noindent
 	\enquote*{There have been many, many environments. Production was only a very small part of it.}
-	% TODO: cite i3
+	(interview 3, line 20)
 \end{quotation}
 
 Due to the high criticality in the banking system,
@@ -146,16 +150,16 @@ very high quality of the software.
 \begin{quotation}
 	\noindent
 	\enquote*{The criterion for a stage was on the one hand, the quality level of the software. So does the software still have a lot of bugs, or is it close to acceptance.}
-	% TODO: cite i3
+	(interview 3, line 26)
 \end{quotation}
 
 Additionally to the order of promotion through environments,
 there is the problem of rolling out new releases to all environments at once.
 When
 \enquote*{multi-tenant is not implemented within the application,}
-% TODO: cite i3
+(interview 3, line 58)
 \enquote*{I do not want to roll out all at the same time.}
-% TODO: cite i3
+(interview 3, line 158)
 For example, as a platform provider with tenants represented as separate GitOps
 environments, it can be desirable to split up the rollout of the new release into
 stages. Interview partner 3 discussed this:
@@ -163,7 +167,7 @@ stages. Interview partner 3 discussed this:
 \begin{quotation}
 	\noindent
 	\enquote*{I first deployed the new version for the unimportant customer, now I also want to use it with the important customer.}
-	% TODO: cite i3
+	(interview 3, line 158)
 \end{quotation}
 
 \begin{table}[h]
@@ -206,7 +210,7 @@ and successful deployment.
 \begin{quotation}
 	\noindent
 	\enquote*{It may well be that you have dependencies between applications. I often take the approach that I have one GitOps repo per application or microservice. Now, for example, you want to promote the new version of one repo first, if the other one is also on a certain level, then there is the issue of dependencies to infrastructures, to databases, etc.}
-	% TODO: cite i3
+	(interview 3, line 155)
 \end{quotation}
 
 To provide an example, in the context of the Kubernetes platform,
@@ -233,7 +237,7 @@ and due to the lack of best practices and standardized solutions,
 users or platform engineers are inclined to build
 and setup
 \enquote*{advanced complex pipelines that are kind of like all interdependent on a lot of things.}
-% TODO: cite i1
+(interview 1, line 311)
 This usually results in tight coupling of the Git provider, the GitOps engine, the CI workflow/pipeline platform,
 configuration management tools, and other components.
 Additionally there need to be permissions and policies granted to many different people and
