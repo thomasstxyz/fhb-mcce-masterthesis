@@ -1,7 +1,12 @@
 
 \chapter{Introduction}
+\label{introduction}
 
-TODO
+The introductory chapter consists of the primary problem statement of the thesis,
+the definition of the research questions,
+a concise outline of the research methodology,
+as well as
+an overview of the thesis structure.
 
 \section{Problem Statement}
 
@@ -235,7 +240,96 @@ which means implementing the designed abstract models in a prototype, which is t
 \section{Thesis Structure}
 \label{introduction:thesis-structure}
 
-%TODO summarize thesis structure
+% TODO: visualize
+
+This thesis presents a strategy for promoting releases in GitOps environments,
+and is structured as follows:
+
+\textbf{Chapter \ref{introduction} \nameref{introduction}}:
+After introducing the reader to the topic of GitOps, which can be seen as a good practice pattern within DevOps for deploying applications and generally managing systems and infrastructure as code,
+the problem is briefly stated and its importance is drawn attention to.
+The main goal of the thesis is outlined by stating the scientific research questions.
+The research methodology, namely the used scientific methods and the general approach, is presented in a short overview.
+Finally to end the introductory chapter, the structure of the thesis as a whole is described.
+
+\textbf{Chapter \ref{related-work} \nameref{related-work}}:
+%Next, the related work about this topic is discussed.
+Due to the limited amount of scientific data about this topic, this chapter is quite scarce.
+The suggested best practices for handling the concrete problem of release promotion with the GitOps approach,
+are presented.
+Furthermore the related and similar tools that are available for doing GitOps promotions are presented.
+The related work chapter concludes with a summary of the chapter and draws attention to the differences
+that divide the research within this thesis from other work.
+
+\textbf{Chapter \ref{theoretical-background} \nameref{theoretical-background}}:
+%The theoretical background on the topic is highlighted as a next step.
+This consists of general definitions of terms that are needed for further comprehension of the thesis.
+Moreover, some important concepts like DevOps, GitOps, platform engineering are described.
+Latest and ongoing trends like progressive delivery, as well as
+the role of Kubernetes in the current cloud native ecosystem,
+are discussed.
+The chapter Theoretical Background is finally rounded off with a summary,
+drawing attention to what the key points are to understand,
+before continuing to read the core of the thesis.
+
+\textbf{Chapter \ref{methodology} \nameref{methodology}}:
+%As the last major preparatory chapter, the research methodology is described.
+First, the motivation and objectives of the chapter are outlined,
+then the general approach for conducting the research of the thesis is presented,
+which comprises six activities, of which the initial two are supported by conducting interviews
+with practicing professionals, who have working proficiency in the GitOps field,
+and the latter activities are primarily supported by the use of the prototyping method.
+All used scientific methods and their concrete applications are described lastly.
+
+\textbf{Chapter \ref{interviews} \nameref{interviews}}:
+%Kicking off the empirical stages of the thesis,
+%the chapter
+%\ref{interviews} \nameref{interviews},
+%is presented,
+%in which
+The research problem of promoting releases in GitOps environments is defined and motivated,
+with the help of the practicing professionals from the conducted interviews.
+The problem is split up into distinct problem items.
+Next, for each problem item,
+a solution objective is defined, which tries to provide a possible solution to a problem statement.
+Each objective defines clear requirements, which have to be met by the developed artifact,
+and which later help with the evaluation.
+
+\textbf{Chapter \ref{chapter:prototype} \nameref{chapter:prototype}}:
+%Representing the next and also final empirical component of the thesis,
+%is the description of the developed prototype.
+The asynchronous nature of GitOps deployments,
+and where the developed prototype operator fits within this architecture, is brought forward.
+Next, abstract models for environment and promotion resources are designed.
+Then, the design of the Kubernetes custom resources for implementing the abstract models is described,
+which is followed by a mockup design in YAML format of the custom resources, along with alternative mockups.
+As last step in the design and development of the prototype, the custom resources are translated
+to Go types, and finally
+the prototype controller logic for the environment and promotion controllers is presented.
+Once the design of the prototype is clear, and the implementation is developed,
+the prototype is demonstrated in a proof of concept.
+The demonstration is then evaluated against the solution objectives defined earlier.
+
+\textbf{Chapter \ref{evaluation-and-results} \nameref{evaluation-and-results}}:
+%The next chapter discusses the results of the conducted research,
+Includes qualitative results of the interviews, as well as observed implementations
+for the solution objectives and learnings from the prototyping process.
+Furthermore, the research results are evaluated in a holistic manner,
+by comparing the implemented solutions of the prototype to the research objectives.
+
+\textbf{Chapter \ref{discussion-and-interpretation} \nameref{discussion-and-interpretation}}:
+The thus far presented data is discussed with a holistic view,
+and an interpretation by the researcher on the conducted research as a whole is given.
+
+\textbf{Chapter \ref{future-work} \nameref{future-work}}:
+Topics and ideas which were not sufficiently handled within the thesis,
+as well as possible other ideas, which were brought forward by the research results or evaluation,
+are presented.
+
+\textbf{Chapter \ref{conclusion} \nameref{conclusion}}:
+As a final chapter, a conclusion of the whole thesis is presented,
+which includes the most important key takeaways and research results.
+
 
 
 
