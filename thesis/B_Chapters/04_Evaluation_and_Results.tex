@@ -1,4 +1,3 @@
-
 \chapter{Evaluation and Results}
 \label{evaluation-and-results}
 
@@ -15,21 +14,77 @@ Especially the functionality implemented in the prototype is evaluated against t
 which have been defined, and map directly to distinct problem items.
 
 The evaluation of the prototype's functionality against the solution objectives,
-was carried out in section \ref{prototype:evaluation} earlier in the thesis.
+was already carried out in section \ref{prototype:evaluation} earlier in the thesis.
 It was proven, that for each solution objective defined in section \ref{interviews:definitionSolutionObjectives}
 the respective functionality was implemented in the prototype,
 and demonstrated in a proof of concept.
-It is described, how for each solution objective,
+It was described, how for each solution objective,
 a solution to the respective problem can be observed in the
 proof of concept demonstration in section \ref{prototype:demonstration}.
 
+\section*{Feedback for the Prototype}
+
 {\color{red}TODO opinions of working professionals}
 
-{\color{red}TODO opinion of researcher}
+%How well does the implemented functionality provide a solution to the research objectives?
 
-%{\color{red}TODO x}
+The research results are evaluated with a holistic view,
+with the focus on the research questions defined in section \ref{introduction:research-question}.
 
-x
+\section*{\ref{RQ1.1}}
+
+A possible solution to this research question was presented in chapter
+\ref{chapter:prototype}
+by means of describing the design of a prototype
+of a Kubernetes operator for handling the operations of promotions for GitOps environments.
+
+Section \ref{prototype:design:async-gitops-deployments} describes the asynchronous nature of
+GitOps deployments, and where the proposed operator fits within this architectural pattern.
+
+Section \ref{prototype:design:abstract-models} presents a qualitative description 
+of how abstract models for environments and promotions in the context of the operator pattern
+could be designed.
+
+\section*{\ref{RQ1.2}}
+
+Described in sections \ref{prototype:design:design-custom-resources}, \ref{prototype:design:mockups-custom-resources} and \ref{prototype:design:alternative-mockups},
+a possible implementation of the abstract models is presented.
+It is in the form of declarative custom resources for extending the Kubernetes API.
+
+Moreover in section \ref{prototype:design:go-types},
+the translations of the custom resources into Go types, which are used in the Kubebuilder framework,
+are described.
+In section \ref{prototype:design:controller-logic},
+the proposed controller logic for the environment, as well as the promotion controller is presented
+
+The proposed prototype is implemented and demonstrated in a proof of concept in section
+\ref{prototype:demonstration}.
+How well the implemented functionality provides a solution to the research objectives,
+is evaluated in section \ref{prototype:evaluation}.
+
+\section*{\ref{RQ1}}
+
+The combined evaluations of the sub research questions provide a possible answer to the
+overarching research question for the thesis.
+
+This thesis proposes one possible way of how
+the promotion of releases in GitOps environments can be designed.
+In no way, shape or form does this concrete research try to
+propose a definitive answer or solution to the research question.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

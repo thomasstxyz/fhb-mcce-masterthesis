@@ -591,6 +591,7 @@ the GitOps Promotions Operator prototype.
 This is shown by demonstrating the functionality and evaluating against the research objectives.
 
 \subsection{Asynchronous GitOps Deployments}
+\label{prototype:design:async-gitops-deployments}
 
 First, the process of a typical GitOps deployment needs to be addressed, where
 the proposed GitOps Promotions Operator prototype needs to find its place in this asynchronous process.
@@ -698,6 +699,7 @@ the abstract models for the custom resources and their functionality can be desi
 
 
 \subsection{Abstract Models}
+\label{prototype:design:abstract-models}
 
 In this section,
 abstract models for environments, as well as promotions are designed.
@@ -801,7 +803,8 @@ the design of the custom resources is described in the next section.
 
 
 \subsection{Design of Custom Resources}
-	
+\label{prototype:design:design-custom-resources}
+
 In order to be able to represent environments and promotions,
 the requirement is to at least start with two custom resources for each 
 the environment and the promotion.
@@ -935,6 +938,7 @@ will be created as a next step.
 
 
 \subsection{Mockups of Custom Resources}
+\label{prototype:design:mockups-custom-resources}
 
 %to write mockups
 %of custom resources in YAML format,
@@ -988,6 +992,7 @@ where the \lstinline|source| is the relative path from the source environment,
 and the \lstinline|target| is a relative path from the target environment.
 
 \subsection{Alternative Mockups}
+\label{prototype:design:alternative-mockups}
 
 The following alternative mockups,
 for the custom resource definitions,
@@ -1015,6 +1020,7 @@ The promotion subject is declared in the promotion,
 but the actual path is defined per each environment.
 
 \subsection{Translation to Go types}
+\label{prototype:design:go-types}
 
 Once the mockups of the custom resources in Yaml format are done,
 the declarative structure can be translated to custom Go types.
@@ -1050,6 +1056,7 @@ Once the Go types are defined,
 the controller logic can be written.
 
 \subsection{Controller Logic}
+\label{prototype:design:controller-logic}
 
 In this section,
 the controller logic of each implemented control loop, responsible for the according resource,
