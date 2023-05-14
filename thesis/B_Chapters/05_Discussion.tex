@@ -1,39 +1,82 @@
 \chapter{Discussion and Interpretation}
 \label{discussion-and-interpretation}
 
-%Results, Discussion and conclusions come here.
+In this chapter,
+the results and evaluations which were presented in the previous chapter \ref{evaluation-and-results},
+are discussed. The meanings behind the specific results are brought forward in more detail.
+Moreover, interpretations and implications of the results and evaluations are presented by the researcher.
 
-TODO
-
-The overall goal of the thesis is to
-provide a solution to the problem of release promotion in GitOps environments.
-In this regard a prototype will be developed
-and its functionality demonstrated in a proof-of-concept evaluation.
-The goal for the prototype is to implement it as a modular extension to Kubernetes
-and existing GitOps tooling.
-By doing so, users can promote releases between multiple deployment environments
-following the GitOps principles.
-The main contribution of this thesis is a proof of concept for the developed prototype
-which can be used as an extension to the GitOps toolkit within the CNCF.
-
-
-
-
-
-
-{\color{red}TODO opinion of researcher}
-
-
+The first and most important topic to be discussed,
+are the learnings from the prototype implementation.
 
 \section{Learnings From The Prototype Implementation}
 
-TODO
+In general, the presented design and development of the prototype
+showed a possible way on how to provide a solution to the research question.
+From the actual implementation of the abstract design in a Kubernetes operator,
+and its in-context use in the proof of concept,
+certain learnings could be inferred.
 
-- ...
+\subsection*{User Experience}
 
-- User Feedback From Interview Partners
+Due to \nameref{objective4},
+the prototype has been designed to be agnostic to the tooling used, which includes the GitOps engine, the Git provider, and the configuration/templating tool.
+While it is good that the prototype can work with many other tools,
+and does not force the use of any specific tool for the mentioned components,
+the user experience can lack, as a result.
 
-- access and security of the operator to GitOps repo
+Often times users who want to setup a GitOps workflow,
+implement either e.g. Argo or Flux for their primary GitOps tool which also provides the main engine,
+which does reconciliation.
+When the proposed prototype operator with its according custom resources for environments and promotions
+should be set up additionally,
+then some information essentially needs to be specified twice. For example,
+an environment resource of the prototype operator defines the URL of the Git repository,
+which also was needed to be defined for the GitOps engine, e.g. Flux GitRepository or ArgoCD Application.
+
+The access credentials to the Git repository, i.e. the SSH deploy key,
+also needs to be setup once for the typically used Flux or Argo GitOps engine,
+as well as the promotions operator.
+
+A possible solution to this issue could be to directly integrate with either Flux or Argo - since these are the most popular, and most likely already installed and used by users of the promotions operator.
+
+\subsection*{Security Considerations}
+
+The designed and implemented prototype operator can generally run in any Kubernetes cluster.
+It is independent from the deployment environments, so it could either run in the deployment environment itself,
+or alternatively in a management cluster, which would then be responsible for the promotion of multiple environments.
+However, when the resource dependency for a promotion is a workload or another resource within the environment,
+which is to be promoted, it makes sense to have the operator run inside the same deployment environment, i.e. Kubernetes cluster or namespace, as what is specified in the Environment custom resource.
+
+The goal with the promotion resource is generally to specify two environments,
+a source and a target environment.
+While the source environment typically would be the same environment in which the operator runs in,
+the target environment would just represent the Git repository of the target cluster/namespace.
+This raises some security considerations,
+since the operator can read and write to the target environment's desired state, i.e. Git repository.
+This means, that the operator running in a certain environment would have read and write access
+to the specified target environment of the promotion.
+With this setup, bad actors who have access to the specified environment resources state,
+could change the desired state in such a way, that
+potentially harmful applications are deployed to the other environment.
+Since the operator needs appropriate permissions for the environment's Git repository,
+in order to raise pull requests and push to pull request branches, the operator could
+be a potential security issue.
+
+\subsection*{Use at Scale}
+
+The use of the promotions operator prototype at scale needs to be addressed.
+Using the operator at scale could either be to install the operator in a separate management cluster,
+or to install the operator in each environment.
+In order for the dependency capability of the promotion controller
+to be able to check for dependent resources within an environment,
+which is a source environment for a promotion,
+the operator ideally should be running inside this same environment, i.e. cluster/namespace.
+
+When installing the promotions operator once in a management cluster/namespace,
+in order to handle all or many environment promotions,
+the user would save time on the initial setup of the custom resources, deploy keys and API tokens.
+However with this approach, it would also mean that the operator running in a completely separated management cluster, typically has no direct access to observe the resources of an environment.
 
 
 
@@ -42,35 +85,65 @@ TODO
 
 
 
-\section{Towards Standardized GitOps Promotions}
-
-TODO
-
-
-
-
-
-
-\section{Related Ideas And Approaches}
-
-TODO
-
-- rolling production environment
-
-- increasing observability/overview of GitOps repositories
-
+\section{Insights into related ideas and approaches from the Interviews}
 
 The conducted semi-structured interviews gave valuable insights into
-the unique views of the problem of each of the working professionals.
+the unique views on the problem and related topics of each of the working professionals.
 Some of the related ideas and alternative approaches are discussed in this section.
 
+\subsection*{Rolling Production Environments}
 
+Interview partner 1 mentioned a new idea of
+\enquote*{rolling (production) environments}
+(interview 1, line 221).
+It was defined like the following:
+\enquote*{if we have major changes instead of doing progressive delivery on an application level, how about just setting up a new production environment and then start doing progressive delivery against the new cluster}
+(interview 1, line 221).
 
+\enquote*{Why not just set up a new cluster since it's GitOps, We can just you know, we we have environment creation automated, we have everything stored in Git.}
+(interview 1, line 224)
 
+\enquote*{So at some point we're going to have progressive delivery, not on a specific application, but more of on entire environments.}
+(interview 1, line 227)
 
+Interview partner 1 discussed this idea as an alternative to having different long-living environments,
+what would have been done in the past.
+Instead the idea is to re-create entire copies of the production environment,
+with the power of GitOps,
+and do progressive delivery for that copy of the environment as a whole.
+\enquote*{cloud, native is immutable infrastructure. So why shouldn't the platform also be immutable?}
+(interview 1, line 251)
+This could be done, in order to further limit the impact of a bad change in a new release of the software version.
+In addition, when having not just the desired state of the application, but also the entire infrastructure below it,
+stored in Git,
+it also increases the immutability and therefore resiliency of the user-facing service.
 
+In the Kubernetes ecosystem, there have emerged quite a lot of applications,
+which are providing certain services like the Cert-Manager and TLS certificates,
+or services which are providing policy functionality.
+These applications responsible for infrastructure or for supporting the primary application,
+which is in the end user-facing,
+all have their own version and are constantly updated.
+There is also the possibility that a new release of such a supporting service
+can break the primary user-facing application.
 
-\section{?}
+\enquote*{So there's applications there, etc., etc., etc. before we even get to the part that is our particular code, we have like 20 different applications that are backing up this system and they change versions, our code changes versions, Kubernetes is upgraded and stuff might be deprecated or even removed. Doing that as the environment is actually running is what kind of makes people sweat.}
+(interview 1, line 239)
+
+\enquote*{This is that's why you have the maintenance windows where people are staring at the clusters doing upgrades and things like that. Well, for me it just makes so much more sense. Just putting up an entirely new environment with all new versions and our new production, you know, code. Does it work? Cool. All right, Point DNS towards new cluster and you're done, right?}
+(interview 1, line 242)
+
+\enquote*{So there's no downtime for users even. [...] So that is I think the end goal for us when it comes to how we do promotions and getting new code out there.}
+(interview 1, line 245)
+
+When asked if this idea is related to or could be called blue-green deployments:
+\enquote*{So I would rather not call it blue green and rather have a new term for it.}
+(interview 1, line 257)
+
+\subsection*{Overview of GitOps Repositories}
+
+TODO
+
 
 
 
