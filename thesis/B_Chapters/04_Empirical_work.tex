@@ -592,8 +592,18 @@ This is shown by demonstrating the functionality and evaluating against the rese
 
 \subsection{Asynchronous GitOps Deployments}
 
-First, the process of a typical GitOps deployment needs to be addressed;
-the proposed GitOps Promotions Operator needs to find its place in this asynchronous process.
+First, the process of a typical GitOps deployment needs to be addressed, where
+the proposed GitOps Promotions Operator prototype needs to find its place in this asynchronous process.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.00\linewidth]{assets/async-gitops-promo-arch.png}
+	\caption{Asynchronous GitOps deployment and promotion.
+		%		(\citeauthor{ref}, \citeyear{ref}).
+	}
+	\label{fig:async-gitops-promo-arch}	
+\end{figure}
+
 It begins with a change of the declarative state definitions in a Git repository,
 which is then being reconciled by the GitOps controller.
 The timeframe from the change of the desired state to the actual state being applied
@@ -611,25 +621,28 @@ before continuing on with the promotion.
 The described asynchronous GitOps deployment and promotion model can be seen in figure
 \ref{fig:async-gitops-promo-arch}.
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=1.00\linewidth]{assets/async-gitops-promo-arch.png}
-	\caption{Asynchronous GitOps deployment and promotion.
-		%		(\citeauthor{ref}, \citeyear{ref}).
-	}
-	\label{fig:async-gitops-promo-arch}	
-\end{figure}
-
 In order for the proposed GitOps Promotions Operator prototype to fit into
 this asynchronous deployment architecture,
 it needs to have several asynchronous phases in its controller logic.
 The minimum steps or phases it needs are the following:
 
-\begin{enumerate}
-	\item watch deployment environment
-	\item wait for successful deployment
-	\item trigger promotion
-\end{enumerate}
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[node distance=1.3cm]
+		\node (start) [startstop] {Start};
+		\node (one) [process, below of=start] {watch deployment environment};
+		\node (two) [process, below of=one] {wait for successful deployment};
+		\node (three) [process, below of=two] {trigger promotion};
+		\node (stop) [startstop, below of=three] {Stop};
+		
+		\draw [arrow] (start) -- (one);
+		\draw [arrow] (one) -- (two);
+		\draw [arrow] (two) -- (three);
+		\draw [arrow] (three) -- (stop);
+	\end{tikzpicture}
+	\caption{Asynchronous Phases of Deployment} \label{tikz:async-phases-deploy}
+\end{figure}
+
 
 In order to check if a deployment was successful,
 the GitOps Promotions Operator needs access to the deployment environment. This is already given,
@@ -1059,7 +1072,7 @@ A diagram of the environment controller logic can be seen in fig. \ref{tikz:envi
 	\node (dec1) [decision, below of=start, yshift=-1.8cm] {repo is private};
 	\node (pro1a) [process, right of=dec1, xshift=4cm] {configure auth};
 	\node (pro1) [process, below of=dec1, yshift=-1.8cm] {test clone};
-	\node (out1) [io, below of=pro1] {mark as available};
+	\node (out1) [process, below of=pro1] {mark as available};
 	\node (stop) [startstop, below of=out1] {Stop};
 	
 	\draw [arrow] (start) -- (dec1);
@@ -1121,14 +1134,14 @@ A diagram of the promotion controller logic can be seen in fig. \ref{tikz:promot
 	\centering
 	\begin{tikzpicture}[node distance=1.3cm]
 		\node (start) [startstop] {Start};
-		\node (in1) [io, below of=start] {ensure environments are available};
+		\node (in1) [process, below of=start] {ensure environments are available};
 		\node (proClone) [process, below of=in1] {clone repos};
 		\node (proCheckPending) [process, below of=proClone] {check pending promotion};
 		\node (proExecProm) [process, below of=proCheckPending] {execute promotion operations};
 		\node (dec1) [decision, below of=proExecProm, yshift=-1.8cm,text width=3cm] {source != target environment};
 		\node (pro1a) [process, right of=dec1, xshift=4cm] {push PR branch};
 		\node (pro1) [process, below of=dec1, yshift=-1.8cm] {create/update PR};
-		\node (out1) [io, below of=pro1] {mark as ready};
+		\node (out1) [process, below of=pro1] {mark as ready};
 		\node (stop) [startstop, below of=out1] {Stop};
 		
 		\draw [arrow] (start) -- (in1);
