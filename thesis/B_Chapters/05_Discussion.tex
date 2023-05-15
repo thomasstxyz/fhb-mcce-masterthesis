@@ -142,10 +142,39 @@ When asked if this idea is related to or could be called blue-green deployments:
 
 \subsection*{Overview of GitOps Repositories}
 
-TODO
+Interview partner 2 discussed the idea, that
+currently when using common tooling,
+it can be quite cumbersome to get a grip of what is inside a GitOps repository/environment,
+just by looking at the filesystem tree and plain text files.
+GitOps tools like Argo can visualize the other way around,
+meaning the ArgoCD dashboard can visualize what is deployed by ArgoCD itself
+in a specific deployment environment, i.e. cluster or namespace.
+However, when a human looks at the plain GitOps repository,
+it can be difficult to understand the setup.
+So the advantage of GitOps having a single source of truth,
+where the human operator or developer can look,
+and understand at one glance what the truth is,
+is kind of lacking at the moment with the current ecosystem of GitOps tools.
 
+\enquote*{The nice overview that GitOps is supposed to bring in theory, where I can say, ok I have a single place where I look in, which for me is already a big advantage of the whole approach, I lose it a bit, you always have to look at different places to know what is deployed there, the overview is missing a bit.}
+(interview 2, line 113)
 
+\enquote*{That's something that I find a bit unattractive currently with GitOps.}
+(interview 2, line 116)
 
+\enquote*{I don't think there is a great solution at the moment.}
+(interview 2, line 119)
+
+What goes hand in hand with this topic of the overview over GitOps repositories
+is the overview of versions that are deployed,
+and where the versions are deployed.
+Interview partner 2:
+
+\enquote*{You have a lot of versions, and that makes it very confusing. And often it's not clear which version you have now and with Argo CD, for example, that's still not well solved because you have revision, but the revision is actually the revision of the configuration and not the version of the Helm or Kustomize, which is what I would actually want.}
+(interview 2, line 104)
+
+\enquote*{Because I want to know what revision of helm or Kustomize is in there and not the revision of the config repo, which is actually just the composition of the versions that are deployed.}
+(interview 2, line 107)
 
 
 
