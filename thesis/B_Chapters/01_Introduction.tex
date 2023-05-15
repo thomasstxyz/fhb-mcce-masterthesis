@@ -135,8 +135,6 @@ and thus enable more organisations to develop higher quality software.
 
 
 
-%The overall goal of the thesis is to
-%provide a solution to the problem of release promotion in GitOps environments.
 %In this regard a prototype will be developed
 %and its functionality demonstrated in a proof-of-concept evaluation.
 %The goal for the prototype is to implement it as a modular extension to Kubernetes
@@ -156,6 +154,13 @@ and thus enable more organisations to develop higher quality software.
 %\bigskip
 %
 %\noindent
+
+The overall goal of the thesis is to
+provide a solution to the problem of release promotion in GitOps environments.
+The solution shall consist of the abstract design of an operator capable of doing
+GitOps-native promotions between environments, as well as its implementation
+as a Kubernetes extension with the operator pattern.
+
 Large organizations in particular typically have many
 non-production and production environments
 such as:
@@ -173,7 +178,6 @@ new changes, which are brought about by a new release,
 into subsequent or other environments.
 Current GitOps tools do not have a simple answer to
 the question about what is the right approach for the process of promotion.
-\bigskip
 
 %\noindent
 %In particular, this thesis aims to explore
@@ -184,7 +188,6 @@ the question about what is the right approach for the process of promotion.
 %and compared to currently existing strategies.
 %\bigskip
 
-\noindent
 To achieve the goal of the thesis, the following research questions (RQ) were identified:
 
 \begin{itemize}
@@ -348,6 +351,32 @@ are presented.
 \textbf{Chapter \ref{conclusion} \nameref{conclusion}}:
 As a final chapter, a conclusion of the whole thesis is presented,
 which includes the most important key takeaways and research results.
+
+% TODO: graphic
+
+Figure \ref{fig:thesis-structure-simple-overview} outlines the structure of the thesis
+by each chapter,
+along with a simple question disclosing the purpose of the respective chapter.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.99\linewidth]{assets/thesis-structure-simple-overview.png}
+	\caption{Thesis Structure.
+		%		(\citeauthor{ref}, \citeyear{ref}).
+	}
+	\label{fig:thesis-structure-simple-overview}	
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
