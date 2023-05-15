@@ -20,6 +20,9 @@ These solution objectives are then further elaborated in the following chapter
 of this thesis, where they primarily serve as the basis for the
 desired functionality of the developed prototype.
 
+In addition, related ideas and approaches that were discussed by the interview partners
+are presented.
+
 Direct citations from interview transcripts are referred to in the following style:
 (interview 1, line 1).
 The interview transcripts are found in the Appendix \ref{appendix:interview-transcriptions}.
@@ -240,6 +243,8 @@ and setup
 (interview 1, line 311)
 This usually results in tight coupling of the Git provider, the GitOps engine, the CI workflow/pipeline platform,
 configuration management tools, and other components.
+Since many tools in the GitOps ecosystem are not very mature in their development and adoption,
+it is of use that components are loosely coupled and can be exchanged with alternatives in the future.
 Additionally there need to be permissions and policies granted to many different people and
 machines on many different systems.
 In the end, it results in vendor lock-in and tightly coupled toolchains.
@@ -471,6 +476,111 @@ objective's code (e.g. OBJ4) and the requirement's code (e.g. R1).
 
 
 
+\section{Insights into Related Ideas and Approaches}
+\label{insights-related-ideas-approaches}
+
+The conducted semi-structured interviews gave valuable insights into
+the unique views on the problem and related topics of each of the working professionals.
+Some of the related ideas and alternative approaches are discussed in this section.
+
+\subsection*{Rolling Production Environments}
+
+Interview partner 1 mentioned a new idea of
+\enquote*{rolling (production) environments}
+(interview 1, line 221).
+It was defined like the following:
+\enquote*{if we have major changes instead of doing progressive delivery on an application level, how about just setting up a new production environment and then start doing progressive delivery against the new cluster}
+(interview 1, line 221).
+
+\enquote*{Why not just set up a new cluster since it's GitOps, We can just you know, we we have environment creation automated, we have everything stored in Git.}
+(interview 1, line 224)
+
+\enquote*{So at some point we're going to have progressive delivery, not on a specific application, but more of on entire environments.}
+(interview 1, line 227)
+
+Interview partner 1 discussed this idea as an alternative to having different long-living environments,
+what would have been done in the past.
+Instead the idea is to re-create entire copies of the production environment,
+with the power of GitOps,
+and do progressive delivery for that copy of the environment as a whole.
+\enquote*{cloud, native is immutable infrastructure. So why shouldn't the platform also be immutable?}
+(interview 1, line 251)
+This could be done, in order to further limit the impact of a bad change in a new release of the software version.
+In addition, when having not just the desired state of the application, but also the entire infrastructure below it,
+stored in Git,
+it also increases the immutability and therefore resiliency of the user-facing service.
+
+In the Kubernetes ecosystem, there have emerged quite a lot of applications,
+which are providing certain services like the Cert-Manager and TLS certificates,
+or services which are providing policy functionality.
+These applications responsible for infrastructure or for supporting the primary application,
+which is in the end user-facing,
+all have their own version and are constantly updated.
+There is also the possibility that a new release of such a supporting service
+can break the primary user-facing application.
+
+\enquote*{So there's applications there, etc., etc., etc. before we even get to the part that is our particular code, we have like 20 different applications that are backing up this system and they change versions, our code changes versions, Kubernetes is upgraded and stuff might be deprecated or even removed. Doing that as the environment is actually running is what kind of makes people sweat.}
+(interview 1, line 239)
+
+\enquote*{This is that's why you have the maintenance windows where people are staring at the clusters doing upgrades and things like that. Well, for me it just makes so much more sense. Just putting up an entirely new environment with all new versions and our new production, you know, code. Does it work? Cool. All right, Point DNS towards new cluster and you're done, right?}
+(interview 1, line 242)
+
+\enquote*{So there's no downtime for users even. [...] So that is I think the end goal for us when it comes to how we do promotions and getting new code out there.}
+(interview 1, line 245)
+
+When asked if this idea is related to or could be called blue-green deployments:
+\enquote*{So I would rather not call it blue green and rather have a new term for it.}
+(interview 1, line 257)
+
+\subsection*{Overview of GitOps Repositories}
+
+Interview partner 2 discussed the idea, that
+currently when using common tooling,
+it can be quite cumbersome to get a grip of what is inside a GitOps repository/environment,
+just by looking at the filesystem tree and plain text files.
+GitOps tools like Argo can visualize the other way around,
+meaning the ArgoCD dashboard can visualize what is deployed by ArgoCD itself
+in a specific deployment environment, i.e. cluster or namespace.
+However, when a human looks at the plain GitOps repository,
+it can be difficult to understand the setup.
+So the advantage of GitOps having a single source of truth,
+where the human operator or developer can look,
+and understand at one glance what the truth is,
+is kind of lacking at the moment with the current ecosystem of GitOps tools.
+
+\enquote*{The nice overview that GitOps is supposed to bring in theory, where I can say, ok I have a single place where I look in, which for me is already a big advantage of the whole approach, I lose it a bit, you always have to look at different places to know what is deployed there, the overview is missing a bit.}
+(interview 2, line 113)
+
+\enquote*{That's something that I find a bit unattractive currently with GitOps.}
+(interview 2, line 116)
+
+\enquote*{I don't think there is a great solution at the moment.}
+(interview 2, line 119)
+
+What goes hand in hand with this topic of the overview over GitOps repositories
+is the overview of versions that are deployed,
+and where the versions are deployed.
+Interview partner 2:
+
+\enquote*{You have a lot of versions, and that makes it very confusing. And often it's not clear which version you have now and with Argo CD, for example, that's still not well solved because you have revision, but the revision is actually the revision of the configuration and not the version of the Helm or Kustomize, which is what I would actually want.}
+(interview 2, line 104)
+
+\enquote*{Because I want to know what revision of helm or Kustomize is in there and not the revision of the config repo, which is actually just the composition of the versions that are deployed.}
+(interview 2, line 107)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \section{Summary}
@@ -478,7 +588,8 @@ objective's code (e.g. OBJ4) and the requirement's code (e.g. R1).
 This chapter discussed the problem identification and motivation of the main topic of this thesis,
 namely the promotion of releases in GitOps environments.
 With the help of practicing professionals, who are working in the GitOps field,
-several problems have been identified.
+several problems have been identified,
+and defined along with research objectives which should provide a possible solution.
 
 \textbf{\nameref{problem1}},
 relates to a frequent issue with currently available tooling in the GitOps ecosystem. 
@@ -529,7 +640,6 @@ before triggering a promotion.
 draws attention to the common problem of being dependent on single tools and providers.
 The more complex the Continuous Delivery is setup for a particular project,
 the more difficult it is to de-couple or switch providers for certain components.
-% TODO: move this sentence also to the main section (not only in the summary)
 Furthermore, since many tools in the GitOps ecosystem are not very mature in their development and adoption,
 it is of use that components are loosely coupled and can be exchanged with alternatives in the future.
 
@@ -541,7 +651,10 @@ are the Git providers (e.g. GitHub, GitLab),
 the GitOps engines (e.g. Argo, Flux),
 the configuration/templating tools (e.g. Kustomize, Helm).
 
-
+Additionally,
+related ideas and approaches were discussed by the interview partners.
+These points were not directly considered for the conducted design science in the prototype,
+however they are discussed later in chapter \ref{discussion-and-interpretation}.
 
 
 
