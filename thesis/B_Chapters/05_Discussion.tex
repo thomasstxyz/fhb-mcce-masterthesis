@@ -78,15 +78,30 @@ in order to handle all or many environment promotions,
 the user would save time on the initial setup of the custom resources, deploy keys and API tokens.
 However with this approach, it would also mean that the operator running in a completely separated management cluster, typically has no direct access to observe the resources of an environment.
 
-\subsection*{Abstraction Layers}
+\subsection*{Abstractions}
 
-x
+The proposed prototype provides two main abstractions,
+one for the environment,
+and one for the promotion.
+Usually such a custom resource object represents a resource in the real world.
+
+Although not part of the proposed design and implementation of the prototype,
+it would make sense to provide more abstractions.
+For example, this could be to divide the environment resource into
+a DeploymentEnvironment resource, which would represent a Kubernetes cluster or namespace,
+and a GitOpsRepository resource, which would represent the according GitOps repository (the desired state definition).
+It is always a good practice to have custom resources represent a real tangible resource,
+and not stand for multiple things in the real world.
 
 \subsection*{Modularity}
 
-x
+In addition to the topic of abstractions mentioned previously,
+it could be beneficial to split up the Promotion custom resource.
+There could be a PromotionPolicy resource,
+which would define the policy and rules,
+when the operator should promote and create a Promotion resource.
+The Promotion resource would then only run once to completion.
 
-\subsection*{x}
 
 
 
