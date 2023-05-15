@@ -9,7 +9,7 @@ Moreover, interpretations and implications of the results and evaluations are pr
 The first and most important topic to be discussed,
 are the learnings from the prototype implementation.
 
-\section{Learnings From The Prototype Implementation}
+\section*{Learnings From The Prototype Implementation}
 
 In general, the presented design and development of the prototype
 showed a possible way on how to provide a solution to the research question.
@@ -77,6 +77,56 @@ When installing the promotions operator once in a management cluster/namespace,
 in order to handle all or many environment promotions,
 the user would save time on the initial setup of the custom resources, deploy keys and API tokens.
 However with this approach, it would also mean that the operator running in a completely separated management cluster, typically has no direct access to observe the resources of an environment.
+
+\subsection*{Abstraction Layers}
+
+x
+
+\subsection*{Modularity}
+
+x
+
+\subsection*{x}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section*{Alternative Approaches for Promoting Releases}
+
+Interview partner 1 discussed an alternative approach for tackling the promotion process in GitOps environments.
+This was presented in section \ref{insights-related-ideas-approaches}.
+
+The main idea of this approach is that long-living environments are not necessary,
+and the resiliency should rather be created by doing progressive delivery,
+not just for the user-facing application or service,
+but for the whole infrastructure stack below.
+This has the purpose of further increasing the immutability and resiliency of a service.
+Since the amount of supporting and infrastructure services and dependencies are increasing with Kubernetes,
+and each having a version and constantly new releases, and the possibility of breaking the actual important
+service that is user-facing.
+
+When following this approach, the end goal is to create a complete copy of the production environment,
+and then do progressive delivery on that.
+Once the release is marked as good, the old production environment can safely be destroyed.
+With the GitOps pattern, and the application and infrastructure being stored in Git,
+this has become increasingly more possible.
+Also tools like the Weave GitOps Terraform Controller have contributed to the enablement of this new approach. 
+
+While, with this approach, the need for long-living environments decreases,
+whole copies of production environments will still need to be created.
+This means there is no guarantee that the cost will decrease.
+Advanced tactics like auto-scaling will need to be implemented, in order to
+keep costs low of potentially high numbers of dynamically created environments.
+
 
 
 
