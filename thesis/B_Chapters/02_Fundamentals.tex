@@ -3,7 +3,7 @@
 
 %Basics such as theory, definitions, relevant theories, related work and state of the art should be included here.
 
-TODO
+{\color{red}TODO}
 
 % maximal 1.1.1 
 % wenns 1.1 gibt, muss es auch 1.2 geben
@@ -255,23 +255,25 @@ the new version of the application in an artifact registry.
 
 
 
-\section{Configuration Management Tools, GitOps Engines, and Git Providers}
+\section{GitOps Related Tooling and Components}
+% Configuration Management Tools, GitOps Engines, and Git Providers
 
 In the following section,
-the role of configuration management tools,
+the role of GitOps related tooling and components, namely
+configuration management tools,
 GitOps engines,
 and Git providers
-is explained.
+are explained.
 
-\subsection*{Configuration Management Tools}
+\subsection*{Configuration and Templating Tools}
 
-A main component when following the GitOps approach is the configuration management or templating tool
-for the Kubernetes manifests.
+An important component of a GitOps toolchain is the configuration management or templating tool
+for the configuration files, i.e. Kubernetes manifests.
 Since the Kubernetes manifests are declarative and highly configurable in nature,
-the configuration can be rather cumbersome.
+their configuration and customization can be rather cumbersome.
 Many definitions are duplicated, so it is desirable to use variables, templates and the like,
 for making the configuration easier to use and maintain.
-Popular tools are Kustomize, Helm, cdk8s and Carvel ytt.
+Popular tools are Kustomize, Helm, cdk8s and Carvel ytt were created to help with configuration and templating.
 
 \enquote*{Kustomize introduces a template-free way to customize application configuration that simplifies the use of off-the-shelf applications. Now, built into kubectl as apply -k.}
 \autocite{kustomizeIoWebsite}
@@ -340,13 +342,11 @@ Git providers or otherwise called Git servers are a relevant component of
 a GitOps setup.
 For the most important Git functionalities like branches, commits, history
 tags, cherry-picking or merges, each Git provider functions the same.
-However, one of the most important functions which is part of the primary pattern
-of GitOps, is the Git pull request.
+However, one of the most important functions which is often desirable with GitOps, is the Git pull request.
 As pull requests are not part of the open-source core of Git,
 each Git provider offers a different API for the pull requests.
-Integrations with the pull request component therefore need to be implemented
-for each Git provider separately. Thus many software tools support only a limited amount
-of Git providers.
+Integrations with the pull request API from Git providers therefore need to be implemented
+for each Git provider separately. Thus many software tools support only certain Git providers.
 
 Some of the most prominent Git providers are
 Github,
@@ -367,7 +367,7 @@ Gitea.
 \section{DevOps \& Internal Developer Platforms}
 
 DevOps, as defined in section \ref{theoretical-background:general-definitions},
-is still seeing increasingly more adoption.
+is seeing increasingly more adoption amongst organizations.
 One of the most important principles of DevOps is
 to allow the developer who brings new code changes
 which end up in new product releases,
@@ -375,8 +375,8 @@ to have as much insight into the software development lifecycle as possible.
 So it is not just bringing developers and operations closer together,
 but to shift many processes into the developers hands.
 This is to give developers as much insight as possible,
-in order to decrease efficiency and productivity to finally
-decrease the time-to-market for product releases, features and bug fixes.
+in order to decrease efficiency and productivity to eventually
+decrease the time-to-market for new product releases, features and bug fixes.
 This is essentially needed for organizations to continue to thrive in todays
 rapidly changing world.
 
@@ -387,8 +387,9 @@ within a software development organization,
 each being responsible for individual parts of the 
 software development lifecycle,
 it is now easier than ever before possible to reduce the amount of
-teams down to a minimum, in order to reduce friction between people communications.
-This additionally gives the developers much better insights of what effect their code changes have.
+teams down to a minimum, in order to reduce friction between people communications and processes.
+This additionally gives the developers much better insights of what effect their code changes have
+on the end product or service, which users consume.
 
 In order to increase the level of self-service for developers,
 and increase their productivity,
@@ -399,7 +400,7 @@ it has now in recent years explicitely gotten more meaning and attention.
 Internal Developer Platforms have received a lot of attention
 when Spotify released their project Backstage
 \autocite{backstageIOWebsite}
-with an open-source license in 2020; it later got accepted into the CNCF in 2022.
+with an open-source license in 2020. The project was accepted into the CNCF in 2022.
 
 %
 Backstage was initially created at Spotify, due to the need for it.
@@ -439,7 +440,7 @@ and tools to choose from.
 
 
 
-\section{Git + Ops Does Not Equal GitOps}
+\section{Git + Ops Is Not GitOps}
 
 Infrastructure-as-Code which is stored in a Git repository,
 and executed by a CI/CD pipeline,
@@ -457,6 +458,12 @@ fig. \ref{fig:iacIsNotGitOps}.
 	\label{fig:iacIsNotGitOps}	
 \end{figure}
 
+Infrastructure-as-Code is only one aspect of GitOps, namely the declarative one.
+There are three more principles of GitOps.
+The definition of GitOps
+%as per the OpenGitOps project
+is stated in section \ref{theoretical-background:general-definitions} of this thesis.
+
 To avoid confusion with what GitOps actually is, 
 the OpenGitOps project
 \autocite{openGitOpsProject}
@@ -467,9 +474,6 @@ The overall goal of OpenGitOps is to establish a clear vendor-neutral,
 principle-driven meaning of GitOps,
 which shall provide a foundation for interoperability between tools, conformance and certification through enduring programs, documents and code
 \autocite{opengitopsDocuments}.
-
-The definition of GitOps as per the OpenGitOps project
-is stated in section \ref{theoretical-background:general-definitions} of this thesis.
 
 In fig. \ref{fig:gitOpsConcept} a visual representation can be seen of the main GitOps concept.
 
@@ -482,7 +486,14 @@ In fig. \ref{fig:gitOpsConcept} a visual representation can be seen of the main 
 	\label{fig:gitOpsConcept}	
 \end{figure}
 
-{\color{red}TODO: explain more of what the concept of GitOps is...}
+Moreover, unlike DevOps,
+\begin{quotation}
+\noindent
+\enquote*{GitOps is not intended to tackle the fuzzier area of social interactions and culture. [...] GitOps is ultimately meant to be a technology pattern, not a social practice. [...] Fundamentally, all the social aspects should be derived from the technical principles. Git is designed as a team tool and gives you a social context, because you have metadata, committed workflows, and group activities. But GitOps is not supposed to be a social movement. [...] With GitOps, all changes to infrastructure and application deployment are versioned, immutable, auditable, and reversible. [...] GitOps is about automating operations and shifting left, so that developers can perform operations tasks without having to always understand it in detail. [...] With GitOps, developers use tools like git to cause operational changes in a robust manner, allowing platform teams to focus on core platform engineering and operations, and leaving developers to focus on product, customers, rapid development, user satisfaction, and so on.}
+\autocite{definingGitOpsGithubReadmeFeatured}
+\end{quotation}
+
+To conclude, Infrastructure-as-Code is not GitOps. IaC is just one aspect of GitOps.
 
 
 
@@ -490,65 +501,125 @@ In fig. \ref{fig:gitOpsConcept} a visual representation can be seen of the main 
 
 
 
-\section{How GitOps changed Continuous Delivery}
+
+\section{How GitOps changed Continuous Deployment}
 \label{theoretical-background:gitops-cd}
 
-Before GitOps, Continuous Delivery was primarliy push-based.
-This means that a code change is introduced by a developer,
-this code change is commited to a Git repository.
-Then a CI/CD system gets triggered to execute a certain pipeline
-of jobs.
-These jobs may be to test the code and build an artifact, push the artifact
-to a registry, etc.
-The jobs are run in a pipeline - one after the other -
-if one fails, the pipeline is cancelled.
-The commit, that is a new version of the code -
-is pushed through the pipeline.
-Eventually at the end of the pipeline
-the new version is deployed by pushing the new artifact
-to the deployment environment in an imperative way.
-Once the new version is deployed, the pipeline stops.
+With the GitOps approach,
+Continuous Deployment works differently than with push-based CI/CD deployments.
+In the following,
+push-based and pull-based deployments in the context of GitOps are explained.
 
-\begin{figure}[h]
+\subsection*{Push-based Deployments}
+
+Without GitOps, Continuous Deployment was primarily push-based.
+This means, that a code change introduced as a commit to a Git repository by a developer,
+passes through each step in a CI/CD pipeline sequentially.
+Basically, a single process executes all tasks one after another,
+and has the knowledge of where the process is at at a given moment,
+and where it fails, and if it succeeds, it knows the status.
+These tasks might be automated tests of all sorts,
+automated builds of artifacts and finally some sort of uploading of the artifact to a registry.
+
+When Continuous Deployment was desired with this push-based approach,
+then a task would be appended at the end of the pipeline,
+which would deploy the new artifact to the target deployment environment.
+The CI/CD system has knowledge over the status of the deployment, whether it failed or succeeded.
+
+If multiple environments or stages were desired,
+the another task would be appended to the pipeline
+in a consecutive manner.
+If some task fails during a pipeline run,
+the pipeline would be cancelled.
+This means that a commit, that fails certain automated tests,
+whill never be packaged into an artifact.
+Conversely, an artifact, that fails to deploy to a certain environment,
+will most likely not be deployed to consecutive environments, because of the stopped pipeline.
+
+What is trickier if an artifact is successfully deployed,
+and looks like it works to the system,
+but in reality the user-facing service is actually not working successfully or with lower quality standards.
+
+The push-based deployment with CI/CD runs synchronously in one process.
+This is illustrated in fig. \ref{tikz:push-based-cd}.
+
+With current GitOps tooling,
+such a push-based deployment process can technically be implemented,
+however it is not advisable, as it violates the \enquote*{pulled automatically} principle of GitOps.
+
+
+%\begin{figure}[h]
+%	\centering
+%	\includegraphics[width=1.00\linewidth]{assets/push-based-cd.png}
+%	\caption{Push based Continuous Deployment.
+	%		%		(\citeauthor{ref}, \citeyear{ref}).
+	%	}
+%	\label{fig:pushBasedCD}	
+%\end{figure}
+
+\begin{figure}
 	\centering
-	\includegraphics[width=1.00\linewidth]{assets/push-based-cd.png}
-	\caption{Push based Continuous Delivery.
-		%		(\citeauthor{ref}, \citeyear{ref}).
-	}
-	\label{fig:pushBasedCD}	
+	
+	\noindent
+	\begin{minipage}{.5\textwidth}
+		\centering
+		\begin{tikzpicture}[node distance=1.3cm]
+			\node (start) [startstop] {Start};
+			\node (one) [process, below of=start] {commit};
+			\node (two) [process, below of=one] {test};
+			\node (three) [process, below of=two] {build \& push artifact};
+			\node (four) [process, below of=three] {deploy artifact};
+			\node (stop) [startstop, below of=four] {Stop};
+			
+			\draw [arrow] (start) -- (one);
+			\draw [arrow] (one) -- (two);
+			\draw [arrow] (two) -- (three);
+			\draw [arrow] (three) -- (four);
+			\draw [arrow] (four) -- (stop);
+		\end{tikzpicture}
+		\captionof{figure}{Push-based deployment.}
+		\label{tikz:push-based-cd}
+	\end{minipage}%
+	\begin{minipage}{.5\textwidth}
+		\centering
+		\begin{tikzpicture}[node distance=1.3cm]
+			\node (start) [startstop] {Start};
+			\node (one) [process, below of=start] {commit};
+			\node (two) [process, below of=one] {test};
+			\node (three) [process, below of=two] {build \& push artifact};
+			\node (four) [process, below of=three, yshift=-0.8cm] {detect new desired state};
+			\node (five) [process, below of=four] {GitOps engine};
+			\node (six) [process, below of=five] {deploy artifact};
+			\node (stop) [startstop, below of=six] {Stop};
+			
+			\draw [arrow] (start) -- (one);
+			\draw [arrow] (one) -- (two);
+			\draw [arrow] (two) -- (three);
+			\draw [arrow] (five) -- (four);
+			\draw [arrow] (five) -- (six);
+			\draw [arrow] (six) -- (stop);
+		\end{tikzpicture}
+		\captionof{figure}{Pull-based deployment.}
+		\label{tikz:pull-based-cd}
+	\end{minipage}
+	
 \end{figure}
 
-With GitOps, this primarily push-based process has changed.
-Namely, the last couple of steps when the new version
-is deployed to the target environment,
-are done asynchronously.
-With a GitOps workflow,
-the CI/CD pipeline usually stops when the new artifact
-is successfully pushed to the artifact registry,
-or the desired state is changed in the Git repository.
-Then another system - the GitOps controller,
-which usually lives inside the deployment environment -
-notices that the desired state changed and has now
-drifted from the actual state.
-The GitOps controller then reconciles the new desired state,
-by applying it to the managed system.
+\subsection*{Pull-based Deployments}
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=1.00\linewidth]{assets/cd-gitops.png}
-	\caption{Continuous Delivery with GitOps.
-		%		(\citeauthor{ref}, \citeyear{ref}).
-	}
-	\label{fig:cd-gitops}	
-\end{figure}
+With the GitOps approach and appropriate tools which implement its principles and pattern,
+the deployment process works in a pull-based manner.
+This means, that the GitOps engine, which often lives inside the deployment environment
+continuously watches the desired state for changes,
+and if changes occur, the new desired state is reconciled with the actual state, in order for them to match again.
 
-One major difference is that with the GitOps workflow,
-the CI/CD system no longer knows if and where the application is being
-deployed to, since the pipeline usually stops after successful push to the artifact registry.
-The desired state, which is stored in a Git repository is continuously being watched
-by the GitOps controller. Any changes that it detects are promptly applied to the
-target environment.
-
+Now because the deployment process is not done by a task at the end of the CI/CD pipeline,
+the pipeline ends with a successful push of the artifact to a registry.
+At this point, typically a version updating tool like e.g. Flux Image Update Automation, which notices, that a new version is available in
+the artifact registry, patches that new version into the desired state stored in the GitOps repository.
+Next, the GitOps engine notices the change in the desired state and does the reconciliation,
+which finally ends up in a deployment.
+The processes that are responsible for deployment with the GitOps approach run asynchronously.
 
 
 
