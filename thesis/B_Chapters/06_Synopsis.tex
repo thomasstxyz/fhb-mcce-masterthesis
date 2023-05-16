@@ -1,11 +1,101 @@
 \chapter{Future Work}
 \label{future-work}
 
-TODO
+In this chapter,
+further suggestions for future research on this topic and the developed prototype are presented.
+
+In addition,
+some interesting ideas that came out of this research are discussed,
+and how they could be further researched in future work either by the researcher of this thesis or other researchers.
+
+
+
+\section*{Testing the User Experience of the Prototype}
+
+The proposed software prototype should be evaluated against its user experience,
+in order to find out if users have difficulty doing the initial setup,
+or any other troubles.
+The API, the custom resources, which the operator provides can be changed to fit the users needs.
+Additional functionality which is required by users, can be added.
+Since the operator works with any other GitOps tooling the users bring from their individual GitOps setup,
+it can lack a bit of ease of use. The integration into other GitOps tooling like Argo or Flux
+should be evaluated, and examined if such an integration is worth it, in order to provide better convenience.
+
+\section*{Rolling Production Environments}
+
+The term rolling production environments was coined by interview partner 1 during the interview.
+It was discussed in section \ref{insights-related-ideas-approaches} earlier in this thesis.
+The term represents a future idea of where promotions and rollouts of new releases could be heading to.
+This approach steers in a somewhat other direction, than what this thesis researched.
+Instead of having fixed testing environments or stages, which a new release needs to pass,
+before being rolled out to the production environment,
+this approach conversely foresees only the single environment,
+which is actually used for production.
+
+This approach builds upon the progressive delivery pattern,
+which can be implemented with tools like Flagger or Argo Rollouts.
+Instead of just doing progressive delivery of an application (i.e. Kubernetes deployment / container image),
+the progressive delivery would be done on a whole environment (i.e. Kubernetes cluster).
+This has the advantage of further limiting the chance of supporting services and applications
+influencing the actual user-facing application in a bad way, i.e. breaking the service, making it unavailable for its users.
+Each different supporting application constantly changes versions, and all these changes could potentially break some other dependency.
+Some infrastructure components are sometimes even updated without a version history,
+eliminating the possibility to roll back to a safe and working state.
+
+One possible future work that could be done for evaluating this new approach,
+could be to evaluate the costs and feasibility of this approach.
+According to interview partner 1, tools like the Weave GitOps Terraform Controller
+have made it a lot easier to achieve the idea of rolling production environments.
+However since a whole production environment would be dynamically created with each new release,
+this could introduce higher costs.
+Especially in a cloud environment, where billing is done on-demand per minute used,
+and where the costs can be an important factor for deciding between different architectures.
+
+\section*{Overview of GitOps Repositories}
+
+Discussed by interview partner 2 and presented in section \ref{insights-related-ideas-approaches}
+is the idea and problem, that when a human is given a GitOps repository,
+it is often difficult to understand how the setup is exactly structured,
+what the environments are,
+what the versions are,
+and what applications and version are deployed where.
+The overview that GitOps shall give,
+with the single place to look and know what is your system's state,
+is not as good as it is expected,
+interview partner 2 mentioned.
+
+As possible future research on this idea,
+this problem statement could be evaluated with a survey research against GitOps users.
+In addition, especially if the survey's results speak for this statement,
+a software tool could be developed,
+which can recognize filesystem structures and plain text configuration files,
+which represent the desired state.
+This tool would have have knowledge of the different configuration management tools like Kustomize or Helm.
+It would probably be beneficial to have a visual representation in the form of a dashboard.
+
+Such a visual representation is already provided by ArgoCD for example,
+however it will only show the configured data in the dashboard.
+Any files, which are not yet added to the specific ArgoCD instance,
+can only be viewed by having a look into the Git repository's filesystem manually.
+
+
+
 
 \section*{Towards Standardized GitOps Promotions}
 
-TODO
+There is no standard way of doing promotions with the GitOps approach.
+Sometimes a container image tag is changed in some place or places,
+other times multiple files are copied over to another place (like the promotion process proposed with the prototype in this thesis),
+and other times a promotion consists of multiple processes spanning over different domains.
+This differs for each individual setup for distinctive organizations.
+
+In order to get a better understanding of what the requirements are for different organizations,
+and how they imagine a solution, and solved their individual use case,
+it would be of use to survey a wide range and variety of organizations which adopted or want to adopt the GitOps approach.
+For open-source tooling it is beneficial to strive for functionality that can be used by everyone,
+instead of providing tailored tooling which may only work for a single setup at a particular organization.
+
+
 
 
 
