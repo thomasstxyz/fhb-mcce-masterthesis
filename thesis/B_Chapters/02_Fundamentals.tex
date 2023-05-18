@@ -522,12 +522,12 @@ These tasks might be automated tests of all sorts,
 automated builds of artifacts and finally some sort of uploading of the artifact to a registry.
 
 When Continuous Deployment was desired with this push-based approach,
-then a task would be appended at the end of the pipeline,
+then a task would be appended to the end of the pipeline,
 which would deploy the new artifact to the target deployment environment.
 The CI/CD system has knowledge over the status of the deployment, whether it failed or succeeded.
 
 If multiple environments or stages were desired,
-the another task would be appended to the pipeline
+another task would be appended to the pipeline
 in a consecutive manner.
 If some task fails during a pipeline run,
 the pipeline would be cancelled.
@@ -632,50 +632,80 @@ The processes that are responsible for deployment with the GitOps approach run a
 
 \section{Promoting Releases Across Environments}
 
-With the push-based pipelines, described in section
-\ref{theoretical-background:gitops-cd},
-it is typically more straight-forward of how an application
-is deployed to multiple target environments.
-When the pipeline job to deploy to environment A was successfully done,
-the next job to deploy to environment B would be executed.
-Since the push-based workflow was a synchronous process from commit
-to deployment to target environment,
-the whole process could be packed into a single pipeline.
+When a Continuous Deployment setup consists of multiple deployment environments,
+the process is usually to first deploy to the first environment,
+and if the deployment succeeds, the second environment is deployed to.
+Environments can also be seen as stages in this context,
+where previous stages need to pass, before subsequent stages are passed through.
 
-However, with the GitOps workflow the process from
-commit to deployment to target environment is usually split up after
-publishing of the artifact to the artifact registry.
-At this point, the process continues asynchronously.
+With the push-based deployments described in the previous section \ref{theoretical-background:gitops-cd},
+where the host process of a CI/CD pipeline typically knows the state of each deployment,
+it is not that big of a challenge to incorporate more deployment environments.
+For critical environments, that might be required to have a human approve new releases,
+the deployment task of the pipeline configuration could be set to manual.
+Via the CI/CD system's interface, these deployments can be easily managed.
 
-There are multiple ways how the promotion across environments can be achieved.
-In the simplest form, the desired state could be stored in a Git repository,
-and the GitOps engine would synchronize every new commit, which is detected -
-meaning each and every new change to the desired state is immediately
-applied to the actual system state.
-For each environment, there would be a representing folder in the Git repository,
-or a separate repository.
-On every new commit, the reconciliation immediately happens.
-It could also be done differently, in that the state or source controller
-is configured to watch a specific git refspec, meaning a certain Git tag, for example.
-This way, not every commit is deployed, but rather only specific Git tags,
-which may be created manually by a human.
-When having the desired state as fixed Git tags,
-it can possibly provide for more control over what is deployed.
+With the GitOps approach and pull-based deployments described in the previous section \ref{theoretical-background:gitops-cd},
+the process of deploying to multiple environments is more tricky with the currently available tools.
+While deploying the same new release or version of an application to multiple environments is not a problem,
+the promotion of a release to other or subsequent environments, depending on if the deployment to the first environment succeeded,
+is a bit of a challenge.
 
-Additionally to leveraging Git tags as fixed and immutable versions,
-the desired state could be packaged and pushed to an artifact registry.
-Especially when using configuration or templating tools like Kustomize or Helm,
-where the Kubernetes manifests need to be rendered before being applied,
-it could make sense to go with this approach.
-Packaging the desired state into an immutable artifact can also increase
-security, when the artifact is signed with a digital signature, and also validated upon deployment.
+As previously described, the problem is that the pull-based deployment process with GitOps is asynchronous.
+Once the CI/CD pipeline process uploads the artifact to the registry, the pipeline usually ends at that point.
+The component responsible for deployment is the GitOps engine, which is watching the desired state,
+and will pick up and continue the asynchronous deployment process, once it detects a new change in the desired state.
+There is usually an automated process which updates the desired state with the new artifact's version.
 
-Whether the desired state is packaged as an artifact with an immutable version and signed signature,
-or just stored in a Git repository and secured purely by the built-in Git commit functionality, providing
-unique snapshots, which can be rolled back any time;
-it always comes down to changing plain text files stored somewhere.
-For promotion to other environments, these changes are typically done again for the desired state of the other environment.
-There is no way around changing files in Git repositories, as this is within the nature of the GitOps approach.
+\subsection*{Image Update Automation}
+
+For the popular GitOps tools like Flux or Argo,
+there are components available with a functionality to update the desired state
+of a particular container image version with the currently latest available, or some other specification, like a semantic version specification.
+
+It works the following way: A controller continuously watches the repository/registry of the container image for new versions.
+If the controller detects a new version with the specification it is configured (e.g. stable-*, 1.13.*),
+it will take that new verion tag and patch it to a declared container image which is specified in one or more YAML files in a Git repository.
+
+This tool makes it possible to achieve simple Continuous Deployment,
+meaning that a commit, a code change, by a developer can automatically be released to production.
+Ideally tests are run before releasing, in order to ensure quality.
+
+When the application is deployed to multiple environments, which is specified by multiple desired state declarations,
+i.e. folders in the GitOps repository, or separate repositories,
+such an image update automation can be configured for all environments.
+However, such a setup has its downsides.
+Namely, that the new release will be deployed to all environments at once.
+This is not always desired, and sometimes it is required to have some sort of manual release process between environments.
+
+With the currently available tools in the GitOps ecosystem,
+it is not straight-forward how you would setup such a promotion process,
+when multiple deployment environments are required.
+While it is not too difficult to achieve with push-based deployments and CI/CD,
+it is currently a challenge with pull-based deployments and GitOps.
+
+\subsection*{Promotion Strategies currently}
+
+An automated workflow for release promotion between environments,
+can be achieved in multiple ways,
+however there is no common or uniform practice for it at the moment.
+Depending on the used GitOps and CI/CD systems used for a particular project or organization,
+such a setup for promoting releases with multiple deployment environments can differ much.
+Replacing a component in the setup, e.g. the CI/CD system or Git provider, can be quite challenging.
+
+A way to do a GitOps promotion is to have a pipeline task, which can be a shell script,
+do some particular operation. This pipeline task could be configured to accept an incoming webhook,
+upon which it would be executed.
+The GitOps engine, in particular ArgoCD, could be configured to execute a post-sync hook,
+which it would run after a successful deployment to a particular environment.
+This hook could send a request to the pre-configured pipeline task, which would then be executed,
+and do the GitOps promotion.
+
+
+
+
+
+
 
 
 
