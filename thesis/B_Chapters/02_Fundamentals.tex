@@ -746,6 +746,8 @@ client device type, user region, user type (e.g., developer, admin),
 registered or unregistered users, etc.
 the requirements to have a multitude of deployment environments
 have decreased for some organizations.
+In combination with feature flagging functionality,
+certain new features can e.g. only be released to certain users.
 An illustration can be seen in fig. \ref{fig:progressive-delivery}.
 
 The described segmentation of an environment with the progressive delivery
@@ -788,7 +790,7 @@ has passed.
 
 The following section is about
 the role Kubernetes plays in the current cloud native ecosystem,
-and its extensible architecture.
+and the extensible architecture of Kubernetes.
 
 Since the birth of the cloud native computing foundation (CNCF) in 2015 and the release of Kubernetes as the first CNCF project,
 there have emerged more than a hundred projects.
@@ -891,17 +893,19 @@ Examples for such operational tasks are
 backups and restoring of backups, error remediation, database migrations, etc.
 \autocite{operatorWhitepaperV1}.
 In overly simplified terms:
-An operator is a controller plus domain-specific operational knowledge
-(fig. \ref{fig:operatorAndController}).
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.85\linewidth]{assets/operator-is-controller-domain-knowledge.png}
-	\caption{Operator and Controller.
-		%		(\citeauthor{ref}, \citeyear{ref}).
-	}
-	\label{fig:operatorAndController}	
-\end{figure}
+\begin{center}
+	\textbf{An operator is a controller plus domain-specific operational knowledge.}
+\end{center}
+
+%\begin{figure}[h]
+%	\centering
+%	\includegraphics[width=0.85\linewidth]{assets/operator-is-controller-domain-knowledge.png}
+%	\caption{Operator and Controller.
+%		%		(\citeauthor{ref}, \citeyear{ref}).
+%	}
+%	\label{fig:operatorAndController}	
+%\end{figure}
 
 The Operator Design Pattern represents a set of principles about
 managing complex applications and/or infrastructure resources,
