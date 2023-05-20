@@ -663,6 +663,15 @@ For the popular GitOps tools like Flux or Argo,
 there are components available with a functionality to update the desired state
 of a particular container image version with the currently latest available, or some other specification, like a semantic version specification.
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.72\linewidth]{assets/image-update-automation-illustration.png}
+	\caption{Image Update Automation.
+		%		(\citeauthor{ref}, \citeyear{ref}).
+	}
+	\label{fig:image-update-automation-illustration}	
+\end{figure}
+
 It works the following way: A controller continuously watches the repository/registry of the container image for new versions.
 If the controller detects a new version with the specification it is configured (e.g. stable-*, 1.13.*),
 it will take that new verion tag and patch it to a declared container image which is specified in one or more YAML files in a Git repository.
@@ -684,7 +693,7 @@ when multiple deployment environments are required.
 While it is not too difficult to achieve with push-based deployments and CI/CD,
 it is currently a challenge with pull-based deployments and GitOps.
 
-\subsection*{Promotion Strategies currently}
+\subsection*{Promotion Strategies}
 
 An automated workflow for release promotion between environments,
 can be achieved in multiple ways,
@@ -693,10 +702,19 @@ Depending on the used GitOps and CI/CD systems used for a particular project or 
 such a setup for promoting releases with multiple deployment environments can differ much.
 Replacing a component in the setup, e.g. the CI/CD system or Git provider, can be quite challenging.
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.99\linewidth]{assets/promotion-by-pipeline-task-post-deploy-hook.png}
+	\caption{Promotion via post-deploy hook and pipeline task.
+		%		(\citeauthor{ref}, \citeyear{ref}).
+	}
+	\label{fig:promotion-by-pipeline-task-post-deploy-hook}	
+\end{figure}
+
 A way to do a GitOps promotion is to have a pipeline task, which can be a shell script,
 do some particular operation. This pipeline task could be configured to accept an incoming webhook,
 upon which it would be executed.
-The GitOps engine, in particular ArgoCD, could be configured to execute a post-sync hook,
+The GitOps engine could be configured to execute a post-deployment hook,
 which it would run after a successful deployment to a particular environment.
 This hook could send a request to the pre-configured pipeline task, which would then be executed,
 and do the GitOps promotion.
@@ -959,11 +977,14 @@ Users can interface with its objects as they do with the Kubernetes built-in res
 
 GitOps environments as defined in section
 \ref{theoretical-background:general-definitions},
-are currently being modeled using different approaches.
+can be modeled using different approaches.
 The most prominent approach is to have a folder in a Git repository
 per environment. This is straight-forward and easily compatible with
 the currently most used configuration and templating tools like Kustomize and Helm.
 Promotion would be just a file copy operation from one to another file or folder.
+However, for some promotions it is desired to only update a specific part of a file,
+with a specific type of information, e.g. patching a container image tag in a Kubernetes
+deployment resource.
 For each environment, or only critical ones, there could be a completely separate Git repository.
 Having a separate repository opens up the possibility to have a more strict separation of concerns,
 regarding permissions and access rights.
@@ -979,9 +1000,9 @@ and the promotion would need to be solved manually.
 However when this approach is purely used for the purpose of staging,
 meaning environments are identical, but new releases are deployed to some environments first
 after other ones,
-it could provide a seamless way of promotion by solely leveraging the built-in merge mechanism in Git.
+it could in theory provide a seamless way of promotion by solely leveraging the built-in merge mechanism in Git.
 Branches can usually be restricted or limited to certain developers only,
-which would make it easier to implement the access permissions than the previous folder-per-environment approach.
+which would make it easier to implement the access permissions than the folder-per-environment approach.
 
 This research focuses primarily on the modeling of folder-per-environment.
 
@@ -991,40 +1012,40 @@ This research focuses primarily on the modeling of folder-per-environment.
 
 
 
-
-\section{Promotion Strategies with Existing Tools}
-
-There are many ways for achieving a promotion process when using the GitOps approach for the Continuous Delivery of
-an application or any other infrastructure declared in code.
-When a push-based CI/CD pipeline is already in place, it is often the first thing that comes to mind
-to just append the GitOps deployment as a synchronized process to the end of the pipeline.
-GitOps engines like ArgoCD offer the capability for the user to configure webhook receivers
-which reconcile an application. This makes it possible to setup a synchronous pipeline,
-which results in every code change being delivered through a pipeline step by step in a synchronous manner.
-After the push-based synchronous deployment step succeeds in the pipeline process,
-the pipeline developer can configure another imperative step which triggers reconcilication for another environment.
-
-However, there is a downside when choosing to go with such a push-based imperative approach.
-In fact, this approach would abide by the core principles of GitOps,
-namely the principle of desired state being continuously being pulled by the GitOps engine/agent.
-So the advantage of drift detection and automatic mending, would no longer be given.
-
-When following the GitOps approach, it may be desirable to decouple Continuous Integration/Delivery and Continuous Deployment.
-This means that a code change, namely a Git commit, triggers a Continuous Integration pipeline,
-which ends in a step which builds and pushes an artifact of the new version to an artifact registry.
-The pipeline ends at this point.
-Afterwards the GitOps engine, another system than the CI/CD system, is responsible for detecting the new desired state and starting reconciliation.
-However, the desired state first needs to be changed after a new artifact is available,
-and especially when multiple environments are needed and promotion should be achieved between them,
-this is not straight-forward with this asynchronous process.
-It may be desirable to trigger tests after a deployment to a certain environment is done,
-and only afterwards promote to another environment.
-The GitOps approach proposes to have the source of truth in the Git repository as the desired state of a system.
-
-Currently there is insufficient tooling in the GitOps ecosystem for streamlining such a
-multi-environment promotion process.
-
-{\color{red}\larger TODO review section!}
+%
+%\section{Promotion Strategies with Existing Tools}
+%
+%There are many ways for achieving a promotion process when using the GitOps approach for the Continuous Delivery of
+%an application or any other infrastructure declared in code.
+%When a push-based CI/CD pipeline is already in place, it is often the first thing that comes to mind
+%to just append the GitOps deployment as a synchronized process to the end of the pipeline.
+%GitOps engines like ArgoCD offer the capability for the user to configure webhook receivers
+%which reconcile an application. This makes it possible to setup a synchronous pipeline,
+%which results in every code change being delivered through a pipeline step by step in a synchronous manner.
+%After the push-based synchronous deployment step succeeds in the pipeline process,
+%the pipeline developer can configure another imperative step which triggers reconcilication for another environment.
+%
+%However, there is a downside when choosing to go with such a push-based imperative approach.
+%In fact, this approach would abide by the core principles of GitOps,
+%namely the principle of desired state being continuously being pulled by the GitOps engine/agent.
+%So the advantage of drift detection and automatic mending, would no longer be given.
+%
+%When following the GitOps approach, it may be desirable to decouple Continuous Integration/Delivery and Continuous Deployment.
+%This means that a code change, namely a Git commit, triggers a Continuous Integration pipeline,
+%which ends in a step which builds and pushes an artifact of the new version to an artifact registry.
+%The pipeline ends at this point.
+%Afterwards the GitOps engine, another system than the CI/CD system, is responsible for detecting the new desired state and starting reconciliation.
+%However, the desired state first needs to be changed after a new artifact is available,
+%and especially when multiple environments are needed and promotion should be achieved between them,
+%this is not straight-forward with this asynchronous process.
+%It may be desirable to trigger tests after a deployment to a certain environment is done,
+%and only afterwards promote to another environment.
+%The GitOps approach proposes to have the source of truth in the Git repository as the desired state of a system.
+%
+%Currently there is insufficient tooling in the GitOps ecosystem for streamlining such a
+%multi-environment promotion process.
+%
+%{\color{red}\larger TODO review section!}
 
 
 
