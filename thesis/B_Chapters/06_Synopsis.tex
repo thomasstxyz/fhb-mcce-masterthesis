@@ -10,16 +10,23 @@ and how they could be further researched in future work either by the researcher
 
 
 
-\section*{Testing the User Experience of the Prototype}
+\section*{Further Research \& Development of the Prototype}
 
 The proposed software prototype should be evaluated against its user experience,
 in order to find out if users have difficulty doing the initial setup,
 or any other troubles.
+The use of the prototype could be observed in a case study or tested in a field experiment.
+The prototype should be adapted in more iterations of the applied methodology process model.
+
 The API, the custom resources, which the operator provides can be changed to fit the users needs.
 Additional functionality which is required by users, can be added.
 Since the operator works with any other GitOps tooling the users bring from their individual GitOps setup,
 it can lack a bit of ease of use. The integration into other GitOps tooling like Argo or Flux
 should be evaluated, and examined if such an integration is worth it, in order to provide better convenience.
+
+The main goal is to extensively adapt for user requirements, in order to fit
+many possible promotion processes.
+The prototype should be further developed to enable the use in production by organizations or other projects.
 
 \section*{Rolling Production Environments}
 
@@ -114,9 +121,6 @@ instead of providing tailored tooling which may only work for a single setup at 
 \chapter{Conclusion}
 \label{conclusion}
 
-TODO
-
-
 %In einer Conclusio wird keine neue Information präsentiert, sondern das bereits gesagte nochmal zusammenfassend wiedergegeben. Du möchtest hier dem Leser die wichtigsten Key Points deiner Arbeit mitgeben, so dass er sich ewig dran erinnernt.
 %
 %In welchem Forschungsfeld sind wir nochmal und was ist das eigentlich Problem dort?
@@ -127,32 +131,336 @@ TODO
 %
 %Future Work -> welche neuen Forschungsfelder eröffnen sich dann, wo können wir ab dann weitermachen?
 
-\noindent
-The currently available GitOps tools
-do not provide an integrated solution to
-the problem of promoting releases between environments.
-This thesis aims at addressing the given problem.
-This is achieved by
-clearly defining the problem in distinct items,
-from which research objectives are then inferred.
-Following in designing and developing abstract models for
-environments and promotion processes;
-which are implemented in the produced artifact "release promotion operator".
-The artifact is demonstrated in a prototype serving as a proof-of-concept.
-Finally the research is evaluated by means of
-comparing the artifact's functionality with the solution objectives.
-\bigskip
 
-\noindent
-The developed "release promotion operator" prototype should serve as
-a modular extension to Kubernetes and existing GitOps tooling within the CNCF.
-It should provide a more streamlined and GitOps-native approach
-to the process of release promotion.
-For subsequent research projects the use of the prototype could
-be observed in a case study or tested in a field experiment,
-and adapted in another iteration of the applied methodology process model.
-The main goal for future work is the extensive adaption of the prototype
-to enable use in production by organizations or other projects.
+In this final chapter,
+no new information is presented,
+but what has already been said is summarized again.
+The most important key points of the thesis are highlighted,
+in order for the reader to easily consume.
+
+\section*{Problem}
+
+The increasing adoption of a DevOps culture in organizations to develop applications and services quickly,
+and reduce friction between people, communications and technical processes,
+to ultimately decrease the time to market for new product releases,
+has brought forward a new practice called GitOps.
+
+One of the unresolved problems of the GitOps practice is
+the process of promoting releases between multiple deployment environments.
+Current tools in the ecosystem do not provide an integrated solution for this process.
+Users are therefore inclined to build workflows which are constrained to specific
+Git providers, GitOps engines,
+CI/CD system, and configuration/templating tools. This can lead to tightly coupled setups,
+and vendor lock-in.
+
+In this research,
+the given problem was addressed by designing uniform, standardised models for
+defining GitOps-native deployment environments and promotion processes.
+These models were implemented in a prototype as custom resources and controllers with the
+operator pattern, as a Kubernetes extension.
+This developed software artifact allows users to define abstract representations
+of their environments, and how they want releases to be promoted between them.
+
+\section*{Research Question}
+
+The overall goal of the thesis was to provide a solution to the problem of
+release promotion in GitOps environments.
+Therefore this overarching research question was defined:
+\textbf{\ref{RQ1}};
+with the following sub research questions:
+\textbf{\ref{RQ1.1}}
+\textbf{\ref{RQ1.2}}
+
+\section*{Methodology}
+
+In order to help with recognition and legitimization of the conducted research,
+the methodology for conducting design science research in information systems
+\autocite{designScienceResearchMethodologyForInformationSystemsResearch}
+was applied, which consists of six activities.
+%\nameref{methodology:activity1},
+%\nameref{methodology:activity2},
+%\nameref{methodology:activity3},
+%\nameref{methodology:activity4},
+%\nameref{methodology:activity5},
+%\nameref{methodology:activity6}.
+In activity 1,
+the research problem of
+release promotion with GitOps
+was defined.
+This was done primarily with the help of practicing professionals in the GitOps field,
+which were interviewed.
+In activity 2,
+research objectives were inferred from the problem definition in activity 1.
+Each objective maps to a distinct item from the problem specification,
+which helped with later evaluation in activity 5.
+In activity 3,
+solutions for the previously defined objectives were designed and developed
+by means of producing an artifact, namely the GitOps Promotions Operator prototype.
+In activity 4,
+the in-context use of the artifact was demonstrated in a proof of concept.
+In activity 5,
+the implementation of the artifact,
+and how well it supports a solution to the problem,
+was evaluated.
+In activity 6, as a final step,
+the whole conducted research was communicated by means of
+publishing it as a master thesis.
+
+\section*{Related Work}
+
+Prior research on the concrete problem is focused on presenting
+best practices and suggestions
+which users need to manually implement themselves.
+In addition it is suggested to let an external CI/CD system handle the promotion process.
+Conversely, this thesis brought forward
+abstract models of environments and promotion processes,
+which are implemented in the proposed prototype operator,
+as Kubernetes custom resources and controllers, with the operator framework.
+The prototype will assess the feasibility of
+defining deployment environments and promotion processes declaratively,
+following the GitOps principles.
+
+\section*{Theoretical Background}
+
+The theoretical background on the topic was brought forward to the user,
+in order to aid comprehension of the material within the thesis.
+General definitions of terms,
+fundamentals of GitOps along related tooling and components were presented.
+DevOps and internal developer platforms were mentioned.
+It was explained, how many times the term GitOps is misunderstood,
+and that GitOps is actually defined in the OpenGitOps project.
+It was shown how GitOps changes the architecture and process of Continuous Deployment,
+and how the promotion of releases is achieved without and with the GitOps approach.
+Emerging patterns like progressive delivery,
+as well as the concept behind short-living environments were described.
+The power of Kubernetes as a cloud native platform and its use cases beyond container orchestration were presented.
+Finally it was shown how the declarative representations of GitOps environments are typically modelled currently.
+
+\section*{Interviews}
+
+For the problem identification and motivation of the main topic of this thesis,
+%namely the promotion of releases in GitOps environments,
+interviews with practicing professionals, who are working in the GitOps field, were conducted.
+Several problems were identified,
+and defined along with their respective research objectives.
+\textbf{\nameref{problem1}},
+relates to a frequent issue with currently available tooling in the GitOps ecosystem. 
+Often times solely container image version tags are the focus with current tools when promoting
+new versions or releases.
+%It was discussed, that this is insufficient for some use cases.
+Because it is sometimes required to handle all sorts of resources, not just the version tag of a container image,
+an according research objective was defined.
+%Especially when not using containerization technologies for runtime, this is an important problem to handle.
+%In order to be able to provide a solution to this problem with a comprehensible approach,
+%a solution objective was inferred and its requirements defined.
+\textbf{\nameref{objective1}},
+defines a qualitative description of how the respective problem is supposed to be solved
+by the developed artifact. The main idea is to offer the capability to promote arbitrary resources,
+meaning any type of resource, instead of solely the container image version.
+%The technical implementation in the proposed prototype foresees the functionality for
+%promoting a list of filesystem paths inside the Git repository of the desired state to other environments.
+%In addition these arbitrary resources should be able to be assigned a descriptive name,
+%in order to identify the promotion subjects more easily.
+\textbf{\nameref{problem2}},
+states the fact, that it is not a straight-forward process of how the order of promotion
+through multiple GitOps environments can be setup.
+%When adhering to the principles of GitOps
+%and sticking with the asynchronous deployment process (described in the
+%\nameref{theoretical-background} chapter)
+%there is no streamlined approach or tooling, that automates this, while still sticking to the asynchronous process.
+\textbf{\nameref{objective2}},
+defines the requirements for the proposed prototype,
+in regards to the according problem of having a certain order of promotion through environments or stages.
+The objective describes the capability for defining a certain order of environments, in which releases traverse through.
+In addition, this solution objective opens up the possibility to setup promotion in stages, in which
+certain environments must be deployed to first, before the release can deploy to other specified environments.
+\textbf{\nameref{problem3}},
+relates to the problem that when wanting to promote a new release from environment one to another environment,
+it is not easily achievable with the available tools to specify certain dependencies, like other workloads or
+microservices in the same or another environment, or altogether dependencies from external sources.
+This is especially desirable for evaluating test results or other metrics, before triggering the promotion.
+\textbf{\nameref{objective3}},
+describes how the respective problem of being able to specify dependencies for a promotion,
+could be solved in the proposed prototype. While the minimum dependency is the successful deployment
+of the workload of a release,
+it may also be desirable to specify other resources or workloads which need to be in a certain state,
+before triggering a promotion.
+\textbf{\nameref{problem4}},
+draws attention to the common problem of being dependent on single tools and providers.
+The more complex the Continuous Delivery is setup for a particular project,
+the more difficult it is to de-couple or switch providers for certain components.
+%Furthermore, since many tools in the GitOps ecosystem are not very mature in their development and adoption,
+%it is of use that components are loosely coupled and can be exchanged with alternatives in the future.
+\textbf{\nameref{objective4}},
+defines the requirements of how a vendor-neutral and tool-agnostic prototype can be implemented.
+%The main components which are desirable to support all alternatives,
+%for being able to switch between them,
+%are the Git providers (e.g. GitHub, GitLab),
+%the GitOps engines (e.g. Argo, Flux),
+%the configuration/templating tools (e.g. Kustomize, Helm).
+Additionally,
+related ideas and approaches were discussed by the interview partners.
+These points were not directly considered for the conducted design science in the prototype,
+however they were discussed later.
+
+\section*{Prototype}
+
+The proposed prototype was presented.
+The asynchronous nature of GitOps deployments, and where
+the operator prototype fits within this architecture was described.
+Abstract models for the environment and promotion custom resources as well as their prototype
+design as declarative Kubernetes custom resources was described.
+The implementation of these custom resources was shown in the form of mockups
+of Kubernetes custom resources in the YAML format.
+Alternative mockup designs were shown as a way to draw attention to the fact
+that the actual design of the API specification is not cast in stone.
+Moreover, the API specification should be tested with users of it,
+and should be adapted for usability and ease of use.
+The translation of the API specification in YAML format into Go types was described,
+and finally the implemented controller logic of both the environment, as well as
+the promotion controller was presented.
+The developed artifact of the prototype operator was
+demonstrated in the context of a proof-of-concept use case.
+The demonstration of the prototype's functionality was then evaluated against
+%the research objectives defined in
+%\ref{interviews:definitionSolutionObjectives} \nameref{interviews:definitionSolutionObjectives}.
+the research objectives.
+
+\section*{Evaluation \& Results}
+
+The results of the conducted research were presented, primarily by means of
+presenting and describing the designed and developed operator prototype, and the learning
+from the prototyping process.
+In addition, the interviewed working professionals gave several interesting insights into the problem
+statement from their point of view.
+The results of the research were evaluated on how they provide a solution to the research problem.
+The implemented functionality of the prototype was evaluated against the research objectives.
+This was done by comparing the qualitative descriptions of the objectives with the actual observed results
+in the demonstration of the prototype in the proof of concept.
+% TODO: feedback for the prototype from the working professionals??
+For the research question RQ 1.1,
+a possible solution was presented by means of
+describing the design of a prototype of a Kubernetes operator for handling GitOps promotions.
+For research question RQ 1.2,
+a possible implementation of the abstract models was presented, in the form of
+declarative custom resources, which extend the Kubernetes API.
+The overarching research question 1 is the combination of the sub research questions.
+The thesis proposes one possible way of how the research problem can be addressed,
+namely the promotion of releases in GitOps environments can be designed.
+This concrete research does not try to propose a definitive answer or solution to the research question.
+
+\section*{Discussion \& Interpretation}
+
+The results, learnings, and evaluations of the research were discussed and interpreted.
+The meanings behind the specific results are brought forward in more detail.
+Moreover, interpretations and implications of the results and evaluations were presented.
+Learnings from implementing the prototype were presented, namely
+ideas about the user experience, security considerations, the use at scale, abstractions and modularity.
+Alternative approaches for promoting releases were presented, as mentioned by interview partner 1.
+%
+%The main idea of this approach is that long-living environments are not necessary,
+%and the resiliency should rather be created by doing progressive delivery,
+%not just for the user-facing application or service,
+%but for the whole infrastructure stack below.
+%This has the purpose of further increasing the immutability and resiliency of a service.
+%Since the amount of supporting and infrastructure services and dependencies are increasing with Kubernetes,
+%and each having a version and constantly new releases, and the possibility of breaking the actual important
+%service that is user-facing.
+%
+%When following this approach, the end goal is to create a complete copy of the production environment,
+%and then do progressive delivery on that.
+%Once the release is marked as good, the old production environment can safely be destroyed.
+%With the GitOps pattern, and the application and infrastructure being stored in Git,
+%this has become increasingly more possible.
+%Also tools like the Weave GitOps Terraform Controller have contributed to the enablement of this new approach. 
+%
+%While, with this approach, the need for long-living environments decreases,
+%whole copies of production environments will still need to be created.
+%This means there is no guarantee that the cost will decrease.
+%Advanced tactics like auto-scaling will need to be implemented, in order to
+%keep costs low of potentially high numbers of dynamically created environments.
+%
+
+\section*{Future Work}
+
+Further suggestions and point of references for future research on this topic
+and the developed prototype were presented.
+These included
+further research and development of the proposed prototype,
+which is about testing its user experience, evaluating integration with
+other GitOps tools. Generally the aim is to enhance the prototype
+to make it mature for production use.
+The idea of rolling production environments by interview partner 1 was discussed.
+It describes a somewhat different approach for promotions in GitOps,
+where less environments are needed, but for each new release the 
+production environment is re-created with the new versions, and
+progressive delivery is done not only on an application level, but on the whole
+infrastructure stack together with the end user application or service on top.
+This is to further improve immutability and versioning to increase resiliency.
+The idea of the problem with the overview of GitOps repositories by interview partner 2
+was discussed.
+It is about the somewhat missing feature of an quick and easy to understand overview over a GitOps repository.
+Depending on the used configuration/templating tool, a setup looks different.
+Deployment environments can be represented, however it is not possible for the user
+to know what the target environment is, or where the GitOps definition is deployed to in general.
+Moreover it was discussed that it would make sense for future work
+to research a wide range and variety of organizations and do a survey on
+their requirements, their issues and how they imagine a solution.
+An initiative towards standardized GitOps promotions should be made,
+because for open-source tooling the aim should be to strive for functionality
+that can be used by everyone,
+instead of providing tailored tooling which may only be beneficial for specific use cases
+and organizations.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%The currently available GitOps tools
+%do not provide an integrated solution to
+%the problem of promoting releases between environments.
+%This thesis aims at addressing the given problem.
+%This is achieved by
+%clearly defining the problem in distinct items,
+%from which research objectives are then inferred.
+%Following in designing and developing abstract models for
+%environments and promotion processes;
+%which are implemented in the produced artifact "release promotion operator".
+%The artifact is demonstrated in a prototype serving as a proof-of-concept.
+%Finally the research is evaluated by means of
+%comparing the artifact's functionality with the solution objectives.
+%
+%The developed "release promotion operator" prototype should serve as
+%a modular extension to Kubernetes and existing GitOps tooling within the CNCF.
+%It should provide a more streamlined and GitOps-native approach
+%to the process of release promotion.
+%For subsequent research projects the use of the prototype could
+%be observed in a case study or tested in a field experiment,
+%and adapted in another iteration of the applied methodology process model.
+%The main goal for future work is the extensive adaption of the prototype
+%to enable use in production by organizations or other projects.
 
 
 
