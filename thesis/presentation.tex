@@ -9,6 +9,12 @@
 \renewcommand\bibname{\section{Literaturverzeichnis}}
 
 
+\usepackage{tikz}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
+
+
+\usepackage{listings}
+
 \usetheme{Frankfurt}
 \usepackage{xcolor}
 
@@ -148,15 +154,15 @@
 \end{frame}
 
 
-\section{Research Questions}
+\section{RQ \& Methodology}
 
 \begin{frame}
-\frametitle{Research Questions}
+\frametitle{Research Question}
 
 	\begin{itemize}
 		\item How can the promotion of releases in GitOps environments be designed?
 		\begin{itemize}
-			\item What possibilities do existing tools offer for the promotion of releases with multiple deployment environments?
+%			\item What possibilities do existing tools offer for the promotion of releases with multiple deployment environments?
 			\item How can deployment environments, as well as promotion processes be modeled abstractly?
 			\item How can the abstract models be used to implement a standardized solution for promoting releases?
 		\end{itemize}
@@ -165,7 +171,7 @@
 \end{frame}
 
 
-\section{Methodology}
+%\section{Methodology}
 
 \begin{frame}
 	\frametitle{design science research in information systems \\
@@ -181,6 +187,105 @@
 	\end{figure}
 
 \end{frame}
+
+\section{Interviews}
+
+\begin{frame}
+	\frametitle{Interviews}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.0\linewidth]{assets/interviews-methodology-slide.png}
+	\label{fig:interviews-methodology-slide}	
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Problem Definition and inferring solutions}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.65\linewidth]{assets/from-problem-to-objective-visualized.png}
+	\label{fig:from-problem-to-objective-visualized}	
+\end{figure}
+\end{frame}
+\begin{frame}
+	\frametitle{Solution Objective 1}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=1.0\linewidth]{assets/OBJ1R1-and-OBJ1R2.png}
+		\label{fig:OBJ1R1-and-OBJ1R2}	
+	\end{figure}
+\end{frame}
+\begin{frame}
+	\frametitle{Solution Objective 2}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=1.0\linewidth]{assets/OBJ2R1.png}
+		\label{fig:OBJ2R1}	
+	\end{figure}
+\end{frame}
+\begin{frame}
+	\frametitle{Solution Objective 3}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=1.0\linewidth]{assets/OBJ3R1.png}
+		\label{fig:OBJ3R1}	
+	\end{figure}
+\end{frame}
+\begin{frame}
+	\frametitle{Solution Objective 4}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=1.0\linewidth]{assets/OBJ4R1.png}
+		\label{fig:OBJ4R1}	
+	\end{figure}
+\end{frame}
+
+
+
+\section{Prototype}
+
+\begin{frame}
+	\frametitle{Asynchronous GitOps Deployments}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=1.0\linewidth]{assets/async-gitops-promo-arch.png}
+		\label{fig:async-gitops-promo-arch}	
+	\end{figure}
+\end{frame}
+\begin{frame}
+	\frametitle{Abstract Models, Custom Resources, Controllers}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=1.0\linewidth]{assets/cr-plus-ctrl-logic-slide.png}
+		\label{fig:cr-plus-ctrl-logic-slide}	
+	\end{figure}
+\end{frame}
+\begin{frame}
+	\frametitle{Demonstration}
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=1.0\linewidth]{assets/prom-pr-dev-to-qa.png}
+		\label{fig:prom-pr-dev-to-qa}	
+	\end{figure}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Evaluation}
+	
+How well does the implementation satisfy the solution objective?
+
+\begin{itemize}
+	\item OBJ1R1 \& OBJ1R2 \checkmark
+	\item OBJ2R1 \checkmark
+	\item OBJ3R1 \checkmark
+	\item OBJ4R1 \checkmark
+\end{itemize}
+
+\end{frame}
+
 
 
 \section{Results}
@@ -207,6 +312,48 @@
 
 \end{frame}
 
+\begin{frame}
+	\frametitle{Learnings from prototyping}
+	
+	\begin{itemize}
+		\item integration to GitOps tools / user experience, ease of use
+		\item security implications
+		\item multi-cluster environments
+	\end{itemize}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Prototype \\ github.com/thomasstxyz/gitops-promotions-operator}
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=1.0\linewidth]{assets/architecture-controller-crd.png}
+		\label{fig:architecture-controller-crd}	
+	\end{figure}
+	
+\end{frame}
+%\begin{frame}
+%	\frametitle{Prototype}
+%	
+%	\begin{figure}[h]
+%		\centering
+%		\includegraphics[width=1.0\linewidth]{assets/raise-pull-request-and-approve.png}
+%		\label{fig:raise-pull-request-and-approve}	
+%	\end{figure}
+%	
+%\end{frame}
+
+\begin{frame}
+\frametitle{Related Ideas and Approaches}
+
+\begin{itemize}
+	\item Rolling Production Environments
+	\item Overview of GitOps Repositories
+\end{itemize}
+
+\end{frame}
+
 
 \section{Conclusion and Future Work}
 
@@ -215,8 +362,8 @@
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=1.0\linewidth]{assets/conclusion-gitops-thesis.png}
-	\label{fig:conclusionGitopsThesis}	
+	\includegraphics[width=1.0\linewidth]{assets/conclusion-gitops-thesis-2.png}
+	\label{fig:conclusion-gitops-thesis-2}	
 \end{figure}
 
 %The currently available GitOps tools
@@ -240,8 +387,8 @@
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=1.0\linewidth]{assets/future-work-gitops-thesis.png}
-	\label{fig:futureWorkGitopsThesis}	
+	\includegraphics[width=1.0\linewidth]{assets/future-work-gitops-thesis-2.png}
+	\label{fig:future-work-gitops-thesis-2}	
 \end{figure}
 
 %The developed "release promotion operator" prototype should serve as
