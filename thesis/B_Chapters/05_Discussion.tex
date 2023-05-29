@@ -9,7 +9,7 @@ Moreover, interpretations and implications of the results and evaluations are pr
 %The first and most important topic to be discussed,
 %are the learnings from the prototype implementation.
 
-\section*{Learnings From The Prototype Implementation}
+\section{Learnings From The Prototype Implementation}
 
 In general, the presented design and development of the prototype
 showed a possible way on how to provide a solution to the research question.
@@ -17,8 +17,7 @@ From the actual implementation of the abstract design in a Kubernetes operator,
 and its in-context use in the proof of concept,
 certain learnings could be inferred.
 
-\subsection*{User Experience}
-
+\textbf{User Experience}:
 Due to \nameref{objective4},
 the prototype has been designed to be agnostic to the tooling used, which includes the GitOps engine, the Git provider, and the configuration/templating tool.
 While it is good that the prototype can work with many other tools,
@@ -40,8 +39,7 @@ as well as the promotions operator.
 
 A possible solution to this issue could be to directly integrate with either Flux or Argo - since these are the most popular, and most likely already installed and used by users of the promotions operator.
 
-\subsection*{Security Considerations}
-
+\textbf{Security Considerations}:
 The designed and implemented prototype operator can generally run in any Kubernetes cluster.
 It is independent from the deployment environments, so it could either run in the deployment environment itself,
 or alternatively in a management cluster, which would then be responsible for the promotion of multiple environments.
@@ -63,8 +61,7 @@ Since the operator needs appropriate permissions for the environment's Git repos
 in order to raise pull requests and push to pull request branches, the operator could
 be a potential security issue.
 
-\subsection*{Use at Scale}
-
+\textbf{Use at Scale}:
 The use of the promotions operator prototype at scale needs to be addressed.
 Using the operator at scale could either be to install the operator in a separate management cluster,
 or to install the operator in each environment.
@@ -78,8 +75,7 @@ in order to handle all or many environment promotions,
 the user would save time on the initial setup of the custom resources, deploy keys and API tokens.
 However with this approach, it would also mean that the operator running in a completely separated management cluster, typically has no direct access to observe the resources of an environment.
 
-\subsection*{Abstractions}
-
+\textbf{Abstractions}:
 The proposed prototype provides two main abstractions,
 one for the environment,
 and one for the promotion.
@@ -93,8 +89,7 @@ and a GitOpsRepository resource, which would represent the according GitOps repo
 It is always a good practice to have custom resources represent a real tangible resource,
 and not stand for multiple things in the real world.
 
-\subsection*{Modularity}
-
+\textbf{Modularity}:
 In addition to the topic of abstractions mentioned previously,
 it could be beneficial to split up the Promotion custom resource.
 There could be a PromotionPolicy resource,
@@ -115,7 +110,7 @@ The Promotion resource would then only run once to completion.
 
 
 
-\section*{Alternative Approaches for Promoting Releases}
+\section{Alternative Approaches for Promoting Releases}
 
 Interview partner 1 discussed an alternative approach for handling the promotion process in GitOps environments.
 This was presented in section \ref{insights-related-ideas-approaches}.
