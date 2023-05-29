@@ -2,6 +2,8 @@
 \chapter{Related Work}
 \label{related-work}
 
+% TODO: mention articles for topics Promotion, Progressive Delivery, and maybe cite these approaches
+
 This chapter focuses on the related work by other researchers on the topic.
 This includes minimal to none scientific peer-reviewed data,
 and a limited amount of blog posts and articles by
@@ -9,66 +11,51 @@ organizations involved and actively participating in the GitOps space.
 
 \section*{Limited scientific data}
 
-Since the introduction of the term GitOps by
-\citeauthor{gitopsOperationsByPullRequest2017Weaveworks} (\citeyear{gitopsOperationsByPullRequest2017Weaveworks})
-at Weaveworks,
-there has been
-insufficient
-%limited
-scientific literature written about the topic.
+%Since the introduction of the term GitOps by
+%\citeauthor{gitopsOperationsByPullRequest2017Weaveworks} in \citeyear{gitopsOperationsByPullRequest2017Weaveworks},
+%there has been
+%insufficient
+%scientific literature written about the topic.
 The following paragraph highlights prior 
 scientific research done on the subject "GitOps",
 which has mainly been targeted at
 evaluating the concept of GitOps in general.
-\bigskip
 
-%as opposed to focusing on new and specific problems that emerge with the adoption of GitOps,
-%like the one focused on in this thesis.
-%\bigskip
+%\citeauthor{limoncelli_gitopsPathToMoreSelfService} (\citeyear{limoncelli_gitopsPathToMoreSelfService})
+%draws attention to GitOps in an article, where the concept is brought to the reader in an easily digestible way.
+%The author clearly highlights the benefits of adoption of GitOps,
+%however does not mention any negative aspects.
+%%\citeauthor{whatIsGitOpsSalecha2023} (\citeyear{whatIsGitOpsSalecha2023})
+%%discusses the definition of the "GitOps"-term
+%%\autocite{whatIsGitOpsSalecha2023}.
+%\citeauthor{gitopsTheEvolutionOfDevops9565152} (\citeyear{gitopsTheEvolutionOfDevops9565152})
+%discuss the idea of GitOps as an evolution of DevOps. They conduct research on the definition of both terms.
+%\citeauthor{continuousDeploymentIOTEdgeComputingAGitOpsImplementation_9820108} (\citeyear{continuousDeploymentIOTEdgeComputingAGitOpsImplementation_9820108})
+%publish a conference paper about implementing GitOps in Internet of Things (IoT) Edge Computing
+%to achieve Continuous Deployment.
+%They present a proof of concept to check the feasibility of applying GitOps
+%in IoT Edge Computing solutions.
+%\citeauthor{analysisOnDeclarativePullBasedDeploymentGitOpsArgoCD_9563984} (\citeyear{analysisOnDeclarativePullBasedDeploymentGitOpsArgoCD_9563984})
+%present an analysis of declarative and pull-based deployment models
+%following GitOps principles by using the tool ArgoCD;
+%and focuses on the advantages compared to push-based deployment models.
 
-\noindent
-\citeauthor{limoncelli_gitopsPathToMoreSelfService} (\citeyear{limoncelli_gitopsPathToMoreSelfService})
-draws attention to GitOps in an article, where the concept is brought to the reader in an easily digestible way.
-The author clearly highlights the benefits of adoption of GitOps,
-however does not mention any negative aspects.
-%\citeauthor{whatIsGitOpsSalecha2023} (\citeyear{whatIsGitOpsSalecha2023})
-%discusses the definition of the "GitOps"-term
-%\autocite{whatIsGitOpsSalecha2023}.
-\citeauthor{gitopsTheEvolutionOfDevops9565152} (\citeyear{gitopsTheEvolutionOfDevops9565152})
-discuss the idea of GitOps as an evolution of DevOps. They conduct research on the definition of both terms.
-\citeauthor{continuousDeploymentIOTEdgeComputingAGitOpsImplementation_9820108} (\citeyear{continuousDeploymentIOTEdgeComputingAGitOpsImplementation_9820108})
-publish a conference paper about implementing GitOps in Internet of Things (IoT) Edge Computing
-to achieve Continuous Deployment.
-They present a proof of concept to check the feasibility of applying GitOps
-in IoT Edge Computing solutions.
-\citeauthor{analysisOnDeclarativePullBasedDeploymentGitOpsArgoCD_9563984} (\citeyear{analysisOnDeclarativePullBasedDeploymentGitOpsArgoCD_9563984})
-present an analysis of declarative and pull-based deployment models
-following GitOps principles by using the tool ArgoCD;
-and focuses on the advantages compared to push-based deployment models.
-\bigskip
-
-\noindent
-Hitherto, there have not been any publications
+Until now, there have not been any publications
 in academic journals or conferences
 on the specific topic of
 modeling multiple deployment environments with GitOps and promoting releases between them.
+% TODO: related work, which does this without the GitOps approach?
+
 However,
-%\bigskip
-%
-%\noindent
 \citeauthor{kostisKapelonisMeetACodefresher} (\citeyear{kostisKapelonisMeetACodefresher})
 at Codefresh
 published a couple of blog posts in recent years,
 where some best practices are presented on the topic.
 Codefresh is the organization behind the Argo Project \autocite{argoProjWebsite},
 and therefore a major driving force in the GitOps ecosystem.
-\bigskip
 
 \section*{Suggested best practices}
 
-\noindent
-%In
-%\citetitle{codefreshStopUsingBranchesGitOpsEnvironments}
 \citeauthor{codefreshStopUsingBranchesGitOpsEnvironments} (\citeyear{codefreshStopUsingBranchesGitOpsEnvironments})
 discusses
 the idea of
@@ -76,8 +63,6 @@ modeling different deployment environments by using Git branches.
 He
 explains thoroughly why this approach is an anti-pattern and should not be used
 \autocite{codefreshStopUsingBranchesGitOpsEnvironments}.
-%In
-%\citetitle{codefreshHowToModelGitOpsEnvironmentsAndPromote}
 \citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
 shares
 a multitude of suggestions and best practices
@@ -97,21 +82,19 @@ non-static business settings.
 While the application version and non-static business settings are promoted,
 Kubernetes specific settings and mostly static business settings are generally not promoted between environments
 \autocite{codefreshHowToModelGitOpsEnvironmentsAndPromote}.
-\bigskip
 
-\noindent
-In 2021 the
-Argo Project \autocite{argoProjWebsite}
-presented the
-\citetitle{argocdAutopilotWebsite}-tool \autocite{argocdAutopilotWebsite}
-to help new GitOps adopters with
-structuring their Git repositories,
-and
-promoting applications between environments.
-This command line interface (CLI) tool,
-which includes some of the earlier presented best practices,
-helps with the initial bootstrap process for ArgoCD.
-\bigskip
+%In 2021 the
+%Argo Project \autocite{argoProjWebsite}
+%presented the
+%\citetitle{argocdAutopilotWebsite}-tool \autocite{argocdAutopilotWebsite}
+%to help new GitOps adopters with
+%structuring their Git repositories,
+%and
+%promoting applications between environments.
+%This command line interface (CLI) tool,
+%which includes some of the earlier presented best practices,
+%helps with the initial bootstrap process for ArgoCD.
+
 
 
 

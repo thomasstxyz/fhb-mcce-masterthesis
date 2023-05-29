@@ -20,12 +20,12 @@
 
 
 % First sentence of paper
-Git is becoming the new home for information technology (IT) operations.
+% ?
 % Introducing DevOps and new practice which emerged from it
 Following a core concept of DevOps
 - reducing friction between engineering teams within the software development lifecycle (SDLC) -
-a new practice has emerged,
-which leverages the revision control system Git for IT operations.
+a deployment practice has emerged,
+which leverages the version control system Git for IT operations.
 % GitOps is ...
 GitOps is a set of principles for operating and managing software systems.
 % Description of GitOps
@@ -33,12 +33,19 @@ The desired state of the managed system is
 - in its entirety -
 defined declaratively as code,
 which is continuously reconciled with the actual state by a controller.
+% what problem does GitOps solve?
+GitOps provides greater visibility into infrastructure state,
+a single source of truth with built-in audit history,
+reduced time to recovery and improved security,
+among other benefits.
+
 % Description of the problem
-The promotion of new software releases between several environments
-shows itself to be an unresolved problem at present.
-Uniform standard practices, as well as necessary tools, are missing in the open-source ecosystem.
+A problem with the GitOps approach is the promotion of new software releases between environments,
+due to the asynchronous nature of GitOps deployments.
+Currently there is no standard practice and tooling for achieving promotions in a GitOps-native way.
+Hence, users are prone to use workflow / pipeline systems to achieve promotions.
 % goal of the paper
-This thesis aimed at addressing the problem of
+This thesis aims at addressing the problem of
 promotion of releases in GitOps environments.
 The problem statement was identified and motivated by
 interviewing practicing professionals who work in the GitOps field.
@@ -48,12 +55,12 @@ Abstract models of deployment environments as well as promotion workflows
 were designed.
 Based on these models,
 a standardized solution for the promotion of releases
-was developed,
-in the form of a Kubernetes operator,
+was designed and developed prototypically,
 adhering to the GitOps principles.
-Finally, the research was evaluated by
+The research was evaluated by
 comparing the functionality of the proposed prototype
 to the research objectives.
+
 % what is the purpose, how is the future better than now
 % Was können wir DANN was wir JETZT noch nicht können?
 The results of this research

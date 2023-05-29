@@ -2,7 +2,7 @@
 \chapter{Introduction}
 \label{introduction}
 
-The introductory chapter consists of the primary problem statement of the thesis,
+This introductory chapter consists of the primary problem statement of the thesis,
 the definition of the research questions,
 a concise outline of the research methodology,
 as well as
@@ -12,38 +12,38 @@ an overview of the thesis structure.
 
 % 1. Absatz: Beschreibe uns das Forschungsfeld in dem du dich befindest (DevOps / GitOps)
 
-%\noindent
 Increasingly more organizations are adopting 
-a DevOps culture to develop new applications and services at high velocity. 
-After all, a culture that encourages shared responsibility, transparency and rapid feedback, 
+a DevOps culture
+\autocite{devopsCultureSanchez2018characterizing}
+to develop new applications and services at high velocity. 
+After all, a culture that encourages
+shared responsibility, communication, transparency,
+and continuous and immediate feedback,
 helps to narrow the gaps between teams and thus accelerate the development process.
 In order to
 reduce friction between engineering teams who are involved in the software development lifecycle (SDLC),
-a new practice called GitOps has emerged.
-It allows developers who are already familiar with the revision control system Git,
+a practice called GitOps has emerged.
+It allows developers who are already familiar with the version control system Git,
 to easily deploy their applications to target environments in a self-service model.
-System administrators and operators can also manage IT infrastructure
-purely by interfacing with declarative state definitions stored in Git.
+All sorts of IT infrastructure can be managed, purely by
+interfacing with declarative state definitions stored in Git.
 %
 84 percent of organizations that have embraced cloud native technologies
 have adopted practices and tools that adhere to GitOps principles
-\autocite{scalingGitOps2023weaveWorks}.
-\enquote*{GitOps principles are 4x as likely to be followed at mature cloud native organizations, versus those that have not embraced cloud native techniques.}
-\autocite{cncfAnnualSurvey2022}
+\autocite{scalingGitOps2023weaveWorks}
+\autocite{cncfAnnualSurvey2022}.
+%\enquote*{GitOps principles are 4x as likely to be followed at mature cloud native organizations, versus those that have not embraced cloud native techniques.}
+%\autocite{cncfAnnualSurvey2022}
 
 %GitOps is a set of principles for operating and managing software systems.
 %These principles are derived from modern software operations, but also have their roots 
 %in existing and widely adopted best practices. 
-\bigskip
 
 % 2. Absatz: Beschreib uns das Problem bzw. die Challenge in diesem Forschungsfeld (Was ist die Problemstellung, die es zu bearbeiten gilt)
 
 % why is it important to solve the problem?
 
-\noindent
-GitOps as a practice for releasing software has many advantages,
-but like other solutions, GitOps also has some shortcomings.
-One of the unresolved problems is
+GitOps as a practice for deploying and managing software systems has an unresolved problem, which is
 the process of promoting releases between multiple deployment environments (illustrated in Figure \ref{fig:releasePromotionProcess}).
 
 \begin{figure}[h]
@@ -55,40 +55,34 @@ the process of promoting releases between multiple deployment environments (illu
 	\label{fig:releasePromotionProcess}	
 \end{figure}
 
-\noindent
 Current GitOps tools do not provide an integrated solution for this process,
 nor do they provide any sort of abstraction for defining environments.
-Users currently need to rely on separation of duties
-on a file and folder level within the Git repository,
-for modeling different environments.
 Promotions are often achieved via hard-coded file copy operations,
-which is done manually or by a
-Continuous Integration (CI)/Continuous Delivery (CD) system.
-Due to the nature of Git, a certain flow of promotion can not currently be enforced
-(e.g. QA --> Staging --> Production).
+which is done manually or with a workflow / pipeline system.
 Furthermore, for each configuration or templating tool which is used
 (e.g. kustomize, helm, jsonnet, etc.),
 the modeling of different deployment environments, as well as the
 process of promotion, is unique.
 This results in the process of promoting releases with GitOps
 not being a streamlined task.
-Clear guidelines and best practices,
-as well as tools which implement them,
-are missing in the GitOps ecosystem.
-\bigskip
+%Clear guidelines and best practices,
+%as well as tools which implement them,
+%are missing in the GitOps ecosystem.
+A GitOps-native way for doing automated promotions between environments is
+not provided by the currently available open-source tools.
 
 % 3. Absatz: Was schlägst du vor, wie man die Problemstellung bearbeiten könnte? Beschreibe uns deinen Lösugnsvorschlag dieser Arbeit, wie man das Problem bearbeiten könnte
 
-\noindent
 %
 The given problem could be addressed by
 providing standardised models 
 for defining deployment environments and promotion processes.
 %
-An application programming interface (API) extension for Kubernetes
-could provide custom resource definitions for these models.
+An application programming interface (API) extension for Kubernetes,
+namely a custom resource definition,
+could provide abstract representations for these models.
 %
-This would allow users to define abstract representations of
+This would allow users to define
 their environments,
 and how they want releases to be promoted between them.
 %
@@ -103,11 +97,9 @@ while keeping the desired state definition intact.
 Following the principles of GitOps,
 an operator would ensure the continuous reconciliation
 between the desired and the actual state of the resources.
-\bigskip
 
 % 4. Absatz: gib uns einen Ausblick (Paint the Big Picture) wie deine Lösung mit dem großen Ganzen zusammenhängt
 
-\noindent
 %
 The proposed solution of the problem should
 present a possible way of defining environments and promotion processes abstractly,
@@ -116,7 +108,7 @@ onto which future work could build upon.
 Additionally the solution should
 provide a protoype of a toolkit,
 which could serve as an optional component
-in addition to existing tooling within the Cloud Native Computing Foundation (CNCF).
+in addition to existing tooling.
 %
 Solving the problem of release promotion natively within the GitOps toolkit,
 would make the adoption of GitOps more appealing,
@@ -165,8 +157,7 @@ and thus enable more organisations to develop higher quality software.
 The overall goal of the thesis is to
 provide a solution to the problem of release promotion in GitOps environments.
 The solution shall consist of the abstract design of an operator capable of doing
-GitOps-native promotions between environments, as well as its implementation
-as a Kubernetes extension with the operator pattern.
+GitOps-native promotions between environments, as well as its implementation.
 
 Large organizations in particular typically have many
 non-production and production environments
@@ -180,11 +171,9 @@ Production-EU.
 Usually new releases are automatically deployed to an environment,
 such as QA, 
 by a CI/CD system.
-Now the task is to promote
-new changes, which are brought about by a new release,
+A common task is to promote
+new changes, which are introduced by a new release,
 into subsequent or other environments.
-Current GitOps tools do not have a simple answer to
-the question about what is the right approach for the process of promotion.
 
 %\noindent
 %In particular, this thesis aims to explore
@@ -211,18 +200,23 @@ To achieve the goal of the thesis, the following research questions (RQ) were id
 
 
 
-
+\vfill
 
 \section{Research Methodology}
 \label{introduction:research-methodology}
 
-%TODO summarize chapter \ref{methodology} \nameref{methodology}
-
+To achieve the main goal of the thesis and answer the identified research questions,
+a mix of different scientific methods is used.
+The primary method for creating empirical value - design and development of a software prototype - is the prototyping method as described by
+\citeauthor{riedlManagementInformatik2019} (\citeyear{riedlManagementInformatik2019}).
+It is supported, especially for defining and motivating the problem statement, by
+semi-structured qualitative interviews according to the method of \autocite{glaser2010experteninterviews}.
+%
 In order to help with recognition and legitimization of the conducted research,
 the methodology for conducting design science (DS) research
 in information systems (IS)
 \autocite{designScienceResearchMethodologyForInformationSystemsResearch}
-will be applied.
+is applied.
 It consists of six activities:
 
 \begin{itemize}
@@ -237,125 +231,132 @@ It consists of six activities:
 In activity 1,
 the research problem of
 release promotion with GitOps
-is defined.
+is defined
+with the help of practicing professionals with working proficiency in the GitOps field.
+The problem is split into distinct problem items.
 
 In activity 2,
 research objectives are inferred from the problem definition in activity 1.
-Each objective maps to a distinct item from the problem specification,
-which helps with later evaluation in activity 5.
+Each objective maps to a distinct problem item
+and provides a solution.
+This direct mapping helps with later evaluation in activity 5.
 
 In activity 3,
-solutions for the previously defined objectives are designed and developed
-by means of producing an artifact, namely the GitOps Promotions Operator prototype.
+the design and development of the artifact,
+namely the GitOps Promotions Operator prototype,
+is described.
+The functionality of the prototype provides solutions
+to the defined research objectives.
 
 In activity 4,
 the in-context use of the artifact is demonstrated in a proof of concept.
+The functionality of the prototypical operator alongside a practical use case is described.
 
 In activity 5,
 the implementation of the artifact,
+and the demonstrated functionality,
 and how well it supports a solution to the problem,
 is evaluated.
+This is done by comparing the qualitative descriptions of the demonstrated functionality
+with the previously defined solution objectives.
 
 In activity 6, as a final step,
 the whole conducted research is communicated by means of
 publishing it as a master thesis.
-
-Activities 1 and 2 are supported by conducted interviews with practicing professionals in the GitOps field.
-Activities 3, 4 and 5 are conducted by the researcher with the help of the prototyping method,
-which means implementing the designed abstract models in a prototype, which is then demonstrated in a proof of concept and evaluated.
+Additionally the prototype implementation is communicated to the CNCF.
 
 
+\vfill
 
 \section{Thesis Structure}
 \label{introduction:thesis-structure}
 
-% TODO: visualize
-
 This thesis presents a strategy for promoting releases in GitOps environments,
 and is structured as follows:
 
-\textbf{Chapter \ref{introduction} \nameref{introduction}}:
+% TODO: Chapter 1 - Introduction (dash between number and name) for all nameref functions
+\textbf{Chapter \ref{introduction} - \nameref{introduction}}:
 After introducing the reader to the topic of GitOps, which can be seen as a good practice pattern within DevOps for deploying applications and generally managing systems and infrastructure as code,
 the problem is briefly stated and its importance is drawn attention to.
 The main goal of the thesis is outlined by stating the scientific research questions.
 The research methodology, namely the used scientific methods and the general approach, is presented in a short overview.
-Finally to end the introductory chapter, the structure of the thesis as a whole is described.
+Finally, to end the introductory chapter, the structure of the thesis as a whole is described.
 
-\textbf{Chapter \ref{related-work} \nameref{related-work}}:
+\textbf{Chapter \ref{related-work} - \nameref{related-work}}:
 %Next, the related work about this topic is discussed.
-Due to the limited amount of scientific data about this topic, this chapter is quite scarce.
+Existing literature and related work on the topic are discussed.
 The suggested best practices for handling the concrete problem of release promotion with the GitOps approach,
 are presented.
 Furthermore the related and similar tools that are available for doing GitOps promotions are presented.
 The related work chapter concludes with a summary of the chapter and draws attention to the differences
 that divide the research within this thesis from other work.
 
-\textbf{Chapter \ref{theoretical-background} \nameref{theoretical-background}}:
+\textbf{Chapter \ref{theoretical-background} - \nameref{theoretical-background}}:
 %The theoretical background on the topic is highlighted as a next step.
-This consists of general definitions of terms that are needed for further comprehension of the thesis.
-Moreover, some important concepts like DevOps, GitOps, platform engineering are described.
+This chapter consists of general definitions of terms that are needed for further comprehension of the thesis.
+Moreover, some important concepts like DevOps and GitOps are described.
 Latest and ongoing trends like progressive delivery, as well as
 the role of Kubernetes in the current cloud native ecosystem,
 are discussed.
 The chapter Theoretical Background is finally rounded off with a summary,
-drawing attention to what the key points are to understand,
-before continuing to read the core of the thesis.
+which draws attention to the key points.
 
-\textbf{Chapter \ref{methodology} \nameref{methodology}}:
+\textbf{Chapter \ref{methodology} - \nameref{methodology}}:
 %As the last major preparatory chapter, the research methodology is described.
-First, the motivation and objectives of the chapter are outlined,
-then the general approach for conducting the research of the thesis is presented,
-which comprises six activities, of which the initial two are supported by conducting interviews
-with practicing professionals, who have working proficiency in the GitOps field,
-and the latter activities are primarily supported by the use of the prototyping method.
+Firstly, the motivation and objectives of the chapter are outlined.
+Then the general approach for conducting the research of the thesis is presented,
+which comprises six activities. The initial two activities are supported by conducting interviews
+with practicing professionals, who have working proficiency in the GitOps field.
+The latter activities are primarily supported by the use of the prototyping method.
 All used scientific methods and their concrete applications are described lastly.
 
-\textbf{Chapter \ref{interviews} \nameref{interviews}}:
+\textbf{Chapter \ref{interviews} - \nameref{interviews}}:
 %Kicking off the empirical stages of the thesis,
 %the chapter
 %\ref{interviews} \nameref{interviews},
 %is presented,
 %in which
 The research problem of promoting releases in GitOps environments is defined and motivated,
-with the help of the practicing professionals from the conducted interviews.
+with the help of practicing professionals from conducted interviews.
 The problem is split up into distinct problem items.
 Next, for each problem item,
-a solution objective is defined, which tries to provide a possible solution to a problem statement.
+a solution objective is defined, which provides a possible solution to a problem statement.
 Each objective defines clear requirements, which have to be met by the developed artifact,
 and which later help with the evaluation.
 
-\textbf{Chapter \ref{chapter:prototype} \nameref{chapter:prototype}}:
+\textbf{Chapter \ref{chapter:prototype} - \nameref{chapter:prototype}}:
 %Representing the next and also final empirical component of the thesis,
 %is the description of the developed prototype.
 The asynchronous nature of GitOps deployments,
 and where the developed prototype operator fits within this architecture, is brought forward.
 Next, abstract models for environment and promotion resources are designed.
 Then, the design of the Kubernetes custom resources for implementing the abstract models is described,
-which is followed by a mockup design in YAML format of the custom resources, along with alternative mockups.
-As last step in the design and development of the prototype, the custom resources are translated
-to Go types, and finally
-the prototype controller logic for the environment and promotion controllers is presented.
+which is followed by a mockup design of the custom resources, along with alternative mockups.
+%As last step in the design and development of the prototype, the custom resources are translated
+%to Go types, and finally
+As the last step,
+the prototypical controller logic for the environment and promotion controllers is presented.
 Once the design of the prototype is clear, and the implementation is developed,
 the prototype is demonstrated in a proof of concept.
 The demonstration is then evaluated against the solution objectives defined earlier.
 
-\textbf{Chapter \ref{evaluation-and-results} \nameref{evaluation-and-results}}:
+\textbf{Chapter \ref{evaluation-and-results} - \nameref{evaluation-and-results}}:
 %The next chapter discusses the results of the conducted research,
 Includes qualitative results of the interviews, as well as observed implementations
 for the solution objectives and learnings from the prototyping process.
 Furthermore, the research results are evaluated in a holistic manner,
 by comparing the implemented solutions of the prototype to the research objectives.
 
-\textbf{Chapter \ref{discussion-and-interpretation} \nameref{discussion-and-interpretation}}:
+\textbf{Chapter \ref{discussion-and-interpretation} - \nameref{discussion-and-interpretation}}:
 The thus far presented data is discussed with a holistic view,
 and an interpretation by the researcher on the conducted research as a whole is given.
 
-\textbf{Chapter \ref{future-work} \nameref{future-work}}:
+\textbf{Chapter \ref{future-work} - \nameref{future-work}}:
 Topics and ideas which were not sufficiently handled within the thesis,
 as well as possible other ideas, which were brought forward by the research results or evaluation,
 are presented.
 
-\textbf{Chapter \ref{conclusion} \nameref{conclusion}}:
+\textbf{Chapter \ref{conclusion} - \nameref{conclusion}}:
 As a final chapter, a conclusion of the whole thesis is presented,
 which includes the most important key takeaways and research results.
 

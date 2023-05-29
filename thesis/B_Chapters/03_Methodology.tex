@@ -29,8 +29,7 @@ the prototyping method is applied.
 
 All the used research methods are described,
 and especially how exactly they are applied within this thesis.
-
-Finally the chapter ends with a summary of what has been presented,
+The chapter ends with a summary of what has been presented,
 as well as the key takeaways, which are needed for comprehension of the following chapters of this thesis.
 
 
@@ -107,9 +106,10 @@ researcher's understanding of the problem
 \autocite{designScienceResearchMethodologyForInformationSystemsResearch}.
 \bigskip
 
+% TODO: transform to a flowchart
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.75\linewidth]{assets/problem-to-objective-mapping.png}
+	\includegraphics[width=0.85\linewidth]{assets/problem-to-objective-mapping.png}
 	\caption{Inference of objectives from problems.
 		%		(\citeauthor{ref}, \citeyear{ref}).
 	}
@@ -152,6 +152,8 @@ the GitOps Promotions Operator prototype is developed as an artifact.
 \noindent
 In activity 4,
 the in-context use of the artifact is demonstrated in a proof of concept.
+The prototype operator is used in a practical use case of a promotion in a GitOps environment.
+A description of the setup, use and observed functionality is demonstrated.
 %After outlining how to use the artifact to effectively provide a solution to the problem definition,
 %the artifact is implemented in a proof-of-concept-level prototype.
 %
@@ -243,8 +245,8 @@ The open questioning enables the interviewee to present their point of view
 \autocite{berger2016wissenschaftliches}.
 
 
-\subsubsection*{Preparing the Interviews}
 
+\textbf{Preparing the Interviews}:
 As an initial step,
 a semi-structured interview guide is developed.
 It serves as a rough guideline for the structure of the interview process.
@@ -268,8 +270,7 @@ who are working professionally in the GitOps field.
 The contact to the interview partners is done via Slack \autocite{slackWebsite} or e-mail.
 Prior to conducting the interview, the interview guide is sent to the interviewee.
 
-\subsubsection*{Conducting the interviews}
-
+\textbf{Conducting the interviews}:
 Appointments for the interviews are made with each interview partner in advance. 
 Eventually, the interview is conducted with a web video conferencing tool like Zoom \autocite{zoomWebsite}.
 The interviews are recorded for later transcription.
@@ -277,8 +278,7 @@ The semi-structured interview guide
 is used as a guideline for the interview process as a whole.
 However, the actual structure of the interview may differ for each individual interview and according interview partner.
 
-\subsubsection*{Transcription and post-processing of the interviews}
-
+\textbf{Transcription and post-processing of the interviews}:
 The output of the interviews are in the form of audio-video recordings.
 These are transcribed word-for-word into a written form afterwards.
 The transcriptions can be seen in Appendix \ref{appendix:interview-transcriptions}.
@@ -416,10 +416,27 @@ which is applied in
 and
 \nameref{methodology:activity4},
 the literature of \citeauthor{riedlManagementInformatik2019} (\citeyear{riedlManagementInformatik2019}) is used.
+%The terms prototype, prototyping, prototyping cycle and phase scheme are defined in the earlier chapter
+%\ref{theoretical-background:general-definitions} \nameref{theoretical-background:general-definitions}
+%of this thesis.
+The terms prototype, prototyping, prototyping cycle and phase scheme are defined in the following
+\autocite{riedlManagementInformatik2019}:
 
-The terms prototype, prototyping, prototyping cycle and phase scheme are defined in the earlier chapter
-\ref{theoretical-background:general-definitions} \nameref{theoretical-background:general-definitions}
-of this thesis.
+A \textbf{prototype} is
+an executable model of the planned product, produced with little effort and easy to modify,
+which can be tested and evaluated by the future user
+\autocite{riedlManagementInformatik2019}.
+\textbf{Prototyping}
+is the entirety of activities, methods and tools required to produce prototypes
+\autocite{riedlManagementInformatik2019}.
+A \textbf{prototyping cycle} is
+a sequence of steps consisting of using, evaluating and modifying a prototype
+\autocite{riedlManagementInformatik2019}.
+A \textbf{phase scheme} is
+the ideal-typical structure of a project in sections of logically related tasks including the methodology,
+methods and techniques of task solution. Synonym: phase model
+\autocite{riedlManagementInformatik2019}.
+
 
 \subsubsection*{Types of Prototypes}
 
@@ -440,19 +457,15 @@ A prototype
 According to the type of prototype, a distinction is made between complete and incomplete prototypes
 as well as disposable and reusable prototypes
 \autocite{riedlManagementInformatik2019}.
-
 A \textbf{full prototype} is a prototype that makes all the essential functions of the information system to be created fully available.
 The experience gained during planning and during use and the prototype itself form the basis for the final system specification
 \autocite{riedlManagementInformatik2019}.
-
 An \textbf{incomplete prototype} is a prototype that allows the usability and/or feasibility of individual components
 of the information system to be created (e.g., the user interface) to be assessed
 \autocite{riedlManagementInformatik2019}.
-
 A \textbf{disposable prototype} is a prototype that serves only as an executable model;
 it is not used directly for the information system to be created
 \autocite{riedlManagementInformatik2019}.
-
 A \textbf{reusable prototype} is a prototype that meets all quality requirements and from which
 essential parts can be adopted in the information system to be created
 \autocite{riedlManagementInformatik2019}.
@@ -461,34 +474,33 @@ essential parts can be adopted in the information system to be created
 
 Another systematic approach, based primarily on the intended use of the prototype, distinguishes between demonstration prototype, laboratory sample and pilot system
 \autocite{riedlManagementInformatik2019}.
-
 The \textbf{demonstration prototype} supports project initiation or project acquisition; it should convince the potential client that the desired end product can be built or that its handling corresponds to what the future users imagine. A prototype for this purpose therefore has the characteristics of the incomplete prototype and usually also of the disposable prototype
 \autocite{riedlManagementInformatik2019}.
-
 The \textbf{laboratory sample} is primarily used to clarify design-related issues; it is derived from the model of the application task and from an existing specification. The design of the end product should be essentially identical, or at least comparable, to that of the laboratory prototype. This requirement can refer to the architecture and/or to the functionality.
 \autocite{riedlManagementInformatik2019}.
-
 In the \textbf{pilot system}, the strict separation between prototype and end product is eliminated. At a certain level of maturity, the prototype is used productively at individual workplaces and is further developed. It is initially incomplete and reusable; as it matures, it becomes complete
 \autocite{riedlManagementInformatik2019}.
 
 %
 
 For the concrete research of this thesis,
-The type \textbf{demonstration prototype} is used.
+the type \textbf{demonstration prototype} is used.
 
 \subsubsection*{Evaluation of Prototypes}
 
-Evaluating prototypes presupposes that there is an evaluation strategy agreed between the developers on the one hand
+Evaluating prototypes requires that there is an evaluation strategy agreed between the developers on the one hand
 and the users on the other; prototypes must be developed with the evaluation strategy in mind.
-The evaluation strategy specifies the what and the how of the evaluation.
+The evaluation strategy specifies the \textit{what} and the \textit{how} of the evaluation.
 This includes agreements on the time intervals in which modified versions of the prototype are made available for evaluation (evaluation cycle).
 From a methodological point of view, short evaluation cycles are preferable in order to quickly stabilize the requirements.
-This intensifies communication between the partners and promotes user participation.
-The what of the evaluation makes statements about which properties the prototype should have
+This intensifies communication between the partners and promotes user participation
+\autocite{riedlManagementInformatik2019}.
+
+The \textit{what} of the evaluation makes statements about which properties the prototype should have
 (especially with regard to functions, services and interfaces).
-The what of the evaluation strategy indicates which properties the final product should have and which properties are specific to the prototype
+The \textit{what} of the evaluation strategy indicates which properties the final product should have and which properties are specific to the prototype
 (or to several versions of the prototype) and are therefore only preliminary.
-The how of the evaluation makes statements about which evaluation method should be used to arrive at a result that is accepted by both partners.
+The \textit{how} of the evaluation makes statements about which evaluation method should be used to arrive at a result that is accepted by both partners.
 In general, a procedure according to the model of utility analysis is appropriate, which is adapted to the object of evaluation
 and coordinated with the evaluation situation. This requires agreements on how different results of the evaluation are to be treated
 by the developers on the one hand and the users on the other hand. The goal is to achieve agreement
@@ -586,7 +598,7 @@ an IT project should be continued unchanged, rehabilitated with significant chan
 
 \section{Summary}
 
-In the preceding chapter, the scientific research methodology was described.
+In this preceding chapter, the scientific research methodology was described.
 It started with an outline of the motivation and objectives,
 which gave an overview of the chapter and highlighted its purpose.
 The general approach was described in detail, explaining what each activity

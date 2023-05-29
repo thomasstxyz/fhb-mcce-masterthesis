@@ -19,127 +19,63 @@ as well as various background information.
 
 The following section includes general definitions of terms on the topic.
 
-\subsection*{Cloud Computing}
+\subsection{GitOps}
 
-\begin{quotation}
-\noindent
-\enquote*{Cloud computing is a model for enabling ubiquitous, convenient, on-demand network access to a shared
-	pool of configurable computing resources (e.g., networks, servers, storage, applications, and services) that
-	can be rapidly provisioned and released with minimal management effort or service provider interaction.
-	This cloud model is composed of five essential characteristics, three service models, and four deployment
-	models.}
-\autocite{cloudComputingNistDefinition2011}
-\end{quotation}
+Infrastructure-as-Code which is stored in a Git repository,
+and executed by a workflow system,
+is not actually the concept behind GitOps.
+A visual representation of what is not GitOps can be seen in
+fig. \ref{fig:iac-is-not-gitops}.
+Infrastructure-as-Code is only one aspect of GitOps, namely the declarative one.
+There are three more principles of GitOps.
+%The definition of GitOps
+%is stated in section \ref{theoretical-background:general-definitions} of this thesis.
 
-The characteristics are
-\autocite{cloudComputingNistDefinition2011}:
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.00\linewidth]{assets/iac-is-not-gitops.png}
+	\caption{Infrastructure-as-Code is not GitOps.
+		%		(\citeauthor{ref}, \citeyear{ref}).
+	}
+	\label{fig:iac-is-not-gitops}	
+\end{figure}
 
-\begin{itemize}
-	\item On-demand self-service
-	\item Broad network access
-	\item Resource pooling
-	\item Rapid elasticity
-	\item Measured service
-\end{itemize}
+% TODO: in indirektes Zitat umwandeln
+%Moreover, unlike DevOps,
+%\begin{quotation}
+%	\noindent
+%	\enquote*{GitOps is not intended to tackle the fuzzier area of social interactions and culture. [...] GitOps is ultimately meant to be a technology pattern, not a social practice. [...] Fundamentally, all the social aspects should be derived from the technical principles. Git is designed as a team tool and gives you a social context, because you have metadata, committed workflows, and group activities. But GitOps is not supposed to be a social movement. [...] With GitOps, all changes to infrastructure and application deployment are versioned, immutable, auditable, and reversible. [...] GitOps is about automating operations and shifting left, so that developers can perform operations tasks without having to always understand it in detail. [...] With GitOps, developers use tools like git to cause operational changes in a robust manner, allowing platform teams to focus on core platform engineering and operations, and leaving developers to focus on product, customers, rapid development, user satisfaction, and so on.}
+%	\autocite{definingGitOpsGithubReadmeFeatured}
+%\end{quotation}
 
-The service models are
-\autocite{cloudComputingNistDefinition2011}:
+%To conclude, Infrastructure-as-Code is not GitOps. IaC is just one aspect of GitOps.
 
-\begin{itemize}
-	\item Software as a Service (SaaS)
-	\item Platform as a Service (PaaS)
-	\item Infrastructure as a Service (IaaS)
-\end{itemize}
-
-The deployment models are
-\autocite{cloudComputingNistDefinition2011}:
-
-\begin{itemize}
-	\item Private cloud
-	\item Community cloud
-	\item Public cloud
-	\item Hybrid cloud
-\end{itemize}
-
-\subsection*{Cloud Native Application}
-
-\begin{quotation}
-\noindent
-\enquote*{A cloud-native application (CNA) is a distributed, elastic and horizontal scalable system composed of (micro)services which isolates state in a
-minimum of stateful components. The application and each self-contained
-deployment unit of that application is designed according to cloud-focused
-design patterns and operated on a self-service elastic platform.}
-\autocite{cloudNativeApplicationDefinition2017}
-\end{quotation}
-
-\subsection*{Continuous}
-\begin{quotation}
-\noindent
-\enquote*{"Continuous" is intended to match the industry standard term: reconciliation continues to happen, not that it must be instantaneous.}
-\autocite{gitopsGlossary}
-\end{quotation}
-
-\subsection*{Declarative Description}
-\begin{quotation}
-\noindent
-\enquote*{A configuration that describes the desired operating state of a system without specifying procedures for how that state will be achieved. This separates configuration (the desired state) from the implementation (commands, API calls, scripts etc.) used to achieve that state.}
-\autocite{gitopsGlossary}
-\end{quotation}
-
-\subsection*{Desired State}
-\begin{quotation}
-\noindent
-\enquote*{The aggregate of all configuration data that is sufficient to recreate the system so that instances of the system are behaviourally indistinguishable. This configuration data generally does not include persistent application data, eg. database contents, though often does include credentials for accessing that data, or configuration for data recovery tools running on that system.}
-\autocite{gitopsGlossary}
-\end{quotation}
-
-\subsection*{DevOps}
-
-\citeauthor{devopsDefinition2016} (\citeyear{devopsDefinition2016})
-define DevOps as
-a development methodology aimed at bridging the gap between
-development and operations, emphasizing communication and collaboration,
-continuous integration, quality assurance and delivery with automated deployment
-utilizing a set of development practices
-\autocite{devopsDefinition2016}.
-
-\subsection*{Drift}
-\begin{quotation}
-\noindent
-\enquote*{When a system's actual state has moved or is in the process of moving away from the desired state, this is often referred to as drift.}
-\autocite{gitopsGlossary}
-\end{quotation}
-
-\subsection*{Environment}
-
-An Environment
-- or GitOps Environment -
-in the context of this thesis
-is defined as a target deployment environment for a given application;
-e.g. Development, Testing, or Production.
-Most of the time this is a Kubernetes cluster or namespace.
-
-In the context of the proposed Kubernetes Custom Resource Definition
-Environment, however it represents a folder/directory in a Git repository,
-which points to a deployment environment or cluster/namespace as defined
-in the previous paragraph.
-
-\subsection*{Feedback}
-\begin{quotation}
-	\noindent
-	\enquote*{Open GitOps follows control-theory and operates in a closed-loop. In control theory, feedback represents how previous attempts to apply a desired state have affected the actual state. For example if the desired state requires more resources than exist in a system, the software agent may make attempts to add resources, to automatically rollback to a previous version, or to send alerts to human operators.}
-	\autocite{gitopsGlossary}
-\end{quotation}
-
-\subsection*{GitOps}
-
-This thesis aims at adhering to the definition of the term GitOps,
-%for the term GitOps, its principles and the glossary around it.
-as specified by the CNCF project OpenGitOps.
+To avoid confusion with what GitOps actually is, 
+the OpenGitOps project
+\autocite{openGitOpsProject}
+was created within the CNCF;
+which is maintained by the GitOps working group.
 The overall goal of OpenGitOps is to establish a clear vendor-neutral,
 principle-driven meaning of GitOps,
 which shall provide a foundation for interoperability between tools, conformance and certification through enduring programs, documents and code
 \autocite{opengitopsDocuments}.
+In fig. \ref{fig:gitOpsConcept} a visual representation can be seen of the main GitOps concept.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.00\linewidth]{assets/gitops-concept.png}
+	\caption{GitOps concept.
+		%		(\citeauthor{ref}, \citeyear{ref}).
+	}
+	\label{fig:gitOpsConcept}	
+\end{figure}
+
+%This thesis aims at adhering to the definition of the term GitOps,
+%as specified by the CNCF project OpenGitOps.
+%The overall goal of OpenGitOps is to establish a clear vendor-neutral,
+%principle-driven meaning of GitOps,
+%which shall provide a foundation for interoperability between tools, conformance and certification through enduring programs, documents and code
+%\autocite{opengitopsDocuments}.
 
 \noindent
 \enquote*{The primary four principles
@@ -167,57 +103,49 @@ for associated terms and concepts.
 %The ones needed for understanding of this thesis,
 %are the following:
 
-\subsection*{Internal Developer Platform}
+\enquote*{\textbf{Continuous} is intended to match the industry standard term: reconciliation continues to happen, not that it must be instantaneous.} \autocite{gitopsGlossary}
 
-\begin{quotation}
-	\noindent
-	\enquote*{An Internal Developer Platform (IDP) is built by a platform team to build golden paths and enable developer self-service. An IDP consists of many different techs and tools, glued together in a way that lowers cognitive load on developers without abstracting away context and underlying technologies. Following best practices, platform teams treat their platform as a product and build it based on user research, maintain and continuously improve it.}
-	\autocite{internaldeveloperplatformWhatIsIDP}
-\end{quotation}
-
-\subsection*{Phase scheme}
-The ideal-typical structure of a project in sections of logically related tasks including the methodology,
-methods and techniques of task solution. Synonym: phase model
-\autocite{riedlManagementInformatik2019}.
-
-\subsection*{Platform Engineering}
-
-Platform Engineering represents the engineering processes
-for providing an internal developer platform (as defined in this section).
-
-\subsection*{Promotion}
-
-Promotion in the context of this thesis is defined as
-the process of promoting a new application or infrastructure version (release)
-to another deployment environment.
-In the context of GitOps and Git repositories,
-this often means changing declarative definitions of the desired state in Git repositories.
-
-\subsection*{Prototype}
-An executable model of the planned product, produced with little effort and easy to modify,
-which can be tested and evaluated by the future user
-\autocite{riedlManagementInformatik2019}.
-
-\subsection*{Prototyping}
-The entirety of activities, methods and tools required to produce prototypes
-\autocite{riedlManagementInformatik2019}.
-
-\subsection*{Prototyping cycle}
-A sequence of steps consisting of using, evaluating and modifying a prototype
-\autocite{riedlManagementInformatik2019}.
+\textbf{Declarative Description}:
+\enquote*{A configuration that describes the desired operating state of a system without specifying procedures for how that state will be achieved. This separates configuration (the desired state) from the implementation (commands, API calls, scripts etc.) used to achieve that state.}
+\autocite{gitopsGlossary}
 
 
+\textbf{Desired State}:
+\enquote*{The aggregate of all configuration data that is sufficient to recreate the system so that instances of the system are behaviourally indistinguishable. This configuration data generally does not include persistent application data, eg. database contents, though often does include credentials for accessing that data, or configuration for data recovery tools running on that system.}
+\autocite{gitopsGlossary}
 
+\textbf{Drift}:
+\enquote*{When a system's actual state has moved or is in the process of moving away from the desired state, this is often referred to as drift.}
+\autocite{gitopsGlossary}
 
+\textbf{Feedback}:
+\enquote*{Open GitOps follows control-theory and operates in a closed-loop. In control theory, feedback represents how previous attempts to apply a desired state have affected the actual state. For example if the desired state requires more resources than exist in a system, the software agent may make attempts to add resources, to automatically rollback to a previous version, or to send alerts to human operators.}
+\autocite{gitopsGlossary}
 
-\subsection*{Reconciliation}
-\begin{quotation}
-\noindent
+\textbf{Reconciliation}:
 \enquote*{The process of ensuring the actual state of a system matches its desired state. Contrary to traditional CI/CD where automation is generally driven by pre-set triggers, in GitOps reconciliation is triggered whenever there is a divergence. Divergence could be due to the actual state unintentionally drifting from the desired state declarations, or a new desired state declaration version having been changed intentionally. Actions are taken based on policies around feedback from the system and previous reconciliation attempts, in order to reduce deviation over time.}
 \autocite{gitopsGlossary}
-\end{quotation}
 
-\subsection*{Release}
+\textbf{Software System}:
+\enquote*{A software system managed by GitOps includes} \autocite{gitopsGlossary}:
+\begin{itemize}
+	\item \enquote*{One or more runtime environments consisting of resources under management}
+	\item \enquote*{The management agents within each runtime}
+	\item \enquote*{Policies for controlling access and management of repositories, deployments, runtimes}
+	\autocite{gitopsGlossary}
+\end{itemize}
+
+\textbf{State Store}:
+\enquote*{A system for storing immutable versions of desired state declarations. This state store should provide access control and auditing on the changes to the Desired State. Git, from which GitOps derives its name, is the canonical example used as this state store but any other system that meets these criteria may be used. In all cases, these state stores must be properly configured and precautions must be taken to comply with requirements set out in the GitOps Principles.}
+\autocite{gitopsGlossary}
+
+
+
+
+
+
+
+\subsection{Release}
 
 A release in the context of this thesis
 represents the process of
@@ -230,29 +158,27 @@ which triggers a CI/CD workflow,
 which as one of its steps publishes the software artifact of
 the new version of the application in an artifact registry.
 
-\subsection*{Software System}
-\begin{quotation}
-\noindent
-\enquote*{A software system managed by GitOps includes} \autocite{gitopsGlossary}:
-\begin{itemize}
-	\item \enquote*{One or more runtime environments consisting of resources under management}
-	\item \enquote*{The management agents within each runtime}
-	\item \enquote*{Policies for controlling access and management of repositories, deployments, runtimes}
-	\autocite{gitopsGlossary}
-\end{itemize}
-\end{quotation}
+\subsection{Promotion}
 
-\subsection*{State Store}
-\begin{quotation}
-\noindent
-\enquote*{A system for storing immutable versions of desired state declarations. This state store should provide access control and auditing on the changes to the Desired State. Git, from which GitOps derives its name, is the canonical example used as this state store but any other system that meets these criteria may be used. In all cases, these state stores must be properly configured and precautions must be taken to comply with requirements set out in the GitOps Principles.}
-\autocite{gitopsGlossary}
-\end{quotation}
+Promotion in the context of this thesis is defined as
+the process of promoting a new application or infrastructure version (release)
+to another deployment environment.
+In the context of GitOps and Git repositories,
+this often means changing declarative definitions of the desired state in Git repositories.
 
+\subsection{Environment}
 
+An Environment
+- or GitOps Environment -
+in the context of this thesis
+is defined as a target deployment environment for a given application;
+e.g. Development, Testing, or Production.
+Most of the time this is a Kubernetes cluster or namespace.
 
-
-
+In the context of the proposed Kubernetes Custom Resource Definition
+Environment, however it represents a folder/directory in a Git repository,
+which points to a deployment environment or cluster/namespace as defined
+in the previous paragraph.
 
 
 
@@ -260,51 +186,35 @@ the new version of the application in an artifact registry.
 
 
 
+%\subsection{Other Terms}
+%
+%\subsubsection*{Cloud Native Application}
+%
+%\begin{quotation}
+%	\noindent
+%	\enquote*{A cloud-native application (CNA) is a distributed, elastic and horizontal scalable system composed of (micro)services which isolates state in a
+%		minimum of stateful components. The application and each self-contained
+%		deployment unit of that application is designed according to cloud-focused
+%		design patterns and operated on a self-service elastic platform.}
+%	\autocite{cloudNativeApplicationDefinition2017}
+%\end{quotation}
 
-\section{GitOps Related Tooling and Components}
-% Configuration Management Tools, GitOps Engines, and Git Providers
 
-In the following section,
-the role of GitOps related tooling and components, namely
-configuration management tools,
-GitOps engines,
-and Git providers
-are explained.
 
-\subsection*{Configuration and Templating Tools}
 
-An important component of a GitOps toolchain is the configuration management or templating tool
-for the configuration files, i.e. Kubernetes manifests.
-Since the Kubernetes manifests are declarative and highly configurable in nature,
-their configuration and customization can be rather cumbersome.
-Many definitions are duplicated, so it is desirable to use variables, templates and the like,
-for making the configuration easier to use and maintain.
-Popular tools are Kustomize, Helm, cdk8s and Carvel ytt were created to help with configuration and templating.
 
-\enquote*{Kustomize introduces a template-free way to customize application configuration that simplifies the use of off-the-shelf applications. Now, built into kubectl as apply -k.}
-\autocite{kustomizeIoWebsite}
+%\subsection*{Internal Developer Platform}
+%
+%\begin{quotation}
+%	\noindent
+%	\enquote*{An Internal Developer Platform (IDP) is built by a platform team to build golden paths and enable developer self-service. An IDP consists of many different techs and tools, glued together in a way that lowers cognitive load on developers without abstracting away context and underlying technologies. Following best practices, platform teams treat their platform as a product and build it based on user research, maintain and continuously improve it.}
+%	\autocite{internaldeveloperplatformWhatIsIDP}
+%\end{quotation}
 
-Kustomize provides a way to customize base Kubernetes manifests with minimal additional overhead.
-It is built into kubectl and works purely declarative with raw manifests as input and output.
-
-Helm is the de-facto standard package manager for Kubernetes.
-It provides a way to package the configuration and easily deploy those packages
-which can be highly configurable.
-Most third-party applications offer a helm chart for installation.
-It is based on using templates with variables and minimal logic,
-which can be rendered into plain Kubernetes manifests, usually at deployment time,
-as variables may be input for last-mile configuration.
-
-Cdk8s is a development kit for Kubernetes.
-It
-\enquote*{is an open-source software development framework for defining Kubernetes applications and reusable abstractions using familiar programming languages and rich object-oriented APIs. cdk8s apps synthesize into standard Kubernetes manifests.}
-\autocite{cdk8sWebsite}
-
-Carvel ytt is used to template and patch any YAML definitions.
-It strives to function deterministically,
-meaning the
-\enquote*{ytt execution environment is hermetic and side-effect free, with no access to filesystem, network, time, randomness, or the operating system interfaces. This guarantees that templates produce identical output with the same inputs. Your configuration changes only when you change it.}
-\autocite{carvelYttWebsite}
+%\subsection*{Platform Engineering}
+%
+%Platform Engineering represents the engineering processes
+%for providing an internal developer platform (as defined in this section).
 
 
 
@@ -313,53 +223,47 @@ meaning the
 
 
 
-
-\subsection*{GitOps Engines}
-
-The GitOps engine or controller is responsible for the
-reconciliation of the desired state with the actual state
-in the target deployment environment.
-It adheres to the GitOps principles and is the primary tool
-to achieve the GitOps pattern.
-
-The different alternative GitOps engines offer similar functionality,
-and they have their own advantages and disadvantages.
-When extending the GitOps toolchain, it should not make a difference which specific
-tool from which provider is used.
-GitOps engines should work together with any other tool in the GitOps ecosystem.
-
-The most widely adopted GitOps engines and accompanying projects are those from
-the Argo
-\autocite{argoProjWebsite}
-and Flux
-\autocite{fluxWebsite}
-projects.
-
-
-
-
-
-
-
-
-\subsection*{Git Providers}
-
-Git providers or otherwise called Git servers are a relevant component of
-a GitOps setup.
-For the most important Git functionalities like branches, commits, history
-tags, cherry-picking or merges, each Git provider functions the same.
-However, one of the most important functions which is often desirable with GitOps, is the Git pull request.
-As pull requests are not part of the open-source core of Git,
-each Git provider offers a different API for the pull requests.
-Integrations with the pull request API from Git providers therefore need to be implemented
-for each Git provider separately. Thus many software tools support only certain Git providers.
-
-Some of the most prominent Git providers are
-Github,
-Gitlab,
-Bitbucket,
-Azure DevOps, and
-Gitea.
+%\subsection*{Cloud Computing}
+%
+%\begin{quotation}
+%\noindent
+%\enquote*{Cloud computing is a model for enabling ubiquitous, convenient, on-demand network access to a shared
+	%	pool of configurable computing resources (e.g., networks, servers, storage, applications, and services) that
+	%	can be rapidly provisioned and released with minimal management effort or service provider interaction.
+	%	This cloud model is composed of five essential characteristics, three service models, and four deployment
+	%	models.}
+%\autocite{cloudComputingNistDefinition2011}
+%\end{quotation}
+%
+%The characteristics are
+%\autocite{cloudComputingNistDefinition2011}:
+%
+%\begin{itemize}
+%	\item On-demand self-service
+%	\item Broad network access
+%	\item Resource pooling
+%	\item Rapid elasticity
+%	\item Measured service
+%\end{itemize}
+%
+%The service models are
+%\autocite{cloudComputingNistDefinition2011}:
+%
+%\begin{itemize}
+%	\item Software as a Service (SaaS)
+%	\item Platform as a Service (PaaS)
+%	\item Infrastructure as a Service (IaaS)
+%\end{itemize}
+%
+%The deployment models are
+%\autocite{cloudComputingNistDefinition2011}:
+%
+%\begin{itemize}
+%	\item Private cloud
+%	\item Community cloud
+%	\item Public cloud
+%	\item Hybrid cloud
+%\end{itemize}
 
 
 
@@ -369,11 +273,17 @@ Gitea.
 
 
 
+\section{DevOps}
 
-\section{DevOps \& Internal Developer Platforms}
+\citeauthor{devopsDefinition2016} (\citeyear{devopsDefinition2016})
+define DevOps as
+a development methodology aimed at bridging the gap between
+development and operations, emphasizing communication and collaboration,
+continuous integration, quality assurance and delivery with automated deployment
+utilizing a set of development practices
+\autocite{devopsDefinition2016}.
 
-DevOps, as defined in section \ref{theoretical-background:general-definitions},
-is seeing increasingly more adoption amongst organizations.
+%DevOps is seeing increasingly more adoption amongst organizations.
 One of the most important principles of DevOps is
 to allow the developer who brings new code changes
 which end up in new product releases,
@@ -397,109 +307,49 @@ teams down to a minimum, in order to reduce friction between people communicatio
 This additionally gives the developers much better insights of what effect their code changes have
 on the end product or service, which users consume.
 
-In order to increase the level of self-service for developers,
-and increase their productivity,
-many organizations implement the concept of internal developer platforms.
-While this concept has been around for quite a while,
-it has now in recent years explicitely gotten more meaning and attention.
-
-Internal Developer Platforms have received a lot of attention
-when Spotify released their project Backstage
-\autocite{backstageIOWebsite}
-with an open-source license in 2020. The project was accepted into the CNCF in 2022.
-
+%In order to increase the level of self-service for developers,
+%and increase their productivity,
+%many organizations implement the concept of internal developer platforms.
+%While this concept has been around for quite a while,
+%it has now in recent years explicitely gotten more meaning and attention.
 %
-Backstage was initially created at Spotify, due to the need for it.
-As Spotify grew and added increasingly more microservices to their software catalog,
-their developers were observed to becoming less and less productive.
-Engineering teams at Spotify were spending too much time context switching between
-a burden of tasks, which were the result of bad organization of all their
-information around applications, microservices, infrastructure, etc.
-What was actually valuable, building, testing and releasing code,
-was becoming less frequent and more difficult to achieve over time.
-Engineers at Spotify decided that they needed to make it easier 
-for their developers to do their work
-\autocite{backstageSpotifyStory}.
-
-Their idea was to
-\enquote*{centralize and simplify end-to-end software development
-with an abstraction layer that sits on top of all of our infrastructure and developer tooling.}
-\autocite{backstageSpotifyStory}
-
-The resulting product Backstage,
-is a developer portal with a centralized software catalog,
-with a pluggable architecture,
-which allows for extensibility and customization.
-Services and software tooling can be managed via the Backstage platform.
-To summarize, the platform makes it easier for developers to create and maintain
-microservices, keep track of service owners, and the like
-\autocite{backstageSpotifyStory}.
-
-The term Platform Engineering basically refers to this concept of
-providing internal developer platforms to increase developer productivity
-in todays world of distributed microservice applications,
-and dozens of languages and frameworks,
-and tools to choose from.
-
-
-
-
-
-
-\section{Definition of GitOps}
-
-Infrastructure-as-Code which is stored in a Git repository,
-and executed by a CI/CD pipeline,
-is not actually the concept behind GitOps.
-
-A visual representation of what is not GitOps can be seen in
-fig. \ref{fig:iacIsNotGitOps}.
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=1.00\linewidth]{assets/iac-is-not-gitops.png}
-	\caption{IaC is not GitOps.
-		%		(\citeauthor{ref}, \citeyear{ref}).
-	}
-	\label{fig:iacIsNotGitOps}	
-\end{figure}
-
-Infrastructure-as-Code is only one aspect of GitOps, namely the declarative one.
-There are three more principles of GitOps.
-The definition of GitOps
-%as per the OpenGitOps project
-is stated in section \ref{theoretical-background:general-definitions} of this thesis.
-
-To avoid confusion with what GitOps actually is, 
-the OpenGitOps project
-\autocite{openGitOpsProject}
-was created within the CNCF;
-which is maintained by the GitOps working group.
-
-The overall goal of OpenGitOps is to establish a clear vendor-neutral,
-principle-driven meaning of GitOps,
-which shall provide a foundation for interoperability between tools, conformance and certification through enduring programs, documents and code
-\autocite{opengitopsDocuments}.
-
-In fig. \ref{fig:gitOpsConcept} a visual representation can be seen of the main GitOps concept.
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=1.00\linewidth]{assets/gitops-concept.png}
-	\caption{GitOps concept.
-		%		(\citeauthor{ref}, \citeyear{ref}).
-	}
-	\label{fig:gitOpsConcept}	
-\end{figure}
-
-Moreover, unlike DevOps,
-\begin{quotation}
-\noindent
-\enquote*{GitOps is not intended to tackle the fuzzier area of social interactions and culture. [...] GitOps is ultimately meant to be a technology pattern, not a social practice. [...] Fundamentally, all the social aspects should be derived from the technical principles. Git is designed as a team tool and gives you a social context, because you have metadata, committed workflows, and group activities. But GitOps is not supposed to be a social movement. [...] With GitOps, all changes to infrastructure and application deployment are versioned, immutable, auditable, and reversible. [...] GitOps is about automating operations and shifting left, so that developers can perform operations tasks without having to always understand it in detail. [...] With GitOps, developers use tools like git to cause operational changes in a robust manner, allowing platform teams to focus on core platform engineering and operations, and leaving developers to focus on product, customers, rapid development, user satisfaction, and so on.}
-\autocite{definingGitOpsGithubReadmeFeatured}
-\end{quotation}
-
-To conclude, Infrastructure-as-Code is not GitOps. IaC is just one aspect of GitOps.
+%Internal Developer Platforms have received a lot of attention
+%when Spotify released their project Backstage
+%\autocite{backstageIOWebsite}
+%with an open-source license in 2020. The project was accepted into the CNCF in 2022.
+%
+%%
+%Backstage was initially created at Spotify, due to the need for it.
+%As Spotify grew and added increasingly more microservices to their software catalog,
+%their developers were observed to becoming less and less productive.
+%Engineering teams at Spotify were spending too much time context switching between
+%a burden of tasks, which were the result of bad organization of all their
+%information around applications, microservices, infrastructure, etc.
+%What was actually valuable, building, testing and releasing code,
+%was becoming less frequent and more difficult to achieve over time.
+%Engineers at Spotify decided that they needed to make it easier 
+%for their developers to do their work
+%\autocite{backstageSpotifyStory}.
+%
+%Their idea was to
+%\enquote*{centralize and simplify end-to-end software development
+%	with an abstraction layer that sits on top of all of our infrastructure and developer tooling.}
+%\autocite{backstageSpotifyStory}
+%
+%The resulting product Backstage,
+%is a developer portal with a centralized software catalog,
+%with a pluggable architecture,
+%which allows for extensibility and customization.
+%Services and software tooling can be managed via the Backstage platform.
+%To summarize, the platform makes it easier for developers to create and maintain
+%microservices, keep track of service owners, and the like
+%\autocite{backstageSpotifyStory}.
+%
+%The term Platform Engineering basically refers to this concept of
+%providing internal developer platforms to increase developer productivity
+%in todays world of distributed microservice applications,
+%and dozens of languages and frameworks,
+%and tools to choose from.
 
 
 
@@ -508,7 +358,127 @@ To conclude, Infrastructure-as-Code is not GitOps. IaC is just one aspect of Git
 
 
 
-\section{GitOps and Continuous Deployment}
+
+\section{GitOps Engines, Providers, and Configuration Tools}
+% Configuration Management Tools, GitOps Engines, and Git Providers
+
+In the following section,
+the role of GitOps related tooling and components, namely
+configuration management tools,
+GitOps engines,
+and Git providers
+are explained.
+
+%\subsection{Configuration and Templating Tools}
+
+An important component of a GitOps toolchain is the \textbf{configuration tool}
+for the configuration files, i.e. Kubernetes manifests.
+Since the Kubernetes manifests are declarative and highly configurable in nature,
+their configuration and customization can be rather cumbersome.
+Many definitions are duplicated, so it is desirable to use variables, templates and the like,
+for making the configuration easier to use and maintain.
+Popular tools are Kustomize, Helm, cdk8s and Carvel ytt were created to help with configuration and templating.
+
+\enquote*{Kustomize introduces a template-free way to customize application configuration that simplifies the use of off-the-shelf applications. Now, built into kubectl as apply -k.}
+\autocite{kustomizeIoWebsite}
+Kustomize provides a way to customize base Kubernetes manifests with minimal additional overhead.
+It is built into kubectl and works purely declarative with raw manifests as input and output.
+
+Helm is the de-facto standard package manager for Kubernetes.
+It provides a way to package the configuration and easily deploy those packages
+which can be highly configurable.
+Most third-party applications offer a helm chart for installation.
+It is based on using templates with variables and minimal logic,
+which can be rendered into plain Kubernetes manifests, usually at deployment time,
+as variables may be input for last-mile configuration.
+
+%Cdk8s is a development kit for Kubernetes.
+%It
+%\enquote*{is an open-source software development framework for defining Kubernetes applications and reusable abstractions using familiar programming languages and rich object-oriented APIs. cdk8s apps synthesize into standard Kubernetes manifests.}
+%\autocite{cdk8sWebsite}
+%
+%Carvel ytt is used to template and patch any YAML definitions.
+%It strives to function deterministically,
+%meaning the
+%\enquote*{ytt execution environment is hermetic and side-effect free, with no access to filesystem, network, time, randomness, or the operating system interfaces. This guarantees that templates produce identical output with the same inputs. Your configuration changes only when you change it.}
+%\autocite{carvelYttWebsite}
+
+
+
+
+
+
+
+
+
+%\subsection{GitOps Engines}
+
+% TODO: explain what gitops engines do + visual ?
+
+The \textbf{GitOps engine} or controller is responsible for the
+reconciliation of the desired state with the actual state
+in the target deployment environment.
+It adheres to the GitOps principles and is the primary tool
+to achieve the GitOps pattern.
+The different alternative GitOps engines offer similar functionality,
+and they have their own advantages and disadvantages.
+When extending the GitOps toolchain, it should not make a difference which specific
+tool from which provider is used.
+GitOps engines should work together with any other tool in the GitOps ecosystem.
+The most widely adopted GitOps engines and accompanying projects are those from
+the Argo
+\autocite{argoProjWebsite}
+and Flux
+\autocite{fluxWebsite}
+projects.
+
+
+
+
+
+
+
+
+%\subsection{Git Providers}
+
+\textbf{Git providers} or otherwise called Git servers are a relevant component of
+a GitOps setup.
+For the most important Git functionalities like branches, commits, history
+tags, cherry-picking or merges, each Git provider functions the same.
+However, one of the most important functions which is often desirable with GitOps, is the Git pull request.
+As pull requests are not part of the open-source core of Git,
+each Git provider offers a different API for the pull requests.
+Integrations with the pull request API from Git providers therefore need to be implemented
+for each Git provider separately. Thus many software tools support only certain Git providers.
+Some of the most prominent Git providers are
+Github,
+Gitlab,
+Bitbucket,
+Azure DevOps, and
+Gitea.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{How GitOps changed Continuous Deployment}
 \label{theoretical-background:gitops-cd}
 
 With the GitOps approach,
@@ -516,7 +486,7 @@ Continuous Deployment works differently than with push-based CI/CD deployments.
 In the following,
 push-based and pull-based deployments in the context of GitOps are explained.
 
-\subsection*{Push-based Deployments}
+%\subsection{Push-based Deployments}
 
 Without GitOps, Continuous Deployment was primarily push-based.
 This means, that a code change introduced as a commit to a Git repository by a developer,
@@ -526,7 +496,6 @@ and has the knowledge of where the process is at at a given moment,
 and where it fails, and if it succeeds, it knows the status.
 These tasks might be automated tests of all sorts,
 automated builds of artifacts and finally some sort of uploading of the artifact to a registry.
-
 When Continuous Deployment was desired with this push-based approach,
 then a task would be appended to the end of the pipeline,
 which would deploy the new artifact to the target deployment environment.
@@ -541,14 +510,11 @@ This means that a commit, that fails certain automated tests,
 whill never be packaged into an artifact.
 Conversely, an artifact, that fails to deploy to a certain environment,
 will most likely not be deployed to consecutive environments, because of the stopped pipeline.
-
-What is trickier if an artifact is successfully deployed,
+It is challenging, if an artifact is successfully deployed,
 and looks like it works to the system,
 but in reality the user-facing service is actually not working successfully or with lower quality standards.
-
 The push-based deployment with CI/CD runs synchronously in one process.
 This is illustrated in fig. \ref{tikz:push-based-cd}.
-
 With current GitOps tooling,
 such a push-based deployment process can technically be implemented,
 however it is not advisable, as it violates the \enquote*{pulled automatically} principle of GitOps.
@@ -611,15 +577,14 @@ however it is not advisable, as it violates the \enquote*{pulled automatically} 
 	
 \end{figure}
 
-\subsection*{Pull-based Deployments}
+%\subsection{Pull-based Deployments}
 
 With the GitOps approach and appropriate tools which implement its principles and pattern,
 the deployment process works in a pull-based manner.
 This means, that the GitOps engine, which often lives inside the deployment environment
 continuously watches the desired state for changes,
 and if changes occur, the new desired state is reconciled with the actual state, in order for them to match again.
-
-Now because the deployment process is not done by a task at the end of the CI/CD pipeline,
+Because the deployment process is not done by a task at the end of the CI/CD pipeline,
 the pipeline ends with a successful push of the artifact to a registry.
 At this point, typically a version updating tool like e.g. Flux Image Update Automation, which notices, that a new version is available in
 the artifact registry, patches that new version into the desired state stored in the GitOps repository.
@@ -663,7 +628,7 @@ The component responsible for deployment is the GitOps engine, which is watching
 and will pick up and continue the asynchronous deployment process, once it detects a new change in the desired state.
 There is usually an automated process which updates the desired state with the new artifact's version.
 
-\subsection*{Image Update Automation}
+\subsection{Image Update Automation}
 
 For the popular GitOps tools like Flux or Argo,
 there are components available with a functionality to update the desired state
@@ -681,11 +646,9 @@ of a particular container image version with the currently latest available, or 
 It works the following way: A controller continuously watches the repository/registry of the container image for new versions.
 If the controller detects a new version with the specification it is configured (e.g. stable-*, 1.13.*),
 it will take that new verion tag and patch it to a declared container image which is specified in one or more YAML files in a Git repository.
-
 This tool makes it possible to achieve simple Continuous Deployment,
 meaning that a commit, a code change, by a developer can automatically be released to production.
 Ideally tests are run before releasing, in order to ensure quality.
-
 When the application is deployed to multiple environments, which is specified by multiple desired state declarations,
 i.e. folders in the GitOps repository, or separate repositories,
 such an image update automation can be configured for all environments.
@@ -699,7 +662,7 @@ when multiple deployment environments are required.
 While it is not too difficult to achieve with push-based deployments and CI/CD,
 it is currently a challenge with pull-based deployments and GitOps.
 
-\subsection*{Promotion Strategies}
+\subsection{Promotion Strategies}
 
 An automated workflow for release promotion between environments,
 can be achieved in multiple ways,
@@ -756,8 +719,8 @@ the new release can automatically be rolled back.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=1.00\linewidth]{assets/progressive-delivery.png}
-	\caption{Progressive Delivery.
+	\includegraphics[width=0.75\linewidth]{assets/progressive-delivery.png}
+	\caption{Example of gradual version rollout with progressive delivery.
 		%		(\citeauthor{ref}, \citeyear{ref}).
 	}
 	\label{fig:progressive-delivery}	
@@ -789,8 +752,8 @@ and this way costs can be reduced.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=1.00\linewidth]{assets/deploy-multiple-envs.png}
-	\caption{Deploying to multiple environments.
+	\includegraphics[width=0.75\linewidth]{assets/deploy-multiple-envs.png}
+	\caption{Example of version rollout with multiple environments.
 		%		(\citeauthor{ref}, \citeyear{ref}).
 	}
 	\label{fig:deploy-multiple-envs}	
@@ -798,6 +761,7 @@ and this way costs can be reduced.
 
 Nowadays with the rapid development and releasing of new versions,
 there has become a need for dynamic, short-living environments.
+% TODO: evidence for short-living environments
 For every commit of an individual developer,
 a deployment environment may be provisioned for previewing the changes
 in a live environment that resembles the production environment as well as possible.
@@ -816,12 +780,12 @@ The following section is about
 the role Kubernetes plays in the current cloud native ecosystem,
 and the extensible architecture of Kubernetes.
 
-Since the birth of the cloud native computing foundation (CNCF) in 2015 and the release of Kubernetes as the first CNCF project,
-there have emerged more than a hundred projects.
-Most of the projects are hosting cloud native technologies and tools to support Kubernetes.
-The current ecosystem and toolchains are strongly centered around Kubernetes,
-although not strictly tied to it and often times with the explicit effort
-for the ability to support alternative cloud native platforms and solutions.
+%Since the birth of the cloud native computing foundation (CNCF) in 2015 and the release of Kubernetes as the first CNCF project,
+%there have emerged more than a hundred projects.
+%Most of the projects are hosting cloud native technologies and tools to support Kubernetes.
+%The current ecosystem and toolchains are strongly centered around Kubernetes,
+%although not strictly tied to it and often times with the explicit effort
+%for the ability to support alternative cloud native platforms and solutions.
 
 \enquote*{Kubernetes, also known as K8s, is an open-source system for automating deployment, scaling, and management of containerized applications.}
 \autocite{kubernetesIoWebsite}
@@ -854,7 +818,7 @@ are being provided by Kubernetes itself, or otherwise easily consumable and inte
 These may include resource quotas, observability, monitoring, logging and tracing,
 configuration state storage, declarative APIs, control loops, and event and message queueing.
 
-\subsection*{Extending Kubernetes}
+\subsection{Extending Kubernetes}
 % https://kubernetes.io/docs/concepts/extend-kubernetes/
 Kubernetes offers several different extension points and extension patterns.
 Most extension patterns however share the same basic design and principles.
@@ -867,7 +831,7 @@ desired state with the actual state,
 it has shown to be a good pattern to design custom extensions in the same way
 \autocite{extendKubernetes}.
 
-\subsection*{Custom Resources, Controllers and Operators}
+\subsection{Custom Resources, Controllers and Operators}
 % https://kubernetes.io/docs/concepts/architecture/controller/
 The concept of a controller and control loop within Kubernetes refers to the
 meaning from robotics and automation, where
@@ -892,6 +856,9 @@ A typical controller implementation can be seen in figure
 As an example here, the deployment controller continuously ensures the desired state
 of three replicas; if it notices the desired state and actual state differ
 from one another, it does necessary actions to make them match again.
+When a controller has specific domain knowledge,
+or does certain tasks, which would usually be done by a human "operator",
+it is called an operator.
 
 \begin{figure}[h]
 	\centering
@@ -901,10 +868,6 @@ from one another, it does necessary actions to make them match again.
 	}
 	\label{fig:typicalControllerKubernetes}	
 \end{figure}
-
-When a controller has specific domain knowledge,
-or does certain tasks, which would usually be done by a human "operator",
-it is called an operator.
 
 % https://kubernetes.io/docs/concepts/extend-kubernetes/operator/
 Operators typically are a set of controllers and custom resources
@@ -917,10 +880,8 @@ Examples for such operational tasks are
 backups and restoring of backups, error remediation, database migrations, etc.
 \autocite{operatorWhitepaperV1}.
 In overly simplified terms:
-
-\begin{center}
-	\textbf{An operator is a controller plus domain-specific operational knowledge.}
-\end{center}
+\textbf{An operator is a controller plus domain-specific operational knowledge.}
+\autocite{operatorWhitepaperV1}
 
 %\begin{figure}[h]
 %	\centering
@@ -960,7 +921,6 @@ since Kubernetes itself is also implemented in the Go language
 
 With custom resources, the Kubernetes API can dynamically be extended during runtime,
 without the need to access its source code or recompile it.
-
 While a resource is
 \enquote*{an endpoint in the Kubernetes API that stores a collection of API objects of a certain kind}
 \autocite{customResourcesKubernetesIO},
@@ -1011,6 +971,9 @@ Branches can usually be restricted or limited to certain developers only,
 which would make it easier to implement the access permissions than the folder-per-environment approach.
 
 This research focuses primarily on the modeling of folder-per-environment.
+The designed and developed operator prototype is based on this folder-per-environment model.
+However, if the requirement for branch-per-environment modeling exists in the future,
+support for it can potentially be added.
 
 
 
@@ -1075,11 +1038,12 @@ This research focuses primarily on the modeling of folder-per-environment.
 
 In this chapter,
 the theoretical background on the topic was presented.
-General definitions of terms,
-fundamentals of GitOps along related tooling and components were presented.
-DevOps and internal developer platforms were mentioned.
+General definitions of terms including GitOps and
+releases, promotions, and environments in the context of GitOps were defined.
 It was explained, how many times the term GitOps is misunderstood,
 and that GitOps is actually defined in the OpenGitOps project.
+The meaning of DevOps was mentioned.
+GitOps related tooling and components were presented.
 It was shown how GitOps changes the architecture and process of Continuous Deployment,
 and how the promotion of releases is achieved without and with the GitOps approach.
 Emerging patterns like progressive delivery,
