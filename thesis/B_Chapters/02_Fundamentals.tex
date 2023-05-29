@@ -17,9 +17,9 @@ as well as various background information.
 \section{General Definitions}
 \label{theoretical-background:general-definitions}
 
-The following section includes general definitions of terms on the topic.
+%The following section includes general definitions of terms on the topic.
 
-\subsection{GitOps}
+%\subsection{GitOps}
 
 Infrastructure-as-Code which is stored in a Git repository,
 and executed by a workflow system,
@@ -145,7 +145,7 @@ for associated terms and concepts.
 
 
 
-\subsection{Release}
+%\subsection{Release}
 
 A release in the context of this thesis
 represents the process of
@@ -158,7 +158,7 @@ which triggers a CI/CD workflow,
 which as one of its steps publishes the software artifact of
 the new version of the application in an artifact registry.
 
-\subsection{Promotion}
+%\subsection{Promotion}
 
 Promotion in the context of this thesis is defined as
 the process of promoting a new application or infrastructure version (release)
@@ -166,7 +166,7 @@ to another deployment environment.
 In the context of GitOps and Git repositories,
 this often means changing declarative definitions of the desired state in Git repositories.
 
-\subsection{Environment}
+%\subsection{Environment}
 
 An Environment
 - or GitOps Environment -
@@ -598,6 +598,46 @@ The processes that are responsible for deployment with the GitOps approach run a
 
 
 
+\section{Modeling of GitOps Environments}
+
+GitOps environments as defined in section
+\ref{theoretical-background:general-definitions},
+can be modeled using different approaches.
+The most prominent approach is to have a folder in a Git repository
+per environment. This is straight-forward and easily compatible with
+the currently most used configuration and templating tools like Kustomize and Helm.
+Promotion would be just a file copy operation from one to another file or folder.
+However, for some promotions it is desired to only update a specific part of a file,
+with a specific type of information, e.g. patching a container image tag in a Kubernetes
+deployment resource.
+For each environment, or only critical ones, there could be a completely separate Git repository.
+Having a separate repository opens up the possibility to have a more strict separation of concerns,
+regarding permissions and access rights.
+Anyone who has access to a Git repository has read access to the entire repository tree.
+While the write access could potentially be limited by administrators or maintainers
+to certain folders, the read access will always be open for anyone who has access to the repository.
+
+Another approach is to have a Git branch per environment.
+Promotion would be a Git merge from one to another branch.
+When taking this approach, and also having environment-specific configuration,
+it is possible, when not being careful, that a merge conflict happens,
+and the promotion would need to be solved manually.
+However when this approach is purely used for the purpose of staging,
+meaning environments are identical, but new releases are deployed to some environments first
+after other ones,
+it could in theory provide a seamless way of promotion by solely leveraging the built-in merge mechanism in Git.
+Branches can usually be restricted or limited to certain developers only,
+which would make it easier to implement the access permissions than the folder-per-environment approach.
+
+This research focuses primarily on the modeling of folder-per-environment.
+The designed and developed operator prototype is based on this folder-per-environment model.
+However, if the requirement for branch-per-environment modeling exists in the future,
+support for it can potentially be added.
+
+
+
+
+
 
 
 
@@ -628,7 +668,7 @@ The component responsible for deployment is the GitOps engine, which is watching
 and will pick up and continue the asynchronous deployment process, once it detects a new change in the desired state.
 There is usually an automated process which updates the desired state with the new artifact's version.
 
-\subsection{Image Update Automation}
+%\subsection{Image Update Automation}
 
 For the popular GitOps tools like Flux or Argo,
 there are components available with a functionality to update the desired state
@@ -662,7 +702,7 @@ when multiple deployment environments are required.
 While it is not too difficult to achieve with push-based deployments and CI/CD,
 it is currently a challenge with pull-based deployments and GitOps.
 
-\subsection{Promotion Strategies}
+%\subsection{Promotion Strategies}
 
 An automated workflow for release promotion between environments,
 can be achieved in multiple ways,
@@ -818,7 +858,7 @@ are being provided by Kubernetes itself, or otherwise easily consumable and inte
 These may include resource quotas, observability, monitoring, logging and tracing,
 configuration state storage, declarative APIs, control loops, and event and message queueing.
 
-\subsection{Extending Kubernetes}
+%\subsection{Extending Kubernetes}
 % https://kubernetes.io/docs/concepts/extend-kubernetes/
 Kubernetes offers several different extension points and extension patterns.
 Most extension patterns however share the same basic design and principles.
@@ -831,7 +871,7 @@ desired state with the actual state,
 it has shown to be a good pattern to design custom extensions in the same way
 \autocite{extendKubernetes}.
 
-\subsection{Custom Resources, Controllers and Operators}
+\section{Custom Resources, Controllers and Operators}
 % https://kubernetes.io/docs/concepts/architecture/controller/
 The concept of a controller and control loop within Kubernetes refers to the
 meaning from robotics and automation, where
@@ -863,7 +903,7 @@ it is called an operator.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1.00\linewidth]{assets/typical-controller.png}
-	\caption{typical controller in Kubernetes.
+	\caption{Typical controller in Kubernetes.
 		%		(\citeauthor{ref}, \citeyear{ref}).
 	}
 	\label{fig:typicalControllerKubernetes}	
@@ -938,42 +978,6 @@ Users can interface with its objects as they do with the Kubernetes built-in res
 
 
 
-
-\section{Modeling of GitOps Environments}
-
-GitOps environments as defined in section
-\ref{theoretical-background:general-definitions},
-can be modeled using different approaches.
-The most prominent approach is to have a folder in a Git repository
-per environment. This is straight-forward and easily compatible with
-the currently most used configuration and templating tools like Kustomize and Helm.
-Promotion would be just a file copy operation from one to another file or folder.
-However, for some promotions it is desired to only update a specific part of a file,
-with a specific type of information, e.g. patching a container image tag in a Kubernetes
-deployment resource.
-For each environment, or only critical ones, there could be a completely separate Git repository.
-Having a separate repository opens up the possibility to have a more strict separation of concerns,
-regarding permissions and access rights.
-Anyone who has access to a Git repository has read access to the entire repository tree.
-While the write access could potentially be limited by administrators or maintainers
-to certain folders, the read access will always be open for anyone who has access to the repository.
-
-Another approach is to have a Git branch per environment.
-Promotion would be a Git merge from one to another branch.
-When taking this approach, and also having environment-specific configuration,
-it is possible, when not being careful, that a merge conflict happens,
-and the promotion would need to be solved manually.
-However when this approach is purely used for the purpose of staging,
-meaning environments are identical, but new releases are deployed to some environments first
-after other ones,
-it could in theory provide a seamless way of promotion by solely leveraging the built-in merge mechanism in Git.
-Branches can usually be restricted or limited to certain developers only,
-which would make it easier to implement the access permissions than the folder-per-environment approach.
-
-This research focuses primarily on the modeling of folder-per-environment.
-The designed and developed operator prototype is based on this folder-per-environment model.
-However, if the requirement for branch-per-environment modeling exists in the future,
-support for it can potentially be added.
 
 
 
