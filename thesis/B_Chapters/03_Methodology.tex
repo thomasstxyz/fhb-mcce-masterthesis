@@ -2,10 +2,13 @@
 \label{methodology}
 
 In this chapter,
-the methodological approach,
+the general methodological approach for the concrete research,
 as well as
-the used scientific research methods
+the used scientific research methods and their application
 are presented.
+The methodology is guided by the applied methodology framework
+for design science research in information systems.
+
 
 
 
@@ -76,7 +79,7 @@ because the idea of the research resulted from observation of the problem
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=1.00\linewidth]{figures/dsrm-process-release-promotion-gitops.png}
+	\fbox{\includegraphics[width=0.98\linewidth]{figures/dsrm-process-release-promotion-gitops.png}}
 	\caption{DSRM Process for this thesis (adapted from \cite{designScienceResearchMethodologyForInformationSystemsResearch}).
 		%		(\citeauthor{ref}, \citeyear{ref}).
 	}
@@ -109,7 +112,7 @@ researcher's understanding of the problem
 % TODO: transform to a flowchart
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.85\linewidth]{assets/problem-to-objective-mapping.png}
+	\fbox{\includegraphics[width=0.85\linewidth]{assets/problem-to-objective-mapping.png}}
 	\caption{Inference of objectives from problems.
 		%		(\citeauthor{ref}, \citeyear{ref}).
 	}
@@ -246,7 +249,7 @@ The open questioning enables the interviewee to present their point of view
 
 
 
-\textbf{Preparing the Interviews}:
+Preparing the Interviews:
 As an initial step,
 a semi-structured interview guide is developed.
 It serves as a rough guideline for the structure of the interview process.
@@ -270,7 +273,7 @@ who are working professionally in the GitOps field.
 The contact to the interview partners is done via Slack \autocite{slackWebsite} or e-mail.
 Prior to conducting the interview, the interview guide is sent to the interviewee.
 
-\textbf{Conducting the interviews}:
+Conducting the interviews:
 Appointments for the interviews are made with each interview partner in advance. 
 Eventually, the interview is conducted with a web video conferencing tool like Zoom \autocite{zoomWebsite}.
 The interviews are recorded for later transcription.
@@ -278,7 +281,7 @@ The semi-structured interview guide
 is used as a guideline for the interview process as a whole.
 However, the actual structure of the interview may differ for each individual interview and according interview partner.
 
-\textbf{Transcription and post-processing of the interviews}:
+Transcription and post-processing of the interviews:
 The output of the interviews are in the form of audio-video recordings.
 These are transcribed word-for-word into a written form afterwards.
 The transcriptions can be seen in Appendix \ref{appendix:interview-transcriptions}.
@@ -378,7 +381,6 @@ has already been thoroughly described and applied in the earlier section
 \ref{methodology:approach} \nameref{methodology:approach}
 of this thesis.
 A concise definition is stated here nontheless.
-
 \citeauthor{designScienceResearchMethodologyForInformationSystemsResearch} (\citeyear{designScienceResearchMethodologyForInformationSystemsResearch})
 describe DSRM as follows:
 
@@ -402,6 +404,22 @@ new paper.}
 %DSRM provides a nominal process model consisting of six steps:
 %problem identification and motivation, definition of the objectives for a solution, design and development, demonstration, evaluation, and communication
 
+The DSRM framework is used for this research,
+in order to help with evaluation and legitimization
+of the conducted design and development of the software artifact.
+The evaluation of the software prototype is done by
+comparing the observed functionality in the demonstration
+with the defined solution objectives,
+in a purely qualitative and descriptive manner.
+
+
+%The DSRM methodology is applied as described in section
+%\ref{methodology:approach}.
+%Activities 1 and 2 are supported by semi-structured interviews
+%with practicing professionals.
+%Activity 3 is done with the application of the prototyping method.
+%Activities 4 and 5 are supported by the qualitative
+%and descriptive 
 
 
 
@@ -417,22 +435,22 @@ and
 \nameref{methodology:activity4},
 the literature of \citeauthor{riedlManagementInformatik2019} (\citeyear{riedlManagementInformatik2019}) is used.
 %The terms prototype, prototyping, prototyping cycle and phase scheme are defined in the earlier chapter
-%\ref{theoretical-background:general-definitions} \nameref{theoretical-background:general-definitions}
+%\ref{theoretical-background:gitops} \nameref{theoretical-background:gitops}
 %of this thesis.
 The terms prototype, prototyping, prototyping cycle and phase scheme are defined in the following
 \autocite{riedlManagementInformatik2019}:
 
-A \textbf{prototype} is
+A prototype is
 an executable model of the planned product, produced with little effort and easy to modify,
 which can be tested and evaluated by the future user
 \autocite{riedlManagementInformatik2019}.
-\textbf{Prototyping}
+Prototyping
 is the entirety of activities, methods and tools required to produce prototypes
 \autocite{riedlManagementInformatik2019}.
-A \textbf{prototyping cycle} is
+A prototyping cycle is
 a sequence of steps consisting of using, evaluating and modifying a prototype
 \autocite{riedlManagementInformatik2019}.
-A \textbf{phase scheme} is
+A phase scheme is
 the ideal-typical structure of a project in sections of logically related tasks including the methodology,
 methods and techniques of task solution. Synonym: phase model
 \autocite{riedlManagementInformatik2019}.
@@ -457,16 +475,16 @@ A prototype
 According to the type of prototype, a distinction is made between complete and incomplete prototypes
 as well as disposable and reusable prototypes
 \autocite{riedlManagementInformatik2019}.
-A \textbf{full prototype} is a prototype that makes all the essential functions of the information system to be created fully available.
+A full prototype is a prototype that makes all the essential functions of the information system to be created fully available.
 The experience gained during planning and during use and the prototype itself form the basis for the final system specification
 \autocite{riedlManagementInformatik2019}.
-An \textbf{incomplete prototype} is a prototype that allows the usability and/or feasibility of individual components
+An incomplete prototype is a prototype that allows the usability and/or feasibility of individual components
 of the information system to be created (e.g., the user interface) to be assessed
 \autocite{riedlManagementInformatik2019}.
-A \textbf{disposable prototype} is a prototype that serves only as an executable model;
+A disposable prototype is a prototype that serves only as an executable model;
 it is not used directly for the information system to be created
 \autocite{riedlManagementInformatik2019}.
-A \textbf{reusable prototype} is a prototype that meets all quality requirements and from which
+A reusable prototype is a prototype that meets all quality requirements and from which
 essential parts can be adopted in the information system to be created
 \autocite{riedlManagementInformatik2019}.
 
@@ -474,17 +492,17 @@ essential parts can be adopted in the information system to be created
 
 Another systematic approach, based primarily on the intended use of the prototype, distinguishes between demonstration prototype, laboratory sample and pilot system
 \autocite{riedlManagementInformatik2019}.
-The \textbf{demonstration prototype} supports project initiation or project acquisition; it should convince the potential client that the desired end product can be built or that its handling corresponds to what the future users imagine. A prototype for this purpose therefore has the characteristics of the incomplete prototype and usually also of the disposable prototype
+The demonstration prototype supports project initiation or project acquisition; it should convince the potential client that the desired end product can be built or that its handling corresponds to what the future users imagine. A prototype for this purpose therefore has the characteristics of the incomplete prototype and usually also of the disposable prototype
 \autocite{riedlManagementInformatik2019}.
-The \textbf{laboratory sample} is primarily used to clarify design-related issues; it is derived from the model of the application task and from an existing specification. The design of the end product should be essentially identical, or at least comparable, to that of the laboratory prototype. This requirement can refer to the architecture and/or to the functionality.
+The laboratory sample is primarily used to clarify design-related issues; it is derived from the model of the application task and from an existing specification. The design of the end product should be essentially identical, or at least comparable, to that of the laboratory prototype. This requirement can refer to the architecture and/or to the functionality.
 \autocite{riedlManagementInformatik2019}.
-In the \textbf{pilot system}, the strict separation between prototype and end product is eliminated. At a certain level of maturity, the prototype is used productively at individual workplaces and is further developed. It is initially incomplete and reusable; as it matures, it becomes complete
+In the pilot system, the strict separation between prototype and end product is eliminated. At a certain level of maturity, the prototype is used productively at individual workplaces and is further developed. It is initially incomplete and reusable; as it matures, it becomes complete
 \autocite{riedlManagementInformatik2019}.
 
 %
 
 For the concrete research of this thesis,
-the type \textbf{demonstration prototype} is used.
+the type demonstration prototype is used.
 
 \subsubsection*{Evaluation of Prototypes}
 
@@ -518,15 +536,15 @@ due to the time and effort constraints of this thesis.
 \subsubsection*{Types of Prototyping}
 
 Types of prototyping means why prototypes are used and fundamentally how to proceed with their usage.
-A distinction is then made between \textbf{exploratory}, \textbf{experimental} and \textbf{evolutionary prototyping}.
+A distinction is then made between exploratory, experimental and evolutionary prototyping.
 
-\textbf{Exploratory prototyping} aims to determine the functional requirements of an information system by developing a prototype that allows for testing of different solution alternatives with users.
+Exploratory prototyping aims to determine the functional requirements of an information system by developing a prototype that allows for testing of different solution alternatives with users.
 The future users should be able to evaluate the prototype on the basis of real work situations.
 The focus is on functionality, ease of change, and short development time.
 The required functions are determined successively.
 The influence on the phase scheme is minimal as it's primarily used for requirements analysis.
 
-\textbf{Experimental prototyping} aims to complete the specification of system components and
+Experimental prototyping aims to complete the specification of system components and
 prove the suitability of object specifications, architecture models, and solution ideas.
 Users are not usually involved in this process, and implementation work is integrated ("pulled forward") into analysis and design work,
 which changes the phase scheme more than exploratory prototyping.
@@ -534,7 +552,7 @@ Sometimes the use of prototypes for evaluation by users is described as "experim
 this is concluded as experimental prototyping
 \autocite{riedlManagementInformatik2019}.
 
-Finally, \textbf{evolutionary prototyping} is an incremental project work approach that involves developing 
+Finally, evolutionary prototyping is an incremental project work approach that involves developing 
 a prototype for easily identifiable requirements, which is then used as the basis for the next planning step. 
 The prototype and information system become indistinguishable as the prototype is successively improved 
 and ultimately used as a productive information system. 
