@@ -147,7 +147,7 @@ for associated terms and concepts.
 
 %\subsection{Release}
 
-A release in the context of this thesis
+A \textbf{release} in the context of this thesis
 represents the process of
 publishing a new version of an application or software component
 to the users.
@@ -160,7 +160,7 @@ the new version of the application in an artifact registry.
 
 %\subsection{Promotion}
 
-Promotion in the context of this thesis is defined as
+\textbf{Promotion} in the context of this thesis is defined as
 the process of promoting a new application or infrastructure version (release)
 to another deployment environment.
 In the context of GitOps and Git repositories,
@@ -168,17 +168,23 @@ this often means changing declarative definitions of the desired state in Git re
 
 %\subsection{Environment}
 
-An Environment
-- or GitOps Environment -
+An \textbf{environment}
+- or GitOps environment -
 in the context of this thesis
 is defined as a target deployment environment for a given application;
 e.g. Development, Testing, or Production.
 Most of the time this is a Kubernetes cluster or namespace.
-
 In the context of the proposed Kubernetes Custom Resource Definition
 Environment, however it represents a folder/directory in a Git repository,
 which points to a deployment environment or cluster/namespace as defined
 in the previous paragraph.
+%
+\citeauthor{gitopsAndKubernetes2021continuous} (\citeyear{gitopsAndKubernetes2021continuous})
+define the term as an environment, \enquote*{where code is deployed and executed.}
+\autocite{gitopsAndKubernetes2021continuous}
+This is true for the case of workload resources in a GitOps environment,
+because typically the compiled code is packaged into a container image,
+which is then run in a container runtime environment.
 
 
 
@@ -282,6 +288,24 @@ development and operations, emphasizing communication and collaboration,
 continuous integration, quality assurance and delivery with automated deployment
 utilizing a set of development practices
 \autocite{devopsDefinition2016}.
+DevOps conforms to a principle from the agile manifesto,
+which is about
+\enquote*{Individuals and interactions over processes and tools}.
+\autocite{agileManifestoFowler2001agile}
+Human interactions between people are important
+and should be supported by using appropriate technologies,
+in order to decrease friction between people and teams
+\autocite{practicalDevopsVerona2018practical}.
+
+Before DevOps, developing and running software were more or less two separate jobs performed by two different groups of people.
+Developers wrote software, which they then handed off to operations colleagues, who ran and supported the software in the production environment
+(i.e., served real users instead of just running it under test conditions).
+Like computers that needed their own floor in the building, this separation has its roots in the middle of the last century.
+Software development was a job for specialists, just like running computers, and there was little overlap between the two.
+The two departments had rather different goals and incentives, which often conflicted with each other. Developers like to focus on delivering new features quickly, while operations teams are more concerned with making services stable and reliable over the long term.
+The origins of the DevOps movement lie in attempts to bring these two groups together - to collaborate, create a common understanding, share responsibility for system reliability and software correctness, and improve the scalability of both software systems and the teams that build them
+\autocite{cloudNativeDevopsMitKubernetesArundel2019cloud}.
+
 
 %DevOps is seeing increasingly more adoption amongst organizations.
 One of the most important principles of DevOps is
@@ -293,6 +317,7 @@ but to shift many processes into the developers hands.
 This is to give developers as much insight as possible,
 in order to decrease efficiency and productivity to eventually
 decrease the time-to-market for new product releases, features and bug fixes.
+Software should strive to run resilient in the productive environment.
 This is essentially needed for organizations to continue to thrive in todays
 rapidly changing world.
 
@@ -306,6 +331,18 @@ it is now easier than ever before possible to reduce the amount of
 teams down to a minimum, in order to reduce friction between people communications and processes.
 This additionally gives the developers much better insights of what effect their code changes have
 on the end product or service, which users consume.
+
+While DevOps is about creating permanent cultural change in people
+and communications of an organization,
+GitOps is a specific continuous deployment practice.
+When DevOps is already adopted and techniques are in place,
+it becomes easier to also adopt GitOps practices
+\autocite{gitopsCloudnativeCDInnoq}.
+
+
+
+
+% IDPs
 
 %In order to increase the level of self-service for developers,
 %and increase their productivity,
@@ -481,6 +518,9 @@ Gitea.
 \section{How GitOps changed Continuous Deployment}
 \label{theoretical-background:gitops-cd}
 
+Continuous Deployment (CD) is the automatic deployment of successful builds to the production environment.
+Developers should be able to deploy new versions by either clicking a button, merging a merge request, or pushing a Git release tag
+\autocite{cloudNativeDevopsMitKubernetesArundel2019cloud}.
 With the GitOps approach,
 Continuous Deployment works differently than with push-based CI/CD deployments.
 In the following,
@@ -598,6 +638,7 @@ The processes that are responsible for deployment with the GitOps approach run a
 
 
 
+
 \section{Modeling of GitOps Environments}
 
 GitOps environments as defined in section
@@ -648,6 +689,9 @@ the process is usually to first deploy to the first environment,
 and if the deployment succeeds, the second environment is deployed to.
 Environments can also be seen as stages in this context,
 where previous stages need to pass, before subsequent stages are passed through.
+The purpose of having multiple environments and promoting releases through them
+is to detect and correct errors as early as possible in the development cycle
+\autocite{gitopsAndKubernetes2021continuous}.
 
 With the push-based deployments described in the previous section \ref{theoretical-background:gitops-cd},
 where the host process of a CI/CD pipeline typically knows the state of each deployment,
@@ -800,13 +844,22 @@ and this way costs can be reduced.
 \end{figure}
 
 Nowadays with the rapid development and releasing of new versions,
-there has become a need for dynamic, short-living environments.
-% TODO: evidence for short-living environments
+there has become the concept of dynamic, short-living environments,
+or preview environments, deployments
+\autocite{gitopsCloudnativeCDInnoq}.
+\citeauthor{hightower2017kubernetes} (\citeyear{hightower2017kubernetes})
+recommend to deploy and test each new application version during development,
+a new commit or push to the trunk branch
+\autocite{hightower2017kubernetes}.
+%
 For every commit of an individual developer,
 a deployment environment may be provisioned for previewing the changes
 in a live environment that resembles the production environment as well as possible.
-This short-living environment may be deleted after a short specified amount of time
-has passed.
+This is to gather feedback as early as possible,
+and improve the quality, as well as remove bugs quickly.
+This short-living environment may be deleted after a short specified
+amount of time has passed.
+
 
 
 
@@ -819,24 +872,30 @@ has passed.
 The following section is about
 the role Kubernetes plays in the current cloud native ecosystem,
 and the extensible architecture of Kubernetes.
-
 %Since the birth of the cloud native computing foundation (CNCF) in 2015 and the release of Kubernetes as the first CNCF project,
 %there have emerged more than a hundred projects.
 %Most of the projects are hosting cloud native technologies and tools to support Kubernetes.
 %The current ecosystem and toolchains are strongly centered around Kubernetes,
 %although not strictly tied to it and often times with the explicit effort
 %for the ability to support alternative cloud native platforms and solutions.
-
 \enquote*{Kubernetes, also known as K8s, is an open-source system for automating deployment, scaling, and management of containerized applications.}
 \autocite{kubernetesIoWebsite}
 Although this is the primary use case of Kubernetes,
 and the reason why it was created initially,
 Kubernetes is increasingly being used as a base cloud native platform,
 to build other applications and platforms on top of.
+Kubernetes does many things out of the box,
+which good system administrators and operators
+have done manually in the past.
+Automation of operations, failover handling, centralised logging and monitoring,
+installation of security patches, backing up data, and more
+does Kubernetes in an automated fashion,
+so humans can focus on their specific business related problems
+\autocite{cloudNativeDevopsMitKubernetesArundel2019cloud}.
+
 The architecture of Kubernetes provides a solid framework and platform,
 which is easily extensible.
 Developers may extend its API by specifying custom resources and controllers.
-
 There are several advantages when extending the Kubernetes API,
 in comparison to a plain REST API.
 Some of those are the following

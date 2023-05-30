@@ -5,21 +5,158 @@
 % TODO: mention articles for topics Promotion, Progressive Delivery, and maybe cite these approaches
 
 This chapter focuses on the related work by other researchers on the topic.
-This includes minimal to none scientific peer-reviewed data,
-and a limited amount of blog posts and articles by
-organizations involved and actively participating in the GitOps space.
+%This includes minimal to none scientific peer-reviewed data,
+%and a limited amount of blog posts and articles by
+%organizations involved and actively participating in the GitOps space.
+Until now, there have not been any peer-reviewed publications
+in academic journals or conferences
+on the specific topic of
+modeling multiple deployment environments with GitOps and promoting releases between them.
+Some textbooks exist on the topic of environment promotion, which
+not necessarily incorporate the GitOps approach.
+These are however described below.
+% TODO: related work, which does this without the GitOps approach?
 
-\section*{Limited scientific data}
+% --------------------------
+% --------------------------
+% --------------------------
+
+
+On the topic of promotion between multiple environments
+with the GitOps approach,
+there are different suggested good practices.
+\citeauthor{gitopsCloudnativeCDInnoq} (\citeyear{gitopsCloudnativeCDInnoq})
+recommend to avoid having to do promotions,
+by only having one environment.
+However, if a staging process with multiple environments is desired
+nonetheless, they suggest to use Git branches for stages and merging
+between the branches to achieve the integration of changes to other environments.
+This way it is observable which configuration is deployed to which environment or stage \autocite{gitopsCloudnativeCDInnoq}.
+
+\citeauthor{gitopsAndKubernetes2021continuous} (\citeyear{gitopsAndKubernetes2021continuous})
+suggest that when implementing the GitOps approach,
+the CI workflow / pipeline additionally patches the new image version into
+the desired state,
+after previous stages are completed without errors.
+This is done with configuration management tools like Kustomize,
+which can patch a new image version tag in a manifest
+\autocite{gitopsAndKubernetes2021continuous}.
+This process achieves a promotion, as the GitOps engine notices the new desired state
+and deploys it.
+When the desired state is stored in a different Git repository,
+then it needs to be cloned in addition to the application build repository.
+\citeauthor{gitopsAndKubernetes2021continuous} (\citeyear{gitopsAndKubernetes2021continuous})
+also suggest the implementation of observability metrics for the CI pipeline,
+in order to detect issues with the building and testing process
+\autocite{gitopsAndKubernetes2021continuous}.
+
+\citeauthor{gitopsAndKubernetes2021continuous} (\citeyear{gitopsAndKubernetes2021continuous})
+also describe the rollback process which is needed,
+when bad releases need to be reverted.
+With the GitOps approach, changes to the state, as well as reverts to a previous state
+of the system can be achieved via operations on the Git repository,
+where the desired state is stored. Once it is updated, the GitOps engine takes care of the deployment.
+It is recommended to use the \textit{revert} or \textit{reset} functions of Git.
+These functions can be incorporated into a preconfigured workflow,
+which can then be triggered on-demand,
+or even automatically when a new release is observed to contain bugs or undesired behavior.
+It is suggested to setup creation of pull requests,
+which allows the configuration of one or many reviewers.
+For certain compliance standards such as in the payment card industry,
+new releases to production have the requirement for an approval of a second person.
+This is true for any release or change to a production system,
+be it a new release or a rollback
+\autocite{gitopsAndKubernetes2021continuous}.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% --------------------------
+
+%\section*{Limited scientific data}
 
 %Since the introduction of the term GitOps by
 %\citeauthor{gitopsOperationsByPullRequest2017Weaveworks} in \citeyear{gitopsOperationsByPullRequest2017Weaveworks},
 %there has been
 %insufficient
 %scientific literature written about the topic.
-The following paragraph highlights prior 
-scientific research done on the subject "GitOps",
-which has mainly been targeted at
-evaluating the concept of GitOps in general.
+
+%The following paragraph highlights prior 
+%scientific research done on the subject "GitOps",
+%which has mainly been targeted at
+%evaluating the concept of GitOps in general.
+
+\citeauthor{kostisKapelonisMeetACodefresher} (\citeyear{kostisKapelonisMeetACodefresher})
+%at Codefresh
+%published a couple of blog posts in recent years,
+%where some best practices are presented on the topic.
+%Codefresh is the organization behind the Argo Project \autocite{argoProjWebsite},
+%and therefore a major driving force in the GitOps ecosystem.
+%\section*{Suggested best practices}
+\citeauthor{codefreshStopUsingBranchesGitOpsEnvironments} (\citeyear{codefreshStopUsingBranchesGitOpsEnvironments})
+discusses
+the idea of
+modeling different deployment environments by using Git branches.
+He
+explains thoroughly why this approach is an anti-pattern and should not be used
+\autocite{codefreshStopUsingBranchesGitOpsEnvironments}.
+\citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
+shares
+a multitude of suggestions and best practices
+about modeling environments and promoting releases between them.
+Different environments are modeled by customizing \autocite{kustomizeIoWebsite} configuration 
+in separate files and folders or Git repositories.
+For promoting between environments, basic file copy operations are suggested.
+The author notes that these simple file copy operations can easily be automated by an external system,
+like a CI/CD system.
+\citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
+suggests four categories of environment configuration.
+The application version,
+Kubernetes specific settings,
+mostly static business settings,
+and 
+non-static business settings.
+While the application version and non-static business settings are promoted,
+Kubernetes specific settings and mostly static business settings are generally not promoted between environments
+\autocite{codefreshHowToModelGitOpsEnvironmentsAndPromote}.
+
+The design of the proposed prototype for this research
+considers the suggestions mentioned by
+\citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote}).
+Git branch-based environments are disregarded for the prototype design.
+Because of the different categories of environment configuration,
+the prototype design provides a way to promote specific files or directories,
+meaning possibly any arbitrary resource,
+while leaving other configuration specific to a certain environment.
+
+%In 2021 the
+%Argo Project \autocite{argoProjWebsite}
+%presented the
+%\citetitle{argocdAutopilotWebsite}-tool \autocite{argocdAutopilotWebsite}
+%to help new GitOps adopters with
+%structuring their Git repositories,
+%and
+%promoting applications between environments.
+%This command line interface (CLI) tool,
+%which includes some of the earlier presented best practices,
+%helps with the initial bootstrap process for ArgoCD.
+
+
 
 %\citeauthor{limoncelli_gitopsPathToMoreSelfService} (\citeyear{limoncelli_gitopsPathToMoreSelfService})
 %draws attention to GitOps in an article, where the concept is brought to the reader in an easily digestible way.
@@ -40,60 +177,6 @@ evaluating the concept of GitOps in general.
 %following GitOps principles by using the tool ArgoCD;
 %and focuses on the advantages compared to push-based deployment models.
 
-Until now, there have not been any publications
-in academic journals or conferences
-on the specific topic of
-modeling multiple deployment environments with GitOps and promoting releases between them.
-% TODO: related work, which does this without the GitOps approach?
-
-However,
-\citeauthor{kostisKapelonisMeetACodefresher} (\citeyear{kostisKapelonisMeetACodefresher})
-at Codefresh
-published a couple of blog posts in recent years,
-where some best practices are presented on the topic.
-Codefresh is the organization behind the Argo Project \autocite{argoProjWebsite},
-and therefore a major driving force in the GitOps ecosystem.
-
-\section*{Suggested best practices}
-
-\citeauthor{codefreshStopUsingBranchesGitOpsEnvironments} (\citeyear{codefreshStopUsingBranchesGitOpsEnvironments})
-discusses
-the idea of
-modeling different deployment environments by using Git branches.
-He
-explains thoroughly why this approach is an anti-pattern and should not be used
-\autocite{codefreshStopUsingBranchesGitOpsEnvironments}.
-\citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
-shares
-a multitude of suggestions and best practices
-about modeling environments and promoting releases between them.
-Different environments are modeled by customizing \autocite{kustomizeIoWebsite} configuration 
-in separate files and folders or Git repositories.
-For promoting between environments, basic file copy operations are suggested.
-It is noted, that these simple file copy operations can easily be automated by an external system,
-like a CI/CD system.
-\citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
-suggests four categories of environment configuration.
-The application version,
-Kubernetes specific settings,
-mostly static business settings,
-and 
-non-static business settings.
-While the application version and non-static business settings are promoted,
-Kubernetes specific settings and mostly static business settings are generally not promoted between environments
-\autocite{codefreshHowToModelGitOpsEnvironmentsAndPromote}.
-
-%In 2021 the
-%Argo Project \autocite{argoProjWebsite}
-%presented the
-%\citetitle{argocdAutopilotWebsite}-tool \autocite{argocdAutopilotWebsite}
-%to help new GitOps adopters with
-%structuring their Git repositories,
-%and
-%promoting applications between environments.
-%This command line interface (CLI) tool,
-%which includes some of the earlier presented best practices,
-%helps with the initial bootstrap process for ArgoCD.
 
 
 
@@ -101,20 +184,24 @@ Kubernetes specific settings and mostly static business settings are generally n
 
 
 
+%\section*{Related Tools}
 
-
-
-\section*{Related Tools}
-
-This section presents software tools,
+In the following,
+software projects and tools
 which provide similar problem solutions compared to that of
-this concrete research.
+this concrete research are presented.
+These include functionality for promoting releases or versions
+in GitOps environments.
+Some incorporate the same approach as proposed by this research,
+being the operator based approach,
+some offer command line interface programs or other interfaces
+to some sort of automation for promoting.
 
-\subsection*{Weave GitOps Pipelines}
+%\subsection*{Weave GitOps Pipelines}
 % https://docs.gitops.weave.works/docs/enterprise/pipelines/promoting-applications/
 
-The company Weaveworks,
-offer a solution in their enterprise GitOps offering,
+The company Weaveworks
+offer a solution in their enterprise GitOps offering
 to deal with multiple deployment environments.
 This functionality is limited to their closed-source Weave GitOps Enterprise offering.
 It allows the user to specify an application reference,
@@ -133,10 +220,12 @@ it may be configured to send notifications
 to an external system -
 which can then promote the application in whatever way
 \autocite{weaveGitOpsPipelines}.
+%
+This enterprise offering offers a pipeline like functionality
+for GitOps deployment setups. It is not open-sourced.
 
-\subsection*{akuity/kargo}
+%\subsection*{akuity/kargo}
 
-As per the website
 \enquote*{Kargo is a next-generation continuous delivery (CD) platform for Kubernetes. It builds upon established practices (like GitOps) and existing technology (like Argo CD) to streamline, or even automate, the progressive rollout of changes across multiple environments.}
 \autocite{kargoAkuityWebsite}
 Kargo is still in very early development by the company Akuity.
@@ -148,8 +237,11 @@ and ArgoCD Applications, all by updating the desired state in a Git repository.
 It offers health checks for ArgoCD Applications to determine a healthy state of a particular environment.
 For the promotion process, Kargo commits to Git repositories
 \autocite{kargoAkuityWebsite}.
+Kargo is strongly centered around ArgoCD. However
+it follows a similar approach as the proposed prototype of this thesis,
+in that it is based on the Kubernetes operator pattern.
 
-\subsection*{wayfair-incubator/telefonistka}
+%\subsection*{wayfair-incubator/telefonistka}
 
 \enquote*{Telefonistka is a Github webhook server/Bot that facilitates change promotion across environments/failure domains in Infrastructure as Code(IaC) GitOps repos.}
 \autocite{telefonistka}
@@ -164,8 +256,10 @@ Currently the tool can be run as a GitHub action, or as a
 standalone webhook server, preferably as a GitHub Application.
 In both cases it supports GitHub as the Git provider
 \autocite{telefonistka}.
+Telefonistka differs from the proposed prototype of thesis,
+because it is not designed with the asynchronous GitOps deployment in mind.
 
-\subsection*{XenitAB/gitops-promotion}
+%\subsection*{XenitAB/gitops-promotion}
 
 \enquote*{gitops-promotion interacts with a Git provider to do automatic propagation of container images across a succession of environments.}
 \autocite{xenitABgitopsPromotion}
@@ -174,26 +268,37 @@ gitops-promotion is a command line interface program.
 It is best suited to be used as part of a CI pipeline/workflow
 \autocite{xenitABgitopsPromotion}.
 
-\subsection*{form3tech-oss/k8s-promoter}
+%\subsection*{form3tech-oss/k8s-promoter}
 
 The k8s-promoter command line interface tool can promote Kubernetes manifests, by
 taking a Git commit range between two or more commits, and applying that to another environment.
 For the promotion itself it raises a pull request on GitHub
 \autocite{form3techK8sPromoter}.
 
-\section*{Summary}
+%\section*{Summary}
 % Schreib einen Absatz, der erklärt, inwieweit deine Arbeit anders ist als Related Work. Arbeite das Delta (den Unterschied) zwischen Related Work vs. Your Work aus und betone nochmal deinen Beitrag zum GitOps-Forschungsfeld (das was du beitragen wirst im Vergleich zu allen anderen)
 
-Prior research on the concrete problem is focused on presenting
-best practices and suggestions
-which users need to manually implement themselves.
-In addition it is suggested to let an external CI/CD system handle the promotion process.
-Conversely, this thesis will bring forward
+Prior research on the concrete problem is mostly focused on
+doing promotions by using a workflow / pipeline system.
+After the build and test stages of a continuous integration process,
+the desired state is updated with the new version information.
+%presenting best practices and suggestions
+%which users need to manually implement themselves.
+%In addition it is suggested to let an external CI/CD system handle the promotion process.
+%
+Conversely, this thesis presents the design and development
+of an operator that can do promotions between environments
+in an asynchronous and GitOps-native way.
+In addition, the prototype focuses on being neutral to vendors
+and tools, in order for users to use their various tooling
+together with the promotions operator.
+It will bring forward
 abstract models of environments and promotion processes,
 which are implemented in the proposed prototype operator.
 The prototype will assess the feasibility of
 defining deployment environments and promotion processes declaratively,
 following the GitOps principles.
+
 
 
 
