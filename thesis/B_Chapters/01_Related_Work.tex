@@ -33,14 +33,15 @@ nonetheless, they suggest to use Git branches for stages and merging
 between the branches to achieve the integration of changes to other environments.
 This way it is observable which configuration is deployed to which environment or stage \autocite{gitopsCloudnativeCDInnoq}.
 
+
 \citeauthor{gitopsAndKubernetes2021continuous} (\citeyear{gitopsAndKubernetes2021continuous})
 suggest that when implementing the GitOps approach,
 the CI workflow / pipeline additionally patches the new image version into
 the desired state,
 after previous stages are completed without errors.
 This is done with configuration management tools like Kustomize,
-which can patch a new image version tag in a manifest
-\autocite{gitopsAndKubernetes2021continuous}.
+which can patch a new image version tag in a manifest.
+%\autocite{gitopsAndKubernetes2021continuous}.
 This process achieves a promotion, as the GitOps engine notices the new desired state
 and deploys it.
 When the desired state is stored in a different Git repository,
@@ -116,7 +117,7 @@ He
 explains thoroughly why this approach is an anti-pattern and should not be used
 \autocite{codefreshStopUsingBranchesGitOpsEnvironments}.
 \citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
-shares
+also shares
 a multitude of suggestions and best practices
 about modeling environments and promoting releases between them.
 Different environments are modeled by customizing \autocite{kustomizeIoWebsite} configuration 
@@ -241,6 +242,15 @@ Kargo is strongly centered around ArgoCD. However
 it follows a similar approach as the proposed prototype of this thesis,
 in that it is based on the Kubernetes operator pattern.
 
+Both projects Weave GitOps Pipelines, as well as Kargo
+were published before the beginning of the research of this thesis.
+They both follow a similar approach of having Kubernetes custom resources and respective
+controllers which provide automation.
+Weave GitOps Pipelines is strongly coupled with Flux and its respective enterprise version.
+Kargo is centered around and coupled to ArgoCD currently.
+Conversely, the proposed promotions operator prototype of this thesis
+focuses on a vendor-neutral and standardized approach.
+
 %\subsection*{wayfair-incubator/telefonistka}
 
 \enquote*{Telefonistka is a Github webhook server/Bot that facilitates change promotion across environments/failure domains in Infrastructure as Code(IaC) GitOps repos.}
@@ -277,6 +287,13 @@ For the promotion itself it raises a pull request on GitHub
 
 %\section*{Summary}
 % Schreib einen Absatz, der erklärt, inwieweit deine Arbeit anders ist als Related Work. Arbeite das Delta (den Unterschied) zwischen Related Work vs. Your Work aus und betone nochmal deinen Beitrag zum GitOps-Forschungsfeld (das was du beitragen wirst im Vergleich zu allen anderen)
+
+The presented related work shows that there is a need for an automated software solution
+for doing promotions in GitOps environments.
+Some researchers recommend avoiding multiple environments,
+because of insufficient available tooling.
+A multitude of software projects try to provide a solution to the problem,
+they present possible approaches for promoting releases in GitOps environments.
 
 Prior research on the concrete problem is mostly focused on
 doing promotions by using a workflow / pipeline system.
