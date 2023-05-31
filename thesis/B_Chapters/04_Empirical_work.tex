@@ -20,8 +20,8 @@ These solution objectives are then further elaborated in the following chapter
 desired functionality of the developed prototype.
 In addition, related ideas and approaches that were discussed by the interview partners
 are presented.
-Citations from interview transcripts are referred to in the following style:
-(interview 1, line 1).
+%Citations from interview transcripts are referred to in the following style:
+%(interview 1, line 1).
 The interview transcripts are found in the Appendix \ref{appendix:interview-transcriptions}.
 
 \section{Problem Identification \& Motivation}
@@ -54,8 +54,8 @@ When promoting new releases of applications or infrastructure resources defined 
 desired state, it is not only desirable to promote new version tags,
 but it is also needed to promote arbitrary resources like any files
 defined in the Git repository,
-or Kubernetes resources, or even other external resources
-(interview 3, line 161).
+or Kubernetes resources, or even other external resources.
+%(interview 3, line 161).
 
 %\begin{quotation}
 %	\noindent
@@ -66,8 +66,8 @@ or Kubernetes resources, or even other external resources
 Furthermore, it is desirable to have a human approve the changes,
 which are done by a machine, e.g. with the help of Git pull requests.
 The practical experience of interview partner 1 points to the idea that
-very few companies really do Continuous Deployment, most of them want to have some kind of manual release
-(interview 2, line 128).
+very few companies really do Continuous Deployment, most of them want to have some kind of manual release.
+%(interview 2, line 128).
 
 %As interview partner 1 says:
 %\enquote*{I think that very few companies really do Continuous Deployment, most of them want to have some kind of manual release.}
@@ -77,10 +77,10 @@ A release can be any combination of a general change to a system.
 It should not be distinguished between a release, a hotfix, a minor or a major change.
 Releases can be comprised of many changes that are new to a system,
 in the Kubernetes context, this could be a new container image,
-a change in a ConfigMap, or any other change in the desired state of the system
-(interview 3, line 62).
-A release may be a change to the application and or to the application specific infrastructure
-(interview 3, line 65).
+a change in a ConfigMap, or any other change in the desired state of the system.
+%(interview 3, line 62).
+A release may be a change to the application and or to the application specific infrastructure.
+%(interview 3, line 65).
 For promotion there are two important components,
 the environment infrastructure, and the application itself
 \autocite{gitopsAndKubernetes2021continuous}.
@@ -124,15 +124,15 @@ For example, if an environment should only be promoted,
 if the specific release has successfully passed another environment.
 
 The desired specified order of environments could be like interview partner 3 mentioned,
-where the core banking system had up to twelve environments
-(interview 3, line 17),
+where the core banking system had up to twelve environments,
+%(interview 3, line 17),
 which a new application release needed to pass for testing,
 in a specific order.
 From the practical experience of interview partner 3,
 the environment setup for the critical core banking system
 consisted of many environments, where the production environment with the end users,
-was only a very small part
-(interview 3, line 20).
+was only a very small part.
+%(interview 3, line 20).
 
 %\begin{quotation}
 %	\noindent
@@ -148,8 +148,8 @@ very high quality of the software.
 The criterion for an environment/stage in the context of the banking system
 would be the quality level of the software.
 Depending on if the software still had a lot of bugs, or it is closer to acceptance,
-a new release would be in a certain environment/stage
-(interview 3, line 26).
+a new release would be in a certain environment/stage.
+%(interview 3, line 26).
 
 %\begin{quotation}
 %	\noindent
@@ -177,16 +177,16 @@ a new release would be in a certain environment/stage
 Additionally to the order of promotion through environments,
 there is the problem of rolling out new releases to all environments at once.
 When
-multi-tenancy is not implemented within the application
-(interview 3, line 58),
-it can be desirable to not roll out to all environments at the same time
-(interview 3, line 158).
+multi-tenancy is not implemented within the application,
+%(interview 3, line 58),
+it can be desirable to not roll out to all environments at the same time.
+%(interview 3, line 158).
 For example, as a platform provider with tenants represented as separate GitOps
 environments, it can be desirable to split up the rollout of the new release into stages.
 A new version or release could be firstly rolled out for the unimportant customer,
 and after quality checks have passed,
-the release could be promoted also to the important customer
-(interview 3, line 158).
+the release could be promoted also to the important customer.
+%(interview 3, line 158).
 A solution to this problem formulation is especially valuable for
 use cases with a high amount of regulations like e.g. financial institutions.
 The rollout to environments in stages is presented in table \ref{table:rollout-envs-stages}.
@@ -225,8 +225,8 @@ Applications may have specific dependencies to other applications or services.
 %\end{quotation}
 To provide an example, in the context of the Kubernetes platform,
 an application may need an internal service or any other external (to Kubernetes)
-dependency like a managed database or another infrastructure service
-(interview 3, line 155).
+dependency like a managed database or another infrastructure service.
+%(interview 3, line 155).
 When thinking of release promotion,
 a dependency might be a Kubernetes object like a job or another custom resource,
 which - when it is observed with a ready or successful status -
@@ -247,8 +247,8 @@ With the currently available GitOps toolchains,
 and due to the lack of best practices and standardized solutions,
 users or platform engineers are inclined to build
 and setup
-\enquote*{advanced complex pipelines that are kind of like all interdependent on a lot of things.}
-(interview 1, line 311)
+advanced and complex pipelines that are interdependent on a lot of things.
+%(interview 1, line 311)
 This usually results in tight coupling of the Git provider, the GitOps engine, the CI workflow/pipeline platform,
 configuration management tools, and other components.
 Since many tools in the GitOps ecosystem are not very mature in their development and adoption,
@@ -494,14 +494,14 @@ Some of the related ideas and alternative approaches are discussed in this secti
 \subsection*{Rolling Production Environments}
 
 Interview partner 1 mentioned a new idea of
-\enquote*{rolling (production) environments}
-(interview 1, line 221).
+rolling production environments.
+%(interview 1, line 221).
 With this approach,
 on major changes a new production environment would be created,
 and then progressive delivery would be done against the whole environment.
 This includes the application and the whole infrastructure layer below it.
-In the Kubernetes context this would be the cluster itself, not only the deployment resource
-(interview 1, line 221).
+In the Kubernetes context this would be the cluster itself, not only the deployment resource.
+%(interview 1, line 221).
 %It was defined like the following:
 %\enquote*{if we have major changes instead of doing progressive delivery on an application level, how about just setting up a new production environment and then start doing progressive delivery against the new cluster}
 %(interview 1, line 221).
@@ -511,8 +511,8 @@ Since GitOps allows to easily create the whole environment infrastructure,
 this is not difficult to achieve.
 With tools like the GitOps Terraform Controller
 % TODO: fussnote
-such a setup is easier to achieve than before, without the GitOps approach
-(interview 1, line 224).
+such a setup is easier to achieve than before, without the GitOps approach.
+%(interview 1, line 224).
 
 %\enquote*{So at some point we're going to have progressive delivery, not on a specific application, but more of on entire environments.}
 %(interview 1, line 227)
@@ -524,8 +524,8 @@ with the power of GitOps,
 and do progressive delivery for that copy of the environment as a whole.
 %\enquote*{cloud, native is immutable infrastructure. So why shouldn't the platform also be immutable?}
 Not only the application - the running container - but also the platform and infrastructure below
-can be immutable and versioned
-(interview 1, line 251).
+can be immutable and versioned.
+%(interview 1, line 251).
 This could be done, in order to further limit the impact of a bad change in a new release of the software version.
 In addition, when having not just the desired state of the application, but also the entire infrastructure below it,
 stored in Git,
@@ -545,19 +545,19 @@ Kubernetes deployments might have many different applications,
 which are providing supporting services for the actual custom application.
 All these might be critical dependencies. Every dependent service can change version,
 Kubernetes itself is upgraded, and some APIs might even be deprecated or removed.
-There are many variables that could cause an outage of the particular critical user-facing service
-(interview 1, line 239).
+There are many variables that could cause an outage of the particular critical user-facing service.
+%(interview 1, line 239).
 %\enquote*{This is that's why you have the maintenance windows where people are staring at the clusters doing upgrades and things like that. Well, for me it just makes so much more sense. Just putting up an entirely new environment with all new versions and our new production, you know, code. Does it work? Cool. All right, Point DNS towards new cluster and you're done, right?}
 %(interview 1, line 242)
 Usually there would be a maintenance window for major new version releases,
 where responsible people are ready, incase anything breaks during a new release.
 The chance of failures could be decreased with this new approach,
-where the entire production environment is replaced with all new components with new versions
-(interview 1, line 242).
+where the entire production environment is replaced with all new components with new versions.
+%(interview 1, line 242).
 %\enquote*{So there's no downtime for users even. [...] So that is I think the end goal for us when it comes to how we do promotions and getting new code out there.}
 %(interview 1, line 245)
 Interview partner 1 sees this idea of rolling production environments as one of the next steps to move towards with the GitOps approach.
-(interview 1, line 245).
+%(interview 1, line 245).
 
 %When asked if this idea is related to or could be called blue-green deployments:
 %\enquote*{So I would rather not call it blue green and rather have a new term for it.}
@@ -582,8 +582,8 @@ is kind of lacking at the moment with the current ecosystem of GitOps tools.
 %(interview 2, line 113)
 The good overview that GitOps is supposed to bring in theory
 - when thinking of the aspect of the desired state being the single source of truth, with declarative configuration that is easy to read -
-seems to be a bit insufficient at the moment with the currently available tools
-(interview 2, line 113).
+seems to be a bit insufficient at the moment with the currently available tools.
+%(interview 2, line 113).
 
 %\enquote*{That's something that I find a bit unattractive currently with GitOps.}
 %(interview 2, line 116)
@@ -600,12 +600,12 @@ and the different container image versions.
 With all these different versions at different places,
 it can be confusing.
 A better overview over the deployed versions of a GitOps repository
-would be good to have
-(interview 2, line 104).
+would be good to have.
+%(interview 2, line 104).
 It might not be desirable to know the revision of the GitOps repository,
 where the desired state is stored,
-but better to know the version of the Helm or Kustomize configuration that is stored in the repository
-(interview 2, line 107).
+but better to know the version of the Helm or Kustomize configuration that is stored in the repository.
+%(interview 2, line 107).
 
 %Interview partner 2:
 %
@@ -723,7 +723,6 @@ however they are discussed later in chapter \ref{discussion-and-interpretation}.
 
 This chapter describes the developed prototype,
 called the GitOps Promotions Operator.
-
 First, the asynchronous nature of a typical GitOps deployment is described,
 and where the proposed GitOps Promotions Operator prototype finds its place within
 this architecture.
@@ -734,7 +733,6 @@ Next to the mockups implemented in the prototype,
 additional alternative mockups are suggested for possible alternative implementations.
 Then, the implementation of the custom resource definitions and respective controller logic
 is described within the context of the used Kubernetes operator framework Kubebuilder.
-
 Once the design and development of the artifact - the GitOps Promotions Operator prototype -
 is successfully done,
 the operator is demonstrated in a proof of concept,
