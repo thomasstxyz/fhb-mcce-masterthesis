@@ -1212,7 +1212,8 @@ but the actual path is defined per each environment.
 Once the mockups of the custom resources in Yaml format are done,
 the declarative structure can be translated to custom Go types.
 The specification of the Environment resource can be seen in Appendix
-\ref{appendix:source-code:environmentSpec-type} \nameref{appendix:source-code:environmentSpec-type}.
+% \ref{appendix:source-code:environmentSpec-type} \nameref{appendix:source-code:environmentSpec-type}.
+\ref{appendix:source-code}.
 The type EnvironmentSpec represents the \lstinline|.spec| Yaml field.
 What also needs to be defined is the status subresource.
 In the status fields, the controller can save the current/actual state
@@ -1220,9 +1221,11 @@ of the resource during runtime.
 While \lstinline|.spec| defines the desired state,
 \lstinline|.status| defines the actual state, as observed by the controller.
 The specification of the status resource can be seen in Appendix
-\ref{appendix:source-code:environmentStatusSpec-type} \nameref{appendix:source-code:environmentStatusSpec-type}.
+% \ref{appendix:source-code:environmentStatusSpec-type} \nameref{appendix:source-code:environmentStatusSpec-type}.
+\ref{appendix:source-code}.
 The specification of the Promotion resource can be seen in Appendix
-\ref{appendix:source-code:promotionSpec-type} \nameref{appendix:source-code:promotionSpec-type}.
+% \ref{appendix:source-code:promotionSpec-type} \nameref{appendix:source-code:promotionSpec-type}.
+\ref{appendix:source-code}.
 For the promotion,
 a status subresource is also defined.
 In the status - the actual state of the resource as observed by the controller -
@@ -1230,7 +1233,8 @@ most importantly the metadata of the currently opened pull request is saved,
 which the controller will pick up on every consecutive reconciliation
 of the same promotion object.
 The specification of the status resource can be seen in Appendix
-\ref{appendix:source-code:promotionStatusSpec-type} \nameref{appendix:source-code:promotionStatusSpec-type}.
+% \ref{appendix:source-code:promotionStatusSpec-type} \nameref{appendix:source-code:promotionStatusSpec-type}.
+\ref{appendix:source-code}.
 %The full source code of the types can be found in Appendix
 %\ref{appendix:source-code}.
 Once the Go types are defined,
