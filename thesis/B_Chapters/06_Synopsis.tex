@@ -40,7 +40,7 @@ which is actually used for production.
 
 This approach builds upon the progressive delivery pattern,
 which can be implemented with tools like Flagger or Argo Rollouts.
-Instead of just doing progressive delivery of an application (i.e. Kubernetes deployment / container image),
+Instead of just doing progressive delivery of an application (i.e. Kubernetes deployment and container image),
 the progressive delivery would be done on a whole environment (i.e. Kubernetes cluster).
 This has the advantage of further limiting the chance of supporting services and applications
 influencing the actual user-facing application in a bad way, i.e. breaking the service, making it unavailable for its users.

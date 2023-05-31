@@ -1,58 +1,10 @@
 \chapter{Kurzfassung}
 
-TODO: neu
+In Anlehnung an ein Kernkonzept von DevOps - die Verringerung der Reibungsverluste zwischen Entwicklungsteams innerhalb des Softwareentwicklungszyklus (SDLC) - hat sich eine Deploymentpraxis herausgebildet, die das Versionskontrollsystem Git für IT-Operations nutzt. GitOps ist eine Reihe von Prinzipien für den Betrieb und die Verwaltung von Softwaresystemen. Der gewünschte Zustand des verwalteten Systems wird - in seiner Gesamtheit - deklarativ als Code definiert, der von einem Controller kontinuierlich mit dem tatsächlichen Zustand abgeglichen wird. GitOps bietet u. a. eine größere Transparenz des Infrastrukturzustands, eine sogenannte Single-Source-of-Truth mit integrierter Audit-Historie, kürzere Wiederherstellungszeiten und verbesserte Sicherheit.
 
-% Erster Satz des Papiers
-Git wird zum neuen Zuhause für den Betrieb der Informationstechnologie (IT).
-% Einführung in DevOps und die daraus entstandene neue Praxis
-Einem Kernkonzept von DevOps
-- der Verringerung von Reibungsverlusten zwischen Ingenieurteams innerhalb des Softwareentwicklungszyklus (SDLC) -
-hat sich eine neue Praxis herausgebildet,
-die das Revisionskontrollsystem Git für den IT-Betrieb nutzt.
-% GitOps ist ...
-GitOps ist eine Reihe von Prinzipien für den Betrieb und die Verwaltung von Softwaresystemen.
-% Beschreibung von GitOps
-Der gewünschte Zustand des verwalteten Systems ist
-- in seiner Gesamtheit -
-deklarativ als Code definiert,
-der von einem Controller kontinuierlich mit dem Ist-Zustand abgeglichen wird.
-% Beschreibung des Problems
-Die Weitergabe von neuen Software-Releases zwischen mehreren Umgebungen
-stellt sich als ein derzeit ungelöstes Problem dar.
-Es fehlen im Open-Source-Ökosystem einheitliche Standardpraktiken sowie die notwendigen Werkzeuge.
-% Ziel der Arbeit
-Ziel dieser Arbeit war es, das Problem der
-Promotion von Releases in GitOps-Umgebungen zu adressieren.
-Die Problemstellung wurde identifiziert und motiviert durch
-Befragung von Fachleuten aus der Praxis, die im Bereich GitOps arbeiten.
-Es wurden eindeutige Problemstellungen definiert, aus denen Lösungsziele abgeleitet wurden.
-% was erforscht wird
-Abstrakte Modelle von Deployment-Umgebungen sowie Promotion-Workflows
-wurden entworfen.
-Basierend auf diesen Modellen,
-wurde eine standardisierte Lösung für die Promotion von Releases
-entwickelt,
-in Form eines Kubernetes-Operators,
-der die GitOps-Prinzipien befolgt.
-Schließlich wurde die Forschung evaluiert, indem
-die Funktionalität des vorgeschlagenen Prototyps
-mit den Forschungszielen verglichen wurde.
-% Was ist der Zweck, wie ist die Zukunft besser als jetzt
-% Was können wir DANN, was wir JETZT noch nicht können?
-Die Ergebnisse dieser Forschung
-% Vereinfachung des Prozesses der Release-Promotion in GitOps-Umgebungen
-adressieren das gegebene Problem
-durch die Bereitstellung einer herstellerneutralen Lösung
-für die Modellierung von Umgebungen und die Beförderung von Releases zwischen ihnen
-in einem GitOps-nativen Ansatz.
-Der vorgeschlagene Operator-Prototyp und seine Implementierung zusammen mit
-der demonstrierten Anwendung im Proof of Concept,
-beschreibt einen möglichen Weg, wie die Förderung von Releases
-in GitOps-Umgebungen gestaltet werden kann.
-Für zukünftige Arbeiten sollte der Prototyp verbessert werden,
-indem die Benutzererfahrung und die erforderlichen Funktionen untersucht werden,
-im Rahmen der designwissenschaftlichen Forschungsmethodik.
+Ein Problem des GitOps-Ansatzes ist die Promotion neuer Software-Releases zwischen Umgebungen aufgrund der asynchronen Charakteristik von GitOps-Deployments. Derzeit gibt es keine Standardverfahren und -werkzeuge für die Durchführung von Promotions in einer GitOps-nativen Weise. Daher neigen Anwender dazu, Workflow-/Pipeline-Systeme zu verwenden, um Promotions durchzuführen. Diese Arbeit zielt darauf ab, das Problem der Promotion von Releases in GitOps-Umgebungen zu adressieren. Die Problemstellung wurde durch die Befragung von Fachleuten, die im Bereich GitOps tätig sind, identifiziert und motiviert. Es wurden eindeutige Problemstellungen definiert, aus denen Lösungsziele abgeleitet wurden. Es wurden abstrakte Modelle von Deployment-Umgebungen sowie Promotion-Workflows entworfen. Auf der Grundlage dieser Modelle wurde eine standardisierte Lösung für die Promotion von Releases entworfen und prototypisch entwickelt, die den GitOps-Prinzipien entspricht. Die Forschung wurde evaluiert, indem die Funktionalität des vorgestellten Prototyps mit den Forschungszielen verglichen wurde.
 
+Die Ergebnisse dieser Forschung adressieren das gegebene Problem, indem sie eine herstellerneutrale Lösung für die Modellierung von Umgebungen und die Promotion von Releases zwischen ihnen mit einem GitOps-nativen Ansatz bieten. Der vorgeschlagene Operator-Prototyp und seine Implementierung, zusammen mit der demonstrierten Verwendung im Proof of Concept, beschreibt einen möglichen Weg, wie die Promotion von Releases in GitOps-Umgebungen gestaltet werden kann. Für zukünftige Arbeiten sollte der Prototyp verbessert werden, indem die Benutzererfahrung und die gewünschten Funktionalitäten im Rahmen der Design Science Forschungsmethodik untersucht werden.
 
 
 
