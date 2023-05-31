@@ -13,9 +13,9 @@ in academic journals or conferences
 on the specific topic of
 modeling multiple deployment environments with GitOps and promoting releases between them.
 Some textbooks exist on the topic of environment promotion, which
-not necessarily incorporate the GitOps approach.
-These are however described below.
-% TODO: related work, which does this without the GitOps approach?
+do not necessarily incorporate the GitOps approach.
+%These are however described below.
+% related work, which does this without the GitOps approach?
 
 % --------------------------
 % --------------------------
@@ -46,7 +46,7 @@ This process achieves a promotion, as the GitOps engine notices the new desired 
 and deploys it.
 When the desired state is stored in a different Git repository,
 then it needs to be cloned in addition to the application build repository.
-\citeauthor{gitopsAndKubernetes2021continuous} (\citeyear{gitopsAndKubernetes2021continuous})
+They
 also suggest the implementation of observability metrics for the CI pipeline,
 in order to detect issues with the building and testing process
 \autocite{gitopsAndKubernetes2021continuous}.
@@ -102,7 +102,7 @@ be it a new release or a rollback
 %which has mainly been targeted at
 %evaluating the concept of GitOps in general.
 
-\citeauthor{kostisKapelonisMeetACodefresher} (\citeyear{kostisKapelonisMeetACodefresher})
+%\citeauthor{kostisKapelonisMeetACodefresher} (\citeyear{kostisKapelonisMeetACodefresher})
 %at Codefresh
 %published a couple of blog posts in recent years,
 %where some best practices are presented on the topic.
@@ -116,16 +116,18 @@ modeling different deployment environments by using Git branches.
 He
 explains thoroughly why this approach is an anti-pattern and should not be used
 \autocite{codefreshStopUsingBranchesGitOpsEnvironments}.
-\citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
+He
+%\citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
 also shares
 a multitude of suggestions and best practices
 about modeling environments and promoting releases between them.
-Different environments are modeled by customizing \autocite{kustomizeIoWebsite} configuration 
-in separate files and folders or Git repositories.
+Different environments are modeled by customizing configuration in separate files and folders or Git repositories.
 For promoting between environments, basic file copy operations are suggested.
-The author notes that these simple file copy operations can easily be automated by an external system,
+He highlights that these simple file copy operations can easily be automated by an external system,
 like a CI/CD system.
-\citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
+%\autocite{codefreshHowToModelGitOpsEnvironmentsAndPromote}.
+He
+%\citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote})
 suggests four categories of environment configuration.
 The application version,
 Kubernetes specific settings,
@@ -138,7 +140,7 @@ Kubernetes specific settings and mostly static business settings are generally n
 
 The design of the proposed prototype for this research
 considers the suggestions mentioned by
-\citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote}).
+\citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshStopUsingBranchesGitOpsEnvironments}, \citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote}).
 Git branch-based environments are disregarded for the prototype design.
 Because of the different categories of environment configuration,
 the prototype design provides a way to promote specific files or directories,
@@ -209,7 +211,7 @@ It allows the user to specify an application reference,
 which is a Flux HelmRelease resource,
 which can be deployed in a Pipeline like way,
 through many environments.
-Once an environment was successfully delivered with the new version,
+Once an environment is successfully delivered with the new version,
 it sends a HTTP webhook to the next environment, or the management cluster,
 to trigger deployment to the next environment.
 The user may configure pull requests to be created for the promotion itself,
@@ -246,7 +248,7 @@ Both projects Weave GitOps Pipelines, as well as Kargo
 were published before the beginning of the research of this thesis.
 They both follow a similar approach of having Kubernetes custom resources and respective
 controllers which provide automation.
-Weave GitOps Pipelines is strongly coupled with Flux and its respective enterprise version.
+Weave GitOps Pipelines is created to work exclusively with Flux and its respective enterprise version.
 Kargo is centered around and coupled to ArgoCD currently.
 Conversely, the proposed promotions operator prototype of this thesis
 focuses on a vendor-neutral and standardized approach.
@@ -256,7 +258,7 @@ focuses on a vendor-neutral and standardized approach.
 \enquote*{Telefonistka is a Github webhook server/Bot that facilitates change promotion across environments/failure domains in Infrastructure as Code(IaC) GitOps repos.}
 \autocite{telefonistka}
 It is designed to sync folders in Git repositories from source paths to target paths.
-When it detects changed that are not yet synced,
+When it detects changes that are not yet synced,
 it will create a pull request against the repository.
 It supports any directory structure of users GitOps repositories -
 it is unopinionated.
@@ -277,6 +279,7 @@ The supported Git providers are GitHub and Azure DevOps.
 gitops-promotion is a command line interface program.
 It is best suited to be used as part of a CI pipeline/workflow
 \autocite{xenitABgitopsPromotion}.
+This tool only works with container image versions.
 
 %\subsection*{form3tech-oss/k8s-promoter}
 
@@ -292,8 +295,8 @@ The presented related work shows that there is a need for an automated software 
 for doing promotions in GitOps environments.
 Some researchers recommend avoiding multiple environments,
 because of insufficient available tooling.
-A multitude of software projects try to provide a solution to the problem,
-they present possible approaches for promoting releases in GitOps environments.
+Several software projects try to provide a solution to the problem.
+They present possible approaches for promoting releases in GitOps environments.
 
 Prior research on the concrete problem is mostly focused on
 doing promotions by using a workflow/pipeline system.

@@ -64,8 +64,8 @@ but to shift many processes into the developers hands.
 This is to give developers as much insight as possible,
 in order to decrease efficiency and productivity to eventually
 decrease the time-to-market for new product releases, features and bug fixes.
-Software should strive to run resilient in the productive environment.
-This is essentially needed for organizations to continue to thrive in todays
+Software should strive to run resilient in the production environment.
+This is essentially needed for organizations to continue to thrive in today's
 rapidly changing world.
 
 Cloud native technologies have allowed for this movement to happen.
@@ -77,7 +77,7 @@ software development lifecycle,
 it is now easier than ever before possible to reduce the amount of
 teams down to a minimum, in order to reduce friction between people communications and processes.
 This additionally gives the developers much better insights of what effect their code changes have
-on the end product or service, which users consume.
+on the end product or service, which customers consume.
 
 While DevOps is about creating permanent cultural change in people
 and communications of an organization,
@@ -418,11 +418,11 @@ Since the Kubernetes manifests are declarative and highly configurable in nature
 their configuration and customization can be rather cumbersome.
 Many definitions are duplicated, so it is desirable to use variables, templates and the like,
 for making the configuration easier to use and maintain.
-Popular tools are Kustomize, Helm, cdk8s and Carvel ytt were created to help with configuration and templating.
+Popular tools like Helm \footnote{https://helm.sh/} and Kustomize \footnote{https://kustomize.io/} were created to help with configuration and templating.
 
-\enquote*{Kustomize introduces a template-free way to customize application configuration that simplifies the use of off-the-shelf applications. Now, built into kubectl as apply -k.}
+\enquote*{Kustomize introduces a template-free way to customize application configuration that simplifies the use of off-the-shelf applications.}
 \autocite{kustomizeIoWebsite}
-Kustomize provides a way to customize base Kubernetes manifests with minimal additional overhead.
+It provides a way to customize base Kubernetes manifests with minimal additional overhead.
 It is built into kubectl and works purely declarative with raw manifests as input and output.
 
 Helm is the de-facto standard package manager for Kubernetes.
@@ -431,7 +431,8 @@ which can be highly configurable.
 Most third-party applications offer a helm chart for installation.
 It is based on using templates with variables and minimal logic,
 which can be rendered into plain Kubernetes manifests, usually at deployment time,
-as variables may be input for last-mile configuration.
+as variables may be input for last-mile configuration
+\autocite{helmWebsite}.
 
 %Cdk8s is a development kit for Kubernetes.
 %It
@@ -456,7 +457,7 @@ as variables may be input for last-mile configuration.
 
 % TODO: explain what gitops engines do + visual ?
 
-The GitOps engine or controller is responsible for the
+The GitOps engine, agent or controller is responsible for the
 reconciliation of the desired state with the actual state
 in the target deployment environment.
 It adheres to the GitOps principles and is the primary tool
@@ -468,7 +469,7 @@ tool from which provider is used.
 GitOps engines should work together with any other tool in the GitOps ecosystem.
 The most widely adopted GitOps engines and accompanying projects are those from
 the Argo
-\footnote{https://https://argoproj.io/}
+\footnote{https://argoproj.io/}
 and Flux
 \footnote{https://fluxcd.io/}
 projects.
@@ -491,12 +492,12 @@ As pull requests are not part of the open-source core of Git,
 each Git provider offers a different API for the pull requests.
 Integrations with the pull request API from Git providers therefore need to be implemented
 for each Git provider separately. Thus many software tools support only certain Git providers.
-Some of the most prominent Git providers are
-Github,
-Gitlab,
-Bitbucket,
-Azure DevOps, and
-Gitea.
+%Some of the most prominent Git providers are
+%Github,
+%Gitlab,
+%Bitbucket,
+%Azure DevOps, and
+%Gitea.
 
 
 
@@ -526,7 +527,7 @@ Gitea.
 
 
 
-\section{Environments and Release Promotion}
+\section{Environments and Promotions}
 
 An environment
 - or GitOps environment -
@@ -534,8 +535,8 @@ in the context of this thesis
 is defined as a target deployment environment for a given application;
 e.g. Development, Testing, or Production.
 Most of the time this is a Kubernetes cluster or namespace.
-In the context of the proposed Kubernetes Custom Resource Definition
-Environment, however it represents a folder/directory in a Git repository,
+In the context of the proposed Kubernetes custom resource definition
+environment, however it represents a folder/directory in a Git repository,
 which points to a deployment environment or cluster/namespace.
 %
 \citeauthor{gitopsAndKubernetes2021continuous} (\citeyear{gitopsAndKubernetes2021continuous})
@@ -558,7 +559,7 @@ to the users.
 When following GitOps practices,
 this usually means
 pushing a new Git tag to a Git repository,
-which triggers a CI/CD workflow,
+which triggers a workflow/pipeline,
 which as one of its steps publishes the software artifact of
 the new version of the application in an artifact registry.
 
@@ -590,7 +591,7 @@ Branches can usually be restricted or limited to certain developers only,
 which would make it easier to implement the access permissions than the folder-per-environment approach.
 
 This research focuses primarily on the modeling of folder-per-environment.
-The designed and developed operator prototype is based on this folder-per-environment model.
+The designed and developed operator prototype is based on the folder-per-environment model.
 However, if the requirement for branch-per-environment modeling exists in the future,
 support for it can potentially be added.
 
@@ -599,110 +600,14 @@ support for it can potentially be added.
 
 
 
-%\section{Promotion of Releases across Environments}
-
-When a Continuous Deployment setup consists of multiple deployment environments,
-the process is usually to first deploy to the first environment,
-and if the deployment succeeds, the second environment is deployed to.
-Environments can also be seen as stages in this context,
-where previous stages need to pass, before subsequent stages are passed through.
-The purpose of having multiple environments and promoting releases through them
-is to detect and correct errors as early as possible in the development cycle
-\autocite{gitopsAndKubernetes2021continuous}.
-
-With the push-based deployments described in the previous section \ref{theoretical-background:gitops-cd},
-where the host process of a CI/CD pipeline typically knows the state of each deployment,
-it is not that big of a challenge to incorporate more deployment environments.
-For critical environments, that might be required to have a human approve new releases,
-the deployment task of the pipeline configuration could be set to manual.
-Via the CI/CD system's interface, these deployments can be easily managed.
-
-With the GitOps approach and pull-based deployments described in the previous section \ref{theoretical-background:gitops-cd},
-the process of deploying to multiple environments is more tricky with the currently available tools.
-While deploying the same new release or version of an application to multiple environments is not a problem,
-the promotion of a release to other or subsequent environments, depending on if the deployment to the first environment succeeded,
-is a bit of a challenge.
-
-As previously described, the problem is that the pull-based deployment process with GitOps is asynchronous.
-Once the CI/CD pipeline process uploads the artifact to the registry, the pipeline usually ends at that point.
-The component responsible for deployment is the GitOps engine, which is watching the desired state,
-and will pick up and continue the asynchronous deployment process, once it detects a new change in the desired state.
-There is usually an automated process which updates the desired state with the new artifact's version.
-
-%\subsection{Image Update Automation}
-
-For the popular GitOps tools like Flux or Argo,
-there are components available with a functionality to update the desired state
-of a particular container image version with the currently latest available, or some other specification, like a semantic version specification.
-
-\begin{figure}[h]
-	\centering
-	\fbox{\includegraphics[width=0.72\linewidth]{assets/image-update-automation-illustration.png}}
-	\caption{Image Update Automation.
-		%		(\citeauthor{ref}, \citeyear{ref}).
-	}
-	\label{fig:image-update-automation-illustration}	
-\end{figure}
-
-It works the following way: A controller continuously watches the repository/registry of the container image for new versions.
-If the controller detects a new version with the specification it is configured (e.g. stable-*, 1.13.*),
-it will take that new verion tag and patch it to a declared container image which is specified in one or more YAML files in a Git repository.
-This tool makes it possible to achieve simple Continuous Deployment,
-meaning that a commit, a code change, by a developer can automatically be released to production.
-Ideally tests are run before releasing, in order to ensure quality.
-When the application is deployed to multiple environments, which is specified by multiple desired state declarations,
-i.e. folders in the GitOps repository, or separate repositories,
-such an image update automation can be configured for all environments.
-However, such a setup has its downsides.
-Namely, that the new release will be deployed to all environments at once.
-This is not always desired, and sometimes it is required to have some sort of manual release process between environments.
-
-With the currently available tools in the GitOps ecosystem,
-it is not straight-forward how you would setup such a promotion process,
-when multiple deployment environments are required.
-While it is not too difficult to achieve with push-based deployments and CI/CD,
-it is currently a challenge with pull-based deployments and GitOps.
-
-%\subsection{Promotion Strategies}
-
-An automated workflow for release promotion between environments,
-can be achieved in multiple ways,
-however there is no common or uniform practice for it at the moment.
-Depending on the used GitOps and CI/CD systems used for a particular project or organization,
-such a setup for promoting releases with multiple deployment environments can differ much.
-Replacing a component in the setup, e.g. the CI/CD system or Git provider, can be quite challenging.
-
-\begin{figure}[h]
-	\centering
-	\fbox{\includegraphics[width=0.98\linewidth]{assets/promotion-by-pipeline-task-post-deploy-hook.png}}
-	\caption{Promotion via post-deploy hook and pipeline task.
-		%		(\citeauthor{ref}, \citeyear{ref}).
-	}
-	\label{fig:promotion-by-pipeline-task-post-deploy-hook}	
-\end{figure}
-
-A way to do a GitOps promotion is to have a pipeline task, which can be a shell script,
-do some particular operation. This pipeline task could be configured to accept an incoming webhook,
-upon which it would be executed.
-The GitOps engine could be configured to execute a post-deployment hook,
-which it would run after a successful deployment to a particular environment.
-This hook could send a request to the pre-configured pipeline task, which would then be executed,
-and do the GitOps promotion.
-
-
-
-
-
-\vfill
-
-\section{Continuous Deployment}
+%\subsection*{Continuous Deployment}
 \label{theoretical-background:gitops-cd}
 
 Continuous Deployment (CD) is the automatic deployment of successful builds to the production environment.
 Developers should be able to deploy new versions by either clicking a button, merging a merge request, or pushing a Git release tag
 \autocite{cloudNativeDevopsMitKubernetesArundel2019cloud}.
 With the GitOps approach,
-Continuous Deployment works differently than with push-based CI/CD deployments.
+Continuous Deployment works differently than with push-based deployments.
 In the following,
 push-based and pull-based deployments in the context of GitOps are explained.
 
@@ -756,7 +661,7 @@ push-based and pull-based deployments in the context of GitOps are explained.
 
 %\subsection{Push-based Deployments}
 
-Without GitOps, Continuous Deployment was primarily push-based.
+Without GitOps, Continuous Deployment is primarily push-based.
 This means, that a code change introduced as a commit to a Git repository by a developer,
 passes through each step in a CI/CD pipeline sequentially.
 Basically, a single process executes all tasks one after another,
@@ -764,10 +669,10 @@ and has the knowledge of where the process is at at a given moment,
 and where it fails, and if it succeeds, it knows the status.
 These tasks might be automated tests of all sorts,
 automated builds of artifacts and finally some sort of uploading of the artifact to a registry.
-When Continuous Deployment was desired with this push-based approach,
+When Continuous Deployment is desired with this push-based approach,
 then a task would be appended to the end of the pipeline,
 which would deploy the new artifact to the target deployment environment.
-The CI/CD system has knowledge over the status of the deployment, whether it failed or succeeded.
+The workflow/pipeline system has knowledge over the status of the deployment, whether it failed or succeeded.
 
 If multiple environments or stages were desired,
 another task would be appended to the pipeline
@@ -804,14 +709,116 @@ the deployment process works in a pull-based manner.
 This means, that the GitOps engine, which often lives inside the deployment environment
 continuously watches the desired state for changes,
 and if changes occur, the new desired state is reconciled with the actual state, in order for them to match again.
-Because the deployment process is not done by a task at the end of the CI/CD pipeline,
+Because the deployment process is not done by a task at the end of the pipeline,
 the pipeline ends with a successful push of the artifact to a registry.
-At this point, typically a version updating tool like e.g. Flux Image Update Automation, which notices, that a new version is available in
+At this point, typically a version updating tool like Flux Image Update Automation, which notices, that a new version is available in
 the artifact registry, patches that new version into the desired state stored in the GitOps repository.
-Next, the GitOps engine notices the change in the desired state and does the reconciliation,
+Next, the GitOps engine notices the change of the desired state and does the reconciliation,
 which finally ends up in a deployment.
 The processes that are responsible for deployment with the GitOps approach run asynchronously.
 This is illustrated in figure \ref{tikz:pull-based-cd}.
+
+
+
+
+
+
+
+
+%\subsection*{Promotion of Releases across Environments}
+
+When a Continuous Deployment setup consists of multiple deployment environments,
+the process is usually to first deploy to the first environment,
+and if the deployment succeeds, the second environment is deployed to.
+Environments can also be seen as stages in this context,
+where previous stages need to pass, before subsequent stages are passed through.
+The purpose of having multiple environments and promoting releases through them
+is to detect and correct errors as early as possible in the development cycle
+\autocite{gitopsAndKubernetes2021continuous}.
+
+With push-based deployments described in section \ref{theoretical-background:gitops-cd},
+where the host process of a workflow/pipeline typically knows the state of each deployment,
+it is not that big of a challenge to incorporate more deployment environments.
+For critical environments, that might be required to have a human approve new releases,
+the deployment task of the pipeline configuration could be set to manual.
+Via the workflow/pipeline system's interface, these deployments can be managed.
+
+With the GitOps approach and pull-based deployments described in section \ref{theoretical-background:gitops-cd},
+the process of deploying to multiple environments is more tricky with the currently available tools.
+While deploying the same new release or version of an application to multiple environments is not a problem,
+the promotion of a release to other or subsequent environments, depending on if the deployment to the first environment succeeded,
+is a bit of a challenge.
+
+As previously described, the problem is that the pull-based deployment process with GitOps is asynchronous.
+Once the workflow/pipeline process uploads the artifact to the registry, the pipeline usually ends at that point.
+The component responsible for deployment is the GitOps engine, which is watching the desired state,
+and will pick up and continue the asynchronous deployment process, once it detects a new change in the desired state.
+There is usually an automated process which updates the desired state with the new artifact's version.
+
+%\subsection{Image Update Automation}
+
+For the popular GitOps tools like Flux or Argo,
+there are components available with a functionality to update the desired state
+of a particular container image version with the currently latest available, or some other specification, like a semantic version specification.
+
+\begin{figure}[h]
+	\centering
+	\fbox{\includegraphics[width=0.72\linewidth]{assets/image-update-automation-illustration.png}}
+	\caption{Image Update Automation.
+		%		(\citeauthor{ref}, \citeyear{ref}).
+	}
+	\label{fig:image-update-automation-illustration}	
+\end{figure}
+
+It works the following way: A controller continuously watches the repository/registry of the container image for new versions.
+If the controller detects a new version with the specification it is configured (e.g. stable-*, 1.13.*),
+it will take that new verion tag and patch it to a declared container image which is specified in one or more YAML files in a Git repository.
+This tool makes it possible to achieve simple Continuous Deployment,
+meaning that a commit, a code change, by a developer can automatically be released to production.
+Ideally tests are run before releasing, in order to ensure quality.
+When the application is deployed to multiple environments, which is specified by multiple desired state declarations,
+i.e. folders in the GitOps repository, or separate repositories,
+such an image update automation can be configured for all environments.
+However, such a setup has its downsides.
+Namely, that the new release will be deployed to all environments at once.
+This is not always desired, and sometimes it is required to have some sort of manual release process between environments.
+
+With the currently available tools in the GitOps ecosystem,
+it is not straight-forward how you would setup such a promotion process,
+when multiple deployment environments are required.
+While it is not too difficult to achieve with push-based deployments and a synchronous workflow/pipeline,
+it is currently a challenge with pull-based deployments and GitOps.
+
+%\subsection{Promotion Strategies}
+
+An automated workflow for release promotion between environments,
+can be achieved in multiple ways,
+however there is no common or uniform practice for it at the moment.
+Depending on the used GitOps and workflow/pipeline systems used for a particular project or organization,
+such a setup for promoting releases with multiple deployment environments can differ by much.
+Replacing a component in the setup, e.g. the workflow/pipeline system or Git provider, can be quite challenging.
+
+\begin{figure}[h]
+	\centering
+	\fbox{\includegraphics[width=0.98\linewidth]{assets/promotion-by-pipeline-task-post-deploy-hook.png}}
+	\caption{Promotion via post-deploy hook and pipeline task.
+		%		(\citeauthor{ref}, \citeyear{ref}).
+	}
+	\label{fig:promotion-by-pipeline-task-post-deploy-hook}	
+\end{figure}
+
+A way to do a GitOps promotion is to have a pipeline task, which can be a shell script,
+do some particular operation. This pipeline task could be configured to accept an incoming webhook,
+upon which it would be executed.
+The GitOps engine could be configured to execute a post-deployment hook,
+which it would run after a successful deployment to a particular environment.
+This hook could send a request to the pre-configured pipeline task, which would then be executed,
+and do the GitOps promotion.
+
+
+
+
+
 
 
 
@@ -821,7 +828,7 @@ This is illustrated in figure \ref{tikz:pull-based-cd}.
 
 With progressive delivery tools like
 Flagger
-\autocite{flaggerWebsite}
+\footnote{https://flagger.app/}
 and
 Argo Rollouts
 \footnote{https://argoproj.github.io/rollouts/},
@@ -857,12 +864,12 @@ Since the progressive delivery tools allow for a more
 fine-grained segmentation
 of a single environment based on numerous parameters like
 client device type, user region, user type (e.g., developer, admin),
-registered or unregistered users, etc.
+registered or unregistered users, etc.,
 the requirements to have a multitude of deployment environments
 have decreased for some organizations.
 In combination with feature flagging functionality,
-certain new features can e.g. only be released to certain users.
-An illustration can be seen in fig. \ref{fig:progressive-delivery}.
+certain new features can, for example, be released only to specific users.
+An illustration can be seen in figure \ref{fig:progressive-delivery}.
 
 %\begin{figure}[h]
 %	\centering
@@ -880,7 +887,7 @@ errors hitting the production environment is top priority and business critical,
 to say the least,
 may still want to run multiple environments next to progressive delivery tools,
 to ensure an even higher quality and level of caution.
-This is illustrated in fig. \ref{fig:deploy-multiple-envs}.
+This is illustrated in figure \ref{fig:deploy-multiple-envs}.
 Multiple environments typically mean a big increase in costs;
 with progressive delivery the need for multiple environments has decreased,
 and this way costs can be reduced.
@@ -908,7 +915,7 @@ For every commit of an individual developer,
 a deployment environment may be provisioned for previewing the changes
 in a live environment that resembles the production environment as well as possible.
 This is to gather feedback as early as possible,
-and improve the quality, as well as remove bugs quickly.
+and improve code quality, as well as remove bugs quickly.
 This short-living environment may be deleted after a short specified
 amount of time has passed.
 
@@ -939,9 +946,9 @@ to build other applications and platforms on top of.
 Kubernetes does many things out of the box,
 which good system administrators and operators
 have done manually in the past.
-Automation of operations, failover handling, centralised logging and monitoring,
+Kubernetes does automation of operations, failover handling, centralised logging and monitoring,
 installation of security patches, backing up data, and more
-does Kubernetes in an automated fashion,
+in an automated fashion,
 so humans can focus on their specific business related problems
 \autocite{cloudNativeDevopsMitKubernetesArundel2019cloud}.
 
@@ -950,10 +957,10 @@ which is easily extensible.
 Developers may extend its API by specifying custom resources and controllers.
 There are several advantages when extending the Kubernetes API,
 in comparison to a plain REST API.
-Advantages are hosted built-in API endpoints, state and configuration storage,
+Some advantages are hosted built-in API endpoints, state and configuration storage,
 request and policy validation,
 support for granular authentication and authorization,
-support for multiple API domains, versions, conversion between versions, API evolution
+support for multiple API domains, versions, conversion between versions and API evolution
 \autocite{kubebuilderBookWebsite}.
 %Some of those are the following
 %\autocite{kubebuilderBookWebsite}:
