@@ -3,7 +3,6 @@
 
 In this chapter,
 further suggestions for future research on this topic and the developed prototype are presented.
-
 In addition,
 some interesting ideas that came out of this research are discussed,
 and how they could be further researched in future work either by the researcher of this thesis or other researchers.
@@ -17,13 +16,13 @@ in order to find out if users have difficulty doing the initial setup,
 or any other troubles.
 The use of the prototype could be observed in a case study or tested in a field experiment.
 The prototype should be adapted in more iterations of the applied methodology process model.
-
+%
 The API, the custom resources, which the operator provides can be changed to fit the users needs.
 Additional functionality which is required by users, can be added.
 Since the operator works with any other GitOps tooling the users bring from their individual GitOps setup,
 it can lack a bit of ease of use. The integration into other GitOps tooling like Argo or Flux
 should be evaluated, and examined if such an integration is worth it, in order to provide better convenience.
-
+%
 The main goal is to extensively adapt for user requirements, in order to fit
 many possible promotion processes.
 The prototype should be further developed to enable the use in production by organizations or other projects.
@@ -166,10 +165,10 @@ of their environments, and how they want releases to be promoted between them.
 The overall goal of the thesis was to provide a solution to the problem of
 release promotion in GitOps environments.
 Therefore this overarching research question was defined:
-\textbf{\ref{RQ1}};
+\ref{RQ1};
 with the following sub research questions:
-\textbf{\ref{RQ1.1}}
-\textbf{\ref{RQ1.2}}
+\ref{RQ1.1}
+\ref{RQ1.2}
 
 \section*{Methodology}
 
@@ -243,7 +242,8 @@ For the problem identification and motivation of the main topic of this thesis,
 interviews with practicing professionals, who are working in the GitOps field, were conducted.
 Several problems were identified,
 and defined along with their respective research objectives.
-\textbf{\nameref{problem1}},
+
+\nameref{problem1},
 relates to a frequent issue with currently available tooling in the GitOps ecosystem. 
 Often times solely container image version tags are the focus with current tools when promoting
 new versions or releases.
@@ -253,7 +253,7 @@ an according research objective was defined.
 %Especially when not using containerization technologies for runtime, this is an important problem to handle.
 %In order to be able to provide a solution to this problem with a comprehensible approach,
 %a solution objective was inferred and its requirements defined.
-\textbf{\nameref{objective1}},
+\nameref{objective1},
 defines a qualitative description of how the respective problem is supposed to be solved
 by the developed artifact. The main idea is to offer the capability to promote arbitrary resources,
 meaning any type of resource, instead of solely the container image version.
@@ -261,47 +261,52 @@ meaning any type of resource, instead of solely the container image version.
 %promoting a list of filesystem paths inside the Git repository of the desired state to other environments.
 %In addition these arbitrary resources should be able to be assigned a descriptive name,
 %in order to identify the promotion subjects more easily.
-\textbf{\nameref{problem2}},
+
+\nameref{problem2},
 states the fact, that it is not a straight-forward process of how the order of promotion
 through multiple GitOps environments can be setup.
 %When adhering to the principles of GitOps
 %and sticking with the asynchronous deployment process (described in the
 %\nameref{theoretical-background} chapter)
 %there is no streamlined approach or tooling, that automates this, while still sticking to the asynchronous process.
-\textbf{\nameref{objective2}},
+\nameref{objective2},
 defines the requirements for the proposed prototype,
 in regards to the according problem of having a certain order of promotion through environments or stages.
 The objective describes the capability for defining a certain order of environments, in which releases traverse through.
 In addition, this solution objective opens up the possibility to setup promotion in stages, in which
 certain environments must be deployed to first, before the release can deploy to other specified environments.
-\textbf{\nameref{problem3}},
+
+\nameref{problem3},
 relates to the problem that when wanting to promote a new release from environment one to another environment,
 it is not easily achievable with the available tools to specify certain dependencies, like other workloads or
 microservices in the same or another environment, or altogether dependencies from external sources.
 This is especially desirable for evaluating test results or other metrics, before triggering the promotion.
-\textbf{\nameref{objective3}},
+\nameref{objective3},
 describes how the respective problem of being able to specify dependencies for a promotion,
 could be solved in the proposed prototype. While the minimum dependency is the successful deployment
 of the workload of a release,
 it may also be desirable to specify other resources or workloads which need to be in a certain state,
 before triggering a promotion.
-\textbf{\nameref{problem4}},
+
+\nameref{problem4},
 draws attention to the common problem of being dependent on single tools and providers.
 The more complex the Continuous Delivery is setup for a particular project,
 the more difficult it is to de-couple or switch providers for certain components.
 %Furthermore, since many tools in the GitOps ecosystem are not very mature in their development and adoption,
 %it is of use that components are loosely coupled and can be exchanged with alternatives in the future.
-\textbf{\nameref{objective4}},
+\nameref{objective4},
 defines the requirements of how a vendor-neutral and tool-agnostic prototype can be implemented.
+The promotions operator supports any GitOps engine, Git provider, and configuration tool.
 %The main components which are desirable to support all alternatives,
 %for being able to switch between them,
 %are the Git providers (e.g. GitHub, GitLab),
 %the GitOps engines (e.g. Argo, Flux),
 %the configuration/templating tools (e.g. Kustomize, Helm).
+
 Additionally,
 related ideas and approaches were discussed by the interview partners.
 These points were not directly considered for the conducted design science in the prototype,
-however they were discussed later.
+however they were discussed later in the thesis.
 
 \section*{Prototype}
 

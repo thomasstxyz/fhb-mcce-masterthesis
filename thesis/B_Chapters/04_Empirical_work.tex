@@ -279,27 +279,30 @@ run on any type of infrastructure.
 Now that the problem has been identified in the earlier section
 \ref{interviews:problem-identification} \nameref{interviews:problem-identification},
 research objectives of a solution to the problem will be inferred.
-Each research objective provides a solution to a distinct problem item
+Each objective provides a solution to a distinct problem item
 (fig. \ref{fig:from-problem-to-objective-visualized}).
-A research objective is a qualitative description of how a functionality
-of the developed prototype is expected to support a solution to the problem definition.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.55\linewidth]{assets/from-problem-to-objective-visualized.png}
+	\fbox{\includegraphics[width=0.55\linewidth]{assets/from-problem-to-objective-visualized.png}}
 	\caption{Definition of Solution Objectives by inferring from Problem Definitions.
 		%		(\citeauthor{ref}, \citeyear{ref}).
 	}
 	\label{fig:from-problem-to-objective-visualized}	
 \end{figure}
 
+A solution objective is a qualitative description of how the functionality
+of the developed prototype is expected to support a solution to the problem definition.
+For later evaluation of the results, the observed functionality can be backtracked to
+a certain solution objective and its respective problem item.
+
 \subsection{Objective 1: Arbitrary resources can be promoted}
 \label{objective1}
 
 From the problem definition
-\textbf{\nameref{problem1}},
+\nameref{problem1},
 a solution objective
-\textbf{\nameref{objective1}},
+\nameref{objective1},
 is inferred.
 A qualitative description of the solution objective
 is pointed out in the following.
@@ -317,6 +320,18 @@ of filesystem paths inside a Git repository,
 potentially any type of resource may be a possible subject for promotion.
 When GitOps environments are stored in multiple, separate Git repositories,
 there needs to be the functionality to copy between these repositories.
+This is illustrated in figure \ref{fig:OBJ1R1-and-OBJ1R2}.
+%
+
+\begin{figure}[h]
+	\centering
+	\fbox{\includegraphics[width=0.79\linewidth]{assets/OBJ1R1-and-OBJ1R2.png}}
+	\caption{OBJ1R1 and OBJ1R2.
+		%		(\citeauthor{ref}, \citeyear{ref}).
+	}
+	\label{fig:OBJ1R1-and-OBJ1R2}	
+\end{figure}
+
 Furthermore, for these arbitrary files or directories in GitOps repositories
 a descriptive name for a certain file or directory
 should be defined alongside the
@@ -329,40 +344,38 @@ can be given a friendly name like "Environment variables/Application Configurati
 This makes it a lot easier to identify a particular promotion subject, without
 needing to manually inspect the raw contents of a file or even multiple files or
 directory trees.
+This is illustrated in figure \ref{fig:OBJ1R1-and-OBJ1R2}.
 
 A collection of the requirements for the solution objective is shown below
-Each requirement is represented in the form of a user story,
+Each requirement is represented in the form of a user story
+\autocite{userStoriesCohn2004user},
 and is labelled with a code, from a combination of the
 objective's code (e.g. OBJ1) and the requirement's code (e.g. R1).
 
 \begin{itemize}
-	\item \textbf{OBJ1R1}: \setword{As a user, I can define any filesystem path inside a Git repository, with a respective target path in a Git repository, as a promotion subject.}{OBJ1R1}
-	\item \textbf{OBJ1R2}: \setword{As a user, I can define a descriptive name for a promotion subject, which is represented as an arbitrary filesystem path.}{OBJ1R2}
+	\item OBJ1R1: \setword{As a user, I can define any filesystem path inside a Git repository, with a respective target path in a Git repository, as a promotion subject.}{OBJ1R1}
+	\item OBJ1R2: \setword{As a user, I can define a descriptive name for a promotion subject, which is represented as an arbitrary filesystem path.}{OBJ1R2}
 \end{itemize}
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.79\linewidth]{assets/OBJ1R1-and-OBJ1R2.png}
-	\caption{OBJ1R1 and OBJ1R2.
-		%		(\citeauthor{ref}, \citeyear{ref}).
-	}
-	\label{fig:OBJ1R1-and-OBJ1R2}	
-\end{figure}
+These requirements are formulated from the perspective of the user of the developed prototype.
+Not exclusively the user can evaluate whether the requirement is fulfilled.
+An observer, like the researcher, can evaluate the fulfillment of a solution objective
+on the basis of the demonstration (section \ref{prototype:demonstration}).
 
 \subsection{Objective 2: Strict flow of promotion through environments}
 \label{objective2}
 
 From the problem definition
-\textbf{\nameref{problem2}},
+\nameref{problem2},
 a solution objective
-\textbf{\nameref{objective2}},
+\nameref{objective2},
 is inferred.
 A qualitative description of the solution objective
 is pointed out in the following.
 
 When promoting a new application release to multiple environments,
 it may be necessary to define a certain order, in which the promotion proceeds
-through the environments.
+through the environments (fig. \ref{fig:OBJ2R1}).
 This can have many reasons,
 as defined in the problem identification section \ref{problem2} earlier.
 A release may be rolled out to the initial development environment continuously,
@@ -375,32 +388,37 @@ Another use case for this solution objective is for service providers
 with a multi-tenant architecture, which is implemented with GitOps environments.
 These service or platform providers may want to rollout a new release with a certain staging process.
 
-A collection of the requirements for the solution objective is shown below
-Each requirement is represented in the form of a user story,
-and is labelled with a code, from a combination of the
-objective's code (e.g. OBJ2) and the requirement's code (e.g. R1).
-
-\begin{itemize}
-	\item \textbf{OBJ2R1}: \setword{As a user, I can promote releases through multiple environments in a certain user-defined order.}{OBJ2R1}
-%	\item \textbf{OBJ2R2}: \setword{As a user, I can rollout a release to specific environments, while leaving others untouched.}{OBJ2R2}
-\end{itemize}
-
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=1.00\linewidth]{assets/OBJ2R1.png}
+	\fbox{\includegraphics[width=1.00\linewidth]{assets/OBJ2R1.png}}
 	\caption{OBJ2R1.
 		%		(\citeauthor{ref}, \citeyear{ref}).
 	}
 	\label{fig:OBJ2R1}	
 \end{figure}
 
+A collection of the requirements for the solution objective is shown below
+Each requirement is represented in the form of a user story,
+and is labelled with a code, from a combination of the
+objective's code (e.g. OBJ2) and the requirement's code (e.g. R1).
+
+\begin{itemize}
+	\item OBJ2R1: \setword{As a user, I can promote releases through multiple environments in a certain user-defined order.}{OBJ2R1}
+%	\item \textbf{OBJ2R2}: \setword{As a user, I can rollout a release to specific environments, while leaving others untouched.}{OBJ2R2}
+\end{itemize}
+
+The initial release to the first environment (environment A in figure \ref{fig:OBJ2R1})
+is not handled by the developed operator prototype.
+However, the subsequent stages (stages 1 and 2 in figure \ref{fig:OBJ2R1})
+are automated by the promotions operator.
+
 \subsection{Objective 3: Dependencies of a promotion}
 \label{objective3}
 
 From the problem definition
-\textbf{\nameref{problem3}},
+\nameref{problem3},
 a solution objective
-\textbf{\nameref{objective3}},
+\nameref{objective3},
 is inferred.
 A qualitative description of the solution objective
 is pointed out in the following.
@@ -415,6 +433,16 @@ One of these can be to have dependencies for a promotion.
 In the context of Kubernetes, this could be another Kubernetes workload, or any other object or custom resource.
 Kubernetes native testing tools or workflow engines may provide custom resources with Kubernetes API conformant
 conditions, in order for other programs to check the state of the resource, in particular this may be the ready condition.
+This solution objective is illustrated in figure \ref{fig:OBJ3R1}.
+
+\begin{figure}[h]
+	\centering
+	\fbox{\includegraphics[width=0.82\linewidth]{assets/OBJ3R1.png}}
+	\caption{OBJ3R1.
+		%		(\citeauthor{ref}, \citeyear{ref}).
+	}
+	\label{fig:OBJ3R1}	
+\end{figure}
 
 A collection of the requirements for the solution objective is shown below
 Each requirement is represented in the form of a user story,
@@ -422,28 +450,35 @@ and is labelled with a code, from a combination of the
 objective's code (e.g. OBJ3) and the requirement's code (e.g. R1).
 
 \begin{itemize}
-	\item \textbf{OBJ3R1}: \setword{As a user, I can define Kubernetes objects as dependencies for a promotion.}{OBJ3R1}
+	\item OBJ3R1: \setword{As a user, I can define Kubernetes objects as dependencies for a promotion.}{OBJ3R1}
 \end{itemize}
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.82\linewidth]{assets/OBJ3R1.png}
-	\caption{OBJ3R1.
-		%		(\citeauthor{ref}, \citeyear{ref}).
-	}
-	\label{fig:OBJ3R1}	
-\end{figure}
+A promotion process can have predefined dependencies, which must be ready or successful
+before a promotion is triggered.
+The prototype implements a Kubernetes object as a dependency. This can be a certain
+workload like a deployment, a test run, a database, or any other object/resource.
+The environment (in fig. \ref{fig:OBJ3R1}) is the aggregation of all resources
+that are defined in the respective desired state in the GitOps repository.
 
 \subsection{Objective 4: Vendor-neutral, tool-agnostic}
 \label{objective4}
 
 From the problem definition
-\textbf{\nameref{problem4}},
+\nameref{problem4},
 a solution objective
-\textbf{\nameref{objective4}},
+\nameref{objective4},
 is inferred.
 A qualitative description of the solution objective
 is pointed out in the following.
+
+\begin{figure}[h]
+	\centering
+	\fbox{\includegraphics[width=0.80\linewidth]{assets/OBJ4R1.png}}
+	\caption{OBJ4R1.
+		%		(\citeauthor{ref}, \citeyear{ref}).
+	}
+	\label{fig:OBJ4R1}	
+\end{figure}
 
 When following current good practices and guidelines
 to build a promotion setup for GitOps environments,
@@ -454,7 +489,7 @@ With the strong open-source foundation of the Kubernetes platform and ecosystem,
 it is a good practice to build additional tools and platforms on top of Kubernetes,
 in order to remain cloud and vendor agnostic. In the space of GitOps promotions,
 there is currently insufficient tooling for this purpose.
-Therefore, one solution objective of this research is to
+Therefore, one solution objective of this research (fig. \ref{fig:OBJ4R1}) is to
 provide a generic tool,
 which is vendor-neutral,
 and agnostic to the Git provider, as well as the configuration/templating tool.
@@ -465,19 +500,15 @@ and is labelled with a code, from a combination of the
 objective's code (e.g. OBJ4) and the requirement's code (e.g. R1).
 
 \begin{itemize}
-	\item \textbf{OBJ4R1}: \setword{As a user, I can use any GitOps engine, Git provider and configuration/templating tool.}{OBJ4R1}
+	\item OBJ4R1: \setword{As a user, I can use any GitOps engine, Git provider and configuration/templating tool.}{OBJ4R1}
 \end{itemize}
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.80\linewidth]{assets/OBJ4R1.png}
-	\caption{OBJ4R1.
-		%		(\citeauthor{ref}, \citeyear{ref}).
-	}
-	\label{fig:OBJ4R1}	
-\end{figure}
-
-
+The developed prototype operator is compatible with all GitOps engines
+like Flux or ArgoCD, configuration tools like Helm or Kustomize,
+Git providers like GitHub or GitLab.
+The primary purpose of this vendor-neutrality trait is to
+have a wider pool of potential users who can give early feedback.
+An integration to certain tools can be built in the future, in order to enhance the user experience and ease of use.
 
 
 
@@ -638,7 +669,7 @@ With the help of practicing professionals, who are working in the GitOps field,
 several problems have been identified,
 and defined along with research objectives which should provide a possible solution.
 
-\textbf{\nameref{problem1}},
+\nameref{problem1},
 relates to a frequent issue with currently available tooling in the GitOps ecosystem. 
 Often times solely container image version tags are the focus with current tools when promoting
 new versions or releases. It was discussed, that this is insufficient for some use cases.
@@ -647,7 +678,7 @@ Especially when not using containerization technologies for runtime, this is an 
 In order to be able to provide a solution to this problem with a comprehensible approach,
 a solution objective was inferred and its requirements defined.
 
-\textbf{\nameref{objective1}},
+\nameref{objective1},
 defines a qualitative description of how the respective problem is supposed to be solved
 by the developed artifact. The main idea is to offer the capability to promote arbitrary resources,
 meaning any type of resource, instead of solely the container image version.
@@ -656,41 +687,41 @@ promoting a list of filesystem paths inside the Git repository of the desired st
 In addition these arbitrary resources should be able to be assigned a descriptive name,
 in order to identify the promotion subjects more easily.
 
-\textbf{\nameref{problem2}},
+\nameref{problem2},
 states the fact, that it is not a straight-forward process of how the order of promotion
 through multiple GitOps environments can be setup. When adhering to the principles of GitOps
 and sticking with the asynchronous deployment process (described in the
 \nameref{theoretical-background} chapter)
 there is no streamlined approach or tooling, that automates this, while still sticking to the asynchronous process.
 
-\textbf{\nameref{objective2}},
+\nameref{objective2},
 defines the requirements for the proposed prototype,
 in regards to the according problem of having a certain order of promotion through environments or stages.
 The objective describes the capability for defining a certain order of environments, in which releases traverse through.
 In addition, this solution objective opens up the possibility to setup promotion in stages, in which
 certain environments must be deployed to first, before the release can deploy to other specified environments.
 
-\textbf{\nameref{problem3}},
+\nameref{problem3},
 relates to the problem that when wanting to promote a new release from environment one to another environment,
 it is not easily achievable with the available tools to specify certain dependencies, like other workloads or
 microservices in the same or another environment, or altogether dependencies from external sources.
 This is especially desirable for evaluating test results or other metrics, before triggering the promotion.
 
-\textbf{\nameref{objective3}},
+\nameref{objective3},
 describes how the respective problem of being able to specify dependencies for a promotion,
 could be solved in the proposed prototype. While the minimum dependency is the successful deployment
 of the workload of a release,
 it may also be desirable to specify other resources or workloads which need to be in a certain state,
 before triggering a promotion.
 
-\textbf{\nameref{problem4}},
+\nameref{problem4},
 draws attention to the common problem of being dependent on single tools and providers.
 The more complex the Continuous Delivery is setup for a particular project,
 the more difficult it is to de-couple or switch providers for certain components.
 Furthermore, since many tools in the GitOps ecosystem are not very mature in their development and adoption,
 it is of use that components are loosely coupled and can be exchanged with alternatives in the future.
 
-\textbf{\nameref{objective4}},
+\nameref{objective4},
 defines the requirements of how a vendor-neutral and tool-agnostic prototype can be implemented.
 The main components which are desirable to support all alternatives,
 for being able to switch between them,
@@ -756,7 +787,7 @@ the proposed GitOps Promotions Operator prototype needs to find its place in thi
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=1.00\linewidth]{assets/async-gitops-promo-arch.png}
+	\fbox{\includegraphics[width=0.98\linewidth]{assets/async-gitops-promo-arch.png}}
 	\caption{Asynchronous GitOps deployment and promotion.
 		%		(\citeauthor{ref}, \citeyear{ref}).
 	}
@@ -813,7 +844,7 @@ The described architecture can be viewed in figure \ref{fig:operator-access-sour
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=1.00\linewidth]{assets/operator-access-source-target-envs.png}
+	\fbox{\includegraphics[width=0.98\linewidth]{assets/operator-access-source-target-envs.png}}
 	\caption{GitOps Promotions Operator Promotion from source to target environment.
 		%		(\citeauthor{ref}, \citeyear{ref}).
 	}
@@ -1034,7 +1065,7 @@ where a promotion should promote to.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.70\linewidth]{assets/gitops-promo.png}
+	\fbox{\includegraphics[width=0.60\linewidth]{assets/gitops-promo.png}}
 	\caption{GitOps Promotion.
 		%		(\citeauthor{ref}, \citeyear{ref}).
 	}
@@ -1067,7 +1098,7 @@ After merging, the promotion will have taken place.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=1.00\linewidth]{assets/raise-pull-request-and-approve.png}
+	\fbox{\includegraphics[width=0.98\linewidth]{assets/raise-pull-request-and-approve.png}}
 	\caption{Raise Pull Request at target environment.
 		%		(\citeauthor{ref}, \citeyear{ref}).
 	}
@@ -1118,7 +1149,6 @@ An example for a naming convention is the "Ref" suffix for yaml keys.
 This suffix is typically appended to keys which represent a reference to another Kubernetes
 object.
 For example, "secretRef" says that this field refers to a Kubernetes secret resource.
-
 A possible mockup for a GitOps environment resource
 could look like the following.
 
@@ -1130,7 +1160,6 @@ which need to be successfully deployed,
 before a promotion is triggered.
 Additionally the git reference branch main is also specified \\
 in the \lstinline|.spec.source.ref.branch| field.
-
 A possible mockup for a GitOps promotion 
 could look like the following.
 
@@ -1182,11 +1211,9 @@ but the actual path is defined per each environment.
 
 Once the mockups of the custom resources in Yaml format are done,
 the declarative structure can be translated to custom Go types.
-
 The specification of the Environment resource can be seen in Appendix
 \ref{appendix:source-code:environmentSpec-type} \nameref{appendix:source-code:environmentSpec-type}.
 The type EnvironmentSpec represents the \lstinline|.spec| Yaml field.
-
 What also needs to be defined is the status subresource.
 In the status fields, the controller can save the current/actual state
 of the resource during runtime.
@@ -1194,10 +1221,8 @@ While \lstinline|.spec| defines the desired state,
 \lstinline|.status| defines the actual state, as observed by the controller.
 The specification of the status resource can be seen in Appendix
 \ref{appendix:source-code:environmentStatusSpec-type} \nameref{appendix:source-code:environmentStatusSpec-type}.
-
 The specification of the Promotion resource can be seen in Appendix
 \ref{appendix:source-code:promotionSpec-type} \nameref{appendix:source-code:promotionSpec-type}.
-
 For the promotion,
 a status subresource is also defined.
 In the status - the actual state of the resource as observed by the controller -
@@ -1206,10 +1231,8 @@ which the controller will pick up on every consecutive reconciliation
 of the same promotion object.
 The specification of the status resource can be seen in Appendix
 \ref{appendix:source-code:promotionStatusSpec-type} \nameref{appendix:source-code:promotionStatusSpec-type}.
-
 %The full source code of the types can be found in Appendix
 %\ref{appendix:source-code}.
-
 Once the Go types are defined,
 the controller logic can be written.
 
@@ -1219,6 +1242,13 @@ the controller logic can be written.
 In this section,
 the controller logic of each implemented control loop, responsible for the according resource,
 is described.
+This is the controller reconciliation logic which runs on each reconciliation of an object.
+The designed logic is prototypical and can change in the future, depending on future requirements
+for the promotions operator.
+% TODO: maybe reference exact section in Appendix of each controller
+The full source code of the controllers can be found in Appendix
+\ref{appendix:source-code}.
+
 
 \subsubsection*{Environment Controller}
 
@@ -1293,7 +1323,7 @@ which are the copy operations with the current state of the prototype.
 Now if there were changes since the last reconciliation, the new commits
 are pushed to the pull request branch.
 Lastly, a pull request will be raised, if not yet done during a previous reconciliation.
-A diagram of the promotion controller logic can be seen in fig. \ref{tikz:promotion-controller-logic}.
+A diagram of the promotion controller logic can be seen in figure \ref{tikz:promotion-controller-logic}.
 
 \begin{figure}[h]
 	\centering
@@ -1322,10 +1352,6 @@ A diagram of the promotion controller logic can be seen in fig. \ref{tikz:promot
 	\end{tikzpicture}
 	\caption{Promotion Controller Logic} \label{tikz:promotion-controller-logic}
 \end{figure}
-
-% TODO: maybe reference exact section in Appendix of each controller
-The full source code of the controllers can be found in Appendix
-\ref{appendix:source-code}.
 
 
 
@@ -1679,6 +1705,9 @@ its functionality is compared against the solution objectives,
 as defined in section
 \ref{interviews:definitionSolutionObjectives}
 earlier in this thesis.
+The evalutation is achieved by means of
+comparing the qualitative descriptions of the solution objectives against the
+observed functionality of the prototype in the demonstration in section \ref{prototype:demonstration}.
 
 \subsection*{Objective 1}
 
@@ -1776,7 +1805,6 @@ with the named tools.
 
 In the preceding chapter,
 the proposed prototype was presented.
-
 The asynchronous nature of GitOps deployments, and where
 the operator prototype fits within this architecture was described.
 Next, abstract models for the environment and promotion custom resources as well as their prototype
