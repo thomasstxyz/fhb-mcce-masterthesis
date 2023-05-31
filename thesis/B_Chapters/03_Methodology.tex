@@ -26,12 +26,12 @@ The research approach is framed around the design science research methodology b
 which builds a structure and guideline in which the whole research is based on.
 The purpose of following this methodological framework is to help with the recognition and
 legitimization of the conducted research.
-For certain activities, the semi-structured interview is used as a scientific method,
-and for the core of the research, namely the development of a software artifact,
+For the problem identification, the semi-structured interview is used as a scientific method,
+and for the core of the research, namely the design and development of a software artifact,
 the prototyping method is applied.
 
 All the used research methods are described,
-and especially how exactly they are applied within this thesis.
+and especially how they are applied within this research.
 The chapter ends with a summary of what has been presented,
 as well as the key takeaways, which are needed for comprehension of the following chapters of this thesis.
 
@@ -51,7 +51,7 @@ in information systems (IS)
 \autocite{designScienceResearchMethodologyForInformationSystemsResearch}
 will be applied.
 It consists of six activities
-(illustrated in Figure \ref{fig:dsrmProcessReleasePromotionGitOps}):
+(fig. \ref{fig:dsrmProcessReleasePromotionGitOps}):
 
 \begin{itemize}
 	\item \nameref{methodology:activity1}
@@ -91,7 +91,6 @@ because the idea of the research resulted from observation of the problem
 \subsection{Activity 1: Identify Problem \& Motivate}
 \label{methodology:activity1}
 
-\noindent
 In activity 1,
 the research problem of
 release promotion with GitOps
@@ -103,15 +102,8 @@ This is done by conducting
 semi-structured interviews, as described in section \ref{methodology:interview},
 as well as analysing prior written literature.
 To assist later evaluation,
-the problem is conceptually broken down into distinct items.
-The value of a solution is highlighted,
-in order to help the audience of the research
-understand the reasoning associated with the
-researcher's understanding of the problem
-\autocite{designScienceResearchMethodologyForInformationSystemsResearch}.
-\bigskip
+the problem is conceptually broken down into distinct items (fig. \ref{fig:problemToObjectiveMapping}).
 
-% TODO: transform to a flowchart
 \begin{figure}[h]
 	\centering
 	\fbox{\includegraphics[width=0.85\linewidth]{assets/problem-to-objective-mapping.png}}
@@ -121,16 +113,22 @@ researcher's understanding of the problem
 	\label{fig:problemToObjectiveMapping}	
 \end{figure}
 
+The value of a solution is highlighted,
+in order to help the audience of the research
+understand the reasoning associated with the
+researcher's understanding of the problem
+\autocite{designScienceResearchMethodologyForInformationSystemsResearch}.
+
+
 \subsection{Activity 2: Define Objectives of a Solution}
 \label{methodology:activity2}
 
-\noindent
 In activity 2,
 research objectives are inferred from the problem definition in activity 1.
 Each objective maps to a distinct item from the problem specification
 (illustrated in Figure \ref{fig:problemToObjectiveMapping}),
 which helps with later evaluation in activity 5.
-In practice, a research objective will be a qualitative description of
+In practice, a research objective is a qualitative description of
 how a new artifact is expected to support a solution to the problem definition.
 \bigskip
 
@@ -158,7 +156,7 @@ the GitOps Promotions Operator prototype is developed as an artifact.
 In activity 4,
 the in-context use of the artifact is demonstrated in a proof of concept.
 The prototype operator is used in a practical use case of a promotion in a GitOps environment.
-A description of the setup, use and observed functionality is demonstrated.
+A description of the setup, the use and observed functionality is demonstrated.
 %After outlining how to use the artifact to effectively provide a solution to the problem definition,
 %the artifact is implemented in a proof-of-concept-level prototype.
 %
@@ -260,7 +258,7 @@ a semi-structured interview guide is developed.
 It serves as a rough guideline for the structure of the interview process.
 Additionally it encompasses the content-related interview questions,
 which are specific to the given research problem.
-These questions can be seen at section \ref{appendix:interview-questions} in the appendix.
+%These questions can be seen in section \ref{appendix:interview-questions} in the appendix.
 
 The selection of the interview partners is based on the questions mentioned in
 \citeauthor{glaser2010experteninterviews} (\citeyear{glaser2010experteninterviews}):
@@ -469,7 +467,7 @@ methods and techniques of task solution. Synonym: phase model
 There are several different types of prototypes,
 however they each share common traits.
 A prototype
-\autocite{riedlManagementInformatik2019}
+%\autocite{riedlManagementInformatik2019}
 
 \begin{itemize}
 	\item can be developed quickly and at a low-cost.
@@ -477,7 +475,7 @@ A prototype
 	\item is easy to modify and extend.
 	\item does not necessarily represent the system completely.
 	\item serves as a means of communication between the developers and the users.
-	\item can be evaluated by all stakeholders involved in the planning process.
+	\item can be evaluated by all stakeholders involved in the planning process \autocite{riedlManagementInformatik2019}.
 \end{itemize}
 
 According to the type of prototype, a distinction is made between complete and incomplete prototypes
