@@ -755,18 +755,18 @@ however they are discussed later in chapter \ref{discussion-and-interpretation}.
 \label{chapter:prototype}
 
 This chapter describes the developed prototype,
-called the GitOps Promotions Operator.
+called the \textit{GitOps Promotions Operator}.
 First, the asynchronous nature of a typical GitOps deployment is described,
-and where the proposed GitOps Promotions Operator prototype finds its place within
+and where the proposed \textit{GitOps Promotions Operator} prototype finds its place within
 this architecture.
-Next, abstract models and their respective custom resources are designed which describe the Environment and Promotion 
+Next, abstract models and their respective custom resources are designed which describe the \textit{Environment} and \textit{Promotion} 
 custom resources; which are then afterwards implemented as mockups of 
 Kubernetes custom resources in the declarative Yaml specification syntax.
 Next to the mockups implemented in the prototype,
 additional alternative mockups are suggested for possible alternative implementations.
 Then, the implementation of the custom resource definitions and respective controller logic
 is described within the context of the used Kubernetes operator framework Kubebuilder.
-Once the design and development of the artifact - the GitOps Promotions Operator prototype -
+Once the design and development of the artifact - the \textit{GitOps Promotions Operator} prototype -
 is successfully done,
 the operator is demonstrated in a proof of concept,
 and finally evaluated against the solution objectives
@@ -778,14 +778,14 @@ The design and development of the prototype
 is based on the research objectives defined in section
 \ref{interviews:definitionSolutionObjectives}.
 The overarching goal is to fulfill the objectives with the developed artifact,
-the GitOps Promotions Operator prototype.
+the \textit{GitOps Promotions Operator} prototype.
 This is shown by demonstrating the functionality and evaluating against the research objectives.
 
 \subsection{Asynchronous GitOps Deployments}
 \label{prototype:design:async-gitops-deployments}
 
 First, the process of a typical GitOps deployment needs to be addressed, where
-the proposed GitOps Promotions Operator prototype needs to find its place in this asynchronous process.
+the proposed \textit{GitOps Promotions Operator} prototype needs to find its place in this asynchronous process.
 
 \begin{figure}[h]
 	\centering
@@ -799,12 +799,12 @@ the proposed GitOps Promotions Operator prototype needs to find its place in thi
 It begins with a change of the declarative state definitions in a Git repository,
 which is then being reconciled by the GitOps controller.
 The timeframe from the change of the desired state to the actual state being applied
-is variable. An external system (i.e. the GitOps Promotions Operator), which watches the desired state, has no knowledge of
+is variable. An external system (i.e. the \textit{GitOps Promotions Operator}), which watches the desired state, has no knowledge of
 the current state of the deployment environment - when solely given the desired state in the
 Git repository. An external system also does not know whether the desired state works or not
 (e.g. when the new version fails to rollout).
 
-The proposed GitOps Promotions Operator ideally needs to pick up
+The proposed \textit{GitOps Promotions Operator} ideally needs to pick up
 the asynchronous deployment process after the new release of the desired state
 has been successfully rolled out to the deployment environment.
 In order to achieve this,
@@ -813,7 +813,7 @@ before continuing on with the promotion.
 The described asynchronous GitOps deployment and promotion model can be seen in figure
 \ref{fig:async-gitops-promo-arch}.
 
-In order for the proposed GitOps Promotions Operator prototype to fit into
+In order for the proposed \textit{GitOps Promotions Operator} prototype to fit into
 this asynchronous deployment architecture,
 it needs to have several asynchronous phases in its controller logic.
 The minimum steps or phases it needs are the following:
@@ -837,7 +837,7 @@ The minimum steps or phases it needs are the following:
 
 
 In order to check if a deployment was successful,
-the GitOps Promotions Operator needs access to the deployment environment. This is already given,
+the \textit{GitOps Promotions Operator} needs access to the deployment environment. This is already given,
 if the operator is running inside the same deployment environment.
 For the promotion process, the operator also needs access
 to the source and the target
@@ -847,7 +847,7 @@ The described architecture can be viewed in figure \ref{fig:operator-access-sour
 \begin{figure}[h]
 	\centering
 	\fbox{\includegraphics[width=0.98\linewidth]{assets/operator-access-source-target-envs.png}}
-	\caption{GitOps Promotions Operator Promotion from source to target environment.
+	\caption{\textit{GitOps Promotions Operator} Promotion from source to target environment.
 		%		(\citeauthor{ref}, \citeyear{ref}).
 	}
 	\label{fig:operator-access-source-target-envs}	
@@ -855,7 +855,7 @@ The described architecture can be viewed in figure \ref{fig:operator-access-sour
 
 %\subsection{old intro.....}
 %
-%The GitOps Promotions Operator prototype
+%The \textit{GitOps Promotions Operator} prototype
 %is implemented with the Kubebuilder framework,
 %discussed in section \ref{theoretical-background:kubernetes} of this thesis.
 %The main constraints the framework comes with, are the
@@ -881,7 +881,7 @@ The described architecture can be viewed in figure \ref{fig:operator-access-sour
 %which is chosen by the Kubebuilder framework.
 
 Once the architecture of the asynchronous GitOps deployment process,
-and where the GitOps Promotions Operator fits within this process is clear,
+and where the \textit{GitOps Promotions Operator} fits within this process is clear,
 the abstract models for the custom resources and their functionality can be designed.
 
 
@@ -903,11 +903,14 @@ or is used purely as an abstraction layer for such an actual resource.
 
 In the context of this software prototype,
 an environment is a GitOps environment as defined in section
-\ref{theoretical-background:gitops} \nameref{theoretical-background:gitops}.
+\ref{theoretical-background:gitops}.
 As a reminder, this is a folder/directory in a Git repository,
 which essentially points to a deployment environment, typically being a Kubernetes cluster/namespace.
 Therefore, the model for the environment primarily represents a directory path in a certain Git repository.
-This can potentially be a specific branch or any commit or refspec in the Git repository.
+This can potentially be a specific branch or any commit or refspec
+\nolinebreak
+\footnote{https://git-scm.com/book/en/v2/Git-Internals-The-Refspec}
+in the Git repository.
 
 In addition to the Git repository and the path pointing to the GitOps environment,
 the abstract model has a definition of dependent resources inside the deployment environment.
@@ -932,20 +935,20 @@ them in the future.
 
 In the context of this software prototype,
 a promotion is a GitOps promotion as defined in section
-\ref{theoretical-background:gitops} \nameref{theoretical-background:gitops}.
+\ref{theoretical-background:gitops}.
 As a reminder, this is the process of promoting a new application or infrastructure version
 to another deployment environment, which typically means a change in the desired state definition in a GitOps environment.
 
 For the proposed and implemented prototype within this concrete research,
 the process of a GitOps promotion is the change of the desired state definition of a certain GitOps environment,
 typically mentioned as the target environment of a promotion. For the prototype,
-the declarative state, which is promoted, i.e. changed in the target environment is drawn from the
+the declarative state, which is promoted, i.e. changed in the target environment, is drawn from the
 source environment's desired state definition. In the easiest case, this means that a certain
 file or directory is copied from the source to the target environment - or a list of files/directories.
 These files or directories which are promoted, are called promotion subjects within the context of this
-prototype.
+thesis.
 
-Promotion subjects can potentially be of many other types, however possible other types are not implemented in the prototype.
+Promotion subjects can potentially be of many other types, however other types are not implemented in the prototype.
 Examples for other promotion subjects could be other representations of resources in the desired state,
 like object references to Kubernetes built-in resources or custom resources instead of plain text files or directories.
 Custom resources could be ArgoCD Applications or other high-level abstractions or collections of resources.
@@ -1002,8 +1005,8 @@ the environment and the promotion.
 
 \subsubsection*{Environment Resource}
 
-The Environment represents a GitOps environment,
-which is a Git repository + path.
+The \textit{Environment} represents a GitOps environment,
+which is a Git repository and path.
 The Git repository can be a clone URL to the repository,
 and the path is the relative filesystem path, which points to the 
 environment, inside the repository.
@@ -1040,7 +1043,7 @@ Examples for a path are the following:
 \lstinline|./path/to/env|,
 \lstinline|./path/to/env/|.
 Note, that these example paths all represent the same directory,
-these are just alternative notations.
+they are just alternative notations.
 
 The dependent resources are the resources (objects) in the deployment environment,
 which need to be successfully deployed, in order for the promotion to trigger.
@@ -1050,7 +1053,7 @@ or custom resources like ArgoCD Applications or Flux Kustomizations and Helm Rel
 \subsubsection*{Promotion Resource}
 
 The custom resource for a GitOps promotion
-(fig. \ref{fig:gitops-promo})
+%(fig. \ref{fig:gitops-promo})
 needs at least the following properties (explained in detail in the following paragraphs):
 
 \begin{itemize}
@@ -1065,14 +1068,14 @@ where a promotion subject is promoted from.
 The target environment defines the environment resource,
 where a promotion should promote to.
 
-\begin{figure}[h]
-	\centering
-	\fbox{\includegraphics[width=0.60\linewidth]{assets/gitops-promo.png}}
-	\caption{GitOps Promotion.
-		%		(\citeauthor{ref}, \citeyear{ref}).
-	}
-	\label{fig:gitops-promo}	
-\end{figure}
+%\begin{figure}[h]
+%	\centering
+%	\fbox{\includegraphics[width=0.60\linewidth]{assets/gitops-promo.png}}
+%	\caption{GitOps Promotion.
+%		%		(\citeauthor{ref}, \citeyear{ref}).
+%	}
+%	\label{fig:gitops-promo}	
+%\end{figure}
 
 A promotion subject can be potentially many different things.
 In the case of this prototype,
@@ -1147,11 +1150,11 @@ as Kubernetes custom resource definitions.
 Users will mainly be dealing with the custom resources in a Yaml format.
 Yaml keys should be intuitive and make sense to the user.
 It also helps if they follow the core Kubernetes definitions regarding naming conventions.
-An example for a naming convention is the "Ref" suffix for yaml keys.
+An example for a naming convention is the "Ref" suffix for Yaml keys.
 This suffix is typically appended to keys which represent a reference to another Kubernetes
 object.
 For example, "secretRef" says that this field refers to a Kubernetes secret resource.
-A possible mockup for a GitOps environment resource
+A possible mockup for an \textit{Environment} resource
 could look like the following.
 
 \lstinputlisting{assets/files/environment-mockup.yaml}
@@ -1162,6 +1165,7 @@ which need to be successfully deployed,
 before a promotion is triggered.
 Additionally the git reference branch main is also specified \\
 in the \lstinline|.spec.source.ref.branch| field.
+
 A possible mockup for a GitOps promotion 
 could look like the following.
 
@@ -1188,7 +1192,7 @@ for the custom resource definitions,
 i.e. the design of the declarative API,
 are suggested, but not implemented in the current prototype.
 
-\subsubsection*{Promotion Subjects defined in each Environment resource}
+%\subsubsection*{Promotion Subjects defined in each Environment resource}
 
 Alternatively, the promotion subjects could also be specified
 in the environment resource like the following:
@@ -1213,30 +1217,31 @@ but the actual path is defined per each environment.
 
 Once the mockups of the custom resources in Yaml format are done,
 the declarative structure can be translated to custom Go types.
-The specification of the Environment resource can be seen in Appendix
+The full source code of the Go types are found in Appendix \ref{appendix:source-code}.
+%The specification of the Environment resource can be seen in Appendix
 % \ref{appendix:source-code:environmentSpec-type} \nameref{appendix:source-code:environmentSpec-type}.
-\ref{appendix:source-code}.
+%\ref{appendix:source-code}.
 The type EnvironmentSpec represents the \lstinline|.spec| Yaml field.
 What also needs to be defined is the status subresource.
 In the status fields, the controller can save the current/actual state
 of the resource during runtime.
 While \lstinline|.spec| defines the desired state,
 \lstinline|.status| defines the actual state, as observed by the controller.
-The specification of the status resource can be seen in Appendix
+%The specification of the status resource can be seen in Appendix
 % \ref{appendix:source-code:environmentStatusSpec-type} \nameref{appendix:source-code:environmentStatusSpec-type}.
-\ref{appendix:source-code}.
-The specification of the Promotion resource can be seen in Appendix
+%\ref{appendix:source-code}.
+%The specification of the Promotion resource can be seen in Appendix
 % \ref{appendix:source-code:promotionSpec-type} \nameref{appendix:source-code:promotionSpec-type}.
-\ref{appendix:source-code}.
+%\ref{appendix:source-code}.
 For the promotion,
 a status subresource is also defined.
 In the status - the actual state of the resource as observed by the controller -
 most importantly the metadata of the currently opened pull request is saved,
 which the controller will pick up on every consecutive reconciliation
 of the same promotion object.
-The specification of the status resource can be seen in Appendix
+%The specification of the status resource can be seen in Appendix
 % \ref{appendix:source-code:promotionStatusSpec-type} \nameref{appendix:source-code:promotionStatusSpec-type}.
-\ref{appendix:source-code}.
+%\ref{appendix:source-code}.
 %The full source code of the types can be found in Appendix
 %\ref{appendix:source-code}.
 Once the Go types are defined,
@@ -1250,21 +1255,23 @@ the controller logic of each implemented control loop, responsible for the accor
 is described.
 This is the controller reconciliation logic which runs on each reconciliation of an object.
 The designed logic is prototypical and can change in the future, depending on future requirements
-for the promotions operator.
+for the \textit{GitOps Promotions Operator}.
 % TODO: maybe reference exact section in Appendix of each controller
 The full source code of the controllers can be found in Appendix
 \ref{appendix:source-code}.
 
+
+\newpage
 
 \subsubsection*{Environment Controller}
 
 For the environment API,
 a controller is written.
 For this prototype the following logic is implemented.
-First, the source git repository is cloned and checked out,
+The source git repository is cloned and checked out,
 with the appropriate authentication options, if it is private.
 If the cloning succeeds, the environment will be marked as available.
-A diagram of the environment controller logic can be seen in fig. \ref{tikz:environment-controller-logic}.
+A diagram of the environment controller logic can be seen in figure \ref{tikz:environment-controller-logic}.
 
 \begin{figure}[h]
 \centering
@@ -1285,6 +1292,9 @@ A diagram of the environment controller logic can be seen in fig. \ref{tikz:envi
 \end{tikzpicture}
 \caption{Environment Controller Logic} \label{tikz:environment-controller-logic}
 \end{figure}
+
+%This prototypical controller logic for the environment controller
+%may be extended for additional functionality.
 
 %\begin{tikzpicture}[node distance=2cm]
 %	
@@ -1313,20 +1323,23 @@ A diagram of the environment controller logic can be seen in fig. \ref{tikz:envi
 %	
 %\end{tikzpicture}
 
+
+\newpage
+
 \subsubsection*{Promotion Controller}
 
 For the promotion API,
 the following controller logic is implemented.
-First, the controller checks if the source and target environments are ready,
+The controller checks if the source and target environments are ready,
 this includes the check of their defined dependent objects.
 if they are not yet ready, the controller cancels the reconciliation immediately.
 Then the source and target environments are cloned.
 Next the controller checks if there is a pending/open pull request,
 this information is retrieved from the object's status, and then checked
 if still up to date via the Git provider's API.
-Afterwards the controller executes the promotion tasks,
-which are the copy operations with the current state of the prototype.
-Now if there were changes since the last reconciliation, the new commits
+Afterwards the controller executes the promotion tasks.
+%which are the copy operations with the current state of the prototype.
+If there were changes since the last reconciliation, the new commits
 are pushed to the pull request branch.
 Lastly, a pull request will be raised, if not yet done during a previous reconciliation.
 A diagram of the promotion controller logic can be seen in figure \ref{tikz:promotion-controller-logic}.
@@ -1377,7 +1390,7 @@ A diagram of the promotion controller logic can be seen in figure \ref{tikz:prom
 \label{prototype:demonstration}
 
 The following section demonstrates the in-context usage of the
-developed prototype - the GitOps Promotions Operator - in a proof of concept.
+developed prototype - the \textit{GitOps Promotions Operator} - in a proof of concept.
 The use case described as follows is created for the purpose of this demonstration.
 
 This use case deals with a setup with multiple deployment environments.
@@ -1427,7 +1440,7 @@ Kustomize, and generally structured for all environments as below:
 
 However it is independent of the tool Kustomize;
 any other tools can be used in conjunction with the proposed operator prototype.
-This structure adheres to the constraints of the currently available
+This structure adheres to the constraints of the currently implemented
 copy operation promotion type, which can copy files and directories.
 This means the configuration components which need to be promoted,
 should be defined in separate files or directories.
@@ -1461,11 +1474,11 @@ newTag: 6.3.4
 
 Now the goal is to configure a promotion for the app-version component.
 To achieve this, 
-first, a \lstinline|Environment| resource needs to be created
+an \lstinline|Environment| resource needs to be created
 for all environments respectively.
 Only the \lstinline|dev| environment is shown here,
 the other three environment definitions follow the same schema,
-but are omitted for the sake of brevity.
+but are omitted from this demonstration for the sake of brevity.
 
 \lstinputlisting{assets/files/dev-environment.yaml}
 
@@ -1583,8 +1596,8 @@ The \lstinline|qa-to-prod-1| promotion requested the change of the image version
 + newTag: 6.3.3
 \end{lstlisting}
 
-Now, since the \lstinline|prod-1| and the \lstinline|prod-2| environments
-also differ,
+Since the \lstinline|prod-1| and the \lstinline|prod-2| environments
+now also differ,
 a pull request has also been created for this promotion.
 
 %\begin{figure}[h]
@@ -1637,7 +1650,7 @@ The difference for the \lstinline|dev-to-qa| promotion is now:
 Now if the pull request for the \lstinline|dev-to-qa| promotion
 is approved and merged by a human,
 the promotion will actually take effect.
-This will results in the \lstinline|qa-to-prod-1| promotion pull request being updated
+This results in the \lstinline|qa-to-prod-1| promotion pull request being updated
 by the promotion controller.
 Version \lstinline|6.3.5| is now requested for promotion to the
 \lstinline|prod-1| environment.
@@ -1672,7 +1685,7 @@ e.g. \lstinline|dev --> qa --> prod-1 --> prod-2|.
 Alongside the application version or any arbitrary resource,
 users of the prototype operator may specify multiple other
 promotion subjects in the copy operations list \lstinline|.spec.copy|, which shall be promoted.
-For the sake of easy understanding, this was not shown in detail above.
+For the sake of brevity, this was not shown in detail in the demonstration.
 
 
 
@@ -1727,9 +1740,9 @@ was the following:
 
 As demonstrated in section
 \ref{prototype:demonstration}
-the user of the GitOps Promotions Operator can define promotion subjects
+the user of the \textit{GitOps Promotions Operator} can define promotion subjects
 in the form of file/directory copy operations inside the Promotion custom resource.
-The source and target may be in separate Git repositories, respective Environment custom resources.
+The source and target may be in separate Git repositories, respective \textit{Environment} custom resources.
 This creates the possibility to promote arbitrary resources.
 The demonstration shows a promotion of the "Application Version",
 which is actually a specified file kustomization.yaml with a Kustomize component,
@@ -1753,13 +1766,13 @@ The requirement 1 of objective 2 (OBJ2R1) was the following:
 	\ref{OBJ2R1}
 \end{quotation}
 
-The in the prototype implemented functionality of the solution objective is demonstrated in section
+The prototypical implementation of the functionality of the solution objective is demonstrated in section
 \ref{prototype:demonstration}.
 It is shown, how a new application release can be promoted through multiple environments in a specified order.
-After deployment to the dev environment, a promotion is requested for the qa environment.
-Once a human has approved and merged the pull request, the promotion to qa takes its effect.
-Afterwards the promotion from qa to prod-1 environment is requested. Upon successful promotion to prod-1,
-the release is finally promoted from prod-1 to prod-2.
+After deployment to the \lstinline|dev| environment, a promotion is requested for the \lstinline|qa| environment.
+Once a human has approved and merged the pull request, the promotion to \lstinline|qa| takes its effect.
+Afterwards the promotion from \lstinline|qa| to \lstinline|prod-1| environment is requested. Upon successful promotion to \lstinline|prod-1|,
+the release is finally promoted from \lstinline|prod-1| to \lstinline|prod-2|.
 
 \subsection*{Objective 3}
 
@@ -1773,7 +1786,8 @@ The requirement 1 of objective 3 (OBJ3R1) was the following:
 The functionality of this objective is demonstrated in context in the proof of concept
 in section \ref{prototype:demonstration}.
 In the \lstinline|Environment| custom resource,
-a field \lstinline|dependentObjects.workloadRef| may be defined, under which a user can specify
+a field
+\lstinline|dependentObjects.workloadRef| may be defined, under which a user can specify
 a list of Kubernetes workloads of the kind Deployment.
 The developed prototype supports object types of kind Deployment,
 however, any Kubernetes native resource, as well as custom resource, can potentially be added as an
@@ -1790,15 +1804,16 @@ The requirement 1 of objective 4 (OBJ4R1) was the following:
 	\ref{OBJ4R1}
 \end{quotation}
 
-The developed prototype GitOps Promotions Operator supports the use of GitHub currently,
+The developed prototype \textit{GitOps Promotions Operator} supports the use of GitHub currently,
 however the custom resource API is designed with a generic specification and therefore allows
 for adding the support for any other Git provider in the future.
 The same vendor-neutral approach was chosen for the GitOps engine.
-These are most often from the Flux or Argo projects.
-The GitOps Promotions Operator prototype allows the use of any GitOps engine,
-because it interfaces only with Kubernetes built-in resources at this point.
+%These are most often from the Flux or Argo projects.
+The \textit{GitOps Promotions Operator} prototype allows the use of any GitOps engine,
+because it interfaces only with Kubernetes built-in resources.
 Furthermore, the prototype is agnostic to the configuration/templating tool which may be used or not.
-This is most prominently Helm and Kustomize. Since the operator provides the ability
+%This is most prominently Helm and Kustomize.
+Since the operator provides the ability
 to promote arbitrary files or directories in Git repositories, it is not needed to specifically integrate
 with the named tools.
 
@@ -1809,27 +1824,27 @@ with the named tools.
 
 \section{Summary}
 
-In the preceding chapter,
+In this preceding chapter,
 the proposed prototype was presented.
 The asynchronous nature of GitOps deployments, and where
 the operator prototype fits within this architecture was described.
-Next, abstract models for the environment and promotion custom resources as well as their prototype
+Next, abstract models for the \textit{Environment} and \textit{Promotion} custom resources as well as their prototype
 design as declarative Kubernetes custom resources was described.
 The implementation of these custom resources was shown in the form of mockups
-of Kubernetes custom resources in the YAML format.
+of Kubernetes custom resources in the Yaml format.
 Alternative mockup designs were shown as a way to draw attention to the fact
-that the actual design of the API specification is not cast in stone.
-Moreover, the API specification should be tested with users of it,
-and should be adapted for usability and ease of use.
-The translation of the API specification in YAML format into Go types was described,
-and finally the implemented controller logic of both the environment, as well as
+that the actual design of the API specification may be changed as desired.
+%Moreover, the API specification should be tested with users,
+%and should be adapted for usability and ease of use.
+The translation of the API specification in Yaml format into Go types was described,
+and finally the implemented controller reconciliation logic of both the environment, as well as
 the promotion controller was presented.
 
 In the next step, the developed artifact of the prototype operator was
 demonstrated in the context of a proof-of-concept use case.
 The demonstration of the prototype's functionality was then evaluated against
 the research objectives defined in
-\ref{interviews:definitionSolutionObjectives} \nameref{interviews:definitionSolutionObjectives}.
+\ref{interviews:definitionSolutionObjectives}.
 
 
 
