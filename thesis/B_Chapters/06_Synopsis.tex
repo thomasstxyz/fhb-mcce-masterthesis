@@ -17,7 +17,7 @@ or any other troubles.
 The use of the prototype could be observed in a case study or tested in a field experiment.
 The prototype should be adapted in more iterations of the applied methodology process model.
 %
-The API, the custom resources, which the operator provides can be changed to fit the users needs.
+The API, the custom resources, which the operator provides, can be changed to fit the users needs.
 Additional functionality which is required by users, can be added.
 Since the operator works with any other GitOps tooling the users bring from their individual GitOps setup,
 it can lack a bit of ease of use. The integration into other GitOps tooling like Argo or Flux
@@ -25,7 +25,7 @@ should be evaluated, and examined if such an integration is worth it, in order t
 %
 The main goal is to extensively adapt for user requirements, in order to fit
 many possible promotion processes.
-The prototype should be further developed to enable the use in production by organizations or other projects.
+The prototype should be further developed to enable the use in production by organizations and other projects.
 
 \section*{Rolling Production Environments}
 
@@ -40,7 +40,7 @@ which is actually used for production.
 
 This approach builds upon the progressive delivery pattern,
 which can be implemented with tools like Flagger or Argo Rollouts.
-Instead of just doing progressive delivery of an application (i.e. Kubernetes deployment and container image),
+Instead of doing progressive delivery of an application (i.e. Kubernetes deployment and container image),
 the progressive delivery would be done on a whole environment (i.e. Kubernetes cluster).
 This has the advantage of further limiting the chance of supporting services and applications
 influencing the actual user-facing application in a bad way, i.e. breaking the service, making it unavailable for its users.
@@ -50,7 +50,7 @@ eliminating the possibility to roll back to a safe and working state.
 
 One possible future work that could be done for evaluating this new approach,
 could be to evaluate the costs and feasibility of this approach.
-According to interview partner 1, tools like the Weave GitOps Terraform Controller
+According to interview partner 1, tools like the GitOps Terraform Controller
 have made it a lot easier to achieve the idea of rolling production environments.
 However since a whole production environment would be dynamically created with each new release,
 this could introduce higher costs.
@@ -77,7 +77,7 @@ a software tool could be developed,
 which can recognize filesystem structures and plain text configuration files,
 which represent the desired state.
 This tool would have have knowledge of the different configuration management tools like Kustomize or Helm.
-It would probably be beneficial to have a visual representation in the form of a dashboard.
+It would probably be beneficial to have a visual representation in the form of a dashboard as well.
 
 Such a visual representation is already provided by ArgoCD for example,
 however it will only show the configured data in the dashboard.
@@ -90,7 +90,7 @@ can only be viewed by having a look into the Git repository's filesystem manuall
 \section*{Towards Standardized GitOps Promotions}
 
 There is no standard way of doing promotions with the GitOps approach.
-Sometimes a container image tag is changed in some place or places,
+Sometimes a container image tag is changed in some place or multiple places,
 other times multiple files are copied over to another place (like the promotion process proposed with the prototype in this thesis),
 and other times a promotion consists of multiple processes spanning over different domains.
 This differs for each individual setup for distinctive organizations.
@@ -149,7 +149,7 @@ the process of promoting releases between multiple deployment environments.
 Current tools in the ecosystem do not provide an integrated solution for this process.
 Users are therefore inclined to build workflows which are constrained to specific
 Git providers, GitOps engines,
-CI/CD system, and configuration/templating tools. This can lead to tightly coupled setups,
+workflow/pipeline systems, and configuration/templating tools. This can lead to tightly coupled setups,
 and vendor lock-in.
 
 In this research,
@@ -169,6 +169,7 @@ Therefore this overarching research question was defined:
 with the following sub research questions:
 \ref{RQ1.1}
 \ref{RQ1.2}
+The research question is elaborated with a scientific methodology.
 
 \section*{Methodology}
 
@@ -186,7 +187,7 @@ In activity 1,
 the research problem of
 release promotion with GitOps
 was defined.
-This was done primarily with the help of practicing professionals in the GitOps field,
+This was done with the help of practicing professionals in the GitOps field,
 which were interviewed.
 In activity 2,
 research objectives were inferred from the problem definition in activity 1.
@@ -208,14 +209,15 @@ publishing it as a master thesis.
 \section*{Related Work}
 
 Prior research on the concrete problem is focused on presenting
-best practices and suggestions
+good practices and suggestions
 which users need to manually implement themselves.
-In addition it is suggested to let an external CI/CD system handle the promotion process.
+In addition, it is suggested to let external workflow/pipeline systems handle the promotion process,
+or limit the amount of environments to one, in order to avoid having to do promotions altogether.
 Conversely, this thesis brought forward
 abstract models of environments and promotion processes,
 which are implemented in the proposed prototype operator,
 as Kubernetes custom resources and controllers, with the operator framework.
-The prototype will assess the feasibility of
+The prototype assesses the feasibility of
 defining deployment environments and promotion processes declaratively,
 following the GitOps principles.
 
@@ -224,16 +226,13 @@ following the GitOps principles.
 The theoretical background on the topic was brought forward to the user,
 in order to aid comprehension of the material within the thesis.
 General definitions of terms,
-fundamentals of GitOps along related tooling and components were presented.
-DevOps and internal developer platforms were mentioned.
-It was explained, how many times the term GitOps is misunderstood,
-and that GitOps is actually defined in the OpenGitOps project.
+fundamentals of DevOps and GitOps along related tooling and components were presented.
 It was shown how GitOps changes the architecture and process of Continuous Deployment,
 and how the promotion of releases is achieved without and with the GitOps approach.
+The modeling approach of GitOps environments was discussed.
 Emerging patterns like progressive delivery,
 as well as the concept behind short-living environments were described.
-The power of Kubernetes as a cloud native platform and its use cases beyond container orchestration were presented.
-Finally it was shown how the declarative representations of GitOps environments are typically modelled currently.
+The role of Kubernetes as a cloud native platform and its use cases beyond container orchestration were described.
 
 \section*{Interviews}
 
@@ -243,7 +242,7 @@ interviews with practicing professionals, who are working in the GitOps field, w
 Several problems were identified,
 and defined along with their respective research objectives.
 
-\nameref{problem1},
+\textit{\nameref{problem1}},
 relates to a frequent issue with currently available tooling in the GitOps ecosystem. 
 Often times solely container image version tags are the focus with current tools when promoting
 new versions or releases.
@@ -253,7 +252,7 @@ an according research objective was defined.
 %Especially when not using containerization technologies for runtime, this is an important problem to handle.
 %In order to be able to provide a solution to this problem with a comprehensible approach,
 %a solution objective was inferred and its requirements defined.
-\nameref{objective1},
+\textit{\nameref{objective1}},
 defines a qualitative description of how the respective problem is supposed to be solved
 by the developed artifact. The main idea is to offer the capability to promote arbitrary resources,
 meaning any type of resource, instead of solely the container image version.
@@ -262,39 +261,39 @@ meaning any type of resource, instead of solely the container image version.
 %In addition these arbitrary resources should be able to be assigned a descriptive name,
 %in order to identify the promotion subjects more easily.
 
-\nameref{problem2},
+\textit{\nameref{problem2}},
 states the fact, that it is not a straight-forward process of how the order of promotion
 through multiple GitOps environments can be setup.
 %When adhering to the principles of GitOps
 %and sticking with the asynchronous deployment process (described in the
 %\nameref{theoretical-background} chapter)
 %there is no streamlined approach or tooling, that automates this, while still sticking to the asynchronous process.
-\nameref{objective2},
+\textit{\nameref{objective2}},
 defines the requirements for the proposed prototype,
 in regards to the according problem of having a certain order of promotion through environments or stages.
 The objective describes the capability for defining a certain order of environments, in which releases traverse through.
 In addition, this solution objective opens up the possibility to setup promotion in stages, in which
 certain environments must be deployed to first, before the release can deploy to other specified environments.
 
-\nameref{problem3},
-relates to the problem that when wanting to promote a new release from environment one to another environment,
+\textit{\nameref{problem3}},
+relates to the problem that when wanting to promote a new release from one environment to another environment,
 it is not easily achievable with the available tools to specify certain dependencies, like other workloads or
-microservices in the same or another environment, or altogether dependencies from external sources.
+microservices in the same or another environment, or dependencies from external sources.
 This is especially desirable for evaluating test results or other metrics, before triggering the promotion.
-\nameref{objective3},
+\textit{\nameref{objective3}},
 describes how the respective problem of being able to specify dependencies for a promotion,
 could be solved in the proposed prototype. While the minimum dependency is the successful deployment
 of the workload of a release,
 it may also be desirable to specify other resources or workloads which need to be in a certain state,
 before triggering a promotion.
 
-\nameref{problem4},
-draws attention to the common problem of being dependent on single tools and providers.
-The more complex the Continuous Delivery is setup for a particular project,
+\textit{\nameref{problem4}},
+draws attention to the common problem of being dependent on particular tools and providers.
+The more complex the Continuous Delivery is setup for a project,
 the more difficult it is to de-couple or switch providers for certain components.
 %Furthermore, since many tools in the GitOps ecosystem are not very mature in their development and adoption,
 %it is of use that components are loosely coupled and can be exchanged with alternatives in the future.
-\nameref{objective4},
+\textit{\nameref{objective4}},
 defines the requirements of how a vendor-neutral and tool-agnostic prototype can be implemented.
 The promotions operator supports any GitOps engine, Git provider, and configuration tool.
 %The main components which are desirable to support all alternatives,
@@ -316,12 +315,12 @@ the operator prototype fits within this architecture was described.
 Abstract models for the environment and promotion custom resources as well as their prototype
 design as declarative Kubernetes custom resources was described.
 The implementation of these custom resources was shown in the form of mockups
-of Kubernetes custom resources in the YAML format.
+of Kubernetes custom resources in the Yaml format.
 Alternative mockup designs were shown as a way to draw attention to the fact
 that the actual design of the API specification is not cast in stone.
-Moreover, the API specification should be tested with users of it,
+Moreover, the API specification should be tested with users,
 and should be adapted for usability and ease of use.
-The translation of the API specification in YAML format into Go types was described,
+The translation of the API specification in Yaml format into Go types was described,
 and finally the implemented controller logic of both the environment, as well as
 the promotion controller was presented.
 The developed artifact of the prototype operator was
@@ -361,7 +360,7 @@ The meanings behind the specific results are brought forward in more detail.
 Moreover, interpretations and implications of the results and evaluations were presented.
 Learnings from implementing the prototype were presented, namely
 ideas about the user experience, security considerations, the use at scale, abstractions and modularity.
-Alternative approaches for promoting releases were presented, as mentioned by interview partner 1.
+Alternative approaches for promoting releases were presented.
 %
 %The main idea of this approach is that long-living environments are not necessary,
 %and the resiliency should rather be created by doing progressive delivery,
@@ -404,7 +403,7 @@ infrastructure stack together with the end user application or service on top.
 This is to further improve immutability and versioning to increase resiliency.
 The idea of the problem with the overview of GitOps repositories by interview partner 2
 was discussed.
-It is about the somewhat missing feature of an quick and easy to understand overview over a GitOps repository.
+It is about the somewhat missing feature of a quick and easy to understand overview over a bare GitOps repository.
 Depending on the used configuration/templating tool, a setup looks different.
 Deployment environments can be represented, however it is not possible for the user
 to know what the target environment is, or where the GitOps definition is deployed to in general.

@@ -21,35 +21,37 @@ User Experience:
 Due to \nameref{objective4},
 the prototype has been designed to be agnostic to the tooling used, which includes the GitOps engine, the Git provider, and the configuration/templating tool.
 While it is good that the prototype can work with many other tools,
-and does not force the use of any specific tool for the mentioned components,
+and does not enforce the use of any specific tool for the mentioned components,
 the user experience can lack, as a result.
 
 Often times users who want to setup a GitOps workflow,
-implement either e.g. Argo or Flux for their primary GitOps tool which also provides the main engine,
-which does reconciliation.
+implement either e.g. Argo or Flux as their primary GitOps tool which also provides the main engine.
 When the proposed prototype operator with its according custom resources for environments and promotions
 should be set up additionally,
 then some information essentially needs to be specified twice. For example,
 an environment resource of the prototype operator defines the URL of the Git repository,
 which also was needed to be defined for the GitOps engine, e.g. Flux GitRepository or ArgoCD Application.
-
+%
 The access credentials to the Git repository, i.e. the SSH deploy key,
 also needs to be setup once for the typically used Flux or Argo GitOps engine,
 as well as the promotions operator.
 
-A possible solution to this issue could be to directly integrate with either Flux or Argo - since these are the most popular, and most likely already installed and used by users of the promotions operator.
+A possible solution to this issue could be to directly integrate with Flux or Argo, since these are the most popular GitOps tools, and most likely already installed and used by users of the promotions operator.
+Platforms like GitLab or AWS EKS have the Flux toolkit already built-in,
+while for example, OpenShifth as a built-in version of ArgoCD,
+therefore it makes sense to integrate.
 
 Security Considerations:
 The designed and implemented prototype operator can generally run in any Kubernetes cluster.
 It is independent from the deployment environments, so it could either run in the deployment environment itself,
 or alternatively in a management cluster, which would then be responsible for the promotion of multiple environments.
 However, when the resource dependency for a promotion is a workload or another resource within the environment,
-which is to be promoted, it makes sense to have the operator run inside the same deployment environment, i.e. Kubernetes cluster or namespace, as what is specified in the Environment custom resource.
+which is to be promoted, it makes sense to have the operator run inside the same deployment environment, i.e. Kubernetes cluster or namespace, as specified in the Environment custom resource.
 
 The goal with the promotion resource is generally to specify two environments,
 a source and a target environment.
 While the source environment typically would be the same environment in which the operator runs in,
-the target environment would just represent the Git repository of the target cluster/namespace.
+the target environment would merely represent the Git repository of the target cluster/namespace.
 This raises some security considerations,
 since the operator can read and write to the target environment's desired state, i.e. Git repository.
 This means, that the operator running in a certain environment would have read and write access
@@ -80,14 +82,13 @@ The proposed prototype provides two main abstractions,
 one for the environment,
 and one for the promotion.
 Usually such a custom resource object represents a resource in the real world.
-
 Although not part of the proposed design and implementation of the prototype,
 it would make sense to provide more abstractions.
 For example, this could be to divide the environment resource into
 a DeploymentEnvironment resource, which would represent a Kubernetes cluster or namespace,
 and a GitOpsRepository resource, which would represent the according GitOps repository (the desired state definition).
-It is always a good practice to have custom resources represent a real tangible resource,
-and not stand for multiple things in the real world.
+It is generally a good practice to have custom resources represent real tangible resources,
+as opposed to representing multiple resources.
 
 Modularity:
 In addition to the topic of abstractions mentioned previously,
@@ -120,19 +121,18 @@ not just for the user-facing application or service,
 but for the whole infrastructure stack below.
 This has the purpose of further increasing the immutability and resiliency of a service.
 Since the amount of supporting and infrastructure services and dependencies are increasing with Kubernetes,
-and each having a version and constantly new releases, and the possibility of breaking the actual important
-service that is user-facing.
+and each having a version and constantly new releases, the possibility of breaking the actual service that is user-facing also increases respectively.
 
 When following this approach, the end goal is to create a complete copy of the production environment,
 and then do progressive delivery on that.
 Once the release is marked as good, the old production environment can safely be destroyed.
 With the GitOps pattern, and the application and infrastructure being stored in Git,
 this has become increasingly more possible.
-Also tools like the Weave GitOps Terraform Controller have contributed to the enablement of this new approach. 
+Tools like the GitOps Terraform Controller have contributed to the enablement of this new approach. 
 While, with this approach, the need for long-living environments decreases,
 whole copies of production environments will still need to be created.
 This means there is no guarantee that the cost will decrease.
-Advanced tactics like auto-scaling will need to be implemented, in order to
+More advanced techniques like auto-scaling will need to be implemented, in order to
 keep costs low of potentially high numbers of dynamically created environments.
 
 

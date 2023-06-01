@@ -328,7 +328,7 @@ This is illustrated in figure \ref{fig:OBJ1R1-and-OBJ1R2}.
 \begin{figure}[h]
 	\centering
 	\fbox{\includegraphics[width=0.79\linewidth]{assets/OBJ1R1-and-OBJ1R2.png}}
-	\caption{OBJ1R1 and OBJ1R2.
+	\caption{\nameref{objective1}.
 		%		(\citeauthor{ref}, \citeyear{ref}).
 	}
 	\label{fig:OBJ1R1-and-OBJ1R2}	
@@ -393,7 +393,7 @@ These service or platform providers may want to rollout a new release with a cer
 \begin{figure}[h]
 	\centering
 	\fbox{\includegraphics[width=1.00\linewidth]{assets/OBJ2R1.png}}
-	\caption{OBJ2R1.
+	\caption{\nameref{objective2}.
 		%		(\citeauthor{ref}, \citeyear{ref}).
 	}
 	\label{fig:OBJ2R1}	
@@ -440,7 +440,7 @@ This solution objective is illustrated in figure \ref{fig:OBJ3R1}.
 \begin{figure}[h]
 	\centering
 	\fbox{\includegraphics[width=0.82\linewidth]{assets/OBJ3R1.png}}
-	\caption{OBJ3R1.
+	\caption{\nameref{objective3}.
 		%		(\citeauthor{ref}, \citeyear{ref}).
 	}
 	\label{fig:OBJ3R1}	
@@ -476,7 +476,7 @@ is pointed out in the following.
 \begin{figure}[h]
 	\centering
 	\fbox{\includegraphics[width=0.80\linewidth]{assets/OBJ4R1.png}}
-	\caption{OBJ4R1.
+	\caption{\nameref{objective4}.
 		%		(\citeauthor{ref}, \citeyear{ref}).
 	}
 	\label{fig:OBJ4R1}	
@@ -524,7 +524,7 @@ The conducted semi-structured interviews gave valuable insights into
 the unique views on the problem and related topics of each of the working professionals.
 Some of the related ideas and alternative approaches are discussed in this section.
 
-\subsection*{Rolling Production Environments}
+\subsection{Rolling Production Environments}
 
 Interview partner 1 mentioned a new idea of
 rolling production environments.
@@ -597,7 +597,7 @@ Interview partner 1 sees this idea of rolling production environments as one of 
 %\enquote*{So I would rather not call it blue green and rather have a new term for it.}
 %(interview 1, line 257)
 
-\subsection*{Overview of GitOps Repositories}
+\subsection{Overview of GitOps Repositories}
 
 Interview partner 2 discussed the idea, that
 currently when using common tooling,
@@ -820,7 +820,7 @@ The minimum steps or phases it needs are the following:
 
 \begin{figure}[h]
 	\centering
-	\begin{tikzpicture}[node distance=1.3cm]
+	\fboxsep6mm\fbox{\begin{tikzpicture}[node distance=1.3cm]
 		\node (start) [startstop] {Start};
 		\node (one) [process, below of=start] {watch deployment environment};
 		\node (two) [process, below of=one] {wait for successful deployment};
@@ -831,8 +831,8 @@ The minimum steps or phases it needs are the following:
 		\draw [arrow] (one) -- (two);
 		\draw [arrow] (two) -- (three);
 		\draw [arrow] (three) -- (stop);
-	\end{tikzpicture}
-	\caption{Asynchronous Phases of Deployment} \label{tikz:async-phases-deploy}
+	\end{tikzpicture}}
+	\caption{Asynchronous Phases of Deployment.} \label{tikz:async-phases-deploy}
 \end{figure}
 
 
@@ -847,7 +847,7 @@ The described architecture can be viewed in figure \ref{fig:operator-access-sour
 \begin{figure}[h]
 	\centering
 	\fbox{\includegraphics[width=0.98\linewidth]{assets/operator-access-source-target-envs.png}}
-	\caption{\textit{GitOps Promotions Operator} Promotion from source to target environment.
+	\caption{GitOps Promotions Operator Promotion from source to target environment.
 		%		(\citeauthor{ref}, \citeyear{ref}).
 	}
 	\label{fig:operator-access-source-target-envs}	
@@ -1104,7 +1104,7 @@ After merging, the promotion will have taken place.
 \begin{figure}[h]
 	\centering
 	\fbox{\includegraphics[width=0.98\linewidth]{assets/raise-pull-request-and-approve.png}}
-	\caption{Raise Pull Request at target environment.
+	\caption{Pull Request at target environment.
 		%		(\citeauthor{ref}, \citeyear{ref}).
 	}
 	\label{fig:raise-pull-request-and-approve}	
@@ -1171,8 +1171,9 @@ could look like the following.
 
 \lstinputlisting{assets/files/promotion-mockup.yaml}
 
-In the promotion mockup definition,\\
-there are four main fields within the \lstinline|.spec|.
+In the promotion mockup definition,
+there are four fields in the
+\lstinline|.spec|.
 These represent the minimum properties of the previously defined abstract definition.
 It is to note, that
 the \lstinline|.spec.copy| field represents the promotion subjects.
@@ -1268,14 +1269,12 @@ The full source code of the controllers can be found in Appendix
 For the environment API,
 a controller is written.
 For this prototype the following logic is implemented.
-The source git repository is cloned and checked out,
-with the appropriate authentication options, if it is private.
-If the cloning succeeds, the environment will be marked as available.
+It runs on every reconciliation of an environment object from start to finish.
 A diagram of the environment controller logic can be seen in figure \ref{tikz:environment-controller-logic}.
 
 \begin{figure}[h]
 \centering
-\begin{tikzpicture}[node distance=1.3cm]
+\fboxsep6mm\fbox{\begin{tikzpicture}[node distance=1.3cm]
 	\node (start) [startstop] {Start};
 	\node (dec1) [decision, below of=start, yshift=-1.8cm] {repo is private};
 	\node (pro1a) [process, right of=dec1, xshift=4cm] {configure auth};
@@ -1289,12 +1288,24 @@ A diagram of the environment controller logic can be seen in figure \ref{tikz:en
 	\draw [arrow] (pro1a) |- (pro1);
 	\draw [arrow] (pro1) -- (out1);
 	\draw [arrow] (out1) -- (stop);
-\end{tikzpicture}
-\caption{Environment Controller Logic} \label{tikz:environment-controller-logic}
+\end{tikzpicture}}
+\caption{Environment Controller Logic.} \label{tikz:environment-controller-logic}
 \end{figure}
 
-%This prototypical controller logic for the environment controller
-%may be extended for additional functionality.
+At first, it is checked if the respective source Git repository
+of the environment object is private.
+If it is private,
+additional authentication options are configured,
+in order to be able to access the private Git repository.
+If it is publicly accessible, there is no need to configure authentication.
+Next, a Git clone process is tested for the environment.
+It is cloned locally, but afterwards disregarded.
+When it succeeds,
+the environment object is marked as available.
+This is achieved by updating the object's status.
+The status is observable by other controllers, like the promotion controller.
+This prototypical controller logic for the environment controller
+may be extended for additional functionality in the future.
 
 %\begin{tikzpicture}[node distance=2cm]
 %	
@@ -1330,23 +1341,12 @@ A diagram of the environment controller logic can be seen in figure \ref{tikz:en
 
 For the promotion API,
 the following controller logic is implemented.
-The controller checks if the source and target environments are ready,
-this includes the check of their defined dependent objects.
-if they are not yet ready, the controller cancels the reconciliation immediately.
-Then the source and target environments are cloned.
-Next the controller checks if there is a pending/open pull request,
-this information is retrieved from the object's status, and then checked
-if still up to date via the Git provider's API.
-Afterwards the controller executes the promotion tasks.
-%which are the copy operations with the current state of the prototype.
-If there were changes since the last reconciliation, the new commits
-are pushed to the pull request branch.
-Lastly, a pull request will be raised, if not yet done during a previous reconciliation.
+It runs on every reconciliation of an environment object from start to finish.
 A diagram of the promotion controller logic can be seen in figure \ref{tikz:promotion-controller-logic}.
 
 \begin{figure}[h]
 	\centering
-	\begin{tikzpicture}[node distance=1.3cm]
+	\fboxsep6mm\fbox{\begin{tikzpicture}[node distance=1.3cm]
 		\node (start) [startstop] {Start};
 		\node (in1) [process, below of=start] {ensure environments are available};
 		\node (proClone) [process, below of=in1] {clone repos};
@@ -1368,9 +1368,23 @@ A diagram of the promotion controller logic can be seen in figure \ref{tikz:prom
 		\draw [arrow] (pro1a) |- (pro1);
 		\draw [arrow] (pro1) -- (out1);
 		\draw [arrow] (out1) -- (stop);
-	\end{tikzpicture}
-	\caption{Promotion Controller Logic} \label{tikz:promotion-controller-logic}
+	\end{tikzpicture}}
+	\caption{Promotion Controller Logic.} \label{tikz:promotion-controller-logic}
 \end{figure}
+
+The controller checks if the source and target environments are ready,
+this includes the check of their defined dependent objects.
+If they are not yet ready, the controller cancels the reconciliation immediately.
+Then the source and target environments are cloned.
+Next the controller checks if there is a pending/open pull request,
+this information is retrieved from the object's status, and then checked
+if still up to date via the Git provider's API.
+Afterwards the controller executes the promotion operations.
+%which are the copy operations with the current state of the prototype.
+If there were changes since the last reconciliation, the new commits
+are pushed to the pull request branch.
+Then a pull request will be raised, if not yet done during a previous reconciliation.
+Lastly, the promotion is marked as ready in its status.
 
 
 
@@ -1558,7 +1572,7 @@ The open pull request is ready for review in the Git provider's web interface.
 %%\end{figure}
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=1.00\linewidth]{assets/prom-pr-dev-to-qa.png}
+	\fboxsep0mm\fbox{\includegraphics[width=0.98\linewidth]{assets/prom-pr-dev-to-qa.png}}
 	\caption{Pull Request for Promotion from dev to qa.
 		%		(\citeauthor{ref}, \citeyear{ref}).
 	}
@@ -1624,7 +1638,7 @@ but the commit history is kept on the pull request branch - now there are two co
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=1.00\linewidth]{assets/prom-pr-dev-to-qa-round2.png}
+	\fboxsep0mm\fbox{\includegraphics[width=0.98\linewidth]{assets/prom-pr-dev-to-qa-round2.png}}
 	\caption{Pull Request updated for Promotion from dev to qa.
 		%		(\citeauthor{ref}, \citeyear{ref}).
 	}

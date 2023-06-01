@@ -159,7 +159,7 @@ The desired state is defined declaratively as code.
 A declarative description is
 \enquote*{a configuration that describes the desired operating state of a system without specifying procedures for how that state will be achieved.}
 \autocite{gitopsGlossary}
-The desired state is continuously pulled by the GitOps controller and reconciled with the actual state.
+The desired state is continuously pulled by the GitOps controller and reconciled with the actual/current state.
 In figure \ref{fig:gitOpsConcept} a visual representation can be seen of the main GitOps concept.
 
 \begin{figure}[h]
@@ -617,7 +617,7 @@ push-based and pull-based deployments in the context of GitOps are explained.
 	\noindent
 	\begin{minipage}{.5\textwidth}
 		\centering
-		\begin{tikzpicture}[node distance=1.3cm]
+		\fboxsep6mm\fbox{\begin{tikzpicture}[node distance=1.3cm]
 			\node (start) [startstop] {Start};
 			\node (one) [process, below of=start] {commit};
 			\node (two) [process, below of=one] {test};
@@ -630,13 +630,13 @@ push-based and pull-based deployments in the context of GitOps are explained.
 			\draw [arrow] (two) -- (three);
 			\draw [arrow] (three) -- (four);
 			\draw [arrow] (four) -- (stop);
-		\end{tikzpicture}
+		\end{tikzpicture}}
 		\captionof{figure}{Push-based deployment.}
 		\label{tikz:push-based-cd}
 	\end{minipage}%
 	\begin{minipage}{.5\textwidth}
 		\centering
-		\begin{tikzpicture}[node distance=1.3cm]
+		\fboxsep6mm\fbox{\begin{tikzpicture}[node distance=1.3cm]
 			\node (start) [startstop] {Start};
 			\node (one) [process, below of=start] {commit};
 			\node (two) [process, below of=one] {test};
@@ -652,7 +652,7 @@ push-based and pull-based deployments in the context of GitOps are explained.
 			\draw [arrow] (five) -- (four);
 			\draw [arrow] (five) -- (six);
 			\draw [arrow] (six) -- (stop);
-		\end{tikzpicture}
+		\end{tikzpicture}}
 		\captionof{figure}{Pull-based deployment.}
 		\label{tikz:pull-based-cd}
 	\end{minipage}
