@@ -7,7 +7,7 @@
 
 This chapter discusses the conducted interviews with the working professionals.
 The interviews within this research have the main purpose of helping with
-identifying the problem with promotion of releases in GitOps environments,
+identifying the problem of promotion of releases in GitOps environments,
 because there is insufficient prior written literature on this topic.
 Working professionals in the GitOps field are interviewed on the topic.
 Their personal opinion and practical experience, use cases and concrete problems
@@ -29,14 +29,15 @@ The interview transcripts are found in the Appendix \ref{appendix:interview-tran
 
 As a first step in the research process,
 the overarching problem with promoting releases in GitOps environments
-needs to be elaborated in detail.
+is elaborated in detail.
 To help with this process, a series of semi-structured interviews are conducted with
-practicing professionals in the GitOps field. In addition, prior written literature
-is also brought up to help with identification of the problem.
+practicing professionals in the GitOps field.
+%In addition, prior written literature
+%is also brought up to help with identification of the problem.
 Furthermore, several distinct problem items are defined,
 for further use in the next research activity
 \ref{interviews:definitionSolutionObjectives} \nameref{interviews:definitionSolutionObjectives}.
-The importance of a practical solution to the problem is accentuated.
+The importance of a practical solution to the problem is highlighted.
 
 \subsection{Problem 1: Promotion is limited to container image}
 \label{problem1}
@@ -73,7 +74,7 @@ very few companies really do Continuous Deployment, most of them want to have so
 %\enquote*{I think that very few companies really do Continuous Deployment, most of them want to have some kind of manual release.}
 %(interview 2, line 128)
 
-A release can be any combination of a general change to a system.
+As interview partner 3 mentions, a release can be any combination of a general change to a system.
 It should not be distinguished between a release, a hotfix, a minor or a major change.
 Releases can be comprised of many changes that are new to a system,
 in the Kubernetes context, this could be a new container image,
@@ -183,7 +184,7 @@ it can be desirable to not roll out to all environments at the same time.
 %(interview 3, line 158).
 For example, as a platform provider with tenants represented as separate GitOps
 environments, it can be desirable to split up the rollout of the new release into stages.
-A new version or release could be firstly rolled out for the unimportant customer,
+A new version or release could firstly be rolled out for the unimportant customer,
 and after quality checks have passed,
 the release could be promoted also to the important customer.
 %(interview 3, line 158).
@@ -224,7 +225,7 @@ Applications may have specific dependencies to other applications or services.
 %	(interview 3, line 155)
 %\end{quotation}
 To provide an example, in the context of the Kubernetes platform,
-an application may need an internal service or any other external (to Kubernetes)
+an application may need an internal service or any other external
 dependency like a managed database or another infrastructure service.
 %(interview 3, line 155).
 When thinking of release promotion,
@@ -247,7 +248,8 @@ With the currently available GitOps toolchains,
 and due to the lack of best practices and standardized solutions,
 users or platform engineers are inclined to build
 and setup
-advanced and complex pipelines that are interdependent on a lot of things.
+advanced and complex pipelines that are interdependent on a lot of things,
+as interview partner 1 highlights.
 %(interview 1, line 311)
 This usually results in tight coupling of the Git provider, the GitOps engine, the CI workflow/pipeline platform,
 configuration management tools, and other components.
@@ -300,9 +302,9 @@ a certain solution objective and its respective problem item.
 \label{objective1}
 
 From the problem definition
-\nameref{problem1},
+\textit{\nameref{problem1}},
 a solution objective
-\nameref{objective1},
+\textit{\nameref{objective1}},
 is inferred.
 A qualitative description of the solution objective
 is pointed out in the following.
@@ -366,9 +368,9 @@ on the basis of the demonstration (section \ref{prototype:demonstration}).
 \label{objective2}
 
 From the problem definition
-\nameref{problem2},
+\textit{\nameref{problem2}},
 a solution objective
-\nameref{objective2},
+\textit{\nameref{objective2}},
 is inferred.
 A qualitative description of the solution objective
 is pointed out in the following.
@@ -397,7 +399,7 @@ These service or platform providers may want to rollout a new release with a cer
 	\label{fig:OBJ2R1}	
 \end{figure}
 
-A collection of the requirements for the solution objective is shown below
+A collection of the requirements for the solution objective is shown below.
 Each requirement is represented in the form of a user story,
 and is labelled with a code, from a combination of the
 objective's code (e.g. OBJ2) and the requirement's code (e.g. R1).
@@ -416,9 +418,9 @@ are automated by the promotions operator.
 \label{objective3}
 
 From the problem definition
-\nameref{problem3},
+\textit{\nameref{problem3}},
 a solution objective
-\nameref{objective3},
+\textit{\nameref{objective3}},
 is inferred.
 A qualitative description of the solution objective
 is pointed out in the following.
@@ -455,7 +457,7 @@ objective's code (e.g. OBJ3) and the requirement's code (e.g. R1).
 
 A promotion process can have predefined dependencies, which must be ready or successful
 before a promotion is triggered.
-The prototype implements a Kubernetes object as a dependency. This can be a certain
+The prototype design sees a Kubernetes object as a dependency. This can be a certain
 workload like a deployment, a test run, a database, or any other object/resource.
 The environment (in fig. \ref{fig:OBJ3R1}) is the aggregation of all resources
 that are defined in the respective desired state in the GitOps repository.
@@ -464,9 +466,9 @@ that are defined in the respective desired state in the GitOps repository.
 \label{objective4}
 
 From the problem definition
-\nameref{problem4},
+\textit{\nameref{problem4}},
 a solution objective
-\nameref{objective4},
+\textit{\nameref{objective4}},
 is inferred.
 A qualitative description of the solution objective
 is pointed out in the following.
@@ -538,10 +540,11 @@ In the Kubernetes context this would be the cluster itself, not only the deploym
 %(interview 1, line 221).
 %\enquote*{Why not just set up a new cluster since it's GitOps, We can just you know, we we have environment creation automated, we have everything stored in Git.}
 %(interview 1, line 224)
-Since GitOps allows to easily create the whole environment infrastructure,
+Since GitOps allows to easily recreate the whole environment infrastructure,
 this is not difficult to achieve.
 With tools like the GitOps Terraform Controller
-% TODO: fussnote
+\nolinebreak
+\footnote{https://github.com/weaveworks/tf-controller}
 such a setup is easier to achieve than before, without the GitOps approach.
 %(interview 1, line 224).
 
@@ -562,7 +565,7 @@ In addition, when having not just the desired state of the application, but also
 stored in Git,
 it also increases the immutability and therefore resiliency of the user-facing service.
 
-In the Kubernetes ecosystem, there have emerged quite a lot of applications,
+In the Kubernetes ecosystem, there have emerged a lot of applications,
 which are providing certain services like the Cert-Manager and TLS certificates,
 or services which are providing policy functionality.
 These applications responsible for infrastructure or for supporting the primary application,
@@ -690,9 +693,8 @@ in order to identify the promotion subjects more easily.
 \nameref{problem2},
 states the fact, that it is not a straight-forward process of how the order of promotion
 through multiple GitOps environments can be setup. When adhering to the principles of GitOps
-and sticking with the asynchronous deployment process (described in the
-\nameref{theoretical-background} chapter)
-there is no streamlined approach or tooling, that automates this, while still sticking to the asynchronous process.
+and the asynchronous deployment process (described in chapter \ref{theoretical-background})
+there is no streamlined approach or tooling, that automates this.
 
 \nameref{objective2},
 defines the requirements for the proposed prototype,
@@ -702,7 +704,7 @@ In addition, this solution objective opens up the possibility to setup promotion
 certain environments must be deployed to first, before the release can deploy to other specified environments.
 
 \nameref{problem3},
-relates to the problem that when wanting to promote a new release from environment one to another environment,
+relates to the problem that when wanting to promote a new release from one environment to another environment,
 it is not easily achievable with the available tools to specify certain dependencies, like other workloads or
 microservices in the same or another environment, or altogether dependencies from external sources.
 This is especially desirable for evaluating test results or other metrics, before triggering the promotion.
