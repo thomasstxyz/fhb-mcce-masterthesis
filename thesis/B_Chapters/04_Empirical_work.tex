@@ -994,7 +994,7 @@ the design of the custom resources is described in the next section.
 
 
 
-
+\newpage
 
 \subsection{Design of Custom Resources}
 \label{prototype:design:design-custom-resources}
@@ -1157,6 +1157,8 @@ For example, "secretRef" says that this field refers to a Kubernetes secret reso
 A possible mockup for an \textit{Environment} resource
 could look like the following.
 
+\newpage
+
 \lstinputlisting{assets/files/environment-mockup.yaml}
 
 In this mockup the \lstinline|.spec.dependentObjects.workloadRef|
@@ -1197,6 +1199,8 @@ are suggested, but not implemented in the current prototype.
 
 Alternatively, the promotion subjects could also be specified
 in the environment resource like the following:
+
+\newpage
 
 \lstinputlisting{assets/files/environment-mockup-alt-1.yaml}
 
@@ -1254,7 +1258,7 @@ the controller logic can be written.
 In this section,
 the controller logic of each implemented control loop, responsible for the according resource,
 is described.
-This is the controller reconciliation logic which runs on each reconciliation of an object.
+It runs on each reconciliation of an object.
 The designed logic is prototypical and can change in the future, depending on future requirements
 for the \textit{GitOps Promotions Operator}.
 % TODO: maybe reference exact section in Appendix of each controller
@@ -1478,6 +1482,8 @@ with typical Kustomization specification.
 In this case, the images feature of Kustomize is used for configuring the application's
 image version tag.
 
+\newpage
+
 \begin{lstlisting}
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
@@ -1525,6 +1531,8 @@ promote between all four environments with a straight flow - promoting from one 
 Only the \lstinline|dev-to-qa| promotion is shown here,
 the other two definitions follow the same schema,
 but are omitted here for the sake of brevity.
+
+\newpage
 
 \lstinputlisting{assets/files/dev-to-qa.yaml}
 
