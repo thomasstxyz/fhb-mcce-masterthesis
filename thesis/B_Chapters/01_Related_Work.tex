@@ -4,7 +4,7 @@
 
 % TODO: mention articles for topics Promotion, Progressive Delivery, and maybe cite these approaches
 
-This chapter focuses on the related work by other researchers on the topic.
+This chapter presents the related work by other researchers on the topic.
 %This includes minimal to none scientific peer-reviewed data,
 %and a limited amount of blog posts and articles by
 %organizations involved and actively participating in the GitOps space.
@@ -16,15 +16,18 @@ Some textbooks exist on the topic of environment promotion, which
 do not necessarily incorporate the GitOps approach.
 %These are however described below.
 % related work, which does this without the GitOps approach?
-
-% --------------------------
-% --------------------------
-% --------------------------
-
-
 On the topic of promotion between multiple environments
 with the GitOps approach,
-there are different suggested good practices.
+there are different suggested good practices,
+as well as tools.
+
+% --------------------------
+% --------------------------
+% --------------------------
+
+
+
+
 \citeauthor{gitopsCloudnativeCDInnoq} (\citeyear{gitopsCloudnativeCDInnoq})
 recommend to avoid having to do promotions,
 by only having one environment.
@@ -32,6 +35,7 @@ However, if a staging process with multiple environments is desired
 nonetheless, they suggest to use Git branches for stages and merging
 between the branches to achieve the integration of changes to other environments.
 This way it is observable which configuration is deployed to which environment or stage \autocite{gitopsCloudnativeCDInnoq}.
+
 
 
 \citeauthor{gitopsAndKubernetes2021continuous} (\citeyear{gitopsAndKubernetes2021continuous})
@@ -68,8 +72,6 @@ new releases to production have the requirement for an approval of a second pers
 This is true for any release or change to a production system,
 be it a new release or a rollback
 \autocite{gitopsAndKubernetes2021continuous}.
-
-
 
 
 
@@ -137,15 +139,6 @@ non-static business settings.
 While the application version and non-static business settings are promoted,
 Kubernetes specific settings and mostly static business settings are generally not promoted between environments
 \autocite{codefreshHowToModelGitOpsEnvironmentsAndPromote}.
-
-The design of the proposed prototype for this research
-considers the suggestions mentioned by
-\citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshStopUsingBranchesGitOpsEnvironments}, \citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote}).
-Git branch-based environments are disregarded for the prototype design.
-Because of the different categories of environment configuration,
-the prototype design provides a way to promote specific files or directories,
-meaning possibly any arbitrary resource,
-while leaving other configuration specific to a certain environment.
 
 %In 2021 the
 %Argo Project \autocite{argoProjWebsite}
@@ -244,15 +237,6 @@ Kargo is strongly centered around ArgoCD. However
 it follows a similar approach as the proposed prototype of this thesis,
 in that it is based on the Kubernetes operator pattern.
 
-Both projects Weave GitOps Pipelines, as well as Kargo
-were published before the beginning of the research of this thesis.
-They both follow a similar approach of having Kubernetes custom resources and respective
-controllers which provide automation.
-Weave GitOps Pipelines is created to work exclusively with Flux and its respective enterprise version.
-Kargo is centered around and coupled to ArgoCD currently.
-Conversely, the proposed promotions operator prototype of this thesis
-focuses on a vendor-neutral and standardized approach.
-
 %\subsection*{wayfair-incubator/telefonistka}
 
 \enquote*{Telefonistka is a Github webhook server/Bot that facilitates change promotion across environments/failure domains in Infrastructure as Code(IaC) GitOps repos.}
@@ -288,8 +272,58 @@ taking a Git commit range between two or more commits, and applying that to anot
 For the promotion itself it raises a pull request on GitHub
 \autocite{form3techK8sPromoter}.
 
-%\section*{Summary}
+\section*{Summary and Research Delta}
 % Schreib einen Absatz, der erklärt, inwieweit deine Arbeit anders ist als Related Work. Arbeite das Delta (den Unterschied) zwischen Related Work vs. Your Work aus und betone nochmal deinen Beitrag zum GitOps-Forschungsfeld (das was du beitragen wirst im Vergleich zu allen anderen)
+
+%---------------
+%-------------
+
+The suggestion by \citeauthor{gitopsCloudnativeCDInnoq} (\citeyear{gitopsCloudnativeCDInnoq})
+to avoid doing promotions with GitOps,
+points to the fact that there is a need for a software tool
+to do this. This thesis brings forward a software prototype
+which helps with the automation of promotions between GitOps environments.
+
+The suggested practice by \citeauthor{gitopsAndKubernetes2021continuous} (\citeyear{gitopsAndKubernetes2021continuous})
+ignores the fact that GitOps deployments are asynchronous,
+as opposed to synchronous pipeline processes.
+Conversely, the proposed prototype in this thesis incorporates asynchronicity
+in its design.
+
+The rollback process for releases or promotions in GitOps environments,
+as described by
+\citeauthor{gitopsAndKubernetes2021continuous} (\citeyear{gitopsAndKubernetes2021continuous})
+can also be done, when the proposed promotions operator
+of this thesis is part of the setup.
+
+The design of the proposed prototype for this research
+considers the suggestions mentioned by
+\citeauthor{codefreshHowToModelGitOpsEnvironmentsAndPromote} (\citeyear{codefreshStopUsingBranchesGitOpsEnvironments}, \citeyear{codefreshHowToModelGitOpsEnvironmentsAndPromote}).
+Git branch-based environments are disregarded for the prototype design.
+Because of the different categories of environment configuration,
+the prototype design provides a way to promote specific files or directories,
+meaning possibly any arbitrary resource,
+while leaving other configuration specific to a certain environment.
+
+Both projects Weave GitOps Pipelines, as well as Kargo
+were published before the beginning of the research of this thesis.
+They both follow a similar approach of having Kubernetes custom resources and respective
+controllers which provide automation.
+Weave GitOps Pipelines is created to work exclusively with Flux and its respective enterprise version.
+Kargo is centered around and coupled to ArgoCD currently.
+Conversely, the proposed promotions operator prototype of this thesis
+focuses on a vendor-neutral and standardized approach.
+
+
+
+
+
+
+
+
+
+
+
 
 The presented related work shows that there is a need for an automated software solution
 for doing promotions in GitOps environments.
