@@ -217,8 +217,6 @@ to an external system -
 which can then promote the application in whatever way
 \autocite{weaveGitOpsPipelines}.
 %
-This enterprise offering offers a pipeline like functionality
-for GitOps deployment setups. It is not open-sourced.
 
 %\subsection*{akuity/kargo}
 
@@ -233,9 +231,6 @@ and ArgoCD Applications, all by updating the desired state in a Git repository.
 It offers health checks for ArgoCD Applications to determine a healthy state of a particular environment.
 For the promotion process, Kargo commits to Git repositories
 \autocite{kargoAkuityWebsite}.
-Kargo is strongly centered around ArgoCD. However
-it follows a similar approach as the proposed prototype of this thesis,
-in that it is based on the Kubernetes operator pattern.
 
 %\subsection*{wayfair-incubator/telefonistka}
 
@@ -310,7 +305,11 @@ were published before the beginning of the research of this thesis.
 They both follow a similar approach of having Kubernetes custom resources and respective
 controllers which provide automation.
 Weave GitOps Pipelines is created to work exclusively with Flux and its respective enterprise version.
-Kargo is centered around and coupled to ArgoCD currently.
+The enterprise offering Weave GitOps Pipelines offers a pipeline like functionality
+for GitOps deployment setups. It is not open-sourced.
+Kargo is strongly centered around ArgoCD. However
+it follows a similar approach as the proposed prototype of this thesis,
+in that it is based on the Kubernetes operator pattern.
 Conversely, the proposed promotions operator prototype of this thesis
 focuses on a vendor-neutral and standardized approach.
 
