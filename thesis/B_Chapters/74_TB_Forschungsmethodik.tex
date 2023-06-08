@@ -1,28 +1,38 @@
 \chapter{Methodology}
 
-% TODO: figure: add activity 1-6 ?
+% \section{Research Methodology}
+% \label{introduction:research-methodology}
 
-To achieve the main goal of the thesis and answer the identified RQs,
-a mix of different scientific methods will be used.
-In order to help with the recognition and legitimization of the conducted research,
-a commonly accepted framework, namely
+\noindent
+To achieve the main goal of the thesis and answer the identified research questions,
+a mix of different scientific methods is used.
+The primary method for creating empirical value - design and development of a software prototype - is the prototyping method as described by
+\citeauthor{riedlManagementInformatik2019} (\citeyear{riedlManagementInformatik2019}).
+It is supported, especially for defining and motivating the problem statement, by
+semi-structured qualitative interviews according to the method of \autocite{glaser2010experteninterviews}.
+%
+In order to help with recognition and legitimization of the conducted research,
 the methodology for conducting design science (DS) research
 in information systems (IS)
 \autocite{designScienceResearchMethodologyForInformationSystemsResearch}
-will be applied.
-It consists of six activities
-(illustrated in Figure \ref{fig:dsrmProcessReleasePromotionGitOps}):
-Identify Problem \& Motivate (activity 1),
-Define Objectives of a Solution (activity 2),
-Design \& Development (activity 3),
-Demonstration (activity 4),
-Evaluation (activity 5),
-and
-Communication (activity 6).
-%Since the model allows for process iteration,
-%it will be decided by the researcher
-%whether, at the end of activity 5,
-%to iterate back to activity 3 to try to improve the artifact.
+is applied.
+It consists of six activities:
+Activity 1: Identify Problem \& Motivate;
+Activity 2: Define Objectives of a Solution;
+Activity 3: Design \& Development;
+Activity 4: Demonstration;
+Activity 5: Evaluation;
+Activity 6: Communication.
+%
+%\begin{itemize}
+%	\item Activity 1: Identify Problem \& Motivate
+%	\item Activity 2: Define Objectives of a Solution
+%	\item Activity 3: Design \& Development
+%	\item Activity 4: Demonstration
+%	\item Activity 5: Evaluation
+%	\item Activity 6: Communication
+%\end{itemize}
+%
 The process is structured in a nominally sequential order.
 For this concrete research,
 the problem-centered initiation is chosen as the entry point,
@@ -30,55 +40,45 @@ thus the process will begin with activity 1.
 Afterwards the research will proceed sequentially,
 because the idea of the research resulted from observation of the problem
 \autocite{designScienceResearchMethodologyForInformationSystemsResearch}.
-\bigskip
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=1.00\linewidth]{figures/dsrm-process-release-promotion-gitops.png}
-	\caption{DSRM Process for this thesis.
-		%		(\citeauthor{ref}, \citeyear{ref}).
-	}
-	\label{fig:dsrmProcessReleasePromotionGitOps}	
-\end{figure}
-
-\noindent
 In activity 1,
 the research problem of
 release promotion with GitOps
 is defined.
 This is accomplished, by
 seeking knowledge of the state of the problem
-from practicing professionals,
+from practicing professionals.
+This is done by conducting
+semi-structured interviews,
+%, as described in section \ref{methodology:interview},
 as well as analysing prior written literature.
 To assist later evaluation,
 the problem is conceptually broken down into distinct items.
+%(fig. \ref{fig:problemToObjectiveMapping}).
+%
+%\begin{figure}[h]
+%	\centering
+%	\fbox{\includegraphics[width=0.85\linewidth]{assets/problem-to-objective-mapping.png}}
+%	\caption{Inference of objectives from problems.
+%		%		(\citeauthor{ref}, \citeyear{ref}).
+%	}
+%	\label{fig:problemToObjectiveMapping}	
+%\end{figure}
+%
 The value of a solution is highlighted,
 in order to help the audience of the research
 understand the reasoning associated with the
 researcher's understanding of the problem
 \autocite{designScienceResearchMethodologyForInformationSystemsResearch}.
-\bigskip
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.75\linewidth]{assets/problem-to-objective-mapping.png}
-	\caption{Inference of objectives from problems.
-		%		(\citeauthor{ref}, \citeyear{ref}).
-	}
-	\label{fig:problemToObjectiveMapping}	
-\end{figure}
-
-\noindent
+%
 In activity 2,
 research objectives are inferred from the problem definition in activity 1.
-Each objective maps to a distinct item from the problem specification
-(illustrated in Figure \ref{fig:problemToObjectiveMapping}),
+Each objective maps to a distinct item from the problem specification,
+%(illustrated in Figure \ref{fig:problemToObjectiveMapping}),
 which helps with later evaluation in activity 5.
-In practice, a research objective will be a qualitative description of
+In practice, a research objective is a qualitative description of
 how a new artifact is expected to support a solution to the problem definition.
-\bigskip
-
-\noindent
+%
 In activity 3,
 solutions for the previously defined objectives are designed and developed
 by means of producing an artifact.
@@ -87,22 +87,15 @@ determining the artifact's desired functionality and its architecture,
 followed by actually creating the artifact
 \autocite{designScienceResearchMethodologyForInformationSystemsResearch}.
 In practice this means that:
-Abstract model definitions of deployment environments, as well as
-promotion processes are designed;
-With the specification of the model definitions in place,
-the "\textit{GitOps Promotions Operator}" is developed as an artifact.
-\bigskip
-
-\noindent
+Abstract model definitions are designed;
+with the specification of the model definitions in place,
+the \textit{GitOps Promotions Operator} prototype is developed as an artifact.
+%
 In activity 4,
-the in-context use of the artifact is demonstrated.
-After outlining how to use the artifact to effectively provide a solution to the problem definition,
-the artifact is implemented in a proof-of-concept-level prototype.
-%In practice,
-%the prototype 
-\bigskip
-
-\noindent
+the in-context use of the artifact is demonstrated in a proof of concept.
+The prototype operator is used in a practical use case of a promotion in a GitOps environment.
+A description of the setup, the use and observed functionality is demonstrated.
+%
 In activity 5,
 the implementation of the artifact,
 and how well it supports a solution to the problem,
@@ -114,9 +107,7 @@ from use of the artifact in the demonstration
 In practice this means, that
 the functionality of the artifact implemented in the prototype in activity 4,
 is compared with the solution objectives from activity 2.
-\bigskip
-
-\noindent
+%
 In activity 6, as a final step,
 the whole conducted research is communicated by means of
 disclosing
@@ -125,11 +116,12 @@ the artifact and its utility and novelty,
 and the demonstration accompanied by the evalution results
 \autocite{designScienceResearchMethodologyForInformationSystemsResearch},
 within the publication of a master thesis at
-the University of Applied Sciences Burgenland (FH Burgenland).
-In addition, it may be communicated to relevant audiences such as practicing professionals,
-as well as the CNCF.
-
-\pagebreak
+the University of Applied Sciences Burgenland
+%\footnote{https://www.fh-burgenland.at/}.
+In addition, it is communicated to relevant audiences such as
+the GitOps Working Group
+%\footnote{https://github.com/cncf/tag-app-delivery/tree/main/gitops-wg}
+of the CNCF.
 
 
 

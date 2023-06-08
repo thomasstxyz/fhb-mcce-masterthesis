@@ -14,7 +14,16 @@
 \hyphenation{GitOps}
 \hyphenation{OpenGitOps}
 \hyphenation{Kubernetes}
+\hyphenation{Kustomize}
 
+\makeatletter
+\newcommand{\setword}[2]{%
+  \phantomsection
+  #1\def\@currentlabel{\unexpanded{#1}}\label{#2}%
+}
+\makeatother
+
+\usepackage{csquotes} % Context sensitive quotation facilities, needed for babel and Biblatex-APA to work
 
 \usepackage[T1]{fontenc}
 \usepackage{booktabs}

@@ -1,10 +1,41 @@
 \chapter{Research Question}
 
+
+
+
+% \section{Research Questions}
+% \label{introduction:research-question}
+
+
+
+
+
+
+%In this regard a prototype will be developed
+%and its functionality demonstrated in a proof-of-concept evaluation.
+%The goal for the prototype is to implement it as a modular extension to Kubernetes
+%and existing GitOps tooling.
+%By doing so, users can promote releases between multiple deployment environments
+%following the GitOps principles.
+%The main contribution of this thesis is a proof of concept for the developed prototype
+%which can be used as an extension to the GitOps toolkit within the CNCF.
+
+
+
+
+
+% TODO: goal of this reasearch is ...
 %The goal of this thesis is to
 %address the problem of promoting releases between different environments in GitOps.
 %\bigskip
 %
 %\noindent
+
+The overall goal of the thesis is to
+provide a solution to the problem of release promotion in GitOps environments.
+The solution shall consist of the abstract design of an operator capable of doing
+GitOps-native promotions between environments, as well as its implementation.
+
 Large organizations in particular typically have many
 non-production and production environments
 such as:
@@ -16,14 +47,11 @@ Production-US,
 Production-EU.
 Usually new releases are automatically deployed to an environment,
 such as QA, 
-by a CI/CD system.
-Now the task is to promote
-new changes, which are brought about by a new release,
+by a workflow/pipeline system.
+A common task is to promote
+new changes, which are introduced by a new release,
 into subsequent or other environments.
-Current GitOps tools do not have a simple answer to
-the question about what is the right approach for the process of promotion.
-\bigskip
-
+%
 %\noindent
 %In particular, this thesis aims to explore
 %existing strategies for the solution of the problem
@@ -32,16 +60,16 @@ the question about what is the right approach for the process of promotion.
 %Subsequently, the prototype will be tested in a laboratory experiment
 %and compared to currently existing strategies.
 %\bigskip
-
-\noindent
+%
+%
 To achieve the goal of the thesis, the following research questions (RQ) were identified:
 
 \begin{itemize}
-	\item RQ 1: How can the promotion of releases in GitOps environments be designed?
+	\item \setword{RQ 1: How can the promotion of releases in GitOps environments be designed?}{RQ1}
 	\begin{itemize}
-		\item RQ 1.1: What possibilities do existing tools offer for the promotion of releases with multiple deployment environments?
-		\item RQ 1.2: How can deployment environments, as well as promotion processes be modeled abstractly?
-		\item RQ 1.3: How can the abstract models be used to implement a standardized solution for promoting releases?
+		%		\item \setword{RQ 1.1: What possibilities do existing tools offer for the promotion of releases with multiple deployment environments?}{RQ1.1}
+		\item \setword{RQ 1.1: How can deployment environments, as well as promotion processes be modeled abstractly?}{RQ1.1}
+		\item \setword{RQ 1.2: How can the abstract models be used to implement a standardized solution for promoting releases?}{RQ1.2}
 	\end{itemize}
 \end{itemize}
 

@@ -1,57 +1,229 @@
 \chapter{Results}
 
-The overall goal of the thesis is to
-provide a solution to the problem of release promotion in GitOps environments.
-In this regard a prototype will be developed
-and its functionality demonstrated in a proof-of-concept evaluation.
-The goal for the prototype is to implement it as a modular extension to Kubernetes
-and existing GitOps tooling.
-By doing so, users can promote releases between multiple deployment environments
-following the GitOps principles.
-The main contribution of this thesis is a proof of concept for the developed prototype
-which can be used as an extension to the GitOps toolkit within the CNCF.
+%The overall goal of the thesis is to
+%provide a solution to the problem of release promotion in GitOps environments.
+%In this regard a prototype will be developed
+%and its functionality demonstrated in a proof-of-concept evaluation.
+%The goal for the prototype is to implement it as a modular extension to Kubernetes
+%and existing GitOps tooling.
+%By doing so, users can promote releases between multiple deployment environments
+%following the GitOps principles.
+%The main contribution of this thesis is a proof of concept for the developed prototype
+%which can be used as an extension to the GitOps toolkit within the CNCF.
 
 
 
-
-
-
-
-
-
-
-
+%In this chapter,
+%the results of the research will be presented,
+%and evaluated with a holistic view on the research problem of release promotion in GitOps environments.
+The results primarily stem from the designed and developed prototype,
+and the learning from the prototyping process.
+The conducted interviews with the working professionals also gave several interesting insights into
+the problem statement from their point of view.
+Next to the presentation of the results, they are also evaluated on how they provide a solution
+to the problem.
+Especially the functionality implemented in the prototype is evaluated against the research objectives,
+which have been defined, and map directly to distinct problem items.
+The evalutation is achieved by means of
+comparing the qualitative descriptions of the solution objectives against the
+observed functionality of the prototype in the demonstration.
 %
-%The results of the literature review so far show,
-%that there is no standard practice for the promotion of releases between multiple environments in GitOps.
-%The existing GitOps tools do not provide
-%a native solutions for this.
-%As a best practice, it is suggested that the promotion operations
-%should be outsourced to the CI/CD system
-%- in the form of simple file copy operations.
-%According to the literature as well as current observations,
-%any kind of standardization is missing,
-%when it comes to defining multiple environments with GitOps
-%and promoting releases between them.
-%\bigskip
+%The evaluation of the prototype's functionality against the solution objectives,
+%was already carried out in section \ref{prototype:evaluation} earlier in the thesis.
+It was shown, that for each solution objective
+%defined in section \ref{interviews:definitionSolutionObjectives}
+the respective functionality was implemented in the prototype,
+and demonstrated in a proof of concept.
+It was described, how for each solution objective,
+a solution to the respective problem can be observed in the
+proof of concept demonstration.
+%in section \ref{prototype:demonstration}.
+%\section*{Feedback for the Prototype}
+%How well does the implemented functionality provide a solution to the research objectives?
+%The research results are evaluated with a holistic view,
+%with the focus on the research questions defined in section \ref{introduction:research-question}.
+
+
+
+The requirement 1 of objective 1 (OBJ1R1), formulated as a user story,
+was the following:
+\textit{As a user, I can define any filesystem path inside a Git repository, with a respective target path in a Git repository, as a promotion subject.}
+As demonstrated,
+%in section \ref{prototype:demonstration}
+the user of the \textit{GitOps Promotions Operator} can define promotion subjects
+in the form of file/directory copy operations inside the Promotion custom resource.
+The source and target may be in separate Git repositories, respective \textit{Environment} custom resources.
+This creates the possibility to promote arbitrary resources.
+The demonstration shows a promotion of the "Application Version",
+which is actually a specified file kustomization.yaml with a Kustomize component,
+which sets a new image tag.
+The defined name of the arbitrary filesystem path serves as the demonstration for the requirement 2 (OBJ1R2).
+\textit{As a user, I can define a descriptive name for a promotion subject, which is represented as an arbitrary filesystem path.}
+The definition of such a descriptive name helps to identify promotion subjects more easily, especially when
+they are arbitrary files or directories. The name can be represented in the commit message or pull request, as demonstrated.
+The requirement 1 of objective 2 (OBJ2R1) was the following:
+\textit{As a user, I can promote releases through multiple environments in a certain user-defined order.}
+The prototypical implementation of the functionality of the solution objective is demonstrated.
+%in section \ref{prototype:demonstration}.
+It is shown, how a new application release can be promoted through multiple environments in a specified order.
+After deployment to the \lstinline|dev| environment, a promotion is requested for the \lstinline|qa| environment.
+Once a human has approved and merged the pull request, the promotion to \lstinline|qa| takes its effect.
+Afterwards the promotion from \lstinline|qa| to \lstinline|prod-1| environment is requested. Upon successful promotion to \lstinline|prod-1|,
+the release is finally promoted from \lstinline|prod-1| to \lstinline|prod-2|.
+The requirement 1 of objective 3 (OBJ3R1) was the following:
+\textit{As a user, I can define Kubernetes objects as dependencies for a promotion.}
+The functionality of this objective is demonstrated in context in the proof of concept.
+%in section \ref{prototype:demonstration}.
+In the \lstinline|Environment| custom resource,
+a field
+\lstinline|dependentObjects.workloadRef| may be defined, under which a user can specify
+a list of Kubernetes workloads of the kind Deployment.
+The developed prototype supports object types of kind Deployment,
+however, any Kubernetes native resource, as well as custom resource, can potentially be added as an
+additional feature for the prototype.
+For example, a field \lstinline|dependentObjects.externalHttpRef| could be added,
+with the logic for calling HTTP/S URIs, and parsing the result.
+The requirement 1 of objective 4 (OBJ4R1) was the following:
+\textit{As a user, I can use any GitOps engine, Git provider and configuration/templating tool.}
+The developed prototype \textit{GitOps Promotions Operator} supports the use of GitHub currently,
+however the custom resource API is designed with a generic specification and therefore allows
+for adding the support for any other Git provider in the future.
+The same vendor-neutral approach was chosen for the GitOps engine.
+%These are most often from the Flux or Argo projects.
+The \textit{GitOps Promotions Operator} prototype allows the use of any GitOps engine,
+because it interfaces only with Kubernetes built-in resources.
+Furthermore, the prototype is agnostic to the configuration/templating tool which may be used or not.
+%This is most prominently Helm and Kustomize.
+Since the operator provides the ability
+to promote arbitrary files or directories in Git repositories, it is not needed to specifically integrate
+with the named tools.
+
+%\section*{Learnings From The Prototype Implementation}
+In general, the presented design and development of the prototype
+showed a possible way on how to provide a solution to the research question.
+From the actual implementation of the abstract design in a Kubernetes operator,
+and its in-context use in the proof of concept,
+certain learnings could be inferred.
+
+User Experience:
+Due to Objective 4: Vendor-neutral, tool-agnostic,
+the prototype has been designed to be agnostic to the tooling used, which includes the GitOps engine, the Git provider, and the configuration/templating tool.
+While it is good that the prototype can work with many other tools,
+and does not enforce the use of any specific tool for the mentioned components,
+the user experience can lack, as a result.
 %
-%\noindent
-%As the primary outcome of this thesis,
-%an answer to the research questions is expected,
-%by proposing a software solution as a prototype.
-%The developed prototype should ideally serve as a 
-%modular extension to Kubernetes and existing GitOps tooling.
-%\bigskip
+Often times users who want to setup a GitOps workflow,
+implement either e.g. Argo or Flux as their primary GitOps tool which also provides the main engine.
+When the proposed prototype operator with its according custom resources for environments and promotions
+should be set up additionally,
+then some information essentially needs to be specified twice. For example,
+an environment resource of the prototype operator defines the URL of the Git repository,
+which also was needed to be defined for the GitOps engine, e.g. Flux GitRepository or ArgoCD Application.
 %
-%%\noindent
-%%In einem Laborexperiment soll bewiesen werden, dass
-%%
-%%anhand der preisgegebenen Metriken des Kubernetes Workload basierten Stromverbrauchs
-%%Kubernetes Workloads adaptiv auf geeignete Nodes zugeordnet werden können,
-%%auf welchen sie am effizientesten laufen.
+The access credentials to the Git repository, i.e. the SSH deploy key,
+also needs to be setup once for the typically used Flux or Argo GitOps engine,
+as well as the promotions operator.
 %
-%\noindent
-%In the end, the results of the research,
-%including the developed prototype,
-%can be donated to the CNCF.
+A possible solution to this issue could be to directly integrate with Flux or Argo, since these are the most popular GitOps tools, and most likely already installed and used by users of the promotions operator.
+Platforms like GitLab or AWS EKS have the Flux toolkit already built-in,
+while for example, OpenShifth as a built-in version of ArgoCD,
+therefore it makes sense to integrate.
+
+Security Considerations:
+The designed and implemented prototype operator can generally run in any Kubernetes cluster.
+It is independent from the deployment environments, so it could either run in the deployment environment itself,
+or alternatively in a management cluster, which would then be responsible for the promotion of multiple environments.
+However, when the resource dependency for a promotion is a workload or another resource within the environment,
+which is to be promoted, it makes sense to have the operator run inside the same deployment environment, i.e. Kubernetes cluster or namespace, as specified in the Environment custom resource.
+%
+The goal with the promotion resource is generally to specify two environments,
+a source and a target environment.
+While the source environment typically would be the same environment in which the operator runs in,
+the target environment would merely represent the Git repository of the target cluster/namespace.
+This raises some security considerations,
+since the operator can read and write to the target environment's desired state, i.e. Git repository.
+This means, that the operator running in a certain environment would have read and write access
+to the specified target environment of the promotion.
+With this setup, bad actors who have access to the specified environment resources state,
+could change the desired state in such a way, that
+potentially harmful applications are deployed to the other environment.
+Since the operator needs appropriate permissions for the environment's Git repository,
+in order to raise pull requests and push to pull request branches, the operator could
+be a potential security issue.
+
+Use at Scale:
+The use of the promotions operator prototype at scale needs to be addressed.
+Using the operator at scale could either be to install the operator in a separate management cluster,
+or to install the operator in each environment.
+In order for the dependency capability of the promotion controller
+to be able to check for dependent resources within an environment,
+which is a source environment for a promotion,
+the operator ideally should be running inside this same environment, i.e. cluster/namespace.
+%
+When installing the promotions operator once in a management cluster/namespace,
+in order to handle all or many environment promotions,
+the user would save time on the initial setup of the custom resources, deploy keys and API tokens.
+However with this approach, it would also mean that the operator running in a completely separated management cluster, typically has no direct access to observe the resources of an environment.
+
+Abstractions:
+The proposed prototype provides two main abstractions,
+one for the environment,
+and one for the promotion.
+Usually such a custom resource object represents a resource in the real world.
+Although not part of the proposed design and implementation of the prototype,
+it would make sense to provide more abstractions.
+For example, this could be to divide the environment resource into
+a DeploymentEnvironment resource, which would represent a Kubernetes cluster or namespace,
+and a GitOpsRepository resource, which would represent the according GitOps repository (the desired state definition).
+It is generally a good practice to have custom resources represent real tangible resources,
+as opposed to representing multiple resources.
+
+Modularity:
+In addition to the topic of abstractions mentioned previously,
+it could be beneficial to split up the Promotion custom resource.
+There could be a PromotionPolicy resource,
+which would define the policy and rules,
+when the operator should promote and create a Promotion resource.
+The Promotion resource would then only run once to completion.
+
+%\section*{Alternative Approaches for Promoting Releases}
+The working professionals discussed alternative approaches for GitOps promotions.
+Interview partner 1 discussed an alternative approach for handling the promotion process in GitOps environments.
+%This was presented in section \ref{insights-related-ideas-approaches}.
+The main idea of this approach is that long-living environments are not necessary,
+and the resiliency should rather be created by doing progressive delivery,
+not just for the user-facing application or service,
+but for the whole infrastructure stack below.
+This has the purpose of further increasing the immutability and resiliency of a service.
+Since the amount of supporting and infrastructure services and dependencies are increasing with Kubernetes,
+and each having a version and constantly new releases, the possibility of breaking the actual service that is user-facing also increases respectively.
+%
+When following this approach, the end goal is to create a complete copy of the production environment,
+and then do progressive delivery on that.
+Once the release is marked as good, the old production environment can safely be destroyed.
+With the GitOps pattern, and the application and infrastructure being stored in Git,
+this has become increasingly more possible.
+Tools like the GitOps Terraform Controller have contributed to the enablement of this new approach. 
+While, with this approach, the need for long-living environments decreases,
+whole copies of production environments will still need to be created.
+This means there is no guarantee that the cost will decrease.
+More advanced techniques like auto-scaling will need to be implemented, in order to
+keep costs low of potentially high numbers of dynamically created environments.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
