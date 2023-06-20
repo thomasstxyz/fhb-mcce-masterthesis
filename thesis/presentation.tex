@@ -60,18 +60,18 @@
 
 
 
-\begin{frame}
-\frametitle{TODO}
-
-- problem description nicht ganz klar --> erklären: traditional deployment with pipelines sync process vs. gitops deployment async process
-
-- folien stark kürzen
-
-- auf praktische sichtweise auf die architektur eingehen
-
-- evaluation slide: wie wird evaluiert? erklaeren
-
-\end{frame}
+%\begin{frame}
+%\frametitle{TODO}
+%
+%- problem description nicht ganz klar --> erklären: traditional deployment with pipelines sync process vs. gitops deployment async process
+%
+%- folien stark kürzen
+%
+%- auf praktische sichtweise auf die architektur eingehen
+%
+%- evaluation slide: wie wird evaluiert? erklaeren
+%
+%\end{frame}
 
 
 
@@ -104,6 +104,11 @@
 	\includegraphics[width=.75\linewidth]{figures/release-promotion.drawio.png}
 	\label{fig:releasePromotionProcess}	
 \end{figure}
+
+%\begin{itemize}
+%	\item async
+%	\item GitOps-native
+%\end{itemize}
 
 % promoting releases between multiple deployment environments
 
@@ -210,18 +215,21 @@
 \end{frame}
 
 
+\begin{frame}
+	\frametitle{Overview \& Approach}
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=1.0\linewidth]{assets/overview-empirical-work.png}
+		\label{fig:overview-empirical-work}	
+	\end{figure}
+	
+\end{frame}
+
+
+
 \section{Empirical Work}
 
-\begin{frame}
-\frametitle{Overview}
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=1.0\linewidth]{assets/overview-empirical-work.png}
-	\label{fig:overview-empirical-work}	
-\end{figure}
-
-\end{frame}
 
 
 %\section{Interviews}
@@ -244,42 +252,63 @@
 %	\label{fig:from-problem-to-objective-visualized}	
 %\end{figure}
 %\end{frame}
+
+% 
+
+%\begin{frame}
+%	\frametitle{Problem Definition}
+%	\begin{itemize}
+%		\item Promotion is limited to container image
+%		\item Order of promotion to multiple environments
+%		\item Dependencies can not be defined
+%		\item Provider and tool dependency
+%	\end{itemize}
+%\end{frame}
+
 \begin{frame}
-	\frametitle{Solution Objective 1}
+	\frametitle{Solution Objectives}
 	\begin{figure}[h]
-		\centering
-		\includegraphics[width=1.0\linewidth]{assets/OBJ1R1-and-OBJ1R2.png}
-		\label{fig:OBJ1R1-and-OBJ1R2}	
-	\end{figure}
+	\centering
+	\includegraphics[width=1.0\linewidth]{assets/objectives-visualized-one-page.png}
+\end{figure}
 \end{frame}
-\begin{frame}
-	\frametitle{Solution Objective 2}
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=1.0\linewidth]{assets/OBJ2R1.png}
-		\label{fig:OBJ2R1}	
-	\end{figure}
-\end{frame}
-\begin{frame}
-	\frametitle{Solution Objective 3}
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=1.0\linewidth]{assets/OBJ3R1.png}
-		\label{fig:OBJ3R1}	
-	\end{figure}
-\end{frame}
-\begin{frame}
-	\frametitle{Solution Objective 4}
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=1.0\linewidth]{assets/OBJ4R1.png}
-		\label{fig:OBJ4R1}	
-	\end{figure}
-\end{frame}
+
+%\begin{frame}
+%	\frametitle{Solution Objective 1}
+%	\begin{figure}[h]
+%		\centering
+%		\includegraphics[width=1.0\linewidth]{assets/OBJ1R1-and-OBJ1R2.png}
+%		\label{fig:OBJ1R1-and-OBJ1R2}	
+%	\end{figure}
+%\end{frame}
+%\begin{frame}
+%	\frametitle{Solution Objective 2}
+%	\begin{figure}[h]
+%		\centering
+%		\includegraphics[width=1.0\linewidth]{assets/OBJ2R1.png}
+%		\label{fig:OBJ2R1}	
+%	\end{figure}
+%\end{frame}
+%\begin{frame}
+%	\frametitle{Solution Objective 3}
+%	\begin{figure}[h]
+%		\centering
+%		\includegraphics[width=1.0\linewidth]{assets/OBJ3R1.png}
+%		\label{fig:OBJ3R1}	
+%	\end{figure}
+%\end{frame}
+%\begin{frame}
+%	\frametitle{Solution Objective 4}
+%	\begin{figure}[h]
+%		\centering
+%		\includegraphics[width=1.0\linewidth]{assets/OBJ4R1.png}
+%		\label{fig:OBJ4R1}	
+%	\end{figure}
+%\end{frame}
 
 
 
-\section{Prototype}
+%\section{Prototype}
 
 \begin{frame}
 	\frametitle{Asynchronous GitOps Deployments}
@@ -308,22 +337,23 @@
 	
 \end{frame}
 
+
 \begin{frame}
 	\frametitle{Evaluation}
 	
-How well does the implementation satisfy the solution objective?
-
-\begin{itemize}
-	\item OBJ1R1 \& OBJ1R2 \checkmark
-	\item OBJ2R1 \checkmark
-	\item OBJ3R1 \checkmark
-	\item OBJ4R1 \checkmark
-\end{itemize}
-
-\bigskip
-
-Evaluation = qualitative comparison between observed functionality in demonstration and solution objectives
-
+	Does the implementation satisfy the solution objective?
+	
+	\begin{itemize}
+		\item OBJ1R1 \& OBJ1R2 \checkmark
+		\item OBJ2R1 \checkmark
+		\item OBJ3R1 \checkmark
+		\item OBJ4R1 \checkmark
+	\end{itemize}
+	
+	\bigskip
+	
+	\textbf{Evaluation}: qualitative comparison between observed functionality in demonstration and solution objectives
+	
 \end{frame}
 
 
@@ -395,14 +425,15 @@ Evaluation = qualitative comparison between observed functionality in demonstrat
 \end{frame}
 
 
-\section{Conclusion and Future Work}
+\section{Conclusion \& Future Work}
 
 \begin{frame}
 \frametitle{Conclusion}
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=1.0\linewidth]{assets/conclusion-gitops-thesis-2.png}
+%	\includegraphics[width=1.0\linewidth]{assets/conclusion-gitops-thesis-2.png}
+	\includegraphics[width=1.0\linewidth]{assets/overview-empirical-work.png}
 	\label{fig:conclusion-gitops-thesis-2}	
 \end{figure}
 
